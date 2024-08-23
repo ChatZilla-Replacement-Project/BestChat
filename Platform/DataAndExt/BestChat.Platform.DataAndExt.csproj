@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Best Chat Platform, but data types only without any UI stuff</Title>
+		<Authors>Best Chat Authors</Authors>
+		<Company />
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Description>BestChat.Platform.DataAndExt is the API that all the various parts of Best Chat and its modules use to communicate. It's useless on its own. However, it has a lot of classes and interfaces you need to implement.</Description>
+		<Copyright>2024 ChatZilla Replacement Project</Copyright>
+		<PackageProjectUrl>https://github.com/ChatZilla-Replacement-Project/BestChat.Platform.DataAndExt/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ChatZilla-Replacement-Project/BestChat.Platform.DataAndExt/tree/master</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<WarningLevel>9999</WarningLevel>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<WarningLevel>9999</WarningLevel>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Ext\Coord.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Prefs\Rsrcs.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Rsrcs.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Prefs\Rsrcs.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
