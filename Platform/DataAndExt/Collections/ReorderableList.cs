@@ -1,4 +1,6 @@
-﻿namespace BestChat.Platform.DataAndExt.Collections;
+﻿// Ignore Spelling: Reorderable
+
+namespace BestChat.Platform.DataAndExt.Collections;
 
 public class ReorderableList<ValueType> : System.Collections.Generic.List<ValueType>
 {

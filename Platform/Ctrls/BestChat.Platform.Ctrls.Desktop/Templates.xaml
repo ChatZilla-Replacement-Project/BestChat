@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+	x:Class="BestChat.GUI.Ctrls.Templates"
+	xmlns:local="clr-namespace:BestChat.GUI.Ctrls"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<DataTemplate
+		x:Key="dtempCharIcon">
+		<Label
+			Content="{Binding}" />
+	</DataTemplate>
+	<DataTemplate
+		x:Key="dtempImgIcon">
+		<Image
+			Source="{Binding}" />
+	</DataTemplate>
+</ResourceDictionary>

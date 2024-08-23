@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg:svg width="296.93729" height="191.38017" viewBox="0 0 78.564655 50.636002" version="1.1" id="svg1" inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)" sodipodi:docname="Logo for We Chat.svg" inkscape:export-filename="Logo for We Chat.png" inkscape:export-xdpi="90" inkscape:export-ydpi="90" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <svg:title id="title6">Logo for We Chat</svg:title>
+  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="true" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" inkscape:zoom="9.9966416" inkscape:cx="133.54485" inkscape:cy="96.032251" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="3599" inkscape:window-height="2131" inkscape:window-x="4072" inkscape:window-y="-9" inkscape:window-maximized="1" />
+  <svg:defs id="defs1">
+    <svg:filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter1" x="-0.19157473" y="-0.029063742" width="1.3831495" height="1.0581275">
+      <svg:feGaussianBlur inkscape:collect="always" stdDeviation="0.13341884" id="feGaussianBlur1" />
+    </svg:filter>
+    <svg:filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter3" x="-0.014082695" y="-0.028457187" width="1.0281654" height="1.0569144">
+      <svg:feGaussianBlur inkscape:collect="always" stdDeviation="0.094511938" id="feGaussianBlur3" />
+    </svg:filter>
+    <svg:filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="filter5" x="-0.012445757" y="-0.041462345" width="1.0248915" height="1.0829247">
+      <svg:feGaussianBlur inkscape:collect="always" stdDeviation="0.092349582" id="feGaussianBlur5" />
+    </svg:filter>
+  </svg:defs>
+  <svg:g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(-1.8282738,-5.5963525)">
+    <svg:use x="0" y="0" xlink:href="#path5" id="use2" style="stroke:white;stroke-width:1.000125;stroke-linejoin:round;filter:url(#filter1)" />
+    <svg:text xml:space="preserve" x="6.3166232" y="35.681179" id="text1" style="font-size:35.2778px;fill:lime;-inkscape-font-specification:Serif;font-family:Serif"><svg:tspan sodipodi:role="line" x="6.3166232" y="35.681179" id="tspan2">We</svg:tspan></svg:text>
+    <svg:text xml:space="preserve" x="5.3064404" y="52.497871" id="text3" style="font-size:19.7556px;font-family:serif;-inkscape-font-specification:serif"><svg:tspan sodipodi:role="line" id="tspan3" x="5.3064404" y="52.497871" style="font-style:italic;font-family:Serif;-inkscape-font-specification:'Serif, Italic'">/Chat/</svg:tspan></svg:text>
+    <svg:path d="m 67.738485,7.3161459 v 0.1633692 h -0.01682 v 0.9754103 h 0.975409 V 8.2915563 h 0.01923 V 7.3161459 Z m -1.970039,0.1633692 v 0.9754103 h 0.97541 V 7.4795151 Z m 3.904044,0 v 0.9754103 h 0.977812 V 7.4795151 Z m -1.934005,1.789854 V 10.24478 h 0.977814 V 9.2693691 Z m 0,1.9532239 v 0.975411 h 0.977814 v -0.975411 z m 0,1.95082 v 0.977814 h 0.977814 v -0.977814 z m 0,1.953224 v 0.977814 h 0.977814 v -0.977814 z m 0,1.953224 v 0.975409 h 0.977814 v -0.975409 z m 0,1.953223 v 0.97541 h 0.977814 v -0.97541 z m 0,1.953224 v 0.975409 h 0.977814 v -0.975409 z m 0,1.950819 v 0.977814 h 0.977814 v -0.977814 z m 0,1.953224 v 0.977813 h 0.977814 v -0.977813 z m 0,1.953223 v 0.97541 h 0.977814 v -0.97541 z m 0,1.953223 v 0.975411 h 0.977814 v -0.975411 z m 0,1.953223 v 0.97541 h 0.977814 v -0.97541 z m 0,1.950821 v 0.977813 h 0.977814 v -0.977813 z m 0,1.953224 v 0.977812 h 0.977814 v -0.977812 z m 0,1.953222 v 0.975411 h 0.977814 v -0.975411 z m -1.970039,1.749012 v 0.97541 h 0.97541 v -0.97541 z m 1.953223,0 v 0.97541 h 0.01682 v 0.16337 h 0.977813 v -0.934568 h -0.01923 v -0.204212 z m 1.950821,0 v 0.97541 h 0.977812 v -0.97541 z" id="path5" style="stroke-width:1.23007" />
+    <svg:use x="0" y="0" xlink:href="#path5" id="use1" style="stroke-width:0.35277778" />
+    <svg:use x="0" y="0" xlink:href="#text1" id="use3" style="stroke:white;filter:url(#filter3)" />
+    <svg:use x="0" y="0" xlink:href="#text1" id="use4" style="stroke:black;stroke-width:0.52916667;stroke-linejoin:round" />
+    <svg:use x="0" y="0" xlink:href="#text3" id="use5" style="stroke:white;stroke-linejoin:round;filter:url(#filter5)" />
+    <svg:use x="0" y="0" xlink:href="#text3" id="use6" />
+  </svg:g>
+  <svg:metadata id="metadata6">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/" />
+        <dc:title>Logo for We Chat</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>We Chat Foundation</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>We Chat Foundation</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>We Chat</rdf:li>
+            <rdf:li>IRC</rdf:li>
+            <rdf:li>Chat</rdf:li>
+            <rdf:li>Chatting</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </svg:metadata>
+  <script />
+</svg:svg>
