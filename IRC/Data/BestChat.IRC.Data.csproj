@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Copyright>2024 ChatZilla Replacement Project</Copyright>
 		<NeutralLanguage>en</NeutralLanguage>
@@ -35,15 +34,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.3" />
+		<PackageReference Include="Newtonsoft.Json"
+											Version="13.0.3" />
+		<PackageReference Include="BestChat.Platform.DataAndExt"
+											Version="1.0.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Prefs\Rsrcs.Designer.cs">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>Rsrcs.resx</DependentUpon>
+		<Compile Update="Prefs\PrefsRsrcs.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>PrefsRsrcs.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Rsrcs.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Rsrcs.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -53,9 +59,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Prefs\Rsrcs.resx">
-		  <Generator>ResXFileCodeGenerator</Generator>
-		  <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+		<EmbeddedResource Update="Prefs\PrefsRsrcs.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>PrefsRsrcs.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Rsrcs.resx">
 			<Generator>ResXFileCodeGenerator</Generator>

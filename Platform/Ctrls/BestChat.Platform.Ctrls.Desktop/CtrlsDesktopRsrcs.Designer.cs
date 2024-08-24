@@ -22,14 +22,14 @@ namespace BestChat.Platform.Ctrls.Desktop {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Rsrcs {
+    internal class CtrlsDesktopRsrcs {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Rsrcs() {
+        internal CtrlsDesktopRsrcs() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BestChat.Platform.Ctrls.Desktop {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.Ctrls.Desktop.Rsrcs", typeof(Rsrcs).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.Ctrls.Desktop.CtrlsDesktopRsrcs", typeof(CtrlsDesktopRsrcs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
