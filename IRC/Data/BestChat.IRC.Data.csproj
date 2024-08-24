@@ -50,11 +50,6 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
-		<Compile Update="Rsrcs.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Rsrcs.resx</DependentUpon>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
