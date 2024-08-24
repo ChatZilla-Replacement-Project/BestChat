@@ -6,6 +6,7 @@
 				xmlns:simplecto_rtf="using:AvRichTextBox"
 				mc:Ignorable="d"
 				x:Class="BestChat.MainWnd"
+				Icon="We Chat icon 180x180.png"
 				MinHeight="500"
 				MinWidth="800"
 				WindowState="Maximized"

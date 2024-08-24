@@ -1,7 +1,5 @@
 ﻿// Ignore Spelling: Ctrls
 
-using BestChat.GUI.Ctrls;
-
 namespace BestChat.Platform.Ctrls.Desktop;
 
 /// <summary>
@@ -25,20 +23,10 @@ public partial class CardConversationEventView : Avalonia.Controls.UserControl
 	#endregion
 
 	#region Helper Types
-		private class TemplateSelector : System.Windows.Controls.DataTemplateSelector
-		{
-			public TemplateSelector()
-			{
-			}
-
-			public override System.Windows.DataTemplate SelectTemplate(object objItem, System.Windows
-				.DependencyObject doContainer) => objItem is char ? Templates.instance.CharIcon : objItem
-				is System.Windows.Media.ImageSource ? Templates.instance.ImgIcon : throw new System
-				.InvalidProgramException("Unsupported type with no matching template");
-		}
 	#endregion
 
 	#region Properties
+
 		public bool IsSenderLocal
 		{
 			get;
@@ -48,16 +36,10 @@ public partial class CardConversationEventView : Avalonia.Controls.UserControl
 	#endregion
 
 	#region Methods
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-
-			ccIcon.ContentTemplateSelector = new TemplateSelector();
-		}
 	#endregion
 
 	#region Event Handlers
-		protected void OnSizeChanged(object objSender, Avalonia.Controls.SizeChangedEventArgs e) => textDescOfEvent.MaxWidth =
-			e.NewSize.Width * .8;
+		protected void OnSizeChanged(object objSender, Avalonia.Controls.SizeChangedEventArgs e) => textDescOfEvent.MaxWidth = e.NewSize.Width *
+			.8;
 	#endregion
 }

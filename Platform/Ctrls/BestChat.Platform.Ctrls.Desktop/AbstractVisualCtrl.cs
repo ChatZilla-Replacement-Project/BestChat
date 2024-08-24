@@ -8,12 +8,14 @@ namespace BestChat.Platform.Ctrls.Desktop;
 public abstract class AbstractVisualCtrl : Avalonia.Controls.UserControl
 {
 	#region Constructors & Deconstructors
-		public AbstractVisualCtrl()
-		{
-			if(Avalonia.Application.Current != null)
-				throw new System.InvalidProgramException("The default constructors of BestChat.GUI.Ctrls.AbstractVisualCtrl and its derived " +
-					"classes are for designer use only.  They aren't not meant for use at runtime.");
-		}
+		#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+			public AbstractVisualCtrl()
+			{
+				if(Avalonia.Application.Current != null)
+					throw new System.InvalidProgramException("The default constructors of BestChat.GUI.Ctrls.AbstractVisualCtrl and its derived " +
+						"classes are for designer use only.  They aren't not meant for use at runtime.");
+			}
+		#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 		public AbstractVisualCtrl(in string strLocalizedShortName, in string strLocalizedLongDesc)
 		{

@@ -1,0 +1,9 @@
+﻿<ListBox
+	x:Class="BestChat.Platform.Ctrls.Desktop.ConversationDataListView"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
+	d:DataContext="{d:DesignInstance Type=conversations:IEventInfo}"
+	mc:Ignorable="d" />

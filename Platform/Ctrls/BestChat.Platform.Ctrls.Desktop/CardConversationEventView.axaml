@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:Emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+	xmlns:local="clr-namespace:BestChat.Platform.Ctrls.Desktop"
 	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
 	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
 	mc:Ignorable="d"
@@ -24,7 +24,22 @@
 		</Grid.RowDefinitions>
 		<ContentControl
 			x:Name="ccIcon"
-			Content="{Binding SenderIcon}"/>
+			Content="{Binding SenderIcon}">
+			<ContentControl.DataTemplates>
+				<local:TemplateSelectorForCardConverstationEvts>
+					<DataTemplate
+						x:Key="dtempCharIcon">
+						<Label
+							Content="{Binding}" />
+					</DataTemplate>
+					<DataTemplate
+						x:Key="dtempImgIcon">
+						<Image
+							Source="{Binding}" />
+					</DataTemplate>
+				</local:TemplateSelectorForCardConverstationEvts>
+			</ContentControl.DataTemplates>
+		</ContentControl>
 		<Label
 			Grid.Column="1"
 			Content="{Binding Sender}" />
@@ -41,7 +56,7 @@
 				<RowDefinition
 					Height="Auto" />
 			</Grid.RowDefinitions>
-			<Emoji:TextBlock
+			<TextBlock
 				x:Name="textDescOfEvent"
 				Text="{Binding DescOfEvent}" />
 			<Label

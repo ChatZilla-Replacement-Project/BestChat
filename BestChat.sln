@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		We Chat icon 64x64.png = We Chat icon 64x64.png
 		We Chat icon.svg = We Chat icon.svg
 		We Chat icon 180x180.png = We Chat icon 180x180.png
+		We Chat.ico = We Chat.ico
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ctrls", "Ctrls", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"

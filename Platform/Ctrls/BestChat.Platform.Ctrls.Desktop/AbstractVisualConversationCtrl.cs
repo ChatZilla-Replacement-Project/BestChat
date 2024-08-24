@@ -1,7 +1,5 @@
 ﻿// Ignore Spelling: Ctrls Ctrl gvc
 
-using BestChat.GUI.Ctrls;
-
 namespace BestChat.Platform.Ctrls.Desktop;
 
 public abstract class AbstractVisualConversationCtrl : AbstractVisualCtrl
@@ -13,6 +11,8 @@ public abstract class AbstractVisualConversationCtrl : AbstractVisualCtrl
 			this.gvc = gvc;
 
 			DataContext = gvc;
+
+			Initialized += OnInitialized;
 		}
 	#endregion
 
@@ -29,10 +29,8 @@ public abstract class AbstractVisualConversationCtrl : AbstractVisualCtrl
 	#endregion
 
 	#region Methods
-		protected override void OnInitialized(System.EventArgs e)
+		protected void OnInitialized(object? objSender, System.EventArgs e)
 		{
-			base.OnInitialized(e);
-
 			Ctnts = lvCtnts;
 
 
