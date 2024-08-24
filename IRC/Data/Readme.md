@@ -1,0 +1,1 @@
+﻿This is the backend portion of Best Chat's IRC component.  It provides only the ability to understand conversations and process events.  No UI is included.

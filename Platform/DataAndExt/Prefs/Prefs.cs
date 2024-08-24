@@ -275,7 +275,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(string strWhichProp) => PropertyChanged?.Invoke(this, new(strWhichProp));
+								private void FirePropChanged(string strWhichProp)
+									=> PropertyChanged?.Invoke(this, new(strWhichProp));
 							#endregion
 
 							#region Event Handlers
@@ -440,7 +441,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 										public System.Collections.Generic.IEnumerable<string> Paths
 											=> llistPaths;
 
-										private Item<bool> IncludeSysPath
+										public Item<bool> IncludeSysPath
 											=> includeSysPath;
 									#endregion
 
@@ -868,7 +869,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 					#endregion
 				}
 
-			public class GeneralPrefs : AbstractChildMgr
+				public class GeneralPrefs : AbstractChildMgr
 			{
 				#region Constructors & Deconstructors
 					public GeneralPrefs(AbstractMgr mgrParent) : base(mgrParent, "General", Rsrcs.strGlobalGeneralName,
@@ -1079,11 +1080,12 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 	#endregion
 
 	#region Methods
-		protected DTO.PrefsDTO? Load(in System.IO.DirectoryInfo folderLocalDataLoc)
+		protected MainDtoType? Load<MainDtoType>(in System.IO.DirectoryInfo folderLocalDataLoc)
+			where MainDtoType : DTO.PrefsDTO
 		{
 			fileOurSettings ??= new(System.IO.Path.Combine(folderLocalDataLoc.FullName, "settings.json"));
 
-			return fileOurSettings.Exists ? System.Text.Json.JsonSerializer.Deserialize<DTO.PrefsDTO>(fileOurSettings.OpenText().ReadToEnd(),
+			return fileOurSettings.Exists ? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenText().ReadToEnd(),
 				jsoStandard) : null;
 		}
 

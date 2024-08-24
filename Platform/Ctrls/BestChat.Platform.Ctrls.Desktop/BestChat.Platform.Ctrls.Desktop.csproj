@@ -30,26 +30,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="CardConversationEventView.axaml" />
-		<None Remove="ConversationDataListView.axaml" />
-		<None Remove="EnumRadioBtnGroup.axaml" />
-		<None Remove="FileBrowserCtrl.axaml" />
-		<None Remove="FolderBrowserCtrl.axaml" />
-		<None Remove="FontSelectionComboBox.axaml" />
-		<None Remove="FontWeightComboBox.axaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AvaloniaXaml Include="CardConversationEventView.axaml" />
-		<AvaloniaXaml Include="ConversationDataListView.axaml" />
-		<AvaloniaXaml Include="EnumRadioBtnGroup.axaml" />
-		<AvaloniaXaml Include="FileBrowserCtrl.axaml" />
-		<AvaloniaXaml Include="FolderBrowserCtrl.axaml" />
-		<AvaloniaXaml Include="FontSelectionComboBox.axaml" />
-		<AvaloniaXaml Include="FontWeightComboBox.axaml" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.1.3" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
@@ -61,7 +41,7 @@
 		<PackageReference Include="LucideAvalonia" Version="1.5.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="3.1.6" />
 		<PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.9" />
-		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0" />
+		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

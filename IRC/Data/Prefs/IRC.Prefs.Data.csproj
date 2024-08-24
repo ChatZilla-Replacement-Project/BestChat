@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>BestChat.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>BestChat.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Platform\Data\Platform.Data.csproj" />
+    <ProjectReference Include="..\..\..\Platform\Prefs\Platform.Prefs.Data\Platform.Prefs.Data.csproj" />
+    <ProjectReference Include="..\..\..\Platform\Util.Collections\Util.Collections.csproj" />
+    <ProjectReference Include="..\..\..\Platform\Util.Exceptions\Util.Exceptions.csproj" />
+    <ProjectReference Include="..\..\..\Platform\Util.Ext.WPF\Util.Ext.WPF.csproj" />
+    <ProjectReference Include="..\..\..\Platform\Util.Ext\Util.Ext.csproj" />
+    <ProjectReference Include="..\..\Data\IRC.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Rsrcs.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Rsrcs.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Rsrcs.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

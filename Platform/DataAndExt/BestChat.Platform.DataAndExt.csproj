@@ -18,6 +18,9 @@
 		<PackageProjectUrl>https://github.com/ChatZilla-Replacement-Project/BestChat.Platform.DataAndExt/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ChatZilla-Replacement-Project/BestChat.Platform.DataAndExt/tree/master</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AssemblyVersion>1.0.0.3</AssemblyVersion>
+		<FileVersion>1.0.0.3</FileVersion>
+		<Version>1.0.0.3</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

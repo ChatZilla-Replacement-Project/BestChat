@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Protocol;
 
-public abstract class ProtocolMgr : System.ComponentModel.INotifyPropertyChanged
+public abstract class Mgr : System.ComponentModel.INotifyPropertyChanged
 {
 	#region Constructors & Deconstructors
-		protected ProtocolMgr()
+		protected Mgr()
 		{
 			System.Reflection.Assembly? assemblyEntry = System.Reflection.Assembly.GetEntryAssembly() ?? throw new System
 				.InvalidProgramException("For some reason, BestChat.ProtocolMgr.ProtocolMgr was called from non-managed code.");

@@ -23,7 +23,6 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<ContentControl
-			x:Name="ccIcon"
 			Content="{Binding SenderIcon}">
 			<ContentControl.DataTemplates>
 				<local:TemplateSelectorForCardConverstationEvts>

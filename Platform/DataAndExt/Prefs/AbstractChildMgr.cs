@@ -26,6 +26,30 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Helper Types
+		public new class Editable : AbstractMgr.Editable
+		{
+			private Editable(AbstractChildMgr original) :
+				base(original) => this.original = original;
+
+			public new readonly AbstractChildMgr original;
+
+			public readonly Editable emgrParent;
+
+			public Editable Parent
+				=> emgrParent;
+
+			public string Name
+				=> original.Name;
+
+			public string LocalizedName
+				=> original.LocalizedName;
+
+			public string LocalizedLongDesc
+				=> original.LocalizedLongDesc;
+
+			public static Editable Make(AbstractChildMgr original)
+				=> new(original);
+		}
 	#endregion
 
 	#region Members
@@ -39,13 +63,17 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Properties
-		public AbstractMgr Parent => mgrParent;
+		public AbstractMgr Parent
+			=> mgrParent;
 
-		public string Name => strName;
+		public string Name
+			=> strName;
 
-		public string LocalizedName => strLocalizedName;
+		public string LocalizedName
+			=> strLocalizedName;
 
-		public string LocalizedLongDesc => strLocalizedLongDesc;
+		public string LocalizedLongDesc
+			=> strLocalizedLongDesc;
 	#endregion
 
 	#region Methods
