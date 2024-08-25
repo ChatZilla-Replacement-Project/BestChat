@@ -42,12 +42,24 @@
 		<PackageReference Include="LucideAvalonia" Version="1.5.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="3.1.6" />
 		<PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.9" />
-		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.3" />
+		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="MainWnd.axaml.cs">
 			<DependentUpon>MainWnd.axaml</DependentUpon>
 		</Compile>
+		<Compile Update="Rsrcs.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Rsrcs.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Rsrcs.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

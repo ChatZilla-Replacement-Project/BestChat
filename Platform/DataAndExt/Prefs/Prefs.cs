@@ -1085,12 +1085,16 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 		{
 			fileOurSettings ??= new(System.IO.Path.Combine(folderLocalDataLoc.FullName, "settings.json"));
 
-			return fileOurSettings.Exists ? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenText().ReadToEnd(),
-				jsoStandard) : null;
+			return fileOurSettings.Exists
+				? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenText().ReadToEnd(), jsoStandard)
+				: null;
 		}
 
 		public void Save()
 		{
+			if(fileOurSettings == null)
+				throw new System.InvalidProgramException("The settings file wasn't set before attempting to save preferences.");
+
 			using(System.IO.FileStream stream = fileOurSettings.OpenWrite())
 				System.Text.Json.JsonSerializer.Serialize(stream, ToTupleList(), jsoStandard);
 		}

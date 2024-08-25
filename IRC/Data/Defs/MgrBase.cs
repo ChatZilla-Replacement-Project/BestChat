@@ -72,8 +72,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 	#region Methods
 		private void Init(string strUserDataCtnts, DGetItemFromDTO itemMaker)
 		{
-			ItemDtoType[]? anet = System.Text.Json.JsonSerializer
-					.Deserialize<ItemDtoType[]>(strUserDataCtnts, jso);
+			ItemDtoType[]? anet = System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(strUserDataCtnts, jso);
 
 			if(anet != null)
 				foreach(ItemDtoType dnetCur in anet)

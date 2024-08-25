@@ -2,31 +2,59 @@
 
 namespace BestChat.Platform.DataAndExt.Prefs.DTO;
 
-public abstract record PrefsDTO(PrefsDTO.GlobalDTO Global)
+public abstract record PrefsDTO()
 {
-	public abstract record GlobalDTO(GlobalDTO.GeneralDTO General, GlobalDTO.AppearanceDTO Appearance, GlobalDTO.PluginsDTO Plugins)
+	public abstract record GlobalDTO
+	(
+		//GlobalDTO.GeneralDTO General,
+		GlobalDTO.PluginsDTO Plugins
+	)
 	{
-		public abstract record AppearanceDTO(AppearanceDTO.ConfModeDTO ConfMode, AppearanceDTO.TimeStampDTO TimeStamp,
-			AppearanceDTO.UserListDTO UserList)
+		public abstract record AppearanceDTO
+		(
+			AppearanceDTO.ConfModeDTO ConfMode,
+			AppearanceDTO.TimeStampDTO TimeStamp,
+			AppearanceDTO.UserListDTO UserList
+		)
 		{
-			public record ConfModeDTO(bool ConfModeEnabled = false, int UserLimitBeforeTrigger = 150, bool ActionsCollapsed = false, bool
-				MsgsCollapsed = false);
+			public record ConfModeDTO
+			(
+				bool ConfModeEnabled = false,
+				int UserLimitBeforeTrigger = 150,
+				bool ActionsCollapsed = false,
+				bool MsgsCollapsed = false
+			);
 
-			public record TimeStampDTO(bool Show = true, string Fmt = "G");
+			public record TimeStampDTO
+			(
+				bool Show = true,
+				string Fmt = "G"
+			);
 
-			public record UserListDTO(PaneLocations Loc = PaneLocations.left, WaysToShowUserModes HowToShowModes = WaysToShowUserModes.symbols,
-				bool SortByMode = true);
+			public record UserListDTO
+			(
+				PaneLocations Loc = PaneLocations.left,
+				WaysToShowUserModes HowToShowModes = WaysToShowUserModes.symbols,
+				bool SortByMode = true
+			);
 		}
 
-		public abstract AppearanceDTO Appearance
+		public abstract AppearanceDTO BaseAppearance
 		{
 			get;
 		}
 
-		public record PluginsDTO(PluginsDTO.ExtDTO Ext)
+		public record PluginsDTO
+		(
+			PluginsDTO.ExtDTO Ext
+		)
 		{
-			public record ExtDTO(ExtDTO.WhereToLookDTO WhereToLook, ExtDTO.ScriptEntryDTO[]? Scripts = null, ExtDTO.ProgramEntryDTO[]? Programs
-				= null)
+			public record ExtDTO
+			(
+				ExtDTO.WhereToLookDTO WhereToLook,
+				ExtDTO.ScriptEntryDTO[]? Scripts = null,
+				ExtDTO.ProgramEntryDTO[]? Programs = null
+			)
 			{
 				public record WhereToLookDTO(string[]? Paths = null, bool IncludeSysPaths = true);
 
@@ -36,17 +64,27 @@ public abstract record PrefsDTO(PrefsDTO.GlobalDTO Global)
 			}
 		}
 
-		public record GeneralDTO(GeneralDTO.ConnDTO Conn)
+		public record GeneralDTO
+		(
+			GeneralDTO.ConnDTO Conn
+		)
 		{
-			public record ConnDTO(bool IsIndentEnabled = true, bool IsAutoReconnectEnabled = true, bool
-				IsRejoinAfterKickEnabled = true, string CharEncoding = "UTF-8", bool IsUnlimitedAttemptsOn =
-				true, int MaxAttempts = 1, string? DefQuitMsg = null)
+			public record ConnDTO
+			(
+				bool IsIndentEnabled = true,
+				bool IsAutoReconnectEnabled = true,
+				bool IsRejoinAfterKickEnabled = true,
+				string CharEncoding = "UTF-8",
+				bool IsUnlimitedAttemptsOn = true,
+				int MaxAttempts = 1,
+				string? DefQuitMsg = null
+			)
 			{
 			}
 		}
 	}
 
-	public abstract GlobalDTO Global
+	public abstract GlobalDTO BaseGlobal
 	{
 		get;
 	}
