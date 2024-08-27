@@ -19,20 +19,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Logo for We Chat.svg = Logo for We Chat.svg
 		README.md = README.md
 		We Chat icon 16x16.png = We Chat icon 16x16.png
+		We Chat icon 180x180.png = We Chat icon 180x180.png
 		We Chat icon 32x32.png = We Chat icon 32x32.png
 		We Chat icon 64x64.png = We Chat icon 64x64.png
 		We Chat icon.svg = We Chat icon.svg
-		We Chat icon 180x180.png = We Chat icon 180x180.png
 		We Chat.ico = We Chat.ico
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ctrls", "Ctrls", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestChat.Platform.Ctrls.Desktop", "Platform\Ctrls\BestChat.Platform.Ctrls.Desktop\BestChat.Platform.Ctrls.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Platform.Ctrls.Desktop", "Platform\Ctrls\BestChat.Platform.Ctrls.Desktop\BestChat.Platform.Ctrls.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRC", "IRC", "{5C216607-6917-431A-AC70-71EBAD760378}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.Data", "IRC\Data\BestChat.IRC.Data.csproj", "{54223CA6-BB79-4972-9F77-943B9E922AD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.Data.ProtocolMgr", "IRC\Protocol Manager\Data\BestChat.IRC.Data.ProtocolMgr.csproj", "{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{75A7407D-6085-4579-9AEC-4C9682F51FE7} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
 		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD} = {75A7407D-6085-4579-9AEC-4C9682F51FE7}
 		{54223CA6-BB79-4972-9F77-943B9E922AD9} = {5C216607-6917-431A-AC70-71EBAD760378}
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E} = {5C216607-6917-431A-AC70-71EBAD760378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1645BBD-D74E-4AE2-AD39-CFEA6F8875B0}

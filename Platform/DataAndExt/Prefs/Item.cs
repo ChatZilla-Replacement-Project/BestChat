@@ -138,7 +138,7 @@ namespace BestChat.Platform.DataAndExt.Prefs
 
 						set
 						{
-							if(valCur == null && value != null || valCur != null && value == null || valCur.Equals(value))
+							if(valCur == null && value != null || valCur != null && value == null || valCur != null && valCur.Equals(value))
 							{
 								TypeOfItem valOld = valCur;
 

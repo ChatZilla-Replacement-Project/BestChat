@@ -9,9 +9,10 @@
 		<DataTemplate>
 			<RadioButton
 				Content="{Binding Name}"
-				ToolTip="{Binding ToolTipText}"
+				GroupName="{Binding GroupName, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+				ToolTip.Tip="{Binding ToolTipText}"
 				Tag="{Binding RawVal}"
-				Clicked="OnChildRadioBtnClicked"/>
+				Click="OnChildRadioBtnClicked"/>
 		</DataTemplate>
 	</ItemsControl.ItemTemplate>
 </ItemsControl>

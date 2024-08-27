@@ -35,7 +35,7 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 
 				mapChildMgrByName = [];
 				foreach(AbstractChildMgr cmgrCur in original.ChildMgrByName)
-					mapChildMgrByName[cmgrCur.Name] = AbstractChildMgr.Editable.Make(cmgrCur);
+					mapChildMgrByName[cmgrCur.Name] = AbstractChildMgr.Editable.Make(cmgrCur, this);
 			}
 
 			public readonly AbstractMgr original;

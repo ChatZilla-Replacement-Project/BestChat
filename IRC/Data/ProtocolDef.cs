@@ -4,7 +4,7 @@ namespace BestChat.IRC.ProtocolModule;
 
 using Platform.DataAndExt.Ext;
 
-public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.Mgr.IProtocolDef
+public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtocolDef
 {
 	#region Constructors & Deconstructors
 		protected ProtocolDef()

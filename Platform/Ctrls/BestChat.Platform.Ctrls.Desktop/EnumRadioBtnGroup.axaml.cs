@@ -5,6 +5,11 @@ namespace BestChat.Platform.Ctrls.Desktop;
 public partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
 {
 	public EnumRadioBtnGroup() => InitializeIfNeeded();
+
+	public readonly string strGroupName = new System.Guid().ToString();
+
+	public string GroupName
+		=> strGroupName;
 }
 
 public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
@@ -80,8 +85,6 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 	#endregion
 
 	#region Members
-		private readonly string strGroupName = new System.Guid().ToString();
-
 		private EnumType? valSel = default;
 	#endregion
 
@@ -114,7 +117,7 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 	#endregion
 
 	#region Event Handlers
-		private void OnChildRadioBtnClicked(object? objSender, System.EventArgs e)
+		private void OnChildRadioBtnClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(objSender is Avalonia.Controls.RadioButton rbSender && !valSel.Equals(rbSender.Tag))
 			{

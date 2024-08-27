@@ -1,24 +1,19 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
+namespace BestChat;
 
-namespace BestChat
+public partial class App : Avalonia.Application
 {
-	public partial class App : Application
+	public override void Initialize()
 	{
-		public override void Initialize()
+		Avalonia.Markup.Xaml.AvaloniaXamlLoader.Load(this);
+	}
+
+	public override void OnFrameworkInitializationCompleted()
+	{
+		if(ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
 		{
-			AvaloniaXamlLoader.Load(this);
+			desktop.MainWindow = new MainWnd();
 		}
 
-		public override void OnFrameworkInitializationCompleted()
-		{
-			if(ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-			{
-				desktop.MainWindow = new MainWnd();
-			}
-
-			base.OnFrameworkInitializationCompleted();
-		}
+		base.OnFrameworkInitializationCompleted();
 	}
 }

@@ -1,15 +1,14 @@
-﻿// Ignore Spelling: Ctrl gvc Prefs cmgr Defs
+﻿// Ignore Spelling: Ctrl gvc Prefs cmgr Defs Loc
 
 namespace BestChat.Platform.Ctrls.Desktop;
 
-public sealed class ProtocolGuiMgr : DataAndExt.Protocol.ProtocolMgr
+public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.ProtocolGuiDef>
 {
 	#region Constructors & Deconstructors
-		public ProtocolGuiMgr()
+		private ProtocolGuiMgr(System.IO.DirectoryInfo dirProfileLoc, System.Func<ProtocolMetaData, bool> funcNewProtocolEnabler) :
+			base(strMaskForProtocolModules, dirProfileLoc, funcNewProtocolEnabler)
 		{
 		}
-
-		static ProtocolGuiMgr() => mgr = new();
 	#endregion
 
 	#region Delegates
@@ -19,10 +18,11 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.ProtocolMgr
 	#endregion
 
 	#region Constants
+			public const string strMaskForProtocolModules = "*.ProtocolModule.Desktop.dll";
 	#endregion
 
 	#region Helper Types
-		public abstract class ProtocolGuiDef : DataAndExt.Protocol.ProtocolMgr.IProtocolDef
+		public abstract class ProtocolGuiDef : IProtocolDef
 		{
 			public abstract string Name
 			{
@@ -44,7 +44,7 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.ProtocolMgr
 				get;
 			}
 
-			public abstract DataAndExt.Prefs.AbstractChildMgr? ProtocolMgrForRootPrefObj
+			public abstract DataAndExt.Prefs.AbstractChildMgr? RootPrefForProtocol
 			{
 				get;
 			}
@@ -64,7 +64,8 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.ProtocolMgr
 			public abstract AbstractVisualConversationCtrl MakeConversationCtrl(DataAndExt.Conversations.IGroupViewOrConversation
 				gvcWhatWeNeedCtrlFor);
 
-			public virtual Avalonia.Controls.MenuItem? FileMenuItem => null;
+			public virtual Avalonia.Controls.MenuItem? FileMenuItem
+				=> null;
 		}
 	#endregion
 
@@ -73,13 +74,12 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.ProtocolMgr
 	#endregion
 
 	#region Properties
-		public new System.Collections.Generic.IReadOnlyDictionary<string, ProtocolGuiDef> AllProtocolDefsByName
-			=> (System.Collections.Generic.IReadOnlyDictionary<string, ProtocolGuiDef>)base.AllProtocolDefsByName;
-
 		public static ProtocolGuiMgr Mgr => mgr;
 	#endregion
 
 	#region Methods
+		public static ProtocolGuiMgr Init(in System.IO.DirectoryInfo dirProfileLoc, System.Func<ProtocolMetaData, bool> funcNewProtocolEnabler)
+			=> new(dirProfileLoc, funcNewProtocolEnabler);
 	#endregion
 
 	#region Event Handlers
