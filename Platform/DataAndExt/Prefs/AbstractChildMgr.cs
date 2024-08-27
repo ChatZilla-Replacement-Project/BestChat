@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Prefs
+﻿// Ignore Spelling: Prefs emgr
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 

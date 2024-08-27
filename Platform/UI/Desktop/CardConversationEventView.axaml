@@ -7,6 +7,7 @@
 	xmlns:local="clr-namespace:BestChat.Platform.Ctrls.Desktop"
 	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
 	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
+	xmlns:sys="using:System"
 	mc:Ignorable="d"
 	SizeChanged="OnSizeChanged">
 	<Grid>
@@ -25,18 +26,18 @@
 		<ContentControl
 			Content="{Binding SenderIcon}">
 			<ContentControl.DataTemplates>
-				<local:TemplateSelectorForCardConverstationEvts>
+				<DataTemplates>
 					<DataTemplate
-						x:Key="dtempCharIcon">
+						x:DataType="sys:Char">
 						<Label
 							Content="{Binding}" />
 					</DataTemplate>
 					<DataTemplate
-						x:Key="dtempImgIcon">
+						x:DataType="IImage">
 						<Image
 							Source="{Binding}" />
 					</DataTemplate>
-				</local:TemplateSelectorForCardConverstationEvts>
+				</DataTemplates>
 			</ContentControl.DataTemplates>
 		</ContentControl>
 		<Label

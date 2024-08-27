@@ -26,9 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		We Chat.ico = We Chat.ico
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ctrls", "Ctrls", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Platform.Ctrls.Desktop", "Platform\Ctrls\BestChat.Platform.Ctrls.Desktop\BestChat.Platform.Ctrls.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Platform.UI.Desktop", "Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRC", "IRC", "{5C216607-6917-431A-AC70-71EBAD760378}"
 EndProject

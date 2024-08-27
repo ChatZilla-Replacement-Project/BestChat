@@ -56,7 +56,7 @@ public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 				{
 					int iIndexOfCurItem = 0;
 
-					foreach(object objCurItem in Items)
+					foreach(object? objCurItem in Items)
 					{
 						if(objCurItem is Avalonia.Controls.Label labelCurItem && labelCurItem.Tag == (object?)value)
 						{

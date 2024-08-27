@@ -26,7 +26,7 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 
 	#region Constants
 		#region Dependency Properties
-			public new static readonly Avalonia.AvaloniaProperty<Avalonia.Media.FontWeight?> SelValProperty = Avalonia.AvaloniaProperty
+			public static readonly Avalonia.AvaloniaProperty<Avalonia.Media.FontWeight?> SelValProperty = Avalonia.AvaloniaProperty
 				.RegisterDirect<FontWeightComboBox, Avalonia.Media.FontWeight?>(nameof(SelVal), cbSender => (Avalonia.Media
 				.FontWeight?)cbSender.SelectedValue, (cbSender, fwNew) => cbSender.SelectedValue = fwNew, Avalonia.Media
 				.FontWeight.Normal);
@@ -63,7 +63,7 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Properties
-		public new Avalonia.Media.FontWeight? SelVal
+		public Avalonia.Media.FontWeight? SelVal
 		{
 			get => (Avalonia.Media.FontWeight?)SelectedValue;
 
@@ -72,13 +72,13 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Methods
-		protected void OnInitialized(object objSender, System.EventArgs e)
+	#endregion
+
+	#region Event Handlers
+		protected void OnInitialized(object? objSender, System.EventArgs e)
 		{
 			foreach(System.Collections.Generic.KeyValuePair<Avalonia.Media.FontWeight, string> kvCurWeightInfo in mapWeightsToText)
 				Items.Add(kvCurWeightInfo);
 		}
-	#endregion
-
-	#region Event Handlers
 	#endregion
 }

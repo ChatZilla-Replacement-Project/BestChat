@@ -4,7 +4,8 @@ namespace BestChat.Platform.Ctrls.Desktop;
 
 public partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
 {
-	public EnumRadioBtnGroup() => InitializeIfNeeded();
+	public EnumRadioBtnGroup()
+		=> InitializeIfNeeded();
 
 	public readonly string strGroupName = new System.Guid().ToString();
 
@@ -18,6 +19,8 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 	#region Constructors & Deconstructors
 		public EnumRadioBtnGroup()
 		{
+			ContainerPrepared += OnChildContainerReady;
+			Initialized += OnInitialized;
 		}
 	#endregion
 
@@ -70,11 +73,13 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 				}
 			}
 
+
 			public readonly EnumType valRaw;
 
 			public readonly string strName;
 
 			public readonly string strToolTipText;
+
 
 			public EnumType RawVal => valRaw;
 
@@ -109,7 +114,7 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 	#endregion
 
 	#region Methods
-		protected void OnInitialized()
+		private void OnInitialized(object? objSender, System.EventArgs e)
 		{
 			foreach(EnumType valCur in typeof(EnumType).GetEnumValues())
 				Items.Add(new Wrapper(valCur));
@@ -117,13 +122,25 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 	#endregion
 
 	#region Event Handlers
-		private void OnChildRadioBtnClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnChildRadioBtnChecked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(objSender is Avalonia.Controls.RadioButton rbSender && !valSel.Equals(rbSender.Tag))
 			{
 				valSel = (EnumType?)rbSender.Tag;
 
 				RaiseEvent(new(evtSelValChangedEvent, this));
+			}
+		}
+
+		private void OnChildContainerReady(object? objSender, Avalonia.Controls.ContainerPreparedEventArgs e)
+		{
+			if(e.Container is Avalonia.Controls.RadioButton rbNew)
+			{
+				rbNew.IsCheckedChanged += OnChildRadioBtnChecked;
+
+				rbNew.IsChecked = rbNew.Tag is Wrapper wrapper
+					? wrapper.RawVal.Equals(valSel)
+					: false;
 			}
 		}
 	#endregion

@@ -50,7 +50,7 @@ namespace BestChat.Desktop
 				#endregion
 
 				#region Helper Types
-					public class AppearancePrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs, AppearancePrefs>.GlobalPrefs.AppearancePrefs
+					public new class AppearancePrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs, AppearancePrefs>.GlobalPrefs.AppearancePrefs
 					{
 						#region Constructors & Deconstructors
 							internal AppearancePrefs(GlobalPrefs mgrParent) :
@@ -266,13 +266,17 @@ namespace BestChat.Desktop
 										#endregion
 
 										#region Properties
-											public InfoPairPrefs<Avalonia.Media.FontFamily> NormalFontFamily => normalFontFamily;
+											public InfoPairPrefs<Avalonia.Media.FontFamily> NormalFontFamily
+												=> normalFontFamily;
 
-											public InfoPairPrefs<Avalonia.Media.FontFamily> FixedWidthFontFamily => fixedWidthFontFamily;
+											public InfoPairPrefs<Avalonia.Media.FontFamily> FixedWidthFontFamily
+												=> fixedWidthFontFamily;
 
-											public InfoPairPrefs<double> Size => size;
+											public InfoPairPrefs<double> Size
+												=> size;
 
-											public InfoPairPrefs<Avalonia.Media.FontWeight> Weight;
+											public InfoPairPrefs<Avalonia.Media.FontWeight> Weight
+												=> weight;
 										#endregion
 
 										#region Methods

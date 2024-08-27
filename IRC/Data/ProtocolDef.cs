@@ -81,7 +81,7 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 		public System.Uri PublisherHomepage => new("https://github.com/ChatZilla-Replacement-" +
 			"Project");
 
-		public abstract Platform.DataAndExt.Prefs.AbstractChildMgr? ProtocolMgrForRootPrefObj
+		public abstract Platform.DataAndExt.Prefs.AbstractChildMgr? RootPrefForProtocol
 		{
 			get;
 		}
