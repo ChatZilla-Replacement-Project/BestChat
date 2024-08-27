@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrl cmgr gvc vgc Prefs
 
-namespace BestChat.IRC.ProtocolModule;
+namespace BestChat.IRC.Data;
 
 using Platform.DataAndExt.Ext;
 
@@ -70,9 +70,11 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 	#endregion
 
 	#region Properties
-		public string Name => Rsrcs.strModuleTitle;
+		public string Name
+			=> Rsrcs.strModuleTitle;
 
-		public string Publisher => Rsrcs.strModulePublisher;
+		public string Publisher
+			=> Rsrcs.strModulePublisher;
 
 		public System.Uri Homepage => new("https://github.com/ChatZilla-Replacement-Project");
 
