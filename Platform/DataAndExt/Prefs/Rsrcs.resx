@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="strDefQuitMsg" xml:space="preserve">
+    <value>Best Chat user {1} has left {2}.</value>
+  </data>
+  <data name="strGlobalGeneralConnAutoReconnectName" xml:space="preserve">
+    <value>Reconnect when disconnected unexpectedly</value>
+  </data>
+  <data name="strGlobalGeneralConnAutoReconnectToolTipText" xml:space="preserve">
+    <value>When your connection is lost unexpectedly, Best Chat can automatically reconnect to the server for you.</value>
+  </data>
+  <data name="strGlobalGeneralConnCharEncodingName" xml:space="preserve">
+    <value>C_haracter Encoding</value>
+  </data>
+  <data name="strGlobalGeneralConnCharEncodingToolTipName" xml:space="preserve">
+    <value>For multiple clients to correctly read messages with non-ASCII characters on IRC, they need to use the same character encoding.</value>
+  </data>
+  <data name="strGlobalGeneralConnDefQuitMsgName" xml:space="preserve">
+    <value>Default Quit _Message</value>
+  </data>
+  <data name="strGlobalGeneralConnDefQuitMsgToolTipText" xml:space="preserve">
+    <value>Specifies a default quit message to use when on is not explicitly specified for a network or via the /quit command.</value>
+  </data>
+  <data name="strGlobalGeneralConnEnableIdentName" xml:space="preserve">
+    <value>Enable _Identification Server during connection process</value>
+  </data>
+  <data name="strGlobalGeneralConnEnableIdentToolTipText" xml:space="preserve">
+    <value>Allows Best Chat to connect to servers that require an ident response</value>
+  </data>
+  <data name="strGlobalGeneralConnMaxAttemptsName" xml:space="preserve">
+    <value>Maximum Connection _Attempts:</value>
+  </data>
+  <data name="strGlobalGeneralConnMaxAttemptsToolTipText" xml:space="preserve">
+    <value>This is number of times Best Chat attempts to connect to a server or network.  A value of 1 means Best Chat will never attempt to reconnect to the server.</value>
+  </data>
+  <data name="strGlobalGeneralConnName" xml:space="preserve">
+    <value>_Connection</value>
+  </data>
+  <data name="strGlobalGeneralConnRejoinAfterKickName" xml:space="preserve">
+    <value>R_ejoin when kicked</value>
+  </data>
+  <data name="strGlobalGeneralConnRejoinAfterKickToolTipText" xml:space="preserve">
+    <value>If this is turned on, Best Chat will try (only once) to rejoin a channel you got kicked from.  Note: Some channels dislike auto-rejoin and will ban you.  So be careful.</value>
+  </data>
+  <data name="strGlobalGeneralConnToolTipText" xml:space="preserve">
+    <value>These preferences affect how Best Chat connects to the Internet.</value>
+  </data>
+  <data name="strGlobalGeneralConnUnlimitedAttemptsName" xml:space="preserve">
+    <value>Unlimited Attempts?</value>
+  </data>
+  <data name="strGlobalGeneralConnUnlimitedAttemptsToolTipText" xml:space="preserve">
+    <value>If checked, Best Chat will attempt to reconnect to any server forever.  If unchecked, the limit will be to the right.</value>
+  </data>
+  <data name="strGlobalGeneralName" xml:space="preserve">
+    <value>_General</value>
+  </data>
+  <data name="strGlobalGeneralToolTipText" xml:space="preserve">
+    <value>Many preferences that don't have anywhere else go here.</value>
+  </data>
+  <data name="strGlobalName" xml:space="preserve">
+    <value>_Global</value>
+  </data>
+  <data name="strGlobalNameToolTipText" xml:space="preserve">
+    <value>These preferences affect the entire application.</value>
+  </data>
+  <data name="strGlobalAppearancePageTitle" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="strGlobalAppearancePageDesc" xml:space="preserve">
+    <value>Configures the overall appearance of the entire application</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeTitle" xml:space="preserve">
+    <value>Conference Mode</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeDesc" xml:space="preserve">
+    <value>These settings control the configuration of Conference Mode.  It lets you hide joins, parts, and quits in busy channels.  All hidden events can be viewed by hovering your mouse over the event.</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeLimitTitle" xml:space="preserve">
+    <value>User Limit Before Trigger</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeLimitDesc" xml:space="preserve">
+    <value>If the number of users in the system goes above this number, Conference Mode would be activated.  That would cause parts, joins, and quits to be hidden unless you hover over the event marker.</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeEnabledTitle" xml:space="preserve">
+    <value>Enable Conference Mode?</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeEnabledDesc" xml:space="preserve">
+    <value>Check this if you want Conference Mode enabled.  Uncheck it if you always want to see parts, joins, and quits.</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeCollapseActionsTitle" xml:space="preserve">
+    <value>Collapse Actions When Collapsing Messages?</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeCollapseActionsDesc" xml:space="preserve">
+    <value>When collapsing messages in conference mode, Best Chat can also collapse actions.  Do you want this behavior?</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeCollapseMsgsTitle" xml:space="preserve">
+    <value>Collapse Messages?</value>
+  </data>
+  <data name="strGlobalAppearanceConfModeCollapseMsgsDesc" xml:space="preserve">
+    <value>In Conference Mode, Best Chat can collapse messages.  Do you want that?</value>
+  </data>
+  <data name="strGlobalAppearanceFontTitle" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="strGlobalAppearanceFontDesc" xml:space="preserve">
+    <value>These settings control the font used.  By default, the font is specified by your theme, but you can override it here.</value>
+  </data>
+  <data name="strGlobalAppearanceFontNormalFamilyTitle" xml:space="preserve">
+    <value>Normal Family</value>
+  </data>
+  <data name="strGlobalAppearanceFontNormalFamilyDesc" xml:space="preserve">
+    <value>Use this to override the normal font family specified by your theme.  Set the fixed width font separately below.</value>
+  </data>
+  <data name="strGlobalAppearanceFontFixedWidthFamilyTitle" xml:space="preserve">
+    <value>Fixed Width Family</value>
+  </data>
+  <data name="strGlobalAppearanceFontFixedWidthFamilyDesc" xml:space="preserve">
+    <value>Best Chat switches forts when the formatting calls for a fixed width font.  Most fonts are what they call variable pitch.  That means the width in pixels of a 'I" is far less than the width of a 'W'.  By contrast, a fixed width font uses the same width for all characters.</value>
+  </data>
+  <data name="strGlobalAppearanceFontSizeTitle" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="strGlobalAppearanceFontSizeDesc" xml:space="preserve">
+    <value>Use this to make all fonts larger or smaller.  The value shown is measured in pixels.</value>
+  </data>
+  <data name="strGlobalAppearanceFontWeightTitle" xml:space="preserve">
+    <value>Font Weight</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampTitle" xml:space="preserve">
+    <value>Time Stamps</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampDesc" xml:space="preserve">
+    <value>Best Chat records when each event happens and can show or hide those.   You can control if they're shown or not along with their format.</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampShowTitle" xml:space="preserve">
+    <value>Show the time stamp?</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampShowDesc" xml:space="preserve">
+    <value>Check this if you want to see time stamps and uncheck it if you don't.</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampFmtTitle" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampFmtDesc" xml:space="preserve">
+    <value>If you want to use a custom time stamp format, specify it here.  Read the notes above on how to specify it.  Certain characters in the value will be treated special.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListLeftTitle" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="strGlobalAppearanceUserListLeftDesc" xml:space="preserve">
+    <value>Places the user list on the left side of the client area.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListRightTitle" xml:space="preserve">
+    <value>Right </value>
+  </data>
+  <data name="strGlobalAppearanceUserListRightDesc" xml:space="preserve">
+    <value>Places the user list on the right side of the client area.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListLocDesc" xml:space="preserve">
+    <value>Specify if you want the user list on the left or right.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListLocTitle" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="strGlobalAppearanceUserListSortByModeDesc" xml:space="preserve">
+    <value>Check if you'd like the user list to be sorted by name and mode.  That will highlight ops by placing them at the top of the list.  Uncheck it if you prefer the users to be sorted only by name.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListSortByModeTitle" xml:space="preserve">
+    <value>Sort by Mode</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesColoredDiscsDesc" xml:space="preserve">
+    <value>If you select this, colored discs will be used to indicate op/half op status and voice.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesColoredDiscsTitle" xml:space="preserve">
+    <value>Colored Discs</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesDesc" xml:space="preserve">
+    <value>Use these choices to control how Best Chat marks select users as special.  Unless you choose “Hidden”, Best Chat will tell you which users are ops, half ops, or have voice.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesSymbolsDesc" xml:space="preserve">
+    <value>If you select this, Best Chat will show op, half op, and voice with traditional symbols.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesSymbolsTitle" xml:space="preserve">
+    <value>Use symbols</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesTitle" xml:space="preserve">
+    <value>How should we show the user modes?</value>
+  </data>
+  <data name="strGlobalPluginsDesc" xml:space="preserve">
+    <value>Best Chat supports two forms of plug-ins: External and Internal.  External plug-ins re those that it needs an external program or the OS to run.  Internal ones are those that rely on an API exported by Best Chat.  Click a link below to configure each type.</value>
+  </data>
+  <data name="strGlobalPluginsExtDesc" xml:space="preserve">
+    <value>It's a security risk as you might run who knows what, but Best Chat does support external plug-ins (run by external programs).  As noted, these might be binaries your OS knows how to run or scripts.</value>
+  </data>
+  <data name="strGlobalPluginsExtTitle" xml:space="preserve">
+    <value>External</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookDesc" xml:space="preserve">
+    <value>Specifies a series of paths you want Best Chat to consider as containing external plug-ins.  Chat will look in each location during start and create commands for all executables in those locations.  On Windows, anything with the extensions CMD, PS1, or EXE will be treated as plugins.  On MacOS, Linux, Unix, and other similar operating systems, that will be anything with the mode +x on files in those paths.  For all operating systems, Best Chat will add anything whose extension is listed in the bottom of this box.  If you aren't running Windows, but want to include EXEs, add Wine.  Also, non-Windows users that want to use PowerShell scripts may need to install PS.</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookPathsTitle" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookTitle" xml:space="preserve">
+    <value>Where to Look</value>
+  </data>
+  <data name="strGlobalPluginsHowToRunThemDesc" xml:space="preserve">
+    <value>Lists programs that Best Chat will attempt to use to run an external plug-in.  If you don't want any files of a certain type to be run by Best Chat, remove it from the list.  The two tabs below show the same data.  One just groups the data so that all types supported by a program are shown together if both file types use the same parameters to the executing program.  The other lets you quickly find a specific type.
+
+With Linux, anything marked with the +x file mode is treated as a binary executable if there is no file type listed below for that file or the file lacks a file extension.  In the parameter list, any %s will be replaced with the full path to the script.  In here, if you don't specify the path as that comes from a search along your computer's PATH environment variable.  If that path changes, the actual program might change.  In that case, Best Chat will detect the change and ask you to approve the change or disable the program and file type it runs.</value>
+  </data>
+  <data name="strGlobalPluginsHowToRunThemTitle" xml:space="preserve">
+    <value>How to run them</value>
+  </data>
+  <data name="strGlobalPluginsTitle" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookIncludeSysPathDesc" xml:space="preserve">
+    <value>Check this to automatically search all directories in your OS's system path environment variable.  This is normally called PATH.</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookIncludeSysPathTitle" xml:space="preserve">
+    <value>Include Your System Path Environment Variable in the Search</value>
+  </data>
+  <data name="strGlobalPluginsHowToRunThemGroupedByWhatRunsThemDesc" xml:space="preserve">
+    <value>Lists all script types by how they're run.</value>
+  </data>
+  <data name="strGlobalPluginsHowToRunThemGroupedByWhatRunsThemTitle" xml:space="preserve">
+    <value>Grouped by what runs them</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesHiddenDesc" xml:space="preserve">
+    <value>Select if you don't need to know who is an op, half-op, or has voice.</value>
+  </data>
+  <data name="strGlobalAppearanceUserListWaysToShowModesHiddenTitle" xml:space="preserve">
+    <value>Hidden (no modes visible)</value>
+  </data>
+</root>

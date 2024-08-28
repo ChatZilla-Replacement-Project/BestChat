@@ -19,10 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Logo for We Chat.svg = Logo for We Chat.svg
 		README.md = README.md
 		We Chat icon 16x16.png = We Chat icon 16x16.png
+		We Chat icon 180x180.png = We Chat icon 180x180.png
 		We Chat icon 32x32.png = We Chat icon 32x32.png
 		We Chat icon 64x64.png = We Chat icon 64x64.png
 		We Chat icon.svg = We Chat icon.svg
-		We Chat icon 180x180.png = We Chat icon 180x180.png
+		We Chat.ico = We Chat.ico
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ctrls", "Ctrls", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
@@ -54,8 +55,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{24CAF4A9-2C4F-4E31-AE08-1698ACDA0F21} = {B57058BC-21A0-4849-A8F9-633452CDD746}
 		{055264F7-10FF-4DA5-B0A0-51AFAE7F8C2D} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
-		{75A7407D-6085-4579-9AEC-4C9682F51FE7} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
-		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD} = {75A7407D-6085-4579-9AEC-4C9682F51FE7}
+		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1645BBD-D74E-4AE2-AD39-CFEA6F8875B0}
