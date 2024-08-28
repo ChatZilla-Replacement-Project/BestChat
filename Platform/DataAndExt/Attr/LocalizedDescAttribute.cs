@@ -7,8 +7,8 @@ namespace BestChat.Platform.DataAndExt.Attr
 	[System.AttributeUsage(System.AttributeTargets.All)]
 	public class LocalizedDescAttribute : System.ComponentModel.DescriptionAttribute
 	{
-		public LocalizedDescAttribute(string strKey, string strDefaultVal, string strExtendedKey, string strExtendedDefaultVal, System.Type
-			typeToUseToFindResources)
+		public LocalizedDescAttribute(in string strKey, in string strDefaultVal, in string strExtendedKey, in string strExtendedDefaultVal,
+			in System.Type typeToUseToFindResources)
 		{
 			System.Resources.ResourceManager rm = new System.Resources.ResourceManager(typeToUseToFindResources);
 			if(rm == null)

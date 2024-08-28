@@ -85,6 +85,7 @@ public partial class PrefsWnd : Avalonia.Controls.Window
 	#endregion
 
 	#region Events
+		public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
@@ -99,14 +100,14 @@ public partial class PrefsWnd : Avalonia.Controls.Window
 	#endregion
 
 	#region Properties
-		//private Avalonia.Controls.UserControl CurPage => mapTreeItemToPage[treeMain.SelectedItem];
+		private Avalonia.Controls.UserControl CurPage => mapTreeItemToPage[treeMain.SelectedItem];
 	#endregion
 
 	#region Methods
 	#endregion
 
 	#region Event Handlers
-		//private	void OnTreeSelChanged(object objSender,	Avalonia.Controls.SelectionChangedEventArgs	e) =>	PropertyChanged?.Invoke(this,	new
-		//	(nameof(CurPage)));
+		private void OnTreeSelChanged(object objSender, Avalonia.Controls.SelectionChangedEventArgs e) => PropertyChanged?.Invoke(this, new
+			(nameof(CurPage)));
 	#endregion
 }

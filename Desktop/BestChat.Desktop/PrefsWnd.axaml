@@ -60,7 +60,161 @@
 									DockPanel.Dock="Bottom"/>
 					<TreeView Name="treeMain"
 										SelectionMode="Single"
-										ToolTip.Tip="Use this to select a view whose properties will be shown to the right.  &quot;Global&quot; properties aren't really for a view, but rather for the entire app.  You can remove all non-global properties from the list using the &quot;Remove&quot; button below.  That will reset all those controls to their default.">
+										ToolTip.Tip="Use this to select a view whose properties will be shown to the right.  &quot;Global&quot; properties aren't really for a view, but rather for the entire app.  You can remove all non-global properties from the list using the &quot;Remove&quot; button below.  That will reset all those controls to their default."
+										SelectionChanged="OnTreeSelChanged">
+						<TreeViewItem Header="Global"
+													IsSelected="True">
+							<TreeViewItem Name="tviGeneral"
+														Header="General"/>
+							<TreeViewItem Name="tviAppearance"
+														Header="Appearance"/>
+							<TreeViewItem Name="tviPlugins"
+														Header="Plugins">
+								<TreeViewItem Name="tviPluginsExt"
+															Header="External">
+									<TreeViewItem Name="tviPluginsExtWhereToLook"
+																Header="Where to look"/>
+									<TreeViewItem Name="tviPluginsExtHowToRunThem"
+																Header="How To Run Them">
+										<TreeViewItem Name="tviPluginsExtHowToRunThemGroupedByWhatRunsThem"
+																	Header="Grouped by what runs them"/>
+										<TreeViewItem Name="tviPluginsExtHowToRunThemUngrouped"
+																	Header="Ungrouped"/>
+									</TreeViewItem>
+								</TreeViewItem>
+								<TreeViewItem Name="tviPluginsInternal"
+															Header="Internal"/>
+							</TreeViewItem>
+							<TreeViewItem Name="tviReopenOnStartup"
+														Header="Reopen On Startup"/>
+							<TreeViewItem Name="tviFormatting"
+														Header="Formatting"/>
+							<TreeViewItem Name="tviOther"
+														Header="Other"/>
+						</TreeViewItem>
+						<TreeViewItem Name="tviIRC"
+													Header="IRC">
+							<TreeViewItem Name="tviIrcGlobal"
+														Header="Global">
+								<TreeViewItem Name="tviIrcGlobalGeneral"
+															Header="General"/>
+								<TreeViewItem Name="tviIrcGlobalAliases"
+															Header="Aliases"/>
+								<TreeViewItem Name="tviIrcGlobalAutoPerform"
+															Header="Auto Perform">
+									<TreeViewItem Name="tviIrcGlobalAutoPerformWhenBestChatStarts"
+																Header="When Best Chat starts"/>
+									<TreeViewItem Name="tviIrcGlobalAutoPerformWhenJoiningNetworks"
+																Header="When joining newtworks"/>
+									<TreeViewItem Name="tviIrcGlobalAutoPerformWhenJoiningChans"
+																Header="When joining channels"/>
+									<TreeViewItem Name="tviIrcGlobalAutoPerformWhenOpeningUserPM"
+																Header="When joining channels"/>
+								</TreeViewItem>
+								<TreeViewItem Name="tviIrcGlobalAltNicks"
+															Header="Alternate Nicks"/>
+								<TreeViewItem Name="tviIrcGlobalStalkWords"
+															Header="Stalk Words"/>
+								<TreeViewItem Name="tviIrcGlobalDCC"
+															Header="DCC"/>
+								<TreeViewItem Name="tviIrcGlobalSoundEvts"
+															Header="Sound Events"/>
+								<TreeViewItem Name="tviIrcLibera"
+															Header="Libera">
+									<TreeViewItem Name="tviIrcLiberaNetworkLevel"
+																Header="Network Settings">
+										<TreeViewItem Name="tviIrcLiberaNetworkLevelGeneral"
+																	Header="General"/>
+										<TreeViewItem Name="tviIrcLiberaNetworkLevelAppearance"
+																	Header="Appearance"/>
+										<TreeViewItem Name="tviIrcLiberaNetworkLevelLists"
+																	Header="Lists">
+											<TreeViewItem Name="tviIrcLiberaNetworkLevelListsAutoPerform"
+																		Header="Auto Perform">
+												<TreeViewItem Name="tviIrcLiberaNetworkLevelListsAutoPerformNetwork"
+																			Header="When joining Libera"/>
+												<TreeViewItem Name="tviIrcLiberaNetworkLevelListsAutoPerformChan"
+																			Header="When joining any channel on Libera"/>
+											</TreeViewItem>
+											<TreeViewItem Name="tviIrcLiberaNetworkLevelListsNickNames"
+																		Header="Nick Names"/>
+											<TreeViewItem Name="tviIrcLiberaNetworkLevelListsNotify"
+																		Header="Notify List"/>
+										</TreeViewItem>
+										<TreeViewItem Name="tviIrcLiberalNetworkLevelDCC"
+																	Header="DCC"/>
+									</TreeViewItem>
+									<TreeViewItem Name="tviIrcLiberaChans"
+																Header="Channels">
+										<TreeViewItem Name="tviIrcLiberaSpace"
+																	Header="##space">
+											<TreeViewItem Name="tviIrcLiberaSpaceGeneral"
+																		Header="General"/>
+											<TreeViewItem Name="tviIrcLiberaSpaceAppearance"
+																		Header="Appearance"/>
+											<TreeViewItem Name="tviIrcLiberaSpaceAutoPerform"
+																		Header="Auto Perform"/>
+										</TreeViewItem>
+										<TreeViewItem Name="tviIrcLiberaSpaceOffTopic"
+																	Header="##space-offtopic">
+											<TreeViewItem Name="tviIrcLiberaSpaceOffTopicGeneral"
+																		Header="General"/>
+											<TreeViewItem Name="tviIrcLiberaSpaceOffTopicAppearance"
+																		Header="Appearance"/>
+											<TreeViewItem Name="tviIrcLiberaSpaceOffTopicAutoPerform"
+																		Header="Auto Perform"/>
+										</TreeViewItem>
+										<TreeViewItem Name="tviIrcLiberaBestChat"
+																	Header="#chatzilla-replacement-project">
+											<TreeViewItem Name="tviIrcLiberaBestChatGeneral"
+																		Header="General"/>
+											<TreeViewItem Name="tviIrcLiberaBestChatAppearance"
+																		Header="Appearance"/>
+											<TreeViewItem Name="tviIrcLiberaBestChatAutoPerform"
+																		Header="Auto Perform"/>
+										</TreeViewItem>
+									</TreeViewItem>
+								</TreeViewItem>
+								<TreeViewItem Name="tviIrcOFTC"
+															Header="OFTC">
+									<TreeViewItem Name="tviIrcOftcNetworkLevel"
+																Header="Network Settings">
+										<TreeViewItem Name="tviIrcOftcNetworkLevelGeneral"
+																	Header="General"/>
+										<TreeViewItem Name="tviIrcOftcNetworkLevelAppearance"
+																	Header="Appearance"/>
+										<TreeViewItem Name="tviIrcOftcNetworkLevelLists"
+																	Header="Lists">
+											<TreeViewItem Name="tviIrcOftcNetworkLevelListsAutoPerform"
+																		Header="Auto Perform">
+												<TreeViewItem Name="tviIrcOftcNetworkLevelListsAutoPerformNetwork"
+																			Header="When joining Libera"/>
+												<TreeViewItem Name="tviIrcOftcNetworkLevelListsAutoPerformChan"
+																			Header="When joining any channel on Libera"/>
+											</TreeViewItem>
+											<TreeViewItem Name="tviIrcOftcNetworkLevelListsNickNames"
+																		Header="Nick Names"/>
+											<TreeViewItem Name="tviIrcOftcNetworkLevelListsNotify"
+																		Header="Notify List"/>
+										</TreeViewItem>
+										<TreeViewItem Name="tviIrcOftcNetworkLevelDCC"
+																	Header="DCC"/>
+									</TreeViewItem>
+									<TreeViewItem Name="tviIrcOftcChans"
+																Header="Channels">
+										<TreeViewItem Name="tviIrcOftcOSM"
+																	Header="##space">
+											<TreeViewItem Name="tviIrcOftcOsmGeneral"
+																		Header="General"/>
+											<TreeViewItem Name="tviIrcOftcOsmAppearance"
+																		Header="Appearance"/>
+											<TreeViewItem Name="tviIrcOftcOsmAutoPerform"
+																		Header="Auto Perform"/>
+										</TreeViewItem>
+									</TreeViewItem>
+								</TreeViewItem>
+							</TreeViewItem>
+						</TreeViewItem>
 					</TreeView>
 				</DockPanel>
 			</SplitView.Pane>
