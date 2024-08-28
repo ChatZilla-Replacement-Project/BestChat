@@ -1,4 +1,6 @@
-﻿// Ignore Spelling: Prefs
+﻿// Ignore Spelling: Prefs cmgr
+
+using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
@@ -20,6 +22,51 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Helper Types
+		public abstract class Editable
+		{
+			protected Editable(AbstractMgr original)
+			{
+				this.original = original;
+
+
+				mapItemsByName = [];
+				foreach(ItemBase itemCur in original.ItemsByName)
+					mapItemsByName[itemCur.strItemName] = itemCur.EditableMaker(itemCur);
+
+				mapChildMgrByName = [];
+				foreach(AbstractChildMgr cmgrCur in original.ChildMgrByName)
+					mapChildMgrByName[cmgrCur.Name] = AbstractChildMgr.Editable.Make(cmgrCur, this);
+			}
+
+			public readonly AbstractMgr original;
+
+			public void Save()
+			{
+				foreach(ItemBase.IEditable eitemCur in mapItemsByName.Values)
+					eitemCur.Save();
+
+				foreach(AbstractChildMgr.Editable ecmgrCur in mapChildMgrByName.Values)
+					ecmgrCur.Save();
+			}
+
+			private readonly System.Collections.Generic.SortedDictionary<string, ItemBase.IEditable> mapItemsByName =
+				[];
+
+			private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr.Editable> mapChildMgrByName =
+				[];
+
+			public System.Collections.Generic.IReadOnlyCollection<ItemBase.IEditable> ItemsByName
+				=> mapItemsByName.Values;
+
+			public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr.Editable> ChildMgrByName
+				=> mapChildMgrByName.Values;
+		}
+
+		public abstract record AbstractDTO
+		(
+			[System.Xml.Serialization.XmlIgnore]
+			string Key
+		);
 	#endregion
 
 	#region Members
@@ -30,20 +77,22 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Properties
-		public System.Collections.Generic.IReadOnlyCollection<ItemBase> ItemsByName => mapItemsByName.Values;
+		public System.Collections.Generic.IReadOnlyCollection<ItemBase> ItemsByName
+			=> mapItemsByName.Values;
 
-		public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr> ChildMgrByName => mapChildMgrByName.Values;
+		public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr> ChildMgrByName
+			=> mapChildMgrByName.Values;
 	#endregion
 
 	#region Methods
-		internal void Add<ItemType>(in Item<ItemType> itemNew)
+		public void Add<ItemType>(in Item<ItemType> itemNew)
 		{
 			mapItemsByName[itemNew.LocalizedName] = itemNew;
 
 			itemNew.evtDirtyChanged += OnChildItemDirtyChanged;
 		}
 
-		internal void Add(in AbstractChildMgr cmgrNew)
+		public void Add(in AbstractChildMgr cmgrNew)
 		{
 			mapChildMgrByName[cmgrNew.LocalizedName] = cmgrNew;
 

@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="strDefQuitMsg" xml:space="preserve">
+    <value>Best Chat has exited.</value>
+  </data>
+  <data name="strGlobalAliasesDesc" xml:space="preserve">
+    <value>Lists custom command sets you can run as one.</value>
+  </data>
+  <data name="strGlobalAliasesTitle" xml:space="preserve">
+    <value>Aliases</value>
+  </data>
+  <data name="strGlobalAltNicksDesc" xml:space="preserve">
+    <value>Enter any alternate nicks that Best Chat should use if your normal nick isn't available.  You don't need to include your default nick.</value>
+  </data>
+  <data name="strGlobalAltNicksTitle" xml:space="preserve">
+    <value>Alterate Nicks</value>
+  </data>
+  <data name="strGlobalAutoPerformDesc" xml:space="preserve">
+    <value>Groups tasks that Best Chat runs at select events.  These are all commands you were otherwise enter from the input box and can include those from plugins and aliases.</value>
+  </data>
+  <data name="strGlobalAutoPerformTitle" xml:space="preserve">
+    <value>Auto-perform</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenJoiningChanDesc" xml:space="preserve">
+    <value>Enter commands to run when joining a channel on any network.  This might be overridden by the settings for each network and further by individual channels.</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenJoiningChanTitle" xml:space="preserve">
+    <value>When joining a channel on any network</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenJoiningNetDesc" xml:space="preserve">
+    <value>Enter any commands to run when you join any network.  Thise can include commands from plugins and aliases.</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenJoiningNetTitle" xml:space="preserve">
+    <value>When joining a network</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
+    <value>Enter commands to run when opening a user chat on any network.  This might be overridden by the settings for each network.</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
+    <value>When opening a user chat on any network</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenStartingBestChatDesc" xml:space="preserve">
+    <value>Enter any commands to run when Best Chat starts.  This can include plugins and aliases.</value>
+  </data>
+  <data name="strGlobalAutoPerformWhenStartingBestChatTitle" xml:space="preserve">
+    <value>When Starting Best Chat</value>
+  </data>
+  <data name="strGlobalConnAutoReconnectDesc" xml:space="preserve">
+    <value>When your connection is lost unexpectedly, Best Chat can automatically reconnect to the server for you.</value>
+  </data>
+  <data name="strGlobalConnAutoReconnectTitle" xml:space="preserve">
+    <value>Reconnect when disconnected unexpectedly</value>
+  </data>
+  <data name="strGlobalConnCharEncodingDesc" xml:space="preserve">
+    <value>For multiple clients to correctly read messages with non-ASCII characters on IRC, they need to use the same character encoding.</value>
+  </data>
+  <data name="strGlobalConnCharEncodingTitle" xml:space="preserve">
+    <value>C_haracter Encoding</value>
+  </data>
+  <data name="strGlobalConnDefQuitMsgDesc" xml:space="preserve">
+    <value>Specifies a default quit message to use when on is not explicitly specified for a network or via the /quit command.</value>
+  </data>
+  <data name="strGlobalConnDefQuitMsgTitle" xml:space="preserve">
+    <value>Default Quit _Message</value>
+  </data>
+  <data name="strGlobalConnDesc" xml:space="preserve">
+    <value>These preferences affect how Best Chat connects to the Internet.</value>
+  </data>
+  <data name="strGlobalConnEnableIdentDesc" xml:space="preserve">
+    <value>Allows Best Chat to connect to servers that require an ident response</value>
+  </data>
+  <data name="strGlobalConnEnableIdentTitle" xml:space="preserve">
+    <value>Enable _Identification Server during connection process</value>
+  </data>
+  <data name="strGlobalConnMaxAttemptsDesc" xml:space="preserve">
+    <value>This is number of times Best Chat attempts to connect to a server or network.  A value of 1 means Best Chat will never attempt to reconnect to the server.</value>
+  </data>
+  <data name="strGlobalConnMaxAttemptsTitle" xml:space="preserve">
+    <value>Maximum Connection _Attempts:</value>
+  </data>
+  <data name="strGlobalConnRejoinAfterKickDesc" xml:space="preserve">
+    <value>If this is turned on, Best Chat will try (only once) to rejoin a channel you got kicked from.  Note: Some channels dislike auto-rejoin and will ban you.  So be careful.</value>
+  </data>
+  <data name="strGlobalConnRejoinAfterKickTitle" xml:space="preserve">
+    <value>R_ejoin when kicked</value>
+  </data>
+  <data name="strGlobalConnTitle" xml:space="preserve">
+    <value>_Connection</value>
+  </data>
+  <data name="strGlobalConnUnlimitedAttemptsDesc" xml:space="preserve">
+    <value>If checked, Best Chat will attempt to reconnect to any server forever.  If unchecked, the limit will be to the right.</value>
+  </data>
+  <data name="strGlobalConnUnlimitedAttemptsTitle" xml:space="preserve">
+    <value>Unlimited Attempts?</value>
+  </data>
+  <data name="strGlobalDccDesc" xml:space="preserve">
+    <value>DCC lets you bypass a server once you connected in order to talk to a specific user, send them files, or receive files from them.  Use this tab to control those settings.</value>
+  </data>
+  <data name="strGlobalDccDownloadsFolderDesc" xml:space="preserve">
+    <value>Specifies where to save all files received via DCC</value>
+  </data>
+  <data name="strGlobalDccDownloadsFolderTitle" xml:space="preserve">
+    <value>Downloads Folder</value>
+  </data>
+  <data name="strGlobalDccEnabledDesc" xml:space="preserve">
+    <value>You must check this to allow Best Chat to use DCC.  Otherwise, all DCC chats will be blocked and DCC won't appear in the menus.</value>
+  </data>
+  <data name="strGlobalDccEnabledTitle" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="strGlobalDccGetIpFromServerDesc" xml:space="preserve">
+    <value>If checked, Best Chat will ask the server for the IP address to use.</value>
+  </data>
+  <data name="strGlobalDccGetIpFromServerTitle" xml:space="preserve">
+    <value>Get the local IP from the server</value>
+  </data>
+  <data name="strGlobalDccTitle" xml:space="preserve">
+    <value>DCC (Direct Client Chat)</value>
+  </data>
+  <data name="strGlobalDesc" xml:space="preserve">
+    <value />
+  </data>
+  <data name="strGlobalStalkWordsDesc" xml:space="preserve">
+    <value>Enter any strings you want to trigger a notify besides your nick.  This could be anything you're interested in, "@op", "@room", etc.  Your nick is implied.  If you turned on Agressive Notify in the application's main preferences, Best Chat will try to get your attention</value>
+  </data>
+  <data name="strGlobalStalkWordsTitle" xml:space="preserve">
+    <value>Stalk Words</value>
+  </data>
+  <data name="strGlobalTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="strIrcRootDesc" xml:space="preserve">
+    <value>All IRC specific settings are here.</value>
+  </data>
+  <data name="strIRCRootTitle" xml:space="preserve">
+    <value>IRC</value>
+  </data>
+  <data name="strNetDesc" xml:space="preserve">
+    <value>Lists preferences specific to the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetTitle" xml:space="preserve">
+    <value>{0} network preferences</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+</root>

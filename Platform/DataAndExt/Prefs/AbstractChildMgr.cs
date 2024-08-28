@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Prefs
+﻿// Ignore Spelling: Prefs emgr
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
@@ -26,6 +26,34 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Helper Types
+		public new class Editable : AbstractMgr.Editable
+		{
+			private Editable(AbstractChildMgr original, AbstractMgr.Editable emgrParent) :
+				base(original)
+			{
+				this.original = original;
+				this.emgrParent = emgrParent;
+			}
+
+			public new readonly AbstractChildMgr original;
+
+			public readonly AbstractMgr.Editable emgrParent;
+
+			public AbstractMgr.Editable Parent
+				=> emgrParent;
+
+			public string Name
+				=> original.Name;
+
+			public string LocalizedName
+				=> original.LocalizedName;
+
+			public string LocalizedLongDesc
+				=> original.LocalizedLongDesc;
+
+			public static Editable Make(AbstractChildMgr original, AbstractMgr.Editable emgrParent)
+				=> new(original, emgrParent);
+		}
 	#endregion
 
 	#region Members
@@ -39,13 +67,17 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Properties
-		public AbstractMgr Parent => mgrParent;
+		public AbstractMgr Parent
+			=> mgrParent;
 
-		public string Name => strName;
+		public string Name
+			=> strName;
 
-		public string LocalizedName => strLocalizedName;
+		public string LocalizedName
+			=> strLocalizedName;
 
-		public string LocalizedLongDesc => strLocalizedLongDesc;
+		public string LocalizedLongDesc
+			=> strLocalizedLongDesc;
 	#endregion
 
 	#region Methods

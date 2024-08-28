@@ -6,6 +6,7 @@
 				xmlns:simplecto_rtf="using:AvRichTextBox"
 				mc:Ignorable="d"
 				x:Class="BestChat.MainWnd"
+				Icon="We Chat.ico"
 				MinHeight="500"
 				MinWidth="800"
 				WindowState="Maximized"
@@ -15,24 +16,31 @@
 		<DockPanel Margin="4">
 			<Menu DockPanel.Dock="Top">
 				<MenuItem Header="_File">
-					<MenuItem
-						Name="miFileIrcNetworkList"
-						Header="IRC _Network List…"
-						ToolTip.Tip="Shows the list of IRC networks" />
-					<MenuItem
-						Name="miFileIrcBncList"
-						Header="_Bouncer List…"
-						ToolTip.Tip="Shows the list of known bouncers" />
+					<MenuItem Header="_IRC">
+						<MenuItem
+							Name="miFileIrcNetworkList"
+							Header="_Network List…"
+							ToolTip.Tip="Shows the list of IRC networks" />
+						<MenuItem
+							Name="miFileIrcBncList"
+							Header="_Bouncer List…"
+							ToolTip.Tip="Shows the list of known bouncers" />
+					</MenuItem>
 					<Separator />
 					<MenuItem
 						Name="miFilePrefs"
 						Header="Preferences…"
-						ToolTip.Tip="Opens the Preferences window" />
+						ToolTip.Tip="Opens the Preferences window"
+						Click="OnFilePrefsClicked" />
+					<Separator />
 					<MenuItem Name="miFileExit"
 										Header="E_xit"
-										ToolTip.Tip="Exit Best Chat"/>
+										ToolTip.Tip="Exit Best Chat"
+										Click="OnFileExitClicked"/>
 				</MenuItem>
 				<MenuItem Header="_View">
+					<MenuItem Header="Show _toolbar"
+										IsChecked="{Binding IsVisible, ElementName=wpToolbar}"/>
 					<MenuItem
 						Name="miViewThemes"
 						Header="Themes…" />
@@ -43,6 +51,17 @@
 						Header="About…" />
 				</MenuItem>
 			</Menu>
+			<WrapPanel Name="wpToolbar"
+								 DockPanel.Dock="Top">
+				<Button Name="tbtnIrcNetworkList"
+								Content="IRC Networks"/>
+				<Button Name="tbtnIrcBncList"
+								Content="Known BNCs"/>
+				<Separator/>
+				<Button Name="tbtnPrefs"
+								Content="Preferences"
+								Click="OnFilePrefsClicked"/>
+			</WrapPanel>
 			<SplitView PanePlacement="Left"
 								 IsPaneOpen="True"
 								 OpenPaneLength="200"

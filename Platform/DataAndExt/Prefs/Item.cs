@@ -24,16 +24,32 @@ namespace BestChat.Platform.DataAndExt.Prefs
 			public readonly string strLocalizedLongDesc;
 		#endregion
 
+		#region Helper Types
+			public interface IEditable
+			{
+				public abstract void Save();
+			}
+		#endregion
+
 		#region Properties
-			public AbstractMgr Parent => mgrParent;
+			public AbstractMgr Parent
+				=> mgrParent;
 
-			public string ItemName => strItemName;
+			public string ItemName
+				=> strItemName;
 
-			public string LocalizedName => strLocalizedName;
+			public string LocalizedName
+				=> strLocalizedName;
 
-			public string LocalizedLongDesc => strLocalizedLongDesc;
+			public string LocalizedLongDesc
+				=> strLocalizedLongDesc;
 
 			public abstract string ValAsText
+			{
+				get;
+			}
+
+			public abstract System.Func<ItemBase, IEditable> EditableMaker
 			{
 				get;
 			}
@@ -83,6 +99,83 @@ namespace BestChat.Platform.DataAndExt.Prefs
 		#endregion
 
 		#region Helper Types
+			public class Editable<OriginalType> : IEditable, System.ComponentModel.INotifyPropertyChanged
+				where OriginalType : Item<TypeOfItem>
+			{
+				#region Constructors & Deconstructors
+					private Editable(OriginalType original)
+					{
+						this.original = original;
+						valCur = original.valCur;
+					}
+				#endregion
+
+				#region Delegates
+				#endregion
+
+				#region Events
+					public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+
+					public event System.Action<Editable<OriginalType>, TypeOfItem, TypeOfItem>? evtCurValChanged;
+				#endregion
+
+				#region Constants
+				#endregion
+
+				#region Helper Types
+				#endregion
+
+				#region Members
+					public readonly Item<TypeOfItem> original;
+
+					private TypeOfItem valCur;
+				#endregion
+
+				#region Properties
+					public TypeOfItem CurVal
+					{
+						get => valCur;
+
+						set
+						{
+							if(valCur == null && value != null || valCur != null && value == null || valCur != null && valCur.Equals(value))
+							{
+								TypeOfItem valOld = valCur;
+
+								valCur = value;
+
+								FireCurValChanged(valOld);
+							}
+						}
+					}
+				#endregion
+
+				#region Methods
+					public static IEditable Make(ItemBase original)
+						=> original is OriginalType realOrigianl
+							? new Editable<OriginalType>(realOrigianl)
+							: throw new System.InvalidProgramException($"{typeof(Editable<OriginalType>).FullName}.Make expected a {typeof(
+								OriginalType).FullName} instance, but got an instance of {original.GetType().FullName} instead");
+
+					private void FirePropChanged(string strPropName)
+						=> PropertyChanged?.Invoke(this, new(strPropName));
+
+					private void FireCurValChanged(TypeOfItem valOld)
+					{
+						FirePropChanged(nameof(CurVal));
+
+						evtCurValChanged?.Invoke(this, valOld, valCur);
+					}
+
+					public void Reset() => original.Reset();
+
+					public void Save()
+						=> original.CurVal = CurVal;
+				#endregion
+
+				#region Event Handlers
+				#endregion
+			}
 		#endregion
 
 		#region Members
@@ -98,7 +191,7 @@ namespace BestChat.Platform.DataAndExt.Prefs
 			{
 				get => valCur;
 
-				set
+				protected set
 				{
 					if(valCur != null && !valCur.Equals(value) || value != null)
 					{
@@ -115,10 +208,12 @@ namespace BestChat.Platform.DataAndExt.Prefs
 
 			public override string ValAsText
 				=> valCur?.ToString() ?? "";
+
+			public override System.Func<ItemBase, IEditable> EditableMaker => Editable<Item<TypeOfItem>>.Make;
 		#endregion
 
 		#region Methods
-			public void Reset()
+			private void Reset()
 				=> CurVal = def;
 		#endregion
 
@@ -193,7 +288,7 @@ namespace BestChat.Platform.DataAndExt.Prefs
 
 		public override int CurVal
 		{
-			set
+			protected set
 			{
 				if(iMinVal != null && value < iMinVal || iMaxVal != null && value > iMaxVal)
 				{
