@@ -42,14 +42,22 @@ public partial class PrefGroupTreeListerCtrl : Avalonia.Controls.ItemsControl
 	#endregion
 
 	#region Members
+		private readonly System.Collections.Generic.List<VisualPrefsTreeData> listChildren = [];
 	#endregion
 
 	#region Properties
 		public System.Collections.Generic.IReadOnlyCollection<VisualPrefsTreeData>? Children
 		{
-			get;
+			get => listChildren;
 
-			set;
+			set
+			{
+				listChildren.Clear();
+				if(value != null && value.Count > 0)
+					listChildren.AddRange(value);
+
+				IsVisible = listChildren.Count > 0;
+			}
 		}
 	#endregion
 

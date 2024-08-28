@@ -14,10 +14,10 @@
 	<ItemsControl.ItemTemplate>
 		<DataTemplate>
 			<RadioButton
-				Content="{Binding Name}"
-				GroupName="{Binding GroupName, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-				ToolTip.Tip="{Binding ToolTipText}"
-				Tag="{Binding RawVal}"/>
+				Content="{ReflectionBinding Name}"
+				GroupName="{ReflectionBinding GroupName, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+				ToolTip.Tip="{ReflectionBinding ToolTipText}"
+				Tag="{ReflectionBinding RawVal}"/>
 		</DataTemplate>
 	</ItemsControl.ItemTemplate>
 </ItemsControl>

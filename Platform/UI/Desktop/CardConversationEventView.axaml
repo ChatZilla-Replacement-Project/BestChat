@@ -8,6 +8,7 @@
 	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
 	xmlns:sys="using:System"
 	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
+	x:DataType="conversations:IMsgEventInfo"
 	mc:Ignorable="d"
 	SizeChanged="OnSizeChanged">
 	<Grid>
@@ -58,7 +59,7 @@
 			</Grid.RowDefinitions>
 			<TextBlock
 				x:Name="textDescOfEvent"
-				Text="{Binding DescOfEvent}" />
+				Text="{ReflectionBinding DescOfEvent}" />
 			<Label
 				Content="{Binding WhenItHappened}"
 				Grid.Row="1"
