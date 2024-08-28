@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrl Ctrls evt Sel
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 	where EnumType : System.Enum

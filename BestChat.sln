@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRC", "IRC", "{5C216607-691
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.Data", "IRC\Data\BestChat.IRC.Data.csproj", "{54223CA6-BB79-4972-9F77-943B9E922AD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.Data.ProtocolMgr", "IRC\Protocol Manager\Data\BestChat.IRC.Data.ProtocolMgr.csproj", "{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.ProtocolMgr", "IRC\Protocol Manager\BestChat.IRC.ProtocolMgr.csproj", "{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

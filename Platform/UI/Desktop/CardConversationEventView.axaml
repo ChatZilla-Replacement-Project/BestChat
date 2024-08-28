@@ -1,13 +1,13 @@
 ﻿<UserControl
-	x:Class="BestChat.Platform.Ctrls.Desktop.CardConversationEventView"
+	x:Class="BestChat.Platform.UI.Desktop.CardConversationEventView"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:BestChat.Platform.Ctrls.Desktop"
+	xmlns:local="clr-namespace:BestChat.Platform.UI.Desktop"
 	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
-	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
 	xmlns:sys="using:System"
+	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
 	mc:Ignorable="d"
 	SizeChanged="OnSizeChanged">
 	<Grid>

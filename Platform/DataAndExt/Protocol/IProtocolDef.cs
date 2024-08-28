@@ -32,6 +32,10 @@ public interface IProtocolDef
 		get;
 	}
 
+	void SaveAllData(in System.IO.DirectoryInfo dirDataLoc)
+	{
+	}
+
 	bool GuiRecommended
 	{
 		get;

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="strDefQuitMsg" xml:space="preserve">
+    <value>Best Chat has exited.</value>
+  </data>
   <data name="strGlobalAliasesDesc" xml:space="preserve">
     <value>Lists custom command sets you can run as one.</value>
   </data>
@@ -159,6 +162,54 @@
   <data name="strGlobalAutoPerformWhenStartingBestChatTitle" xml:space="preserve">
     <value>When Starting Best Chat</value>
   </data>
+  <data name="strGlobalConnAutoReconnectDesc" xml:space="preserve">
+    <value>When your connection is lost unexpectedly, Best Chat can automatically reconnect to the server for you.</value>
+  </data>
+  <data name="strGlobalConnAutoReconnectTitle" xml:space="preserve">
+    <value>Reconnect when disconnected unexpectedly</value>
+  </data>
+  <data name="strGlobalConnCharEncodingDesc" xml:space="preserve">
+    <value>For multiple clients to correctly read messages with non-ASCII characters on IRC, they need to use the same character encoding.</value>
+  </data>
+  <data name="strGlobalConnCharEncodingTitle" xml:space="preserve">
+    <value>C_haracter Encoding</value>
+  </data>
+  <data name="strGlobalConnDefQuitMsgDesc" xml:space="preserve">
+    <value>Specifies a default quit message to use when on is not explicitly specified for a network or via the /quit command.</value>
+  </data>
+  <data name="strGlobalConnDefQuitMsgTitle" xml:space="preserve">
+    <value>Default Quit _Message</value>
+  </data>
+  <data name="strGlobalConnDesc" xml:space="preserve">
+    <value>These preferences affect how Best Chat connects to the Internet.</value>
+  </data>
+  <data name="strGlobalConnEnableIdentDesc" xml:space="preserve">
+    <value>Allows Best Chat to connect to servers that require an ident response</value>
+  </data>
+  <data name="strGlobalConnEnableIdentTitle" xml:space="preserve">
+    <value>Enable _Identification Server during connection process</value>
+  </data>
+  <data name="strGlobalConnMaxAttemptsDesc" xml:space="preserve">
+    <value>This is number of times Best Chat attempts to connect to a server or network.  A value of 1 means Best Chat will never attempt to reconnect to the server.</value>
+  </data>
+  <data name="strGlobalConnMaxAttemptsTitle" xml:space="preserve">
+    <value>Maximum Connection _Attempts:</value>
+  </data>
+  <data name="strGlobalConnRejoinAfterKickDesc" xml:space="preserve">
+    <value>If this is turned on, Best Chat will try (only once) to rejoin a channel you got kicked from.  Note: Some channels dislike auto-rejoin and will ban you.  So be careful.</value>
+  </data>
+  <data name="strGlobalConnRejoinAfterKickTitle" xml:space="preserve">
+    <value>R_ejoin when kicked</value>
+  </data>
+  <data name="strGlobalConnTitle" xml:space="preserve">
+    <value>_Connection</value>
+  </data>
+  <data name="strGlobalConnUnlimitedAttemptsDesc" xml:space="preserve">
+    <value>If checked, Best Chat will attempt to reconnect to any server forever.  If unchecked, the limit will be to the right.</value>
+  </data>
+  <data name="strGlobalConnUnlimitedAttemptsTitle" xml:space="preserve">
+    <value>Unlimited Attempts?</value>
+  </data>
   <data name="strGlobalDccDesc" xml:space="preserve">
     <value>DCC lets you bypass a server once you connected in order to talk to a specific user, send them files, or receive files from them.  Use this tab to control those settings.</value>
   </data>
@@ -200,5 +251,13 @@
   </data>
   <data name="strIRCRootTitle" xml:space="preserve">
     <value>IRC</value>
+  </data>
+  <data name="strNetDesc" xml:space="preserve">
+    <value>Lists preferences specific to the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetTitle" xml:space="preserve">
+    <value>{0} network preferences</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
 </root>

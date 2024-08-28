@@ -1,17 +1,19 @@
-﻿// Ignore Spelling: Prefs evt
+﻿// Ignore Spelling: Prefs evt Dcc dto Ip
+
+using System.Linq;
 
 namespace BestChat.IRC.Data.Prefs;
 
 public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-		protected Prefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) : base(mgrParent, "IRC", Rsrcs.strIRCRootTitle, Rsrcs
+		protected Prefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) : base(mgrParent, "IRC", PrefsRsrcs.strIRCRootTitle, PrefsRsrcs
 			.strIrcRootDesc)
 		{
 		}
 
-		protected Prefs(Platform.DataAndExt.Prefs.AbstractChildMgr mgrParent, DTO.IrcDTO dto) : base(mgrParent, "IRC", Rsrcs.strIRCRootTitle,
-			Rsrcs.strIrcRootDesc)
+		protected Prefs(Platform.DataAndExt.Prefs.AbstractChildMgr mgrParent, DTO.IrcDTO dto) : base(mgrParent, "IRC", PrefsRsrcs
+			.strIRCRootTitle, PrefsRsrcs.strIrcRootDesc)
 		{
 		}
 	#endregion
@@ -31,23 +33,25 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		{
 			#region Constructors & Deconstructors
 				public GlobalPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-					base(mgrParent, "Global", Rsrcs.strGlobalTitle, Rsrcs.strGlobalDesc)
+					base(mgrParent, "Global", PrefsRsrcs.strGlobalTitle, PrefsRsrcs.strGlobalDesc)
 				{
 					aliases = new(this);
 					autoPerform = new(this);
 					altNicks = new(this);
 					stalkWords = new(this);
 					dcc = new(this);
+					conn = new(this);
 				}
 
 				public GlobalPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO dto) :
-					base(mgrParent, "Global", Rsrcs.strGlobalTitle, Rsrcs.strGlobalDesc)
+					base(mgrParent, "Global", PrefsRsrcs.strGlobalTitle, PrefsRsrcs.strGlobalDesc)
 				{
 					aliases = new(this, dto.Aliases);
 					autoPerform = new(this, dto.AutoPerform);
 					altNicks = new(this, dto.AltNicks);
 					stalkWords = new(this, dto.StalkWords);
 					dcc = new(this, dto.DCC);
+					conn = new(this, dto.conn);
 				}
 			#endregion
 
@@ -66,11 +70,11 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
 						public AliasesPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-							base(mgrParent, "Aliases", Rsrcs.strGlobalAliasesTitle, Rsrcs.strGlobalAliasesDesc)
+							base(mgrParent, "Aliases", PrefsRsrcs.strGlobalAliasesTitle, PrefsRsrcs.strGlobalAliasesDesc)
 								=> mapEntriesSortedByName = [];
 
 						public AliasesPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO.AliasDTO[]? dto) :
-							base(mgrParent, "Aliases", Rsrcs.strGlobalAliasesTitle, Rsrcs.strGlobalAliasesDesc)
+							base(mgrParent, "Aliases", PrefsRsrcs.strGlobalAliasesTitle, PrefsRsrcs.strGlobalAliasesDesc)
 						{
 							mapEntriesSortedByName = [];
 							if(dto != null)
@@ -227,29 +231,31 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
 						public AutoPerformPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-							base(mgrParent, "Auto-perform", Rsrcs.strGlobalAutoPerformTitle, Rsrcs.strGlobalAutoPerformDesc)
+							base(mgrParent, "Auto-perform", PrefsRsrcs.strGlobalAutoPerformTitle, PrefsRsrcs.strGlobalAutoPerformDesc)
 						{
-							whenStartingBestChat = new(this, "When Starting Best Chat", Rsrcs
-								.strGlobalAutoPerformWhenStartingBestChatTitle, Rsrcs.strGlobalAutoPerformWhenStartingBestChatDesc);
-							whenJoiningNet = new(this, "When Joining a Network", Rsrcs.strGlobalAutoPerformWhenJoiningNetTitle, Rsrcs
-								.strGlobalAutoPerformWhenJoiningNetDesc);
-							whenJoiningChan = new(this, "When Joining a Channel", Rsrcs.strGlobalAutoPerformWhenJoiningChanTitle, Rsrcs
-								.strGlobalAutoPerformWhenJoiningChanDesc);
-							whenOpeningUserChat = new(this, "When Opening a User Chat", Rsrcs.strGlobalAutoPerformWhenOpeningUserChatTitle,
-								Rsrcs.strGlobalAutoPerformWhenOpeningUserChatDesc);
+							whenStartingBestChat = new(this, "When Starting Best Chat", PrefsRsrcs
+								.strGlobalAutoPerformWhenStartingBestChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenStartingBestChatDesc);
+							whenJoiningNet = new(this, "When Joining a Network", PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetTitle,
+								PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetDesc);
+							whenJoiningChan = new(this, "When Joining a Channel", PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanTitle,
+								PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanDesc);
+							whenOpeningUserChat = new(this, "When Opening a User Chat", PrefsRsrcs
+								.strGlobalAutoPerformWhenOpeningUserChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenOpeningUserChatDesc);
 						}
 
 						public AutoPerformPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO.AutoPerformDTO dto) :
-							base(mgrParent, "Auto-perform", Rsrcs.strGlobalAutoPerformTitle, Rsrcs.strGlobalAutoPerformDesc)
+							base(mgrParent, "Auto-perform", PrefsRsrcs.strGlobalAutoPerformTitle, PrefsRsrcs.strGlobalAutoPerformDesc)
 						{
-							whenStartingBestChat = new(this, "When Starting Best Chat", Rsrcs.strGlobalAutoPerformWhenStartingBestChatTitle, Rsrcs
-								.strGlobalAutoPerformWhenStartingBestChatDesc, dto.WhenStartingBestChat);
-							whenJoiningNet = new(this, "When Joining a Network", Rsrcs.strGlobalAutoPerformWhenJoiningNetTitle, Rsrcs
-								.strGlobalAutoPerformWhenJoiningNetTitle, dto.WhenJoiningNet);
-							whenJoiningChan = new(this, "When Joining a Channel", Rsrcs.strGlobalAutoPerformWhenJoiningChanTitle, Rsrcs
-								.strGlobalAutoPerformWhenJoiningChanDesc, dto.WhenJoiningChan);
-							whenOpeningUserChat = new(this, "When Opening a User Chat", Rsrcs.strGlobalAutoPerformWhenOpeningUserChatTitle, Rsrcs
-								.strGlobalAutoPerformWhenOpeningUserChatDesc, dto.WhenOpeningUserChat);
+							whenStartingBestChat = new(this, "When Starting Best Chat", PrefsRsrcs
+								.strGlobalAutoPerformWhenStartingBestChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenStartingBestChatDesc, dto
+								.WhenStartingBestChat);
+							whenJoiningNet = new(this, "When Joining a Network", PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetTitle,
+								PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetTitle, dto.WhenJoiningNet);
+							whenJoiningChan = new(this, "When Joining a Channel", PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanTitle,
+								PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanDesc, dto.WhenJoiningChan);
+							whenOpeningUserChat = new(this, "When Opening a User Chat", PrefsRsrcs
+								.strGlobalAutoPerformWhenOpeningUserChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenOpeningUserChatDesc, dto
+								.WhenOpeningUserChat);
 						}
 					#endregion
 
@@ -333,6 +339,9 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 					#endregion
 
 					#region Methods
+						public DTO.IrcDTO.GlobalDTO.AutoPerformDTO ToDTO()
+							=> new([.. whenStartingBestChat.Entries], [.. whenJoiningNet.Entries], [.. whenJoiningChan
+								.Entries], [.. whenOpeningUserChat.Entries]);
 					#endregion
 
 					#region Event Handlers
@@ -343,11 +352,11 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
 						public AltNicksPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-							base(mgrParent, "Alternate Nicks", Rsrcs.strGlobalAltNicksTitle, Rsrcs.strGlobalAltNicksDesc)
+							base(mgrParent, "Alternate Nicks", PrefsRsrcs.strGlobalAltNicksTitle, PrefsRsrcs.strGlobalAltNicksDesc)
 							=> llistEntries = [];
 
 						public AltNicksPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in string[]? dto) : 
-							base(mgrParent, "Alternate Nicks", Rsrcs.strGlobalAltNicksTitle, Rsrcs.strGlobalAltNicksDesc)
+							base(mgrParent, "Alternate Nicks", PrefsRsrcs.strGlobalAltNicksTitle, PrefsRsrcs.strGlobalAltNicksDesc)
 							=> llistEntries = dto == null
 								? []
 								: new(dto);
@@ -386,11 +395,11 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
 						public StalkWordsPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-							base(mgrParent, "Stalk Words", Rsrcs.strGlobalStalkWordsTitle, Rsrcs.strGlobalStalkWordsDesc)
+							base(mgrParent, "Stalk Words", PrefsRsrcs.strGlobalStalkWordsTitle, PrefsRsrcs.strGlobalStalkWordsDesc)
 							=> llistEntries = [];
 
 						public StalkWordsPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in string[]? dto)
-							: base(mgrParent, "Stalk Words", Rsrcs.strGlobalStalkWordsTitle, Rsrcs.strGlobalStalkWordsDesc)
+							: base(mgrParent, "Stalk Words", PrefsRsrcs.strGlobalStalkWordsTitle, PrefsRsrcs.strGlobalStalkWordsDesc)
 							=> llistEntries = dto == null
 								? []
 								: new(dto);
@@ -429,24 +438,26 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
 						public DccPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent)
-							: base(mgrParent, "DCC (Direct Client Chat)", Rsrcs.strGlobalDccTitle, Rsrcs.strGlobalDccTitle)
+							: base(mgrParent, "DCC (Direct Client Chat)", PrefsRsrcs.strGlobalDccTitle, PrefsRsrcs.strGlobalDccTitle)
 						{
-							enabled = new(this, "Enabled", Rsrcs.strGlobalDccEnabledTitle, Rsrcs.strGlobalDccEnabledDesc, false);
-							getIpFromServer = new(this, "Get IP From Server", Rsrcs.strGlobalDccGetIpFromServerTitle, Rsrcs
+							enabled = new(this, "Enabled", PrefsRsrcs.strGlobalDccEnabledTitle, PrefsRsrcs.strGlobalDccEnabledDesc,
+								false);
+							getIpFromServer = new(this, "Get IP From Server", PrefsRsrcs.strGlobalDccGetIpFromServerTitle, PrefsRsrcs
 								.strGlobalDccGetIpFromServerDesc, false);
-							downloadsFolder = new(this, "Downloads Folder", Rsrcs.strGlobalDccDownloadsFolderTitle, Rsrcs
-								.strGlobalDccDownloadsFolderDesc, null);
+							downloadsFolder = new(this, "Downloads Folder", PrefsRsrcs.strGlobalDccDownloadsFolderTitle,
+								PrefsRsrcs.strGlobalDccDownloadsFolderDesc, null);
 							llistPorts = [];
 						}
 
 						public DccPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO.GlobalDTO.DccDTO dto) :
-							base(mgrParent, "DCC (Direct Client Chat)", Rsrcs.strGlobalDccTitle, Rsrcs.strGlobalDccTitle)
+							base(mgrParent, "DCC (Direct Client Chat)", PrefsRsrcs.strGlobalDccTitle, PrefsRsrcs.strGlobalDccTitle)
 						{
-							enabled = new(this, "Enabled", Rsrcs.strGlobalDccEnabledTitle, Rsrcs.strGlobalDccEnabledDesc, dto.Enabled);
-							getIpFromServer = new(this, "Get IP From Server", Rsrcs.strGlobalDccGetIpFromServerTitle, Rsrcs
+							enabled = new(this, "Enabled", PrefsRsrcs.strGlobalDccEnabledTitle, PrefsRsrcs.strGlobalDccEnabledDesc,
+								dto.Enabled);
+							getIpFromServer = new(this, "Get IP From Server", PrefsRsrcs.strGlobalDccGetIpFromServerTitle, PrefsRsrcs
 								.strGlobalDccGetIpFromServerDesc, dto.GetLocalIpFromServer ?? false);
-							downloadsFolder = new(this, "Downloads Folder", Rsrcs.strGlobalDccDownloadsFolderTitle, Rsrcs
-								.strGlobalDccDownloadsFolderDesc, dto.DownloadsFolder == null ? null : new(dto.DownloadsFolder));
+							downloadsFolder = new(this, "Downloads Folder", PrefsRsrcs.strGlobalDccDownloadsFolderTitle,
+								PrefsRsrcs.strGlobalDccDownloadsFolderDesc, dto.DownloadsFolder == null ? null : new(dto.DownloadsFolder));
 							llistPorts = dto.Ports == null ? [] : new(dto.Ports);
 						}
 					#endregion
@@ -489,6 +500,119 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 					#endregion
 
 					#region Methods
+						public DTO.IrcDTO.GlobalDTO.DccDTO ToDTO()
+							=> new(enabled.CurVal, getIpFromServer.CurVal, downloadsFolder.CurVal?.FullName, [.. llistPorts]);
+					#endregion
+
+					#region Event Handlers
+					#endregion
+				}
+
+				public class ConnPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+				{
+					#region Constructors & Deconstructors
+						public ConnPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
+							base(mgrParent,"Connection", PrefsRsrcs.strGlobalConnTitle, PrefsRsrcs.strGlobalConnDesc)
+						{
+							enableIndent = new(this, "Enable Ident", PrefsRsrcs.strGlobalConnEnableIdentTitle, PrefsRsrcs
+								.strGlobalConnEnableIdentDesc, true);
+
+							autoReconnect = new(this, "Auto Reconnect", PrefsRsrcs.strGlobalConnAutoReconnectTitle, PrefsRsrcs
+								.strGlobalConnAutoReconnectDesc, true);
+
+							rejoinAfterKick = new(this, "Rejoin After Kick", PrefsRsrcs.strGlobalConnRejoinAfterKickTitle, PrefsRsrcs
+								.strGlobalConnRejoinAfterKickDesc, true);
+
+							characterEncoding = new(this, "Character Encoding", PrefsRsrcs.strGlobalConnCharEncodingTitle, PrefsRsrcs
+								.strGlobalConnCharEncodingDesc, "UTF-8");
+
+							unlimitedAttempts = new(this, "Unlimited Reconnection Attempts", PrefsRsrcs
+								.strGlobalConnUnlimitedAttemptsTitle, PrefsRsrcs.strGlobalConnUnlimitedAttemptsDesc, true);
+
+							maxAttempts = new(this, "Maximum Attempts to Reconnect", PrefsRsrcs.strGlobalConnMaxAttemptsTitle, PrefsRsrcs
+								.strGlobalConnMaxAttemptsDesc, 1, iMinVal: 1);
+
+							defQuitMsg = new(this, "Default Quit message", PrefsRsrcs.strGlobalConnDefQuitMsgTitle, PrefsRsrcs
+								.strGlobalConnDefQuitMsgDesc, PrefsRsrcs.strDefQuitMsg);
+						}
+
+						internal ConnPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO.ConnDTO dto) :
+							base(mgrParent, "Connection", PrefsRsrcs.strGlobalConnTitle, PrefsRsrcs.strGlobalConnDesc)
+						{
+							enableIndent = new(this, "Enable Ident", PrefsRsrcs.strGlobalConnEnableIdentTitle, PrefsRsrcs
+								.strGlobalConnEnableIdentDesc, true, dto.IsIdentEnabled);
+
+							autoReconnect = new(this, "Auto Reconnect", PrefsRsrcs.strGlobalConnAutoReconnectTitle, PrefsRsrcs
+								.strGlobalConnAutoReconnectDesc, true, dto.IsAutoReconnectEnabled);
+
+							rejoinAfterKick = new(this, "Rejoin After Kick", PrefsRsrcs.strGlobalConnRejoinAfterKickTitle, PrefsRsrcs
+								.strGlobalConnRejoinAfterKickDesc, true, dto.IsRejoinAfterKickEnabled);
+
+							characterEncoding = new(this, "Character Encoding", PrefsRsrcs.strGlobalConnCharEncodingTitle, PrefsRsrcs
+								.strGlobalConnCharEncodingDesc, "UTF-8", dto.CharEncoding);
+
+							unlimitedAttempts = new(this, "Unlimited Reconnection Attempts", PrefsRsrcs
+								.strGlobalConnUnlimitedAttemptsTitle, PrefsRsrcs.strGlobalConnUnlimitedAttemptsDesc, true, dto.IsUnlimitedAttemptsOn);
+
+							maxAttempts = new(this, "Maximum Attempts to Reconnect", PrefsRsrcs.strGlobalConnMaxAttemptsTitle, PrefsRsrcs
+								.strGlobalConnMaxAttemptsDesc, 1, iMinVal: 1, iCurVal: dto.MaxAttempts);
+
+							defQuitMsg = new(this, "Default Quit message", PrefsRsrcs.strGlobalConnDefQuitMsgTitle, PrefsRsrcs
+								.strGlobalConnDefQuitMsgDesc, PrefsRsrcs.strDefQuitMsg, dto.DefQuitMsg ?? PrefsRsrcs.strDefQuitMsg);
+						}
+					#endregion
+
+					#region Delegates
+					#endregion
+
+					#region Events
+						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+					#endregion
+
+					#region Constants
+					#endregion
+
+					#region Helper Types
+					#endregion
+
+					#region Members
+						public readonly Platform.DataAndExt.Prefs.Item<bool> enableIndent;
+						public readonly Platform.DataAndExt.Prefs.Item<bool> autoReconnect;
+						public readonly Platform.DataAndExt.Prefs.Item<bool> rejoinAfterKick;
+						public readonly Platform.DataAndExt.Prefs.Item<string> characterEncoding;
+						public readonly Platform.DataAndExt.Prefs.Item<bool> unlimitedAttempts;
+						public readonly Platform.DataAndExt.Prefs.IntItem maxAttempts;
+						public readonly Platform.DataAndExt.Prefs.Item<string> defQuitMsg;
+						// TODO: Add proxy once we know what we're doing with that.
+					#endregion
+
+					#region Properties
+						public Platform.DataAndExt.Prefs.Item<bool> EnableIdent
+							=> enableIndent;
+
+						public Platform.DataAndExt.Prefs.Item<bool> AutoReconnect
+							=> autoReconnect;
+
+						public Platform.DataAndExt.Prefs.Item<bool> RejoinAfterKick
+							=> rejoinAfterKick;
+
+						public Platform.DataAndExt.Prefs.Item<string> CharEncoding
+							=> characterEncoding;
+
+						public Platform.DataAndExt.Prefs.Item<bool> UnlimitedAttempts
+							=> unlimitedAttempts;
+
+						public Platform.DataAndExt.Prefs.IntItem MaxAttempts
+							=> maxAttempts;
+
+						public Platform.DataAndExt.Prefs.Item<string> DefQuitMsg
+							=> defQuitMsg;
+					#endregion
+
+					#region Methods
+						public DTO.IrcDTO.GlobalDTO.ConnDTO ToDTO()
+							=> new(enableIndent.CurVal, autoReconnect.CurVal, rejoinAfterKick.CurVal, characterEncoding.CurVal, unlimitedAttempts
+								.CurVal, maxAttempts.CurVal, defQuitMsg.CurVal);
 					#endregion
 
 					#region Event Handlers
@@ -506,6 +630,8 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				private readonly StalkWordsPrefs stalkWords;
 
 				private readonly DccPrefs dcc;
+
+				private readonly ConnPrefs conn;
 			#endregion
 
 			#region Properties
@@ -523,9 +649,22 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 
 				public DccPrefs DCC
 					=> dcc;
+
+				public ConnPrefs Conn
+					=> conn;
 			#endregion
 
 			#region Methods
+				public DTO.IrcDTO.GlobalDTO ToDTO()
+					=> new(
+						autoPerform.ToDTO(),
+						dcc.ToDTO(),
+						conn.ToDTO(),
+						aliases.Entries.Select(aliasCur
+							=> new DTO.IrcDTO.GlobalDTO.AliasDTO(aliasCur.Name, aliasCur.Cmd)).ToArray(),
+						[.. altNicks.Entries],
+						[.. stalkWords.Entries]
+					);
 			#endregion
 
 			#region Event Handlers
@@ -536,7 +675,7 @@ public abstract class Prefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		{
 			#region Constructors & Deconstructors
 				public NetworkPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
-					base(mgrParent, "IRC", Rsrcs.strGlobalAliasesTitle, Rsrcs.strGlobalAliasesDesc)
+					base(mgrParent, "IRC", PrefsRsrcs.strNetTitle, PrefsRsrcs.strNetTitle)
 				{
 				}
 			#endregion

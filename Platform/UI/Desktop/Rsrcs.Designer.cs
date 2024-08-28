@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BestChat.Platform.Ctrls.Desktop {
+namespace BestChat.Platform.UI.Desktop {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BestChat.Platform.Ctrls.Desktop {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.Ctrls.Desktop.Rsrcs", typeof(Rsrcs).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.UI.Desktop.Rsrcs", typeof(Rsrcs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

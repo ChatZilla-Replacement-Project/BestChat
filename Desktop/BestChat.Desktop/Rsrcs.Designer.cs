@@ -221,5 +221,41 @@ namespace BestChat.Desktop {
                 return ResourceManager.GetString("strGlobalAppearanceNormalFontFamilyTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New protocol detected!.
+        /// </summary>
+        internal static string strPermNeededToEnableProtocolCaption {
+            get {
+                return ResourceManager.GetString("strPermNeededToEnableProtocolCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new protocol called {0} published by {1} has been installed.  The publisher&apos;s description:\r\n\r\n&quot;{2}&quot;\r\n\r\nDo you wish to enable it?  A faulty module could cause Best Chat to become unstable.  Modules could also be used to attack your system.  Be sure you have a trusted source..
+        /// </summary>
+        internal static string strPermNeededToEnableProtocolQuestion {
+            get {
+                return ResourceManager.GetString("strPermNeededToEnableProtocolQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string strQuestionNo {
+            get {
+                return ResourceManager.GetString("strQuestionNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string strQuestionYes {
+            get {
+                return ResourceManager.GetString("strQuestionYes", resourceCulture);
+            }
+        }
     }
 }

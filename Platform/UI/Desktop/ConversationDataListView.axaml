@@ -1,5 +1,5 @@
 ﻿<ListBox
-	x:Class="BestChat.Platform.Ctrls.Desktop.ConversationDataListView"
+	x:Class="BestChat.Platform.UI.Desktop.ConversationDataListView"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

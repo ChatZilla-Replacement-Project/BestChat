@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Prefs
+﻿// Ignore Spelling: Prefs cmgr
 
 using System.Linq;
 
@@ -61,6 +61,12 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 			public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr.Editable> ChildMgrByName
 				=> mapChildMgrByName.Values;
 		}
+
+		public abstract record AbstractDTO
+		(
+			[System.Xml.Serialization.XmlIgnore]
+			string Key
+		);
 	#endregion
 
 	#region Members
@@ -79,14 +85,14 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Methods
-		internal void Add<ItemType>(in Item<ItemType> itemNew)
+		public void Add<ItemType>(in Item<ItemType> itemNew)
 		{
 			mapItemsByName[itemNew.LocalizedName] = itemNew;
 
 			itemNew.evtDirtyChanged += OnChildItemDirtyChanged;
 		}
 
-		internal void Add(in AbstractChildMgr cmgrNew)
+		public void Add(in AbstractChildMgr cmgrNew)
 		{
 			mapChildMgrByName[cmgrNew.LocalizedName] = cmgrNew;
 

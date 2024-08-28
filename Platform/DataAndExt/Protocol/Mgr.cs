@@ -6,7 +6,22 @@ namespace BestChat.Platform.DataAndExt.Protocol;
 
 using Ext;
 
-public abstract class Mgr<ProtocolInterfaceType> : System.ComponentModel.INotifyPropertyChanged
+public abstract class MgrBase
+{
+	protected MgrBase()
+	{
+		instance = this;
+	}
+
+	private static MgrBase? instance;
+
+	public static MgrBase Instance
+		=> instance ?? throw new System.InvalidProgramException("No protocol manager created yet");
+
+	public abstract void TellAllProtocolsToSave(in System.IO.DirectoryInfo dirDataLoc);
+}
+
+public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentModel.INotifyPropertyChanged
 	where ProtocolInterfaceType : IProtocolDef
 {
 	#region Constructors & Deconstructors
@@ -248,9 +263,9 @@ public abstract class Mgr<ProtocolInterfaceType> : System.ComponentModel.INotify
 		public System.Collections.Generic.IEnumerable<ProtocolMetaData> AllUnsortedProtocols
 			=> ocUnsortedProtocolDefs;
 
-		public System.Collections.Generic.IEnumerable<ProtocolInterfaceType?> AllEnabledProtocols
+		public System.Collections.Generic.IEnumerable<ProtocolInterfaceType> AllEnabledProtocols
 			=> mapNameToProtocolDefs.Values.Where(iprotCur => iprotCur.IsEnabled).Select(iprotCur => iprotCur
-				.Protocol);
+				.Protocol).Cast<ProtocolInterfaceType>();
 	#endregion
 
 	#region Methods
@@ -259,7 +274,7 @@ public abstract class Mgr<ProtocolInterfaceType> : System.ComponentModel.INotify
 			System.Reflection.Assembly assemblyCurProtocolModule = System.Reflection.Assembly.LoadFile(fileProtocolModule.FullName);
 
 			string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName ?? throw new System.InvalidProgramException("The type" +
-				" provided to BestChat.Platform.DataAndExt.Protocol.Mgr's constructor doesn't have a name.");
+				" provided to BestChat.Platform.DataAndExt.Protocol.Mgr doesn't have a name.");
 
 			ProtocolMetaData iprotNew = new(assemblyCurProtocolModule);
 			iprotNew.evtDirtyChanged += OnProtocolInfoDirtyChanged;
@@ -275,6 +290,12 @@ public abstract class Mgr<ProtocolInterfaceType> : System.ComponentModel.INotify
 			iprotNew.IsEnabled = astrProtocolNamesToEnable == null
 				? funcNewProtocolEnabler(iprotNew)
 				: astrProtocolNamesToEnable.Contains(iprotNew.ProtocolName);
+		}
+
+		public override void TellAllProtocolsToSave(in System.IO.DirectoryInfo dirDataLoc)
+		{
+			foreach(ProtocolInterfaceType iprotCur in AllEnabledProtocols)
+				iprotCur.SaveAllData(dirDataLoc);
 		}
 	#endregion
 

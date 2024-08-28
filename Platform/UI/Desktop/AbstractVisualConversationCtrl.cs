@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrls Ctrl gvc
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 public abstract class AbstractVisualConversationCtrl : AbstractVisualCtrl
 {

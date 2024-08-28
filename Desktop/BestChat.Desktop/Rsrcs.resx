@@ -171,4 +171,17 @@
   <data name="strGlobalAppearanceNormalFontFamilyTitle" xml:space="preserve">
     <value>Normal Font Family</value>
   </data>
+  <data name="strPermNeededToEnableProtocolCaption" xml:space="preserve">
+    <value>New protocol detected!</value>
+  </data>
+  <data name="strPermNeededToEnableProtocolQuestion" xml:space="preserve">
+    <value>A new protocol called {0} published by {1} has been installed.  The publisher's description:\r\n\r\n"{2}"\r\n\r\nDo you wish to enable it?  A faulty module could cause Best Chat to become unstable.  Modules could also be used to attack your system.  Be sure you have a trusted source.</value>
+    <comment>"{0}" will be replaced by the name of the protocol.  "{1}" will be replaced by the publisher's name.  "{2}" will be replaced by a potentially lengthy description of that protocol.  Plan on putting newlines before and after the description.</comment>
+  </data>
+  <data name="strQuestionNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="strQuestionYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

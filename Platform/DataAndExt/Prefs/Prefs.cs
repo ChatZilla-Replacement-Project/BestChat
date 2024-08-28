@@ -85,31 +85,32 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 						public class ConfModePrefs : AbstractChildMgr
 						{
 							#region Constructors & Deconstructors
-								public ConfModePrefs(in AbstractMgr mgrParent) : base(mgrParent, "Conference Mode", Rsrcs.strGlobalAppearanceConfModeTitle,
-									Rsrcs.strGlobalAppearanceConfModeDesc)
+								public ConfModePrefs(in AbstractMgr mgrParent) : base(mgrParent, "Conference Mode", Rsrcs
+									.strGlobalAppearanceConfModeTitle, Rsrcs.strGlobalAppearanceConfModeDesc)
 								{
 									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs.strGlobalAppearanceConfModeEnabledTitle,
 										Rsrcs.strGlobalAppearanceConfModeEnabledDesc, false);
-									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs.strGlobalAppearanceConfModeLimitTitle,
-										Rsrcs.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2);
+									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs
+										.strGlobalAppearanceConfModeLimitTitle, Rsrcs.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2);
 									actionsCollapsed = new(this, "Collapse Actions When Collapsing Messages", Rsrcs
 										.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs.strGlobalAppearanceConfModeCollapseActionsDesc, false);
-									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle, Rsrcs
-										.strGlobalAppearanceConfModeCollapseMsgsDesc, false);
+									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle,
+										Rsrcs.strGlobalAppearanceConfModeCollapseMsgsDesc, false);
 								}
 
 								internal ConfModePrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO.ConfModeDTO dto) :
 									base(mgrParent, "Conference Mode", Rsrcs.strGlobalAppearanceConfModeTitle, Rsrcs.strGlobalAppearanceConfModeDesc)
 								{
-									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs.strGlobalAppearanceConfModeEnabledTitle, Rsrcs
-										.strGlobalAppearanceConfModeEnabledDesc, false, dto.ConfModeEnabled);
-									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs.strGlobalAppearanceConfModeLimitTitle,
+									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs.strGlobalAppearanceConfModeEnabledTitle,
+										Rsrcs.strGlobalAppearanceConfModeEnabledDesc, false, dto.ConfModeEnabled);
+									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs
+										.strGlobalAppearanceConfModeLimitTitle,
 										Rsrcs.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2, iCurVal: dto.UserLimitBeforeTrigger);
 									actionsCollapsed = new(this, "Collapse Actions When Collapsing Messages", Rsrcs
 										.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs.strGlobalAppearanceConfModeCollapseActionsDesc, false, dto
 										.ActionsCollapsed);
-									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle, Rsrcs
-										.strGlobalAppearanceConfModeCollapseMsgsDesc, false, dto.MsgsCollapsed);
+									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle,
+										Rsrcs.strGlobalAppearanceConfModeCollapseMsgsDesc, false, dto.MsgsCollapsed);
 								}
 							#endregion
 
@@ -151,6 +152,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							#endregion
 
 							#region Methods
+								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.ConfModeDTO ToDTO()
+									=> new(confModeEnabled.CurVal, userLimitBeforeTrigger.CurVal, actionsCollapsed.CurVal, msgsCollapsed.CurVal);
 							#endregion
 
 							#region Event Handlers
@@ -207,6 +210,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							#endregion
 
 							#region Methods
+								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO ToDTO()
+									=> new(show.CurVal, Fmt.CurVal);
 							#endregion
 
 							#region Event Handlers
@@ -277,6 +282,9 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							#region Methods
 								private void FirePropChanged(string strWhichProp)
 									=> PropertyChanged?.Invoke(this, new(strWhichProp));
+
+								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.UserListDTO ToDTO()
+									=> new(location.CurVal, howToShowModes.CurVal, sortByMode.CurVal);
 							#endregion
 
 							#region Event Handlers
@@ -446,6 +454,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 									#endregion
 
 									#region Methods
+										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.WhereToLookDTO ToDTO()
+											=> new([.. llistPaths], includeSysPath.CurVal);
 									#endregion
 
 									#region Event Handlers
@@ -687,6 +697,9 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 									#region Methods
 										private void FirePropChanged(string strNameOfChangedProp) => PropertyChanged?.Invoke(this, new
 											(strNameOfChangedProp));
+
+										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
+											=> new(strFileNameExtOrMask, fileProgramNeeded?.FullName, strParamsToPass, bEnabled);
 									#endregion
 
 									#region Event Handlers
@@ -810,6 +823,9 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 									#region Methods
 										private void FirePropChanged(string strNameOfChangedProp) => PropertyChanged?.Invoke(this, new
 											(strNameOfChangedProp));
+
+										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO ToDTO()
+											=> new(strName, fileProgram.FullName, strParamsToPass, bEnabled);
 									#endregion
 
 									#region Event Handlers
@@ -836,6 +852,14 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							#endregion
 
 							#region Methods
+								public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO ToDTO()
+									=> new(
+										whereToLook.ToDTO(),
+										scripts.Select(scriptCur
+											=> scriptCur.ToDTO()).ToArray(),
+										programs.Select(progCur
+											=> progCur.ToDTO()).ToArray()
+									);
 							#endregion
 
 							#region Event Handlers
@@ -860,187 +884,16 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 
 					#region Properties
 						public ExtPrefs Ext => ext;
-					#endregion
+			#endregion
 
 					#region Methods
+						public DTO.PrefsDTO.GlobalDTO.PluginsDTO ToDTO()
+							=> new(ext.ToDTO());
 					#endregion
 
 					#region Event Handlers
 					#endregion
 				}
-
-				public class GeneralPrefs : AbstractChildMgr
-			{
-				#region Constructors & Deconstructors
-					public GeneralPrefs(AbstractMgr mgrParent) : base(mgrParent, "General", Rsrcs.strGlobalGeneralName,
-						Rsrcs.strGlobalGeneralToolTipText)
-					{
-						conn = new(this);
-					}
-
-					internal GeneralPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.GeneralDTO dto) :
-						base(mgrParent, "General", Rsrcs.strGlobalGeneralName, Rsrcs
-						.strGlobalGeneralToolTipText)
-					{
-						conn = new(this, dto.Conn);
-					}
-				#endregion
-
-				#region Delegates
-				#endregion
-
-				#region Events
-					public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-				#endregion
-
-				#region Constants
-				#endregion
-
-				#region Helper Types
-				public class ConnPrefs : AbstractChildMgr
-				{
-					#region Constructors & Deconstructors
-					public ConnPrefs(AbstractMgr mgrParent) : base(mgrParent,
-						"Connection", Rsrcs.strGlobalName, Rsrcs
-						.strGlobalNameToolTipText)
-					{
-						itemEnableIndent = new(this, "Enable Ident",
-							Rsrcs.strGlobalGeneralConnEnableIdentName, Rsrcs
-							.strGlobalGeneralConnEnableIdentToolTipText, true);
-
-						itemAutoReconnect = new(this, "Auto Reconnect", Rsrcs
-							.strGlobalGeneralConnAutoReconnectName, Rsrcs
-							.strGlobalGeneralConnAutoReconnectToolTipText, true);
-
-						itemRejoinAfterKick = new(this, "Rejoin After Kick", Rsrcs
-							.strGlobalGeneralConnRejoinAfterKickName, Rsrcs
-							.strGlobalGeneralConnRejoinAfterKickToolTipText, true);
-
-						itemCharEncoding = new(this, "Character Encoding", Rsrcs
-							.strGlobalGeneralConnCharEncodingName, Rsrcs
-							.strGlobalGeneralConnCharEncodingToolTipName, "UTF-8");
-
-						itemUnlimitedAttempts = new(this, "Unlimited Reconnection " +
-							"Attempts", Rsrcs.strGlobalGeneralConnUnlimitedAttemptsName, Rsrcs
-							.strGlobalGeneralConnUnlimitedAttemptsToolTipText, true);
-
-						itemMaxAttempts = new(this, "Maximum Attempts to Reconnect",
-							Rsrcs.strGlobalGeneralConnMaxAttemptsName, Rsrcs
-							.strGlobalGeneralConnMaxAttemptsToolTipText, 1, iMinVal: 1);
-
-						itemDefQuitMsg = new(this, "Default Quit message", Rsrcs
-							.strGlobalGeneralConnDefQuitMsgName, Rsrcs
-							.strGlobalGeneralConnDefQuitMsgToolTipText, Rsrcs.strDefQuitMsg);
-					}
-
-					internal ConnPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.GeneralDTO
-						.ConnDTO dto) : base(mgrParent, "Connection", Rsrcs.strGlobalName,
-						Rsrcs.strGlobalNameToolTipText)
-					{
-						itemEnableIndent = new(this, "Enable Ident",
-							Rsrcs.strGlobalGeneralConnEnableIdentName, Rsrcs
-							.strGlobalGeneralConnEnableIdentToolTipText, true, dto.IsIndentEnabled);
-
-						itemAutoReconnect = new(this, "Auto Reconnect", Rsrcs
-							.strGlobalGeneralConnAutoReconnectName, Rsrcs
-							.strGlobalGeneralConnAutoReconnectToolTipText, true, dto
-							.IsAutoReconnectEnabled);
-
-						itemRejoinAfterKick = new(this, "Rejoin After Kick", Rsrcs
-							.strGlobalGeneralConnRejoinAfterKickName, Rsrcs
-							.strGlobalGeneralConnRejoinAfterKickToolTipText, true, dto
-							.IsRejoinAfterKickEnabled);
-
-						itemCharEncoding = new(this, "Character Encoding", Rsrcs
-							.strGlobalGeneralConnCharEncodingName, Rsrcs
-							.strGlobalGeneralConnCharEncodingToolTipName, "UTF-8", dto.CharEncoding);
-
-						itemUnlimitedAttempts = new(this, "Unlimited Reconnection " +
-							"Attempts", Rsrcs.strGlobalGeneralConnUnlimitedAttemptsName, Rsrcs
-							.strGlobalGeneralConnUnlimitedAttemptsToolTipText, true, dto
-							.IsUnlimitedAttemptsOn);
-
-						itemMaxAttempts = new(this, "Maximum Attempts to Reconnect",
-							Rsrcs.strGlobalGeneralConnMaxAttemptsName, Rsrcs
-							.strGlobalGeneralConnMaxAttemptsToolTipText, 1, iMinVal: 1, iCurVal: dto
-							.MaxAttempts);
-
-						itemDefQuitMsg = new(this, "Default Quit message", Rsrcs
-							.strGlobalGeneralConnDefQuitMsgName, Rsrcs
-							.strGlobalGeneralConnDefQuitMsgToolTipText, Rsrcs.strDefQuitMsg, dto.DefQuitMsg
-							?? Rsrcs.strDefQuitMsg);
-					}
-					#endregion
-
-					#region Delegates
-					#endregion
-
-					#region Events
-					public override event System.ComponentModel.PropertyChangedEventHandler?
-						PropertyChanged;
-					#endregion
-
-					#region Constants
-					#endregion
-
-					#region Helper Types
-					#endregion
-
-					#region Members
-					public readonly Item<bool> itemEnableIndent;
-					public readonly Item<bool> itemAutoReconnect;
-					public readonly Item<bool> itemRejoinAfterKick;
-					public readonly Item<string> itemCharEncoding;
-					public readonly Item<bool> itemUnlimitedAttempts;
-					public readonly IntItem itemMaxAttempts;
-					public readonly Item<string> itemDefQuitMsg;
-					// TODO: Add proxy once we know what we're doing with that.
-					#endregion
-
-					#region Properties
-					public Item<bool> EnableIdent => itemEnableIndent;
-
-					public Item<bool> AutoReconnect => itemAutoReconnect;
-
-					public Item<bool> RejoinAfterKick => itemRejoinAfterKick;
-
-					public Item<string> CharEncoding => itemCharEncoding;
-
-					public Item<bool> UnlimitedAttempts => itemUnlimitedAttempts;
-
-					public IntItem MaxAttempts => itemMaxAttempts;
-
-					public Item<string> DefQuitMsg => itemDefQuitMsg;
-					#endregion
-
-					#region Methods
-					#endregion
-
-					#region Event Handlers
-					#endregion
-				}
-				#endregion
-
-				#region Members
-				public readonly ConnPrefs conn;
-				#endregion
-
-				#region Properties
-				public ConnPrefs Conn => conn;
-				#endregion
-
-				#region Methods
-				#endregion
-
-				#region Event Handlers
-				private void OnChildMgrDirtyChanged(AbstractMgr mgrSender, bool bIsNowDirty)
-				{
-					if(bIsNowDirty)
-						MakeDirty();
-				}
-				#endregion
-			}
-
 			#endregion
 
 			#region Members
@@ -1053,7 +906,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 					get;
 				}
 
-				public PluginPrefs Plugin
+				public PluginPrefs Plugins
 					=> plugin;
 			#endregion
 
@@ -1069,7 +922,9 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr> mapMgrsForProtolsByName =
 			[];
 
-		private System.IO.FileInfo? fileOurSettings = null;
+		private static System.IO.FileInfo? fileOurSettings = null;
+
+		private static System.Xml.Serialization.XmlSerializer? serializer;
 	#endregion
 
 	#region Properties
@@ -1080,23 +935,27 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 	#endregion
 
 	#region Methods
-		protected MainDtoType? Load<MainDtoType>(in System.IO.DirectoryInfo folderLocalDataLoc)
+		protected static MainDtoType? Load<MainDtoType>(in System.IO.DirectoryInfo dirLocalDataLoc)
 			where MainDtoType : DTO.PrefsDTO
 		{
-			fileOurSettings ??= new(System.IO.Path.Combine(folderLocalDataLoc.FullName, "settings.json"));
+			fileOurSettings ??= new(System.IO.Path.Combine(dirLocalDataLoc.FullName, "settings.json"));
 
 			return fileOurSettings.Exists
-				? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenText().ReadToEnd(), jsoStandard)
+				? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenRead(), jsoStandard)
 				: null;
 		}
 
-		public void Save()
+		protected abstract DTO.PrefsDTO ToDTO();
+
+		public void Save(in System.IO.DirectoryInfo dirLocalDataLoc)
 		{
 			if(fileOurSettings == null)
 				throw new System.InvalidProgramException("The settings file wasn't set before attempting to save preferences.");
 
 			using(System.IO.FileStream stream = fileOurSettings.OpenWrite())
-				System.Text.Json.JsonSerializer.Serialize(stream, ToTupleList(), jsoStandard);
+				System.Text.Json.JsonSerializer.Serialize(stream, ToDTO(), jsoStandard);
+
+			Protocol.MgrBase.Instance.TellAllProtocolsToSave(dirLocalDataLoc);
 		}
 	#endregion
 

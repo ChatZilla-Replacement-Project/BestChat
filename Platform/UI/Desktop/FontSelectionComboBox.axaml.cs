@@ -2,7 +2,7 @@
 
 using System.Linq;
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 /// <summary>
 /// Interaction logic for FontSelectionComboBox.xaml

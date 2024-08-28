@@ -1,6 +1,6 @@
 // Ignore Spelling: Ctrl Ctrls evt Sel
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 public partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
 {

@@ -1,5 +1,5 @@
 ﻿<UserControl
-	x:Class="BestChat.Platform.Ctrls.Desktop.FileBrowserCtrl"
+	x:Class="BestChat.Platform.UI.Desktop.FileBrowserCtrl"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrl gvc Prefs cmgr Defs Loc
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IProtocolGuiDef>
 {

@@ -5,6 +5,8 @@ namespace BestChat
 		#region Constructors & Deconstructors
 			public MainWnd()
 			{
+				instance = this;
+
 				InitializeComponent();
 			}
 		#endregion
@@ -23,9 +25,13 @@ namespace BestChat
 
 		#region Members
 			private PrefsWnd? prefsWnd = null;
+
+			private static MainWnd? instance = null;
 		#endregion
 
 		#region Properties
+			public static MainWnd? Instance
+				=> instance;
 		#endregion
 
 		#region Methods

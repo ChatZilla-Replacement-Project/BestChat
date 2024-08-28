@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrls
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 /// <summary>
 /// Interaction logic for CardConversationEventView.xaml
@@ -39,7 +39,7 @@ public partial class CardConversationEventView : Avalonia.Controls.UserControl
 	#endregion
 
 	#region Event Handlers
-		protected void OnSizeChanged(object objSender, Avalonia.Controls.SizeChangedEventArgs e) => textDescOfEvent.MaxWidth = e.NewSize.Width *
-			.8;
+		protected void OnSizeChanged(object objSender, Avalonia.Controls.SizeChangedEventArgs e)
+			=> textDescOfEvent.MaxWidth = e.NewSize.Width * .8;
 	#endregion
 }

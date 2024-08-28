@@ -61,6 +61,15 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best Chat has exited..
+        /// </summary>
+        internal static string strDefQuitMsg {
+            get {
+                return ResourceManager.GetString("strDefQuitMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lists custom command sets you can run as one..
         /// </summary>
         internal static string strGlobalAliasesDesc {
@@ -187,6 +196,150 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When your connection is lost unexpectedly, Best Chat can automatically reconnect to the server for you..
+        /// </summary>
+        internal static string strGlobalConnAutoReconnectDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnAutoReconnectDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reconnect when disconnected unexpectedly.
+        /// </summary>
+        internal static string strGlobalConnAutoReconnectTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnAutoReconnectTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For multiple clients to correctly read messages with non-ASCII characters on IRC, they need to use the same character encoding..
+        /// </summary>
+        internal static string strGlobalConnCharEncodingDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnCharEncodingDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C_haracter Encoding.
+        /// </summary>
+        internal static string strGlobalConnCharEncodingTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnCharEncodingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies a default quit message to use when on is not explicitly specified for a network or via the /quit command..
+        /// </summary>
+        internal static string strGlobalConnDefQuitMsgDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnDefQuitMsgDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Quit _Message.
+        /// </summary>
+        internal static string strGlobalConnDefQuitMsgTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnDefQuitMsgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These preferences affect how Best Chat connects to the Internet..
+        /// </summary>
+        internal static string strGlobalConnDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows Best Chat to connect to servers that require an ident response.
+        /// </summary>
+        internal static string strGlobalConnEnableIdentDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnEnableIdentDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable _Identification Server during connection process.
+        /// </summary>
+        internal static string strGlobalConnEnableIdentTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnEnableIdentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is number of times Best Chat attempts to connect to a server or network.  A value of 1 means Best Chat will never attempt to reconnect to the server..
+        /// </summary>
+        internal static string strGlobalConnMaxAttemptsDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnMaxAttemptsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Connection _Attempts:.
+        /// </summary>
+        internal static string strGlobalConnMaxAttemptsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnMaxAttemptsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this is turned on, Best Chat will try (only once) to rejoin a channel you got kicked from.  Note: Some channels dislike auto-rejoin and will ban you.  So be careful..
+        /// </summary>
+        internal static string strGlobalConnRejoinAfterKickDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnRejoinAfterKickDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to R_ejoin when kicked.
+        /// </summary>
+        internal static string strGlobalConnRejoinAfterKickTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnRejoinAfterKickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Connection.
+        /// </summary>
+        internal static string strGlobalConnTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If checked, Best Chat will attempt to reconnect to any server forever.  If unchecked, the limit will be to the right..
+        /// </summary>
+        internal static string strGlobalConnUnlimitedAttemptsDesc {
+            get {
+                return ResourceManager.GetString("strGlobalConnUnlimitedAttemptsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlimited Attempts?.
+        /// </summary>
+        internal static string strGlobalConnUnlimitedAttemptsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalConnUnlimitedAttemptsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DCC lets you bypass a server once you connected in order to talk to a specific user, send them files, or receive files from them.  Use this tab to control those settings..
         /// </summary>
         internal static string strGlobalDccDesc {
@@ -309,6 +462,24 @@ namespace BestChat.IRC.Data.Prefs {
         internal static string strIRCRootTitle {
             get {
                 return ResourceManager.GetString("strIRCRootTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lists preferences specific to the network {0}.
+        /// </summary>
+        internal static string strNetDesc {
+            get {
+                return ResourceManager.GetString("strNetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} network preferences.
+        /// </summary>
+        internal static string strNetTitle {
+            get {
+                return ResourceManager.GetString("strNetTitle", resourceCulture);
             }
         }
     }

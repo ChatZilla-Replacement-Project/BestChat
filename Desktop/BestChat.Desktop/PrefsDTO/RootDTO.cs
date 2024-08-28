@@ -2,7 +2,10 @@
 
 namespace BestChat.Desktop.PrefsDTO;
 
-internal record RootDTO(RootDTO.GlobalDTO Global) : Platform.DataAndExt.Prefs.DTO.PrefsDTO
+internal record RootDTO
+(
+	RootDTO.GlobalDTO Global
+) : Platform.DataAndExt.Prefs.DTO.PrefsDTO
 {
 	public new record GlobalDTO : Platform.DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO
 	{
@@ -18,20 +21,23 @@ internal record RootDTO(RootDTO.GlobalDTO Global) : Platform.DataAndExt.Prefs.DT
 				TimeStampDTO timeStamp,
 				UserListDTO userList,
 				FontDTO fonts
-			) :
-				base(confMode, timeStamp, userList)
+			) : base(confMode, timeStamp, userList)
 				=> Fonts = fonts;
 
 			public record FontDTO(FontDTO.OneFontBlockDTO AppFontData, FontDTO.OneFontBlockDTO ViewFontData)
 			{
-				public record OneFontBlockDTO(OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontFamily> NormalFamily, OneFontBlockDTO
-					.InfoPairDTO<Avalonia.Media.FontFamily> FixedFontFamily, OneFontBlockDTO.InfoPairDTO<double> Size, OneFontBlockDTO
-					.InfoPairDTO<Avalonia.Media.FontWeight> Weight)
+				public record OneFontBlockDTO
+				(
+					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontFamily> NormalFamily,
+					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontFamily> FixedFontFamily,
+					OneFontBlockDTO.InfoPairDTO<double> Size,
+					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontWeight> Weight
+				) : Platform.DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Fonts")
 				{
 					public record InfoPairDTO<FieldType>
 					(
 						bool IsOverridden,
-						FieldType OverriddenVal
+						FieldType? OverriddenVal
 					);
 				}
 			}

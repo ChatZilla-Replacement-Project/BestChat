@@ -1,6 +1,6 @@
 ﻿// Ignore Spelling: Ctrl Ctrls
 
-namespace BestChat.Platform.Ctrls.Desktop;
+namespace BestChat.Platform.UI.Desktop;
 
 /// <summary>
 /// Interaction logic for FolderBrowserCtrl.xaml

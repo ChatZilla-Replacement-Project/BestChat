@@ -35,7 +35,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.12" />
+		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.19" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -44,10 +44,10 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>PrefsRsrcs.resx</DependentUpon>
 		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Settings.settings</DependentUpon>
+		<Compile Update="Rsrcs.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Rsrcs.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
@@ -63,10 +63,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Properties\Settings.settings">
-			<Generator>SettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
 		<None Update="Readme.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

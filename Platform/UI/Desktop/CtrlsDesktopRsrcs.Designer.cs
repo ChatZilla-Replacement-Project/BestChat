@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BestChat.Platform.Ctrls.Desktop {
+namespace BestChat.Platform.UI.Desktop {
     using System;
     
     

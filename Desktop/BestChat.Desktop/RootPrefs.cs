@@ -1,5 +1,8 @@
 ﻿// Ignore Spelling: Prefs
 
+
+using System.Linq;
+
 namespace BestChat.Desktop
 {
 	public class RootPrefs : Platform.DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs.GlobalPrefs.AppearancePrefs>
@@ -8,11 +11,31 @@ namespace BestChat.Desktop
 			private RootPrefs()
 			{
 				global = new(this);
+
+
+				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App.LocalDataLoc, App
+					.AskUserIfTheyWantToEnableNewProtocol);
+
+				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr.AllEnabledProtocols)
+				{
+					if(iprotCur != null && iprotCur.RootPrefForProtocol != null)
+						Add(iprotCur.RootPrefForProtocol);
+				}
 			}
 
 			private RootPrefs(PrefsDTO.RootDTO dto)
 			{
 				global = new(this, dto.Global);
+
+
+				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App.LocalDataLoc, App
+					.AskUserIfTheyWantToEnableNewProtocol);
+
+				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr.AllEnabledProtocols)
+				{
+					if(iprotCur != null && iprotCur.RootPrefForProtocol != null)
+						Add(iprotCur.RootPrefForProtocol);
+				}
 			}
 
 			static RootPrefs() => instance = new();
@@ -248,6 +271,8 @@ namespace BestChat.Desktop
 												#endregion
 
 												#region Methods
+													internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType> ToDTO()
+														=> new(isThemeOverridden.CurVal, overridenVal.CurVal);
 												#endregion
 
 												#region Event Handlers
@@ -280,6 +305,8 @@ namespace BestChat.Desktop
 										#endregion
 
 										#region Methods
+											internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO ToDTO()
+												=> new(normalFontFamily.ToDTO(), fixedWidthFontFamily.ToDTO(), size.ToDTO(), weight.ToDTO());
 										#endregion
 
 										#region Event Handlers
@@ -300,6 +327,8 @@ namespace BestChat.Desktop
 								#endregion
 
 								#region Methods
+									internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO ToDTO()
+										=> new(appFonts.ToDTO(), viewFonts.ToDTO());
 								#endregion
 
 								#region Event Handlers
@@ -316,6 +345,8 @@ namespace BestChat.Desktop
 						#endregion
 
 						#region Methods
+							internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO ToDTO()
+								=> new(ConfMode.ToDTO(), TimeStamp.ToDTO(), UserList.ToDTO(), fonts.ToDTO());
 						#endregion
 
 						#region Event Handlers
@@ -332,6 +363,8 @@ namespace BestChat.Desktop
 				#endregion
 
 				#region Methods
+					internal PrefsDTO.RootDTO.GlobalDTO ToDTO()
+						=> new(appearance.ToDTO(), Plugins.ToDTO());
 				#endregion
 
 				#region Event Handlers
@@ -340,19 +373,30 @@ namespace BestChat.Desktop
 		#endregion
 
 		#region Members
-			public static readonly RootPrefs instance;
+			private static RootPrefs? instance = null;
 
 			public readonly GlobalPrefs global;
 		#endregion
 
 		#region Properties
 			public static RootPrefs Instance
-				=> instance;
+				=> instance ?? throw new System.InvalidProgramException("Call BestChat.Desktop.RootPrefs.Load before accessing the " +
+					"instance");
 
 			public override GlobalPrefs Global => global;
 		#endregion
 
 		#region Methods
+			public static void Load()
+			{
+				if(instance != null)
+					instance = Load<PrefsDTO.RootDTO>(App.LocalDataLoc) is PrefsDTO.RootDTO dto
+						? new(dto)
+						: new();
+			}
+
+			protected override Platform.DataAndExt.Prefs.DTO.PrefsDTO ToDTO()
+				=> new PrefsDTO.RootDTO(global.ToDTO());
 		#endregion
 
 		#region Event Handlers
