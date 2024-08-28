@@ -74,4 +74,8 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Prefs\" />
+	</ItemGroup>
+
 </Project>

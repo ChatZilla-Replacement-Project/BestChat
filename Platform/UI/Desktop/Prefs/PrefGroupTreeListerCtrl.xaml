@@ -1,0 +1,41 @@
+﻿<ItemsControl
+	x:Class="BestChat.Platform.UI.Desktop.Prefs.PrefGroupTreeListerCtrl"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:data="clr-namespace:BestChat.Platform.DataAndExt.Prefs;assembly=BestChat.Platform.DataAndExt"
+	xmlns:local="clr-namespace:BestChat.Platform.UI.Desktop.Prefs"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d">
+	<ItemsControl.ItemTemplate>
+		<DataTemplate
+			DataType="data:AbstractMgr">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="20" />
+					<ColumnDefinition
+						Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition
+						Height="Auto" />
+					<RowDefinition
+						Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Grid.ColumnSpan="2"
+					ToolTip="{Binding LocalizedLongDesc}"><InlineUIContainer><HyperlinkButton>
+						<Label
+								Content="{Binding LocalizedName}" />
+					</HyperlinkButton></InlineUIContainer></TextBlock>
+				<local:PrefGroupTreeListerCtrl
+					Grid.Row="1"
+					Grid.Column="1"
+					IsVisible="{calc:Binding 'Children != null and Children.Count &lt; 0', RelativeSource={RelativeSource AncestorType=local:PrefsGroupTreeListerCtrl}}"
+					ItemsSource="{Binding Children, RelativeSource={RelativeSource AncestorType=local:PrefsGroupTreeListerCtrl}}" />
+			</Grid>
+		</DataTemplate>
+	</ItemsControl.ItemTemplate>
+</ItemsControl>

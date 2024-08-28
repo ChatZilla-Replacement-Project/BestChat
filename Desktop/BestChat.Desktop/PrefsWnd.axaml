@@ -2,10 +2,11 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				x:Class="BestChat.PrefsWnd"
 				mc:Ignorable="d"
 				MinWidth="800"
 				MinHeight="450"
-				x:Class="BestChat.PrefsWnd"
+				Padding="4"
 				Title="Best Chat Preferences">
 	<DockPanel>
 		<Grid
@@ -50,6 +51,28 @@
 				Grid.Column="6"
 				IsCancel="True" />
 		</Grid>
+		<Grid DockPanel.Dock="Top">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="4"/>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="4"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="4"/>
+			</Grid.RowDefinitions>
+			<Label Content="Search for preferences"
+						 VerticalContentAlignment="Center"/>
+			<TextBox Name="editPrefSearch"
+							 Grid.Column="2"
+							 VerticalContentAlignment="Center" />
+			<Button Name="btnClearPrefsSearch"
+							Grid.Column="4"
+							Content="Clear"
+							VerticalContentAlignment="Center"/>
+		</Grid>
 		<SplitView IsPaneOpen="True"
 							 OpenPaneLength="200"
 							 PanePlacement="Left">
@@ -64,13 +87,7 @@
 					</TreeView>
 				</DockPanel>
 			</SplitView.Pane>
+			<ContentControl Name="ccCurPane"/>
 		</SplitView>
-		<StackPanel Orientation="Horizontal"
-								Spacing="4">
-			<Label Content="Search for preferences"/>
-			<TextBox Name="editPrefSearch" />
-			<Button Name="btnClearPrefsSearch"
-							Content="Clear"/>
-		</StackPanel>
 	</DockPanel>
 </Window>
