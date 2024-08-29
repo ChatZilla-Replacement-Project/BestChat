@@ -10,7 +10,7 @@
 	x:DataType="local:VisualPrefsTreeData"
 	mc:Ignorable="d">
 	<Grid ColumnDefinitions="Auto"
-				RowDefintions="Auto,4,Auto">
+				RowDefinitions="Auto,4,Auto">
 		<TextBlock
 			Text="{ReflectionBinding LocalizedName}" />
 		<local:PrefGroupTreeListerCtrl

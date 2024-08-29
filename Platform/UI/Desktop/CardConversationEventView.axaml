@@ -33,7 +33,7 @@
 		<Label
 			Grid.Column="1"
 			Content="{Binding Sender}" />
-		<Grid ColumnDefintions="1*,Auto"
+		<Grid ColumnDefinitions="1*,Auto"
 					RowDefinitions="1*,Auto"
 					Grid.Row="1"
 					Grid.Column="1">
