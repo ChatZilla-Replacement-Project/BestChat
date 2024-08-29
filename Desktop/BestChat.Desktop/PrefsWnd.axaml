@@ -12,27 +12,9 @@
 		<Grid
 			Name="panelBtnBar"
 			DockPanel.Dock="Bottom"
-			Margin="4,0,4,4">
-			<Grid.RowDefinitions>
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition
-					Width="4" />
-				<ColumnDefinition
-					Width="Auto" />
-				<ColumnDefinition
-					Width="4" />
-				<ColumnDefinition
-					Width="Auto" />
-				<ColumnDefinition
-					Width="4" />
-				<ColumnDefinition
-					Width="Auto" />
-				<ColumnDefinition
-					Width="10" />
-			</Grid.ColumnDefinitions>
+			Margin="4,0,4,4"
+			ColumnDefinitions="1*,4,Auto,4,Auto,10"
+			RowDefinitions="1*">
 			<HyperlinkButton
 				Name="hlinkHomepage"
 				Content="Open the Best Chat homepage"
@@ -51,18 +33,9 @@
 				Grid.Column="6"
 				IsCancel="True" />
 		</Grid>
-		<Grid DockPanel.Dock="Top">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="4"/>
-				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="4"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="4"/>
-			</Grid.RowDefinitions>
+		<Grid DockPanel.Dock="Top"
+					ColumnDefinitions="Auto,4,1*,4,Auto"
+					RowDefinitions="Auto,4">
 			<Label Content="Search for preferences"
 						 VerticalContentAlignment="Center"/>
 			<TextBox Name="editPrefSearch"

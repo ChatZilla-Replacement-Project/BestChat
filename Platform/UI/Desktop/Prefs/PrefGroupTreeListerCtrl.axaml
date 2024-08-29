@@ -11,29 +11,22 @@
 	<ItemsControl.ItemTemplate>
 		<DataTemplate
 			DataType="data:AbstractMgr">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition
-						Width="20" />
-					<ColumnDefinition
-						Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition
-						Height="Auto" />
-					<RowDefinition
-						Height="Auto" />
-				</Grid.RowDefinitions>
+			<Grid ColumnDefinitions="20,Auto,1*"
+						RowDefinitions="Auto,Auto">
 				<TextBlock
 					Grid.ColumnSpan="2"
-					ToolTip.Tip="{ReflectionBinding LocalizedLongDesc}"><InlineUIContainer><HyperlinkButton>
-						<Label
+					ToolTip.Tip="{ReflectionBinding LocalizedLongDesc}">
+					<InlineUIContainer>
+						<HyperlinkButton>
+							<Label
 								Content="{ReflectionBinding LocalizedName}" />
-					</HyperlinkButton></InlineUIContainer></TextBlock>
+						</HyperlinkButton>
+					</InlineUIContainer>
+				</TextBlock>
 				<local:PrefGroupTreeListerCtrl
 					Grid.Row="1"
 					Grid.Column="1"
-					ItemsSource="{ReflectionBinding Children, RelativeSource={RelativeSource AncestorType=local:PrefsGroupTreeListerCtrl}}" />
+					ItemsSource="{ReflectionBinding $parent[local:PrefsGroupTreeListerCtrl].DataContext.Children}" />
 			</Grid>
 		</DataTemplate>
 	</ItemsControl.ItemTemplate>

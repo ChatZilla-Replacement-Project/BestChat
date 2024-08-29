@@ -67,16 +67,8 @@
 								 OpenPaneLength="200"
 								 DisplayMode="CompactInline">
 				<SplitView.Pane>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="1*"/>
-							<ColumnDefinition Width="4"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="4"/>
-							<RowDefinition Height="1*"/>
-						</Grid.RowDefinitions>
+					<Grid ColumnDefinitions="1*,4"
+								RowDefinitions="Auto,4,1*">
 						<Label Content="Tabs:"
 									 HorizontalContentAlignment="Center"
 									 FontSize="14"/>
@@ -96,16 +88,8 @@
 									 OpenPaneLength="100">
 					<SplitView.PaneTemplate>
 						<DataTemplate>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="1*"/>
-									<ColumnDefinition Width="4"/>
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="4"/>
-									<RowDefinition Height="1*"/>
-								</Grid.RowDefinitions>
+							<Grid ColumnDefinitions="1*,4"
+										RowDefinitions="Auto,4,1*">
 								<Label Content="Users:"
 											 HorizontalContentAlignment="Center"
 											 FontSize="14"/>
@@ -124,61 +108,9 @@
 					<DockPanel HorizontalAlignment="Stretch">
 						<Grid DockPanel.Dock="Bottom"
 									Margin="4,0,4,4"
-									HorizontalAlignment="Stretch">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="7" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="7" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="7" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="2" />
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition
-									Height="9" />
-								<RowDefinition />
-							</Grid.RowDefinitions>
+									HorizontalAlignment="Stretch"
+									ColumnDefinitions="Auto,7,Auto,2,Auto,2,Auto,7,Auto,2,Auto,2,Auto,2,Auto,2,Auto,2,Auto,7,Auto,2,Auto"
+									RowDefinitions="9,Auto">
 							<Separator VerticalAlignment="Center"
 												 HorizontalAlignment="Stretch"
 												 Margin="0"
@@ -301,23 +233,9 @@
 							</Button>
 						</Grid>
 						<Grid Margin="4,0"
-									DockPanel.Dock="Bottom">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition
-									Width="Auto" />
-								<ColumnDefinition
-									Width="4" />
-								<ColumnDefinition
-									Width="1*" />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition
-									Height="Auto" />
-								<RowDefinition
-									Height="4" />
-								<RowDefinition
-									Height="Auto" />
-							</Grid.RowDefinitions>
+									DockPanel.Dock="Bottom"
+									ColumnDefinitions="Auto,4,1*"
+									RowDefinitions="Auto,4,Auto">
 							<DropDownButton Content="Your Nick"/>
 							<simplecto_rtf:RichTextBox Grid.Column="2"/>
 						</Grid>
