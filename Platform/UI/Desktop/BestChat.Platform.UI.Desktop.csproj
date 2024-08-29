@@ -55,10 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="CtrlsDesktopRsrcs.Designer.cs">
+		<Compile Update="Prefs\UiDesktopRsrcs.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>CtrlsDesktopRsrcs.resx</DependentUpon>
+			<DependentUpon>UiDesktopRsrcs.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Rsrcs.Designer.cs">
 		  <DesignTime>True</DesignTime>
@@ -68,9 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="CtrlsDesktopRsrcs.resx">
+		<EmbeddedResource Update="Prefs\UiDesktopRsrcs.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>CtrlsDesktopRsrcs.Designer.cs</LastGenOutput>
+			<LastGenOutput>UiDesktopRsrcs.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Rsrcs.resx">
 		  <Generator>ResXFileCodeGenerator</Generator>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BestChat.Platform.UI.Desktop {
+namespace BestChat.Platform.UI.Desktop.Prefs {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace BestChat.Platform.UI.Desktop {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CtrlsDesktopRsrcs {
+    internal class UiDesktopRsrcs {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CtrlsDesktopRsrcs() {
+        internal UiDesktopRsrcs() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BestChat.Platform.UI.Desktop {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.Ctrls.Desktop.CtrlsDesktopRsrcs", typeof(CtrlsDesktopRsrcs).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.Platform.UI.Desktop.Prefs.UiDesktopRsrcs", typeof(UiDesktopRsrcs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
