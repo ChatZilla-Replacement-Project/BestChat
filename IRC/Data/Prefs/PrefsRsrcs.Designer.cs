@@ -61,6 +61,15 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to alias.
+        /// </summary>
+        internal static string strAliasText {
+            get {
+                return ResourceManager.GetString("strAliasText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Best Chat has exited..
         /// </summary>
         internal static string strDefQuitMsg {
@@ -459,9 +468,459 @@ namespace BestChat.IRC.Data.Prefs {
         /// <summary>
         ///   Looks up a localized string similar to IRC.
         /// </summary>
-        internal static string strIRCRootTitle {
+        internal static string strIrcRootTitle {
             get {
-                return ResourceManager.GetString("strIRCRootTitle", resourceCulture);
+                return ResourceManager.GetString("strIrcRootTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use if you want {0} to have a different set of aliases from what are available by default in Best Chat IRC.  This can be overridden again for each channel once you join.  Note: Having aliases that exist in some views but not others can be confusing..
+        /// </summary>
+        internal static string strNetAliasDesc {
+            get {
+                return ResourceManager.GetString("strNetAliasDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you need more aliases than what {0} inherits from the global IRC settings, list them here..
+        /// </summary>
+        internal static string strNetAliasesAdditionalDesc {
+            get {
+                return ResourceManager.GetString("strNetAliasesAdditionalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List any extra aliases you want defined for use in views associated with {0}.
+        /// </summary>
+        internal static string strNetAliasesAdditionalTitle {
+            get {
+                return ResourceManager.GetString("strNetAliasesAdditionalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} inherits a list of aliases from the global IRC settings.  You can disable any or all of them here.  You can override this for individual channels once you visit them..
+        /// </summary>
+        internal static string strNetAliasesInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetAliasesInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which Inherited Aliases are Enabled for {0}?.
+        /// </summary>
+        internal static string strNetAliasesInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetAliasesInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aliases that exist only for {0}.
+        /// </summary>
+        internal static string strNetAliasTitle {
+            get {
+                return ResourceManager.GetString("strNetAliasTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use to specify additional nicks you want to be available for {0}..
+        /// </summary>
+        internal static string strNetAltNicksAdditionalDesc {
+            get {
+                return ResourceManager.GetString("strNetAltNicksAdditionalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lists more alternate nicks specific to {0}.
+        /// </summary>
+        internal static string strNetAltNicksAdditionalTitle {
+            get {
+                return ResourceManager.GetString("strNetAltNicksAdditionalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you prefer {0} to use different alternate nicks than what you use for the rest of Best Chat IRC, this tab lets you do that..
+        /// </summary>
+        internal static string strNetAltNicksDesc {
+            get {
+                return ResourceManager.GetString("strNetAltNicksDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} inherits a list of alternate nicks from the global IRC settings.  You can diable any or all of them.  The entries that are enabled are tried before any entries below and in the order shown.  If you need another order, disable entries as needed and recreate them below..
+        /// </summary>
+        internal static string strNetAltNicksInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetAltNicksInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has these alternate nicks enabled..
+        /// </summary>
+        internal static string strNetAltNicksInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetAltNicksInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternate nicks specific to {0}.
+        /// </summary>
+        internal static string strNetAltNicksTitle {
+            get {
+                return ResourceManager.GetString("strNetAltNicksTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use to override the global auto-perform settings for {0}.  You can disable specific entries and add new ones.  Furthermore, you can override it further for each channel once you join it..
+        /// </summary>
+        internal static string strNetAutoPerformDesc {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each entry here is inherited from the global IRC preferences.  Uncheck an item to prevent that command from running when the event happens for {0}.  Leave it checked to enable it to run..
+        /// </summary>
+        internal static string strNetAutoPerformOnEvtDisabledStepsDesc {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformOnEvtDisabledStepsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable some steps for {0}?.
+        /// </summary>
+        internal static string strNetAutoPerformOnEvtDisabledStepsTitle {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformOnEvtDisabledStepsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} auto-perform options.
+        /// </summary>
+        internal static string strNetAutoPerformTitle {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use if you want a different set of commands to be run when joining any channel on {0} other than what was specified in the global IRC settings.  This list can be overriden again for individual channels once you join them..
+        /// </summary>
+        internal static string strNetAutoPerformWhenJoiningChanDesc {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenJoiningChanDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commands to run when joining any channel on {0}.
+        /// </summary>
+        internal static string strNetAutoPerformWhenJoiningChanTitle {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenJoiningChanTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use if you want to customize the list of commands you want to run each time you connect to {0}.
+        /// </summary>
+        internal static string strNetAutoPerformWhenJoiningNetDesc {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenJoiningNetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commands to run when joining {0}.
+        /// </summary>
+        internal static string strNetAutoPerformWhenJoiningNetTitle {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenJoiningNetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use if you want a different set of commands to be run when you open a chat with any other user on {0}.
+        /// </summary>
+        internal static string strNetAutoPerformWhenOpeningUserChatDesc {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenOpeningUserChatDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commands to run when you open a chat window with another user.
+        /// </summary>
+        internal static string strNetAutoPerformWhenOpeningUserChatTitle {
+            get {
+                return ResourceManager.GetString("strNetAutoPerformWhenOpeningUserChatTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter any additonal aliases you&apos;d like to be enabled when {1} on {0} is the active view.  You can&apos;t use any name if an alias with that name was inherited unless you disable it..
+        /// </summary>
+        internal static string strNetChanAliasesAdditionalDesc {
+            get {
+                return ResourceManager.GetString("strNetChanAliasesAdditionalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional Aliases for {1} in the network {0}.
+        /// </summary>
+        internal static string strNetChanAliasesAdditionalTitle {
+            get {
+                return ResourceManager.GetString("strNetChanAliasesAdditionalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The checked aliases are active in {1}.  Some were inherited from {0} while others came from your global IRC settings.  Uncheck any you don&apos;t want for {1}..
+        /// </summary>
+        internal static string strNetChanAliasInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetChanAliasInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aliases inherited from {0} or global settings to {1}.
+        /// </summary>
+        internal static string strNetChanAliasInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetChanAliasInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These steps will be performed after the entries above that are enabled in the order shown any time you join {1} on {1}..
+        /// </summary>
+        internal static string strNetChanAutoPerformAddedDesc {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformAddedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional steps to run when joining {1} on the network {0}.
+        /// </summary>
+        internal static string strNetChanAutoPerformAddedTitle {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformAddedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go here to change what steps are run when you join {1} on {0}.  These override what you specified for the network (when joining any channel)..
+        /// </summary>
+        internal static string strNetChanAutoPerformDesc {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These steps will be performed, if enabled, any time you join {1} on {0}.  Disable entries as needed.  If you want to change the order, disable entries and then create them below in the new order..
+        /// </summary>
+        internal static string strNetChanAutoPerformInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inherited steps to take when joining {1} on the network {0}.
+        /// </summary>
+        internal static string strNetChanAutoPerformInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override what happens when you join {1} on the network {0}.
+        /// </summary>
+        internal static string strNetChanAutoPerformTitle {
+            get {
+                return ResourceManager.GetString("strNetChanAutoPerformTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These tabs let you override settings for {0} for {1}..
+        /// </summary>
+        internal static string strNetChanDesc {
+            get {
+                return ResourceManager.GetString("strNetChanDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This inherited {0} came from your global IRC preferences..
+        /// </summary>
+        internal static string strNetChanInheritedFromGlobalDesc {
+            get {
+                return ResourceManager.GetString("strNetChanInheritedFromGlobalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Settings.
+        /// </summary>
+        internal static string strNetChanInheritedFromGlobalText {
+            get {
+                return ResourceManager.GetString("strNetChanInheritedFromGlobalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This inherited {0} came from the network preferences for {1}..
+        /// </summary>
+        internal static string strNetChanInheritedFromNetDesc {
+            get {
+                return ResourceManager.GetString("strNetChanInheritedFromNetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network.
+        /// </summary>
+        internal static string strNetChanInheritedFromNetText {
+            get {
+                return ResourceManager.GetString("strNetChanInheritedFromNetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These words, when they appear in {1} on {0}, will trigger alerts.  These are in addition to those specified above..
+        /// </summary>
+        internal static string strNetChanStalkWordsAddedDesc {
+            get {
+                return ResourceManager.GetString("strNetChanStalkWordsAddedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More words to alert you when they appear in {1} on {0}.
+        /// </summary>
+        internal static string strNetChanStalkWordsAddedTitle {
+            get {
+                return ResourceManager.GetString("strNetChanStalkWordsAddedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These words, when they appear in {1} on {0}, will trigger alerts.  Those you specified in the global IRC settings as well as those from the network will be listed here..
+        /// </summary>
+        internal static string strNetChanStalkWordsInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetChanStalkWordsInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stalk words inherited from {0} for {1}.
+        /// </summary>
+        internal static string strNetChanStalkWordsInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetChanStalkWordsInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go here if you want {1} to use different time stamp settings than used by other {0} channels..
+        /// </summary>
+        internal static string strNetChanTimeStampDesc {
+            get {
+                return ResourceManager.GetString("strNetChanTimeStampDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {1} time stamp overrides on {0}.
+        /// </summary>
+        internal static string strNetChanTimeStampTitle {
+            get {
+                return ResourceManager.GetString("strNetChanTimeStampTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {1} channel preferences on {0}.
+        /// </summary>
+        internal static string strNetChanTitle {
+            get {
+                return ResourceManager.GetString("strNetChanTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use to override the connection settings for {0}.  This can be useful if a network needs different settings..
+        /// </summary>
+        internal static string strNetConnDesc {
+            get {
+                return ResourceManager.GetString("strNetConnDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check to customize the connection settings to be more specific to {0}..
+        /// </summary>
+        internal static string strNetConnOverrideDesc {
+            get {
+                return ResourceManager.GetString("strNetConnOverrideDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override the global connection settings for {0}.
+        /// </summary>
+        internal static string strNetConnOverrideTitle {
+            get {
+                return ResourceManager.GetString("strNetConnOverrideTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection settings specific to {0}.
+        /// </summary>
+        internal static string strNetConnTitle {
+            get {
+                return ResourceManager.GetString("strNetConnTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check to override any of the global settings within the settings for {0}..
+        /// </summary>
+        internal static string strNetDccOverrideDesc {
+            get {
+                return ResourceManager.GetString("strNetDccOverrideDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override the global DCC settings for {0}.
+        /// </summary>
+        internal static string strNetDccOverrideTitle {
+            get {
+                return ResourceManager.GetString("strNetDccOverrideTitle", resourceCulture);
             }
         }
         
@@ -475,11 +934,146 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is a list of known channels on {0}.  You&apos;ve previously joined each of these channels.  Each channel has preferences associated with it..
+        /// </summary>
+        internal static string strNetKnownChanDesc {
+            get {
+                return ResourceManager.GetString("strNetKnownChanDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Known channels on {0}.
+        /// </summary>
+        internal static string strNetKnownChanTitle {
+            get {
+                return ResourceManager.GetString("strNetKnownChanTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you want to know when other specific users come and go on {0}, add their nick here.  You can manually do this from the command line with /notify.
+        /// </summary>
+        internal static string strNetNotifyDesc {
+            get {
+                return ResourceManager.GetString("strNetNotifyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nicks of remote users you want to know when they are on {0}.
+        /// </summary>
+        internal static string strNetNotifyTitle {
+            get {
+                return ResourceManager.GetString("strNetNotifyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If any of these users leave the network {0}, join it, become away on {0}, or not away on {0}; Best Chat will notify you..
+        /// </summary>
+        internal static string strNetNotifyWhenOnlineDesc {
+            get {
+                return ResourceManager.GetString("strNetNotifyWhenOnlineDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notify for {0}.
+        /// </summary>
+        internal static string strNetNotifyWhenOnlineTitle {
+            get {
+                return ResourceManager.GetString("strNetNotifyWhenOnlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use to specify additonal words you want to be alerted about when they happen in any view associated with {0}..
+        /// </summary>
+        internal static string strNetStalkWordsAdditionalDesc {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsAdditionalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lists more stalk words specific to {0}.
+        /// </summary>
+        internal static string strNetStalkWordsAdditionalTitle {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsAdditionalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This tab lets you override the stalk words for {0} from the default IRC global stalk words..
+        /// </summary>
+        internal static string strNetStalkWordsDesc {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to more, once you join a channel, you can again override them..
+        /// </summary>
+        internal static string strNetStalkWordsInheritedDesc {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsInheritedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has these stalk words from global IRC settings enabled.
+        /// </summary>
+        internal static string strNetStalkWordsInheritedTitle {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsInheritedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override the stalk words for {0}.
+        /// </summary>
+        internal static string strNetStalkWordsTitle {
+            get {
+                return ResourceManager.GetString("strNetStalkWordsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check to override any of the global settings within the settings for {0}..
+        /// </summary>
+        internal static string strNetTimeStampOverrideNetDesc {
+            get {
+                return ResourceManager.GetString("strNetTimeStampOverrideNetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override the global time stamp settings for {0}.
+        /// </summary>
+        internal static string strNetTimeStampOverrideNetTitle {
+            get {
+                return ResourceManager.GetString("strNetTimeStampOverrideNetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} network preferences.
         /// </summary>
         internal static string strNetTitle {
             get {
                 return ResourceManager.GetString("strNetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stalk word.
+        /// </summary>
+        internal static string strStalkWordsText {
+            get {
+                return ResourceManager.GetString("strStalkWordsText", resourceCulture);
             }
         }
     }

@@ -333,7 +333,7 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
     <value>Plugins</value>
   </data>
   <data name="strGlobalPluginsExtWhereToLookIncludeSysPathDesc" xml:space="preserve">
-    <value>Check this to automatically search all directories in your OS's system path environment variable.  This is normally called PATH.</value>
+    <value>Check this to automatically search all directories in your OS's system path environment variable.  This is normally called PATH.  This is checked after those explicitly listed here.</value>
   </data>
   <data name="strGlobalPluginsExtWhereToLookIncludeSysPathTitle" xml:space="preserve">
     <value>Include Your System Path Environment Variable in the Search</value>
@@ -349,5 +349,8 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
   </data>
   <data name="strGlobalAppearanceUserListWaysToShowModesHiddenTitle" xml:space="preserve">
     <value>Hidden (no modes visible)</value>
+  </data>
+  <data name="strGlobalPluginsExtWhereToLookPathsDesc" xml:space="preserve">
+    <value>Specify where to look for files.  This should be a list of folders AKA directories.  The order is important.  Best Chat starts with the first entry in the list and continues from there.  System paths, if enabled, are checked AFTER the entries here.</value>
   </data>
 </root>

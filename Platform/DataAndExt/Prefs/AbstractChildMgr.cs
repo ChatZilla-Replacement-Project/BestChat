@@ -5,7 +5,8 @@ namespace BestChat.Platform.DataAndExt.Prefs;
 public abstract class AbstractChildMgr : AbstractMgr
 {
 	#region Constructors & Deconstructors
-		protected AbstractChildMgr(in AbstractMgr mgrParent, in string strName, in string strLocalizedName, in string strLocalizedLongDesc)
+		protected AbstractChildMgr(in AbstractMgr mgrParent, in string strName, in string
+			strLocalizedName, in string strLocalizedLongDesc)
 		{
 			this.mgrParent = mgrParent;
 			this.strName = strName;
@@ -26,34 +27,6 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Helper Types
-		public new class Editable : AbstractMgr.Editable
-		{
-			private Editable(AbstractChildMgr original, AbstractMgr.Editable emgrParent) :
-				base(original)
-			{
-				this.original = original;
-				this.emgrParent = emgrParent;
-			}
-
-			public new readonly AbstractChildMgr original;
-
-			public readonly AbstractMgr.Editable emgrParent;
-
-			public AbstractMgr.Editable Parent
-				=> emgrParent;
-
-			public string Name
-				=> original.Name;
-
-			public string LocalizedName
-				=> original.LocalizedName;
-
-			public string LocalizedLongDesc
-				=> original.LocalizedLongDesc;
-
-			public static Editable Make(AbstractChildMgr original, AbstractMgr.Editable emgrParent)
-				=> new(original, emgrParent);
-		}
 	#endregion
 
 	#region Members
@@ -78,6 +51,9 @@ public abstract class AbstractChildMgr : AbstractMgr
 
 		public string LocalizedLongDesc
 			=> strLocalizedLongDesc;
+
+		public virtual bool CanBeRemoved
+			=> false;
 	#endregion
 
 	#region Methods

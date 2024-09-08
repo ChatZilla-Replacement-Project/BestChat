@@ -4,7 +4,81 @@ using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
-public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
+public abstract class PrefsBase : AbstractMgr
+{
+	public abstract class GlobalPrefs : AbstractChildMgr
+	{
+		protected GlobalPrefs(AbstractMgr mgrParent) :
+			base(mgrParent, "Global", Rsrcs.strGlobalName, Rsrcs.strGlobalNameToolTipText)
+		{
+		}
+
+		public class TimeStampPrefs : AbstractChildMgr
+		{
+			#region Constructors & Deconstructors
+				public TimeStampPrefs(in AbstractMgr mgrParent) :
+					base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
+						.strGlobalAppearanceTimeStampDesc)
+				{
+					show = new(this, "Show the time stamp", Rsrcs
+						.strGlobalAppearanceTimeStampShowTitle, Rsrcs.strGlobalAppearanceTimeStampShowDesc,
+						true);
+					fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
+						Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G");
+				}
+
+				public TimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO
+						.TimeStampDTO dto) :
+					base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
+						.strGlobalAppearanceTimeStampDesc)
+				{
+					show = new(this, "Show the time stamp", Rsrcs
+						.strGlobalAppearanceTimeStampShowTitle, Rsrcs.strGlobalAppearanceTimeStampShowDesc,
+						true, dto.Show);
+					fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
+						Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G", dto.Fmt);
+				}
+			#endregion
+
+			#region Delegates
+			#endregion
+
+			#region Events
+				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+			#endregion
+
+			#region Constants
+			#endregion
+
+			#region Helper Types
+			#endregion
+
+			#region Members
+				private readonly Item<bool> show;
+
+				private readonly Item<string> fmt;
+			#endregion
+
+			#region Properties
+				public Item<bool> Show
+					=> show;
+
+				public Item<string> Fmt
+					=> fmt;
+			#endregion
+
+			#region Methods
+				public virtual DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO ToDTO()
+					=> new(show.CurVal, Fmt.CurVal);
+			#endregion
+
+			#region Event Handlers
+			#endregion
+		}
+	}
+}
+
+public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 	where GlobalPrefsType : Prefs<GlobalPrefsType, AppearancePrefsType>.GlobalPrefs
 {
 	#region Constructors & Deconstructors
@@ -24,17 +98,17 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 	#endregion
 
 	#region Helper Types
-		public abstract class GlobalPrefs : AbstractChildMgr
+		public abstract class GlobalPrefs : PrefsBase.GlobalPrefs
 		{
 			#region Constructors & Deconstructors
 				protected GlobalPrefs(AbstractMgr mgrParent) :
-					base(mgrParent, "Global", Rsrcs.strGlobalName, Rsrcs.strGlobalNameToolTipText)
+					base(mgrParent)
 				{
 					plugin = new(this);
 				}
 
 				protected GlobalPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO dto) :
-					base(mgrParent, "Global", Rsrcs.strGlobalName, Rsrcs.strGlobalNameToolTipText)
+					base(mgrParent)
 				{
 					plugin = new(this, dto.Plugins);
 				}
@@ -54,16 +128,18 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 				public abstract class AppearancePrefs : AbstractChildMgr
 				{
 					#region Constructors & Deconstructors
-						protected AppearancePrefs(AbstractMgr mgrParent) : base(mgrParent, "Appearance", Rsrcs.strGlobalAppearancePageTitle, Rsrcs
-							.strGlobalAppearancePageDesc)
+						protected AppearancePrefs(AbstractMgr mgrParent) :
+							base(mgrParent, "Appearance", Rsrcs.strGlobalAppearancePageTitle, Rsrcs
+								.strGlobalAppearancePageDesc)
 						{
 							confMode = new(this);
 							timestamp = new(this);
 							userlist = new(this);
 						}
 
-						protected AppearancePrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO dto) :
-							base(mgrParent, "Appearance", Rsrcs.strGlobalAppearancePageTitle, Rsrcs.strGlobalAppearancePageDesc)
+						protected AppearancePrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO dto)
+							: base(mgrParent, "Appearance", Rsrcs.strGlobalAppearancePageTitle, Rsrcs
+								.strGlobalAppearancePageDesc)
 						{
 							confMode = new(this, dto.ConfMode);
 							timestamp = new(this, dto.TimeStamp);
@@ -85,32 +161,42 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 						public class ConfModePrefs : AbstractChildMgr
 						{
 							#region Constructors & Deconstructors
-								public ConfModePrefs(in AbstractMgr mgrParent) : base(mgrParent, "Conference Mode", Rsrcs
-									.strGlobalAppearanceConfModeTitle, Rsrcs.strGlobalAppearanceConfModeDesc)
+								public ConfModePrefs(in AbstractMgr mgrParent) : base(mgrParent, "Conference " +
+									"Mode", Rsrcs.strGlobalAppearanceConfModeTitle, Rsrcs
+									.strGlobalAppearanceConfModeDesc)
 								{
-									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs.strGlobalAppearanceConfModeEnabledTitle,
-										Rsrcs.strGlobalAppearanceConfModeEnabledDesc, false);
-									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs
-										.strGlobalAppearanceConfModeLimitTitle, Rsrcs.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2);
-									actionsCollapsed = new(this, "Collapse Actions When Collapsing Messages", Rsrcs
-										.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs.strGlobalAppearanceConfModeCollapseActionsDesc, false);
-									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle,
-										Rsrcs.strGlobalAppearanceConfModeCollapseMsgsDesc, false);
+									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs
+										.strGlobalAppearanceConfModeEnabledTitle, Rsrcs
+										.strGlobalAppearanceConfModeEnabledDesc, false);
+									userLimitBeforeTrigger = new(this, "User Limit Before Trigger",
+										Rsrcs.strGlobalAppearanceConfModeLimitTitle, Rsrcs
+										.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2);
+									actionsCollapsed = new(this, "Collapse Actions When Collapsing " +
+										"Messages", Rsrcs.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs
+										.strGlobalAppearanceConfModeCollapseActionsDesc, false);
+									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs
+										.strGlobalAppearanceConfModeCollapseMsgsTitle, Rsrcs
+										.strGlobalAppearanceConfModeCollapseMsgsDesc, false);
 								}
 
-								internal ConfModePrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO.ConfModeDTO dto) :
-									base(mgrParent, "Conference Mode", Rsrcs.strGlobalAppearanceConfModeTitle, Rsrcs.strGlobalAppearanceConfModeDesc)
+								internal ConfModePrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO
+										.AppearanceDTO.ConfModeDTO dto) :
+									base(mgrParent, "Conference Mode", Rsrcs.strGlobalAppearanceConfModeTitle,
+										Rsrcs.strGlobalAppearanceConfModeDesc)
 								{
-									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs.strGlobalAppearanceConfModeEnabledTitle,
-										Rsrcs.strGlobalAppearanceConfModeEnabledDesc, false, dto.ConfModeEnabled);
-									userLimitBeforeTrigger = new(this, "User Limit Before Trigger", Rsrcs
-										.strGlobalAppearanceConfModeLimitTitle,
-										Rsrcs.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2, iCurVal: dto.UserLimitBeforeTrigger);
-									actionsCollapsed = new(this, "Collapse Actions When Collapsing Messages", Rsrcs
-										.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs.strGlobalAppearanceConfModeCollapseActionsDesc, false, dto
-										.ActionsCollapsed);
-									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs.strGlobalAppearanceConfModeCollapseMsgsTitle,
-										Rsrcs.strGlobalAppearanceConfModeCollapseMsgsDesc, false, dto.MsgsCollapsed);
+									confModeEnabled = new(this, "Conference Mode Enabled?", Rsrcs
+										.strGlobalAppearanceConfModeEnabledTitle, Rsrcs
+										.strGlobalAppearanceConfModeEnabledDesc, false, dto.ConfModeEnabled);
+									userLimitBeforeTrigger = new(this, "User Limit Before Trigger",
+										Rsrcs.strGlobalAppearanceConfModeLimitTitle, Rsrcs
+										.strGlobalAppearanceConfModeLimitDesc, 150, iMinVal: 2, iCurVal: dto
+										.UserLimitBeforeTrigger);
+									actionsCollapsed = new(this, "Collapse Actions When Collapsing " +
+										"Messages", Rsrcs.strGlobalAppearanceConfModeCollapseActionsTitle, Rsrcs
+										.strGlobalAppearanceConfModeCollapseActionsDesc, false, dto.ActionsCollapsed);
+									msgsCollapsed = new(this, "Collapse Messages?", Rsrcs
+										.strGlobalAppearanceConfModeCollapseMsgsTitle, Rsrcs
+										.strGlobalAppearanceConfModeCollapseMsgsDesc, false, dto.MsgsCollapsed);
 								}
 							#endregion
 
@@ -153,69 +239,11 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 
 							#region Methods
 								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.ConfModeDTO ToDTO()
-									=> new(confModeEnabled.CurVal, userLimitBeforeTrigger.CurVal, actionsCollapsed.CurVal, msgsCollapsed.CurVal);
+									=> new(confModeEnabled.CurVal, userLimitBeforeTrigger.CurVal,
+										actionsCollapsed.CurVal, msgsCollapsed.CurVal);
 							#endregion
 
 							#region Event Handlers
-							#endregion
-						}
-
-						public class TimeStampPrefs : AbstractChildMgr
-						{
-							#region Constructors & Deconstructors
-								public TimeStampPrefs(in AbstractMgr mgrParent) :
-									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs.strGlobalAppearanceTimeStampDesc)
-								{
-									show = new(this, "Show the time stamp", Rsrcs.strGlobalAppearanceTimeStampShowTitle, Rsrcs
-										.strGlobalAppearanceTimeStampShowDesc, true);
-									fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle, Rsrcs
-										.strGlobalAppearanceTimeStampFmtDesc, "G");
-								}
-
-								internal TimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO dto) :
-									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs.strGlobalAppearanceTimeStampDesc)
-								{
-									show = new(this, "Show the time stamp", Rsrcs.strGlobalAppearanceTimeStampShowTitle, Rsrcs
-										.strGlobalAppearanceTimeStampShowDesc, true, dto.Show);
-									fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle, Rsrcs
-										.strGlobalAppearanceTimeStampFmtDesc, "G", dto.Fmt);
-								}
-							#endregion
-
-							#region Delegates
-							#endregion
-
-							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-							#endregion
-
-							#region Constants
-							#endregion
-
-							#region Helper Types
-							#endregion
-
-							#region Members
-								private readonly Item<bool> show;
-
-								private readonly Item<string> fmt;
-							#endregion
-
-							#region Properties
-								public Item<bool> Show
-									=> show;
-
-								public Item<string> Fmt
-									=> fmt;
-							#endregion
-
-							#region Methods
-								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO ToDTO()
-									=> new(show.CurVal, Fmt.CurVal);
-							#endregion
-
-							#region Event Handlers
-								private void OnItemDirtyChanged(ItemBase objSender, bool bIsNowDirty) => MakeDirty();
 							#endregion
 						}
 
@@ -223,26 +251,34 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 						{
 							#region Constructors & Deconstructors
 								public UserListPrefs(AbstractMgr mgrParent) :
-									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceUserListLocTitle, Rsrcs.strGlobalAppearanceUserListLocDesc)
+									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceUserListLocTitle,
+										Rsrcs.strGlobalAppearanceUserListLocDesc)
 								{
-									location = new(this, "Location", Rsrcs.strGlobalAppearanceUserListLocTitle, Rsrcs
-										.strGlobalAppearanceUserListLocTitle, PaneLocations.left);
+									location = new(this, "Location", Rsrcs
+										.strGlobalAppearanceUserListLocTitle, Rsrcs.strGlobalAppearanceUserListLocTitle,
+										PaneLocations.left);
 									howToShowModes = new(this, "Ways to show modes", Rsrcs
-										.strGlobalAppearanceUserListWaysToShowModesTitle, Rsrcs.strGlobalAppearanceUserListWaysToShowModesDesc,
-										WaysToShowUserModes.symbols);
-									sortByMode = new(this, "Sort by mode", Rsrcs.strGlobalAppearanceUserListSortByModeTitle, Rsrcs
+										.strGlobalAppearanceUserListWaysToShowModesTitle, Rsrcs
+										.strGlobalAppearanceUserListWaysToShowModesDesc, WaysToShowUserModes.symbols);
+									sortByMode = new(this, "Sort by mode", Rsrcs
+										.strGlobalAppearanceUserListSortByModeTitle, Rsrcs
 										.strGlobalAppearanceUserListSortByModeDesc, true);
 								}
 
-								internal UserListPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO.UserListDTO dto) :
-									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceUserListLocTitle, Rsrcs.strGlobalAppearanceUserListLocDesc)
+								internal UserListPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO
+										.UserListDTO dto) :
+									base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceUserListLocTitle,
+										Rsrcs.strGlobalAppearanceUserListLocDesc)
 								{
-									location = new(this, "Location", Rsrcs.strGlobalAppearanceUserListLocTitle, Rsrcs
-										.strGlobalAppearanceUserListLocTitle, PaneLocations.left, dto.Loc);
+									location = new(this, "Location", Rsrcs
+										.strGlobalAppearanceUserListLocTitle, Rsrcs.strGlobalAppearanceUserListLocTitle,
+										PaneLocations.left, dto.Loc);
 									howToShowModes = new(this, "Ways to show modes", Rsrcs
-										.strGlobalAppearanceUserListWaysToShowModesTitle, Rsrcs.strGlobalAppearanceUserListWaysToShowModesDesc,
-										WaysToShowUserModes.symbols, dto.HowToShowModes);
-									sortByMode = new(this, "Sort by mode", Rsrcs.strGlobalAppearanceUserListSortByModeTitle, Rsrcs
+										.strGlobalAppearanceUserListWaysToShowModesTitle, Rsrcs
+										.strGlobalAppearanceUserListWaysToShowModesDesc, WaysToShowUserModes.symbols, dto
+										.HowToShowModes);
+									sortByMode = new(this, "Sort by mode", Rsrcs
+										.strGlobalAppearanceUserListSortByModeTitle, Rsrcs
 										.strGlobalAppearanceUserListSortByModeDesc, true, dto.SortByMode);
 								}
 							#endregion
@@ -324,8 +360,9 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 							ext = new(this);
 						}
 
-						internal PluginPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO dto) : base(mgrParent,
-							"Plugins", Rsrcs.strGlobalPluginsTitle, Rsrcs.strGlobalPluginsDesc)
+						internal PluginPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO dto) :
+							base(mgrParent, "Plugins", Rsrcs.strGlobalPluginsTitle, Rsrcs
+								.strGlobalPluginsDesc)
 						{
 							ext = new(this, dto.Ext);
 						}
@@ -345,9 +382,11 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 						public class ExtPrefs : AbstractChildMgr
 						{
 							#region Constructors & Deconstructors
-								public ExtPrefs(AbstractMgr mgrParent, System.Collections.Generic.IEnumerable<ScriptEntry>? scripts =
-									null, System.Collections.Generic.IEnumerable<ProgramEntry>? programs = null) :
-									base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs.strGlobalPluginsDesc)
+								public ExtPrefs(AbstractMgr mgrParent, System.Collections.Generic
+										.IEnumerable<ScriptEntry>? scripts = null, System.Collections.Generic
+										.IEnumerable<ProgramEntry>? programs = null) :
+									base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle,
+										Rsrcs.strGlobalPluginsDesc)
 								{
 									whereToLook = new(this);
 									howToRunScripts = new(this);
@@ -366,24 +405,27 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 									}
 								}
 
-								internal ExtPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO dto) :
-									base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs.strGlobalPluginsDesc)
+								internal ExtPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO dto)
+									: base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs
+										.strGlobalPluginsDesc)
 								{
 									whereToLook = new(this, dto.WhereToLook);
 									howToRunScripts = new(this);
 
-									if(dto.Scripts is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO>
-										scripts)
+									if(dto.Scripts is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO
+										.PluginsDTO.ExtDTO.ScriptEntryDTO> scripts)
 									{
-										this.scripts.AddRange(scripts.Select(curScript => new ScriptEntry(curScript)));
+										this.scripts.AddRange(scripts.Select(curScript => new
+											ScriptEntry(curScript)));
 										foreach(ScriptEntry curScript in this.scripts)
 											curScript.evtDirtyChanged += OnScriptDirtyChanged;
 									}
 
-									if(dto.Programs is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO>
-										programs)
+									if(dto.Programs is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO
+										.PluginsDTO.ExtDTO.ProgramEntryDTO> programs)
 									{
-										this.programs.AddRange(dto.Programs.Select(curProgram => new ProgramEntry(curProgram)));
+										this.programs.AddRange(dto.Programs.Select(curProgram => new
+											ProgramEntry(curProgram)));
 										foreach(ProgramEntry curProgram in this.programs)
 											curProgram.evtDirtyChanged += OnProgramDirtyChanged;
 									}
@@ -405,24 +447,35 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 								{
 									#region Constructors & Deconstructors
 										public WhereToLookPrefs(AbstractMgr mgrParent) :
-											base(mgrParent, "Where To Look", Rsrcs.strGlobalPluginsExtWhereToLookTitle, Rsrcs
+											base(mgrParent, "Where To Look", Rsrcs
+												.strGlobalPluginsExtWhereToLookTitle, Rsrcs
 												.strGlobalPluginsExtWhereToLookDesc)
 										{
-											llistPaths = [];
+											paths = new(this, "Paths", Rsrcs
+												.strGlobalPluginsExtWhereToLookPathsTitle, Rsrcs
+												.strGlobalPluginsExtWhereToLookPathsDesc, []);
 
-											includeSysPath = new(this, "Include Your System Path Environment Variable in the Search", Rsrcs
-												.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, true);
+											includeSysPath = new(this, "Include Your System Path " +
+												"Environment Variable in the Search", Rsrcs
+												.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs
+												.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, true);
 										}
 
-										internal WhereToLookPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.WhereToLookDTO dto) :
-											base(mgrParent, "Where To Look", Rsrcs.strGlobalPluginsExtWhereToLookTitle,Rsrcs
-												.strGlobalPluginsExtWhereToLookDesc)
+										internal WhereToLookPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO
+												.ExtDTO.WhereToLookDTO dto) :
+											base(mgrParent, "Where To Look", Rsrcs
+												.strGlobalPluginsExtWhereToLookTitle,Rsrcs.strGlobalPluginsExtWhereToLookDesc)
 										{
-											llistPaths = new(dto.Paths is string[] paths ? paths : []);
+											paths = new(this, "Paths", Rsrcs
+												.strGlobalPluginsExtWhereToLookPathsTitle, Rsrcs
+												.strGlobalPluginsExtWhereToLookPathsDesc, [], dto.Paths ??
+												[]);
 
-											includeSysPath = new(this, "Include Your System Path Environment Variable in the Search",
-												Rsrcs.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, dto
-												.IncludeSysPaths);
+
+											includeSysPath = new(this, "Include Your System Path " +
+												"Environment Variable in the Search", Rsrcs
+												.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs
+												.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, dto.IncludeSysPaths);
 										}
 									#endregion
 
@@ -440,14 +493,14 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 									#endregion
 
 									#region Members
-										private readonly System.Collections.Generic.LinkedList<string> llistPaths;
+										private readonly ReorderableListItem<System.IO.DirectoryInfo> paths;
 
 										private readonly Item<bool> includeSysPath;
 									#endregion
 
 									#region Properties
-										public System.Collections.Generic.IEnumerable<string> Paths
-											=> llistPaths;
+										public ReorderableListItem<System.IO.DirectoryInfo> Paths
+											=> paths;
 
 										public Item<bool> IncludeSysPath
 											=> includeSysPath;
@@ -455,7 +508,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 
 									#region Methods
 										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.WhereToLookDTO ToDTO()
-											=> new([.. llistPaths], includeSysPath.CurVal);
+											=> new([.. paths], includeSysPath.CurVal);
 									#endregion
 
 									#region Event Handlers
@@ -466,8 +519,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 								{
 									#region Constructors & Deconstructors
 										public HowToRunScriptsPrefs(AbstractMgr mgrParent) :
-											base(mgrParent, "How to run them", Rsrcs.strGlobalPluginsHowToRunThemTitle, Rsrcs
-												.strGlobalPluginsHowToRunThemDesc)
+											base(mgrParent, "How to run them", Rsrcs
+												.strGlobalPluginsHowToRunThemTitle, Rsrcs.strGlobalPluginsHowToRunThemDesc)
 										{
 											groupedByWhatRunsThem = new(this);
 
@@ -583,8 +636,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 								public class ScriptEntry : Obj<ScriptEntry>
 								{
 									#region Constructors & Deconstructors
-										public ScriptEntry(in string strFileNameExtOrMask, in System.IO.FileInfo? fileProgramNeeded, in string strParamsToPass,
-											in bool bEnabled)
+										public ScriptEntry(in string strFileNameExtOrMask, in System.IO.FileInfo?
+											fileProgramNeeded, in string strParamsToPass, in bool bEnabled)
 										{
 											this.strFileNameExtOrMask = strFileNameExtOrMask;
 											this.fileProgramNeeded = fileProgramNeeded;
@@ -592,10 +645,11 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 											this.bEnabled = bEnabled;
 										}
 
-										internal ScriptEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO dto)
+										internal ScriptEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO
+											dto)
 										{
 											strFileNameExtOrMask = dto.FileNameExtOrMask;
-											fileProgramNeeded = dto.ProgramNeeded is string strProgramNeeded ? new(strProgramNeeded) : null;
+											fileProgramNeeded = dto.ProgramNeeded ?? null;
 											strParamsToPass = dto.ParamsToPass;
 											bEnabled = dto.Enabled;
 										}
@@ -699,7 +753,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 											(strNameOfChangedProp));
 
 										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
-											=> new(strFileNameExtOrMask, fileProgramNeeded?.FullName, strParamsToPass, bEnabled);
+											=> new(strFileNameExtOrMask, fileProgramNeeded, strParamsToPass,
+												bEnabled);
 									#endregion
 
 									#region Event Handlers
@@ -709,8 +764,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 								public class ProgramEntry : Obj<ProgramEntry>
 								{
 									#region Constructors & Deconstructors
-										public ProgramEntry(in string strName, in System.IO.FileInfo fileProgram, in string strParamsToPass, in bool
-											bEnabled)
+										public ProgramEntry(in string strName, in System.IO.FileInfo fileProgram, in
+											string strParamsToPass, in bool bEnabled)
 										{
 											this.strName = strName;
 											this.fileProgram = fileProgram;
@@ -718,10 +773,11 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 											this.bEnabled = bEnabled;
 										}
 
-										internal ProgramEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO dto)
+										internal ProgramEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO
+											dto)
 										{
 											strName = dto.Name;
-											fileProgram = new(dto.Program);
+											fileProgram = dto.Program;
 											strParamsToPass = dto.ParamsToPass;
 											bEnabled = dto.Enabled;
 										}
@@ -825,7 +881,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 											(strNameOfChangedProp));
 
 										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO ToDTO()
-											=> new(strName, fileProgram.FullName, strParamsToPass, bEnabled);
+											=> new(strName, fileProgram, strParamsToPass, bEnabled);
 									#endregion
 
 									#region Event Handlers
@@ -838,9 +894,11 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 
 								private readonly HowToRunScriptsPrefs howToRunScripts;
 
-								private readonly System.Collections.Generic.List<ScriptEntry> scripts = [];
+								private readonly System.Collections.Generic.List<ScriptEntry> scripts =
+									[];
 
-								private readonly System.Collections.Generic.List<ProgramEntry> programs = [];
+								private readonly System.Collections.Generic.List<ProgramEntry> programs =
+									[];
 							#endregion
 
 							#region Properties
@@ -883,7 +941,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 					#endregion
 
 					#region Properties
-						public ExtPrefs Ext => ext;
+						public ExtPrefs Ext
+							=> ext;
 			#endregion
 
 					#region Methods
@@ -919,8 +978,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 	#endregion
 
 	#region Members
-		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr> mapMgrsForProtolsByName =
-			[];
+		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr>
+			mapMgrsForProtolsByName = [];
 
 		private static System.IO.FileInfo? fileOurSettings = null;
 
@@ -938,10 +997,12 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 		protected static MainDtoType? Load<MainDtoType>(in System.IO.DirectoryInfo dirLocalDataLoc)
 			where MainDtoType : DTO.PrefsDTO
 		{
-			fileOurSettings ??= new(System.IO.Path.Combine(dirLocalDataLoc.FullName, "settings.json"));
+			fileOurSettings ??= new(System.IO.Path.Combine(dirLocalDataLoc.FullName,
+				"settings.json"));
 
 			return fileOurSettings.Exists
-				? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenRead(), jsoStandard)
+				? System.Text.Json.JsonSerializer.Deserialize<MainDtoType>(fileOurSettings.OpenRead(),
+					jsoStandard)
 				: null;
 		}
 
@@ -950,7 +1011,8 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : AbstractMgr
 		public void Save(in System.IO.DirectoryInfo dirLocalDataLoc)
 		{
 			if(fileOurSettings == null)
-				throw new System.InvalidProgramException("The settings file wasn't set before attempting to save preferences.");
+				throw new System.InvalidProgramException("The settings file wasn't set before " +
+					"attempting to save preferences.");
 
 			using(System.IO.FileStream stream = fileOurSettings.OpenWrite())
 				System.Text.Json.JsonSerializer.Serialize(stream, ToDTO(), jsoStandard);

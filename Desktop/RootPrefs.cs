@@ -1,11 +1,11 @@
 ﻿// Ignore Spelling: Prefs
 
-
 using System.Linq;
 
 namespace BestChat.Desktop
 {
-	public class RootPrefs : Platform.DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs.GlobalPrefs.AppearancePrefs>
+	public class RootPrefs : Platform.DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs
+		.GlobalPrefs.AppearancePrefs>
 	{
 		#region Constructors & Deconstructors
 			private RootPrefs()
@@ -13,10 +13,11 @@ namespace BestChat.Desktop
 				global = new(this);
 
 
-				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App.LocalDataLoc, App
-					.AskUserIfTheyWantToEnableNewProtocol);
+				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App
+					.LocalDataLoc, App.AskUserIfTheyWantToEnableNewProtocol);
 
-				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr.AllEnabledProtocols)
+				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr
+					.AllEnabledProtocols)
 				{
 					if(iprotCur != null && iprotCur.RootPrefForProtocol != null)
 						Add(iprotCur.RootPrefForProtocol);
@@ -28,17 +29,19 @@ namespace BestChat.Desktop
 				global = new(this, dto.Global);
 
 
-				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App.LocalDataLoc, App
-					.AskUserIfTheyWantToEnableNewProtocol);
+				Platform.UI.Desktop.ProtocolGuiMgr mgr = Platform.UI.Desktop.ProtocolGuiMgr.Init(App
+					.LocalDataLoc, App.AskUserIfTheyWantToEnableNewProtocol);
 
-				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr.AllEnabledProtocols)
+				foreach(Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef? iprotCur in mgr
+					.AllEnabledProtocols)
 				{
 					if(iprotCur != null && iprotCur.RootPrefForProtocol != null)
 						Add(iprotCur.RootPrefForProtocol);
 				}
 			}
 
-			static RootPrefs() => instance = new();
+			static RootPrefs()
+				=> instance = new();
 		#endregion
 
 		#region Delegates
@@ -51,7 +54,8 @@ namespace BestChat.Desktop
 		#endregion
 
 		#region Helper Types
-			public new class GlobalPrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs, GlobalPrefs.AppearancePrefs>.GlobalPrefs
+			public new class GlobalPrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs, GlobalPrefs
+				.AppearancePrefs>.GlobalPrefs
 			{
 				#region Constructors & Deconstructors
 					internal GlobalPrefs(RootPrefs mgrParent) :
@@ -73,14 +77,16 @@ namespace BestChat.Desktop
 				#endregion
 
 				#region Helper Types
-					public new class AppearancePrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs, AppearancePrefs>.GlobalPrefs.AppearancePrefs
+					public new class AppearancePrefs : Platform.DataAndExt.Prefs.Prefs<GlobalPrefs,
+						AppearancePrefs>.GlobalPrefs.AppearancePrefs
 					{
 						#region Constructors & Deconstructors
 							internal AppearancePrefs(GlobalPrefs mgrParent) :
 								base(mgrParent)
 								=> fonts = new(this);
 
-							internal AppearancePrefs(GlobalPrefs mgrParent, PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO dto) :
+							internal AppearancePrefs(GlobalPrefs mgrParent, PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO
+									dto) :
 								base(mgrParent, dto)
 								=> fonts = new(this, dto.Fonts);
 						#endregion
@@ -99,24 +105,30 @@ namespace BestChat.Desktop
 							{
 								#region Constructors & Deconstructors
 									internal FontPrefs(AppearancePrefs mgrParent) :
-										base(mgrParent, "Fonts", Rsrcs.strGlobalAppearanceFontTitle, Rsrcs.strGlobalAppearanceFontDesc)
+										base(mgrParent, "Fonts", Rsrcs.strGlobalAppearanceFontTitle, Rsrcs
+											.strGlobalAppearanceFontDesc)
 									{
-										appFonts = new(this, "Fonts for the Application's main windows", Rsrcs
-											.strGlobalAppearanceAppFontsTitle, Rsrcs.strGlboalAppearanceAppFontsDesc);
+										appFonts = new(this, "Fonts for the Application's main " +
+											"windows", Rsrcs.strGlobalAppearanceAppFontsTitle, Rsrcs
+											.strGlboalAppearanceAppFontsDesc);
 
-										viewFonts = new(this, "Fonts for views provided by a protocol.", Rsrcs
-											.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc);
+										viewFonts = new(this, "Fonts for views provided by a " +
+											"protocol.", Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+											.strGlobalAppearanceFontBlockPairOverriddenValDesc);
 									}
 
-									internal FontPrefs(AppearancePrefs mgrParent, PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO dto) :
-										base(mgrParent, "Fonts", Rsrcs.strGlobalAppearanceFontTitle, Rsrcs.strGlobalAppearanceFontDesc)
+									internal FontPrefs(AppearancePrefs mgrParent, PrefsDTO.RootDTO.GlobalDTO
+											.AppearanceDTO.FontDTO dto) :
+										base(mgrParent, "Fonts", Rsrcs.strGlobalAppearanceFontTitle, Rsrcs
+											.strGlobalAppearanceFontDesc)
 									{
-										appFonts = new(this, "Fonts for the Application's main windows", Rsrcs
-											.strGlobalAppearanceAppFontsTitle, Rsrcs.strGlboalAppearanceAppFontsDesc, dto.AppFontData);
+										appFonts = new(this, "Fonts for the Application's main " +
+											"windows", Rsrcs.strGlobalAppearanceAppFontsTitle, Rsrcs
+											.strGlboalAppearanceAppFontsDesc, dto.AppFontData);
 
-										viewFonts = new(this, "Fonts for views provided by a protocol.", Rsrcs
-											.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc, dto
-											.ViewFontData);
+										viewFonts = new(this, "Fonts for views provided by a " +
+											"protocol.", Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+											.strGlobalAppearanceFontBlockPairOverriddenValDesc, dto.ViewFontData);
 									}
 								#endregion
 
@@ -134,39 +146,48 @@ namespace BestChat.Desktop
 									public class OneFontBlockPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 									{
 										#region Constructors & Deconstructors
-											internal OneFontBlockPrefs(in FontPrefs mgrParent, in string strName, in string strLocalizedName, in string
-													strLocalizedDesc) :
+											internal OneFontBlockPrefs(in FontPrefs mgrParent, in string strName, in string
+													strLocalizedName, in string strLocalizedDesc) :
 												base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 											{
-												normalFontFamily = new(this, "Normal Font Family", Rsrcs
-													.strGlobalAppearanceNormalFontFamilyTitle, Rsrcs.strGlobalAppearanceNormalFontFamilyDesc);
+												normalFontFamily = new(this, "Normal Font Family",
+													Rsrcs.strGlobalAppearanceNormalFontFamilyTitle, Rsrcs
+													.strGlobalAppearanceNormalFontFamilyDesc);
 
-												fixedWidthFontFamily = new(this, "Fixed Width Font Family", Rsrcs
-													.strGlobalAppearanceFixedWidthFontFamilyTitle, Rsrcs.strGlobalAppearanceFixedWidthFontFamilyDesc);
+												fixedWidthFontFamily = new(this, "Fixed Width Font " +
+													"Family", Rsrcs.strGlobalAppearanceFixedWidthFontFamilyTitle, Rsrcs
+													.strGlobalAppearanceFixedWidthFontFamilyDesc);
 
-												size = new(this, "Size of the fonts used", Rsrcs.strGlobalAppearanceFontSizeTitle, Rsrcs
-													.strGlobalAppearanceFontSizeDesc, 12);
+												size = new(this, "Size of the fonts used", Rsrcs
+													.strGlobalAppearanceFontSizeTitle, Rsrcs.strGlobalAppearanceFontSizeDesc,
+													12);
 
-												weight = new(this, "Weight (boldness) of the fonts used", Rsrcs
-													.strGlobalAppearanceFontWeightTitle, Rsrcs.strGlobalAppearanceFontWeightDesc, Avalonia.Media.FontWeight.Normal);
+												weight = new(this, "Weight (boldness) of the fonts " +
+													"used", Rsrcs.strGlobalAppearanceFontWeightTitle, Rsrcs
+													.strGlobalAppearanceFontWeightDesc, Avalonia.Media.FontWeight.Normal);
 											}
 
-											internal OneFontBlockPrefs(in FontPrefs mgrParent, in string strName, in string strLocalizedName, in string
-													strLocalizedDesc, PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO dto) :
+											internal OneFontBlockPrefs(in FontPrefs mgrParent, in string strName, in string
+													strLocalizedName, in string strLocalizedDesc, PrefsDTO.RootDTO.GlobalDTO
+													.AppearanceDTO.FontDTO.OneFontBlockDTO dto) :
 												base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 											{
-												normalFontFamily = new(this, "Normal Font Family", Rsrcs
-													.strGlobalAppearanceNormalFontFamilyTitle, Rsrcs.strGlobalAppearanceNormalFontFamilyDesc, dto.NormalFamily);
+												normalFontFamily = new(this, "Normal Font Family",
+													Rsrcs.strGlobalAppearanceNormalFontFamilyTitle, Rsrcs
+													.strGlobalAppearanceNormalFontFamilyDesc, dto.NormalFamily);
 
-												fixedWidthFontFamily = new(this, "Fixed Width Font Family", Rsrcs
-													.strGlobalAppearanceFixedWidthFontFamilyTitle, Rsrcs.strGlobalAppearanceFixedWidthFontFamilyDesc);
+												fixedWidthFontFamily = new(this, "Fixed Width Font " +
+													"Family", Rsrcs.strGlobalAppearanceFixedWidthFontFamilyTitle, Rsrcs
+													.strGlobalAppearanceFixedWidthFontFamilyDesc);
 
-												size = new(this, "Size of the fonts used", Rsrcs.strGlobalAppearanceFontSizeTitle, Rsrcs
-													.strGlobalAppearanceFontSizeDesc, dto.Size, 12);
+												size = new(this, "Size of the fonts used", Rsrcs
+													.strGlobalAppearanceFontSizeTitle, Rsrcs.strGlobalAppearanceFontSizeDesc,
+													dto.Size, 12);
 
-												weight = new(this, "Weight (boldness) of the fonts used", Rsrcs
-													.strGlobalAppearanceFontWeightTitle, Rsrcs.strGlobalAppearanceFontWeightDesc, dto.Weight, Avalonia.Media
-													.FontWeight.Normal);
+												weight = new(this, "Weight (boldness) of the fonts " +
+													"used", Rsrcs.strGlobalAppearanceFontWeightTitle, Rsrcs
+													.strGlobalAppearanceFontWeightDesc, dto.Weight, Avalonia.Media.FontWeight
+													.Normal);
 											}
 										#endregion
 
@@ -174,72 +195,80 @@ namespace BestChat.Desktop
 										#endregion
 
 										#region Events
-											public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+											public override event System.ComponentModel.PropertyChangedEventHandler?
+												PropertyChanged;
 										#endregion
 
 										#region Constants
 										#endregion
 
 										#region Helper Types
-											public class InfoPairPrefs<FieldType> : Platform.DataAndExt.Prefs.AbstractChildMgr
+											public class InfoPairPrefs<FieldType> : Platform.DataAndExt.Prefs
+												.AbstractChildMgr
 											{
 												#region Constructors & Deconstructors
-													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in string strLocalizedName, in string
-															strLocalizedDesc) :
+													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in
+															string strLocalizedName, in string strLocalizedDesc) :
 														base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 													{
-														isThemeOverridden = new(this, "Is Theme Overridden", Rsrcs
-															.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenDesc,
-															false);
+														isThemeOverridden = new(this, "Is Theme Overridden",
+															Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false);
 
 														overridenVal = new(this, "Override value", Rsrcs
-															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc,
-															default);
+															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairOverriddenValDesc, default);
 													}
 
-													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in string strLocalizedName, in string
-															strLocalizedDesc, in PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType>
+													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in
+															string strLocalizedName, in string strLocalizedDesc, in PrefsDTO.RootDTO
+															.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType>
 															dto) :
 														base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 													{
-														isThemeOverridden = new(this, "Is Theme Overridden", Rsrcs
-															.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenDesc,
-															false, dto.IsOverridden);
+														isThemeOverridden = new(this, "Is Theme Overridden",
+															Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false, dto
+															.IsOverridden);
 
 														overridenVal = new(this, "Override value", Rsrcs
-															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc,
-															default, dto.OverriddenVal);
+															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairOverriddenValDesc, default, dto
+															.OverriddenVal);
 													}
 
-													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in string strLocalizedName, in string
-															strLocalizedDesc, FieldType def) :
+													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in
+															string strLocalizedName, in string strLocalizedDesc, FieldType def) :
 														base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 													{
 														this.def = def;
 
-														isThemeOverridden = new(this, "Is Theme Overridden", Rsrcs
-															.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenDesc,
-															false);
+														isThemeOverridden = new(this, "Is Theme Overridden",
+															Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false);
 
 														overridenVal = new(this, "Override value", Rsrcs
-															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc,
-															default);
+															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairOverriddenValDesc, default);
 													}
 
-													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in string strLocalizedName, in string
-															strLocalizedDesc, in PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType>
+													internal InfoPairPrefs(in OneFontBlockPrefs mgrParent, in string strName, in
+															string strLocalizedName, in string strLocalizedDesc, in PrefsDTO.RootDTO
+															.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType>
 															dto, FieldType def) :
 														base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 													{
 														this.def = def;
 
-														isThemeOverridden = new(this, "Is Theme Overridden", Rsrcs
-															.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenDesc,
-															false, dto.IsOverridden);
+														isThemeOverridden = new(this, "Is Theme Overridden",
+															Rsrcs.strGlobalAppearanceFontBlockPairIsOverriddenTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false, dto
+															.IsOverridden);
 
 														overridenVal = new(this, "Override value", Rsrcs
-															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs.strGlobalAppearanceFontBlockPairOverriddenValDesc,
-															default, dto.OverriddenVal);
+															.strGlobalAppearanceFontBlockPairOverriddenValTitle, Rsrcs
+															.strGlobalAppearanceFontBlockPairOverriddenValDesc, default, dto
+															.OverriddenVal);
 													}
 												#endregion
 
@@ -247,7 +276,8 @@ namespace BestChat.Desktop
 												#endregion
 
 												#region Events
-													public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+													public override event System.ComponentModel.PropertyChangedEventHandler?
+														PropertyChanged;
 												#endregion
 
 												#region Constants
@@ -265,13 +295,16 @@ namespace BestChat.Desktop
 												#endregion
 
 												#region Properties
-													public Platform.DataAndExt.Prefs.Item<bool> IsThemeOverridden => isThemeOverridden;
+													public Platform.DataAndExt.Prefs.Item<bool> IsThemeOverridden
+														=> isThemeOverridden;
 
-													public Platform.DataAndExt.Prefs.Item<FieldType?> OverriddenVal => overridenVal;
+													public Platform.DataAndExt.Prefs.Item<FieldType?> OverriddenVal
+														=> overridenVal;
 												#endregion
 
 												#region Methods
-													internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType> ToDTO()
+													internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO
+															.InfoPairDTO<FieldType> ToDTO()
 														=> new(isThemeOverridden.CurVal, overridenVal.CurVal);
 												#endregion
 
@@ -305,8 +338,10 @@ namespace BestChat.Desktop
 										#endregion
 
 										#region Methods
-											internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO ToDTO()
-												=> new(normalFontFamily.ToDTO(), fixedWidthFontFamily.ToDTO(), size.ToDTO(), weight.ToDTO());
+											internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO.FontDTO.OneFontBlockDTO
+												ToDTO()
+													=> new(normalFontFamily.ToDTO(), fixedWidthFontFamily.ToDTO(),
+														size.ToDTO(), weight.ToDTO());
 										#endregion
 
 										#region Event Handlers
@@ -321,9 +356,11 @@ namespace BestChat.Desktop
 								#endregion
 
 								#region Properties
-									public OneFontBlockPrefs AppFonts => appFonts;
+									public OneFontBlockPrefs AppFonts
+										=> appFonts;
 
-									public OneFontBlockPrefs ViewFonts => viewFonts;
+									public OneFontBlockPrefs ViewFonts
+										=> viewFonts;
 								#endregion
 
 								#region Methods
@@ -341,12 +378,14 @@ namespace BestChat.Desktop
 						#endregion
 
 						#region Properties
-							public FontPrefs Fonts => fonts;
+							public FontPrefs Fonts
+								=> fonts;
 						#endregion
 
 						#region Methods
 							internal PrefsDTO.RootDTO.GlobalDTO.AppearanceDTO ToDTO()
-								=> new(ConfMode.ToDTO(), TimeStamp.ToDTO(), UserList.ToDTO(), fonts.ToDTO());
+								=> new(ConfMode.ToDTO(), TimeStamp.ToDTO(), UserList.ToDTO(), fonts
+									.ToDTO());
 						#endregion
 
 						#region Event Handlers
@@ -359,7 +398,8 @@ namespace BestChat.Desktop
 				#endregion
 
 				#region Properties
-					public override AppearancePrefs Appearance => appearance;
+					public override AppearancePrefs Appearance
+						=> appearance;
 				#endregion
 
 				#region Methods
@@ -380,10 +420,11 @@ namespace BestChat.Desktop
 
 		#region Properties
 			public static RootPrefs Instance
-				=> instance ?? throw new System.InvalidProgramException("Call BestChat.Desktop.RootPrefs.Load before accessing the " +
-					"instance");
+				=> instance ?? throw new System.InvalidProgramException("Call BestChat.Desktop.RootPrefs.Load " +
+					"before accessing the instance");
 
-			public override GlobalPrefs Global => global;
+			public override GlobalPrefs Global
+				=> global;
 		#endregion
 
 		#region Methods

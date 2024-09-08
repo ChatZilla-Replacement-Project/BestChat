@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia;
 
-namespace BestChat
+namespace BestChat.Desktop
 {
 	internal class Program
 	{

@@ -57,7 +57,8 @@ internal record RootDTO
 			init;
 		}
 
-		public override Platform.DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO BaseAppearance => Appearance;
+		public override Platform.DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO BaseAppearance
+			=> Appearance;
 	}
 
 	public override Platform.DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO BaseGlobal => Global;

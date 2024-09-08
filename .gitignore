@@ -398,5 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Resources Designer Files
-*.designer.resx
-/Platform/DataAndExt/Prefs/Rsrcs.Designer.cs
+*.Designer.cs

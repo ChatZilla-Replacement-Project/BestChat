@@ -9,10 +9,12 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<WarningLevel>9999</WarningLevel>
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<WarningLevel>9999</WarningLevel>
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Label="Avalonia">
 		<AvaloniaNameGeneratorDefaultFieldModifier>Private</AvaloniaNameGeneratorDefaultFieldModifier>
@@ -20,15 +22,8 @@
 		<PackageIcon>We Chat icon 180x180.png</PackageIcon>
 	</PropertyGroup>
 	<ItemGroup>
-		<EmbeddedResource Include="We Chat.ico">
+		<EmbeddedResource Include="WeChat.ico">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="..\..\We Chat icon 180x180.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 
@@ -48,13 +43,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj" />
+	  <ProjectReference Include="..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="MainWnd.axaml.cs">
-			<DependentUpon>MainWnd.axaml</DependentUpon>
-		</Compile>
 		<Compile Update="Rsrcs.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -67,5 +59,9 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Update="We Chat.ico" Link="WeChat.ico" />
 	</ItemGroup>
 </Project>

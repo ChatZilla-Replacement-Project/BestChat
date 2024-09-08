@@ -22,46 +22,6 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Helper Types
-		public abstract class Editable
-		{
-			protected Editable(AbstractMgr original)
-			{
-				this.original = original;
-
-
-				mapItemsByName = [];
-				foreach(ItemBase itemCur in original.ItemsByName)
-					mapItemsByName[itemCur.strItemName] = itemCur.EditableMaker(itemCur);
-
-				mapChildMgrByName = [];
-				foreach(AbstractChildMgr cmgrCur in original.ChildMgrByName)
-					mapChildMgrByName[cmgrCur.Name] = AbstractChildMgr.Editable.Make(cmgrCur, this);
-			}
-
-			public readonly AbstractMgr original;
-
-			public void Save()
-			{
-				foreach(ItemBase.IEditable eitemCur in mapItemsByName.Values)
-					eitemCur.Save();
-
-				foreach(AbstractChildMgr.Editable ecmgrCur in mapChildMgrByName.Values)
-					ecmgrCur.Save();
-			}
-
-			private readonly System.Collections.Generic.SortedDictionary<string, ItemBase.IEditable> mapItemsByName =
-				[];
-
-			private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr.Editable> mapChildMgrByName =
-				[];
-
-			public System.Collections.Generic.IReadOnlyCollection<ItemBase.IEditable> ItemsByName
-				=> mapItemsByName.Values;
-
-			public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr.Editable> ChildMgrByName
-				=> mapChildMgrByName.Values;
-		}
-
 		public abstract record AbstractDTO
 		(
 			[System.Xml.Serialization.XmlIgnore]
@@ -70,10 +30,13 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Members
-		private readonly System.Collections.Generic.SortedDictionary<string, ItemBase> mapItemsByName = [];
-
-		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr> mapChildMgrByName =
+		private readonly System.Collections.Generic.SortedDictionary<string, ItemBase> mapItemsByName =
 			[];
+
+		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr>
+			mapChildMgrByName = [];
+
+		private bool bEditMode = false;
 	#endregion
 
 	#region Properties
@@ -82,6 +45,9 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 
 		public System.Collections.Generic.IReadOnlyCollection<AbstractChildMgr> ChildMgrByName
 			=> mapChildMgrByName.Values;
+
+		public bool IsEditMode
+			=> bEditMode;
 	#endregion
 
 	#region Methods
@@ -99,17 +65,78 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 			cmgrNew.evtDirtyChanged += OnChildMgrDirtyChanged;
 		}
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, object> ToTupleList()
+		protected void RemoveChildMgr(AbstractChildMgr cmgrToBeRemoved)
 		{
-			System.Collections.Generic.SortedDictionary<string, object> mapFieldsByName = [];
+			mapChildMgrByName.Remove(cmgrToBeRemoved.Name);
 
-			foreach(ItemBase itemCur in mapItemsByName.Values)
-				mapFieldsByName[itemCur.ItemName] = itemCur.ValAsText;
+			cmgrToBeRemoved.evtDirtyChanged -= OnChildMgrDirtyChanged;
+		}
+
+		public void PrepareForEdit()
+		{
+			if(this is AbstractChildMgr)
+				throw new System.InvalidProgramException("Only root managers can start the edit");
+
+			if(bEditMode)
+				throw new ItemBase.EditingException(ItemBase.EditingException.WhenPossibilities
+					.preparingForEdit);
+
+			InternalPrepareForEdit();
+		}
+
+		private void InternalPrepareForEdit()
+		{
+			bEditMode = true;
 
 			foreach(AbstractChildMgr cmgrCur in mapChildMgrByName.Values)
-				mapFieldsByName[cmgrCur.Name] = cmgrCur.ToTupleList();
+				cmgrCur.InternalPrepareForEdit();
 
-			return mapFieldsByName;
+			foreach(ItemBase itemCur in mapItemsByName.Values)
+				itemCur.PrepareForEdit();
+		}
+
+		public void SaveEdits()
+		{
+			if(this is AbstractChildMgr)
+				throw new System.InvalidProgramException("Only root managers can save the edit");
+
+			if(!IsEditMode)
+				throw new ItemBase.EditingException(ItemBase.EditingException.WhenPossibilities.saving);
+
+			InternalSaveEdits();
+		}
+
+		private void InternalSaveEdits()
+		{
+			foreach(AbstractChildMgr cmgrCur in mapChildMgrByName.Values)
+				cmgrCur.InternalSaveEdits();
+
+			foreach(ItemBase itemCur in mapItemsByName.Values)
+				itemCur.SaveEdits();
+
+			bEditMode = false;
+		}
+
+		public void RevertEdits()
+		{
+			if(this is AbstractChildMgr)
+				throw new System.InvalidProgramException("Only root managers can revert the edit");
+
+			if(!IsEditMode)
+				throw new ItemBase.EditingException(ItemBase.EditingException.WhenPossibilities.reverting);
+
+			InternalRevertEdits();
+		}
+
+		private void InternalRevertEdits()
+		{
+			foreach(AbstractChildMgr cmgrCur in mapChildMgrByName.Values)
+				cmgrCur.InternalRevertEdits();
+
+			foreach(ItemBase itemCur in mapItemsByName.Values)
+				itemCur.RevertEdits();
+
+			bEditMode = false;
 		}
 	#endregion
 

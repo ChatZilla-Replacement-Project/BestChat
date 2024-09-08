@@ -13,8 +13,11 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// <summary>
 	/// Constructs a new <see cref="ObjBase"/> instance.
 	/// </summary>
-	protected ObjBase()
-		=> mapAllInstances[guid] = this;
+	protected ObjBase(System.Guid guid = default)
+	{
+		this.guid = guid;
+		mapAllInstances[guid] = this;
+	}
 
 	/// <summary>
 	/// Removes this instance from the list of all instances.
@@ -26,6 +29,9 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// The <see cref="System.Guid"/> that uniquely identifies this <see cref="ObjBase"/> instance.
 	/// </summary>
 	public readonly System.Guid guid;
+
+	public System.Guid GUID
+		=> guid;
 
 	/// <summary>
 	/// Stores a list of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.
@@ -120,7 +126,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Constructs a new <see cref="Obj{TypeOfObj}"/> by adding this to the list of all instances.
 		/// </summary>
-		protected Obj()
+		protected Obj(System.Guid guid = default) :
+			base(guid)
 			=> mapAllInstances[guid] = this;
 
 		/// <summary>

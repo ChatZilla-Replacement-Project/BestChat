@@ -1,8 +1,6 @@
 // Ignore Spelling: Prefs
 
-using BestChat.Desktop;
-
-namespace BestChat;
+namespace BestChat.Desktop;
 
 public partial class PrefsWnd : Avalonia.Controls.Window
 {

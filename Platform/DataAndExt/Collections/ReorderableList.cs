@@ -2,7 +2,7 @@
 
 namespace BestChat.Platform.DataAndExt.Collections;
 
-public class ReorderableList<ValueType> : System.Collections.Generic.List<ValueType>
+public class ReorderableList<ValueType> : System.Collections.Generic.LinkedList<ValueType>
 {
 	#region Constructors & Destructors
 		public ReorderableList()
@@ -10,10 +10,6 @@ public class ReorderableList<ValueType> : System.Collections.Generic.List<ValueT
 		}
 
 		public ReorderableList(in System.Collections.Generic.IEnumerable<ValueType> copyThis) : base(copyThis)
-		{
-		}
-
-		public ReorderableList(in int iInitialCapacity) : base(iInitialCapacity)
 		{
 		}
 	#endregion
@@ -39,21 +35,68 @@ public class ReorderableList<ValueType> : System.Collections.Generic.List<ValueT
 	#endregion
 
 	#region Methods
-		public void SetIndexForItem(in ValueType itemToMove, in int iNewIndex)
+		public bool MoveEntryUp(ValueType entryToMove)
 		{
-			if(!Contains(itemToMove))
-				throw new System.ArgumentException("The item you passed isn't in this ordered list", "itemToMove");
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodeBeingMoved = Find(entryToMove);
+			if(llnodeBeingMoved == null)
+				return false;
 
-			if(iNewIndex < 0 || iNewIndex >= Count)
-				throw new System.IndexOutOfRangeException();
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodePrev = llnodeBeingMoved.Previous;
 
-			int iExistingIndex = IndexOf(itemToMove);
+			if(llnodePrev == null)
+				return false;
 
-			if(iNewIndex == iExistingIndex)
-				return;
 
-			Remove(itemToMove);
-			Insert(iNewIndex, itemToMove);
+			Remove(llnodeBeingMoved);
+
+			AddBefore(llnodePrev, llnodeBeingMoved);
+
+			return true;
+		}
+
+		public bool MoveEntryDown(ValueType entryToMove)
+		{
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodeBeingMoved = Find(entryToMove);
+			if(llnodeBeingMoved == null)
+				return false;
+
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodeNext = llnodeBeingMoved.Next;
+
+			if(llnodeNext == null)
+				return false;
+
+
+			Remove(llnodeBeingMoved);
+
+			AddAfter(llnodeNext, llnodeBeingMoved);
+
+			return true;
+		}
+
+		public bool MoveEntryToTop(ValueType entryToMove)
+		{
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodeBeingMoved = Find(entryToMove);
+			if(llnodeBeingMoved == null)
+				return false;
+
+			Remove(entryToMove);
+
+			AddFirst(entryToMove);
+
+			return true;
+		}
+
+		public bool MoveEntryToBottom(ValueType entryToMove)
+		{
+			System.Collections.Generic.LinkedListNode<ValueType>? llnodeBeingMoved = Find(entryToMove);
+			if(llnodeBeingMoved == null)
+				return false;
+
+			Remove(entryToMove);
+
+			AddLast(entryToMove);
+
+			return true;
 		}
 	#endregion
 }

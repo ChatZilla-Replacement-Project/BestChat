@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="strAliasText" xml:space="preserve">
+    <value>alias</value>
+  </data>
   <data name="strDefQuitMsg" xml:space="preserve">
     <value>Best Chat has exited.</value>
   </data>
@@ -249,15 +252,270 @@
   <data name="strIrcRootDesc" xml:space="preserve">
     <value>All IRC specific settings are here.</value>
   </data>
-  <data name="strIRCRootTitle" xml:space="preserve">
+  <data name="strIrcRootTitle" xml:space="preserve">
     <value>IRC</value>
+  </data>
+  <data name="strNetAliasDesc" xml:space="preserve">
+    <value>Use if you want {0} to have a different set of aliases from what are available by default in Best Chat IRC.  This can be overridden again for each channel once you join.  Note: Having aliases that exist in some views but not others can be confusing.</value>
+  </data>
+  <data name="strNetAliasesAdditionalDesc" xml:space="preserve">
+    <value>If you need more aliases than what {0} inherits from the global IRC settings, list them here.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAliasesAdditionalTitle" xml:space="preserve">
+    <value>List any extra aliases you want defined for use in views associated with {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAliasesInheritedDesc" xml:space="preserve">
+    <value>{0} inherits a list of aliases from the global IRC settings.  You can disable any or all of them here.  You can override this for individual channels once you visit them.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAliasesInheritedTitle" xml:space="preserve">
+    <value>Which Inherited Aliases are Enabled for {0}?</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAliasTitle" xml:space="preserve">
+    <value>Aliases that exist only for {0}</value>
+  </data>
+  <data name="strNetAltNicksAdditionalDesc" xml:space="preserve">
+    <value>Use to specify additional nicks you want to be available for {0}.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAltNicksAdditionalTitle" xml:space="preserve">
+    <value>Lists more alternate nicks specific to {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAltNicksDesc" xml:space="preserve">
+    <value>If you prefer {0} to use different alternate nicks than what you use for the rest of Best Chat IRC, this tab lets you do that.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAltNicksInheritedDesc" xml:space="preserve">
+    <value>{0} inherits a list of alternate nicks from the global IRC settings.  You can diable any or all of them.  The entries that are enabled are tried before any entries below and in the order shown.  If you need another order, disable entries as needed and recreate them below.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAltNicksInheritedTitle" xml:space="preserve">
+    <value>{0} has these alternate nicks enabled.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAltNicksTitle" xml:space="preserve">
+    <value>Alternate nicks specific to {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformDesc" xml:space="preserve">
+    <value>Use to override the global auto-perform settings for {0}.  You can disable specific entries and add new ones.  Furthermore, you can override it further for each channel once you join it.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformOnEvtDisabledStepsDesc" xml:space="preserve">
+    <value>Each entry here is inherited from the global IRC preferences.  Uncheck an item to prevent that command from running when the event happens for {0}.  Leave it checked to enable it to run.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformOnEvtDisabledStepsTitle" xml:space="preserve">
+    <value>Disable some steps for {0}?</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformTitle" xml:space="preserve">
+    <value>{0} auto-perform options</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenJoiningChanDesc" xml:space="preserve">
+    <value>Use if you want a different set of commands to be run when joining any channel on {0} other than what was specified in the global IRC settings.  This list can be overriden again for individual channels once you join them.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenJoiningChanTitle" xml:space="preserve">
+    <value>Commands to run when joining any channel on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenJoiningNetDesc" xml:space="preserve">
+    <value>Use if you want to customize the list of commands you want to run each time you connect to {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenJoiningNetTitle" xml:space="preserve">
+    <value>Commands to run when joining {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
+    <value>Use if you want a different set of commands to be run when you open a chat with any other user on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
+    <value>Commands to run when you open a chat window with another user</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetChanAliasesAdditionalDesc" xml:space="preserve">
+    <value>Enter any additonal aliases you'd like to be enabled when {1} on {0} is the active view.  You can't use any name if an alias with that name was inherited unless you disable it.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAliasesAdditionalTitle" xml:space="preserve">
+    <value>Additional Aliases for {1} in the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAliasInheritedDesc" xml:space="preserve">
+    <value>The checked aliases are active in {1}.  Some were inherited from {0} while others came from your global IRC settings.  Uncheck any you don't want for {1}.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAliasInheritedTitle" xml:space="preserve">
+    <value>Aliases inherited from {0} or global settings to {1}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformAddedDesc" xml:space="preserve">
+    <value>These steps will be performed after the entries above that are enabled in the order shown any time you join {1} on {1}.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformAddedTitle" xml:space="preserve">
+    <value>Additional steps to run when joining {1} on the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformDesc" xml:space="preserve">
+    <value>Go here to change what steps are run when you join {1} on {0}.  These override what you specified for the network (when joining any channel).</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformInheritedDesc" xml:space="preserve">
+    <value>These steps will be performed, if enabled, any time you join {1} on {0}.  Disable entries as needed.  If you want to change the order, disable entries and then create them below in the new order.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformInheritedTitle" xml:space="preserve">
+    <value>Inherited steps to take when joining {1} on the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanAutoPerformTitle" xml:space="preserve">
+    <value>Override what happens when you join {1} on the network {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanDesc" xml:space="preserve">
+    <value>These tabs let you override settings for {0} for {1}.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanInheritedFromGlobalDesc" xml:space="preserve">
+    <value>This inherited {0} came from your global IRC preferences.</value>
+    <comment>"{0}" will be replaced with the type name of the object being inherited.  So if the object is a stalk word, something like "stalk word" would appear there.</comment>
+  </data>
+  <data name="strNetChanInheritedFromGlobalText" xml:space="preserve">
+    <value>Global Settings</value>
+  </data>
+  <data name="strNetChanInheritedFromNetDesc" xml:space="preserve">
+    <value>This inherited {0} came from the network preferences for {1}.</value>
+    <comment>"{0}" will be replaced with the type name of the object being inherited and "{1}" will be replaced with the network name.</comment>
+  </data>
+  <data name="strNetChanInheritedFromNetText" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="strNetChanStalkWordsAddedDesc" xml:space="preserve">
+    <value>These words, when they appear in {1} on {0}, will trigger alerts.  These are in addition to those specified above.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanStalkWordsAddedTitle" xml:space="preserve">
+    <value>More words to alert you when they appear in {1} on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanStalkWordsInheritedDesc" xml:space="preserve">
+    <value>These words, when they appear in {1} on {0}, will trigger alerts.  Those you specified in the global IRC settings as well as those from the network will be listed here.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanStalkWordsInheritedTitle" xml:space="preserve">
+    <value>Stalk words inherited from {0} for {1}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanTimeStampDesc" xml:space="preserve">
+    <value>Go here if you want {1} to use different time stamp settings than used by other {0} channels.</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanTimeStampTitle" xml:space="preserve">
+    <value>{1} time stamp overrides on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetChanTitle" xml:space="preserve">
+    <value>{1} channel preferences on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+  </data>
+  <data name="strNetConnDesc" xml:space="preserve">
+    <value>Use to override the connection settings for {0}.  This can be useful if a network needs different settings.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetConnOverrideDesc" xml:space="preserve">
+    <value>Check to customize the connection settings to be more specific to {0}.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetConnOverrideTitle" xml:space="preserve">
+    <value>Override the global connection settings for {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetConnTitle" xml:space="preserve">
+    <value>Connection settings specific to {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetDccOverrideDesc" xml:space="preserve">
+    <value>Check to override any of the global settings within the settings for {0}.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetDccOverrideTitle" xml:space="preserve">
+    <value>Override the global DCC settings for {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
   <data name="strNetDesc" xml:space="preserve">
     <value>Lists preferences specific to the network {0}</value>
     <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
+  <data name="strNetKnownChanDesc" xml:space="preserve">
+    <value>This is a list of known channels on {0}.  You've previously joined each of these channels.  Each channel has preferences associated with it.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetKnownChanTitle" xml:space="preserve">
+    <value>Known channels on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetNotifyDesc" xml:space="preserve">
+    <value>If you want to know when other specific users come and go on {0}, add their nick here.  You can manually do this from the command line with /notify</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetNotifyTitle" xml:space="preserve">
+    <value>Nicks of remote users you want to know when they are on {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetNotifyWhenOnlineDesc" xml:space="preserve">
+    <value>If any of these users leave the network {0}, join it, become away on {0}, or not away on {0}; Best Chat will notify you.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetNotifyWhenOnlineTitle" xml:space="preserve">
+    <value>Notify for {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsAdditionalDesc" xml:space="preserve">
+    <value>Use to specify additonal words you want to be alerted about when they happen in any view associated with {0}.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsAdditionalTitle" xml:space="preserve">
+    <value>Lists more stalk words specific to {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsDesc" xml:space="preserve">
+    <value>This tab lets you override the stalk words for {0} from the default IRC global stalk words.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsInheritedDesc" xml:space="preserve">
+    <value>more, once you join a channel, you can again override them.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsInheritedTitle" xml:space="preserve">
+    <value>{0} has these stalk words from global IRC settings enabled</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetStalkWordsTitle" xml:space="preserve">
+    <value>Override the stalk words for {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetTimeStampOverrideNetDesc" xml:space="preserve">
+    <value>Check to override any of the global settings within the settings for {0}.</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strNetTimeStampOverrideNetTitle" xml:space="preserve">
+    <value>Override the global time stamp settings for {0}</value>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
   <data name="strNetTitle" xml:space="preserve">
     <value>{0} network preferences</value>
     <comment>"{0}" will be replaced with the name of the network.</comment>
+  </data>
+  <data name="strStalkWordsText" xml:space="preserve">
+    <value>stalk word</value>
   </data>
 </root>

@@ -8,7 +8,6 @@ public abstract record PrefsDTO
 {
 	public abstract record GlobalDTO
 	(
-		//GlobalDTO.GeneralDTO General,
 		GlobalDTO.PluginsDTO Plugins
 	) : AbstractMgr.AbstractDTO("Global")
 	{
@@ -30,8 +29,9 @@ public abstract record PrefsDTO
 			public record TimeStampDTO
 			(
 				bool Show = true,
-				string Fmt = "G"
-			) : AbstractMgr.AbstractDTO("Global/Appearance/TimeStamp");
+				string Fmt = "G",
+				string? KeyOverride = null
+			) : AbstractMgr.AbstractDTO(KeyOverride ?? "Global/Appearance/TimeStamp");
 
 			public record UserListDTO
 			(
@@ -58,30 +58,14 @@ public abstract record PrefsDTO
 				ExtDTO.ProgramEntryDTO[]? Programs = null
 			) : AbstractMgr.AbstractDTO("Global/Plugins/Ext")
 			{
-				public record WhereToLookDTO(string[]? Paths = null, bool IncludeSysPaths = true);
+				public record WhereToLookDTO(System.IO.DirectoryInfo[]? Paths = null, bool IncludeSysPaths =
+					true);
 
-				public record ScriptEntryDTO(string FileNameExtOrMask, string? ProgramNeeded, string ParamsToPass, bool Enabled);
+				public record ScriptEntryDTO(string FileNameExtOrMask, System.IO.FileInfo? ProgramNeeded,
+					string ParamsToPass, bool Enabled);
 
-				public record ProgramEntryDTO(string Name, string Program, string ParamsToPass, bool Enabled);
-			}
-		}
-
-		public record GeneralDTO
-		(
-			GeneralDTO.ConnDTO Conn
-		)
-		{
-			public record ConnDTO
-			(
-				bool IsIdentEnabled = true,
-				bool IsAutoReconnectEnabled = true,
-				bool IsRejoinAfterKickEnabled = true,
-				string CharEncoding = "UTF-8",
-				bool IsUnlimitedAttemptsOn = true,
-				int MaxAttempts = 1,
-				string? DefQuitMsg = null
-			)
-			{
+				public record ProgramEntryDTO(string Name, System.IO.FileInfo Program, string ParamsToPass,
+					bool Enabled);
 			}
 		}
 	}

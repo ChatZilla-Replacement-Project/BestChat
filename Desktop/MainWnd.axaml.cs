@@ -1,4 +1,4 @@
-namespace BestChat
+namespace BestChat.Desktop
 {
 	public partial class MainWnd : Avalonia.Controls.Window
 	{
