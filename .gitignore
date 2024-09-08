@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Resources Designer Files
+*.designer.resx
+/Platform/DataAndExt/Prefs/Rsrcs.Designer.cs
