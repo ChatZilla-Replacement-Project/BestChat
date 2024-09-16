@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="strTranslatedPtotocolDesc" xml:space="preserve">
+  <data name="strFileBncMgrMenuItemTitle" xml:space="preserve">
+    <value>_BNC Manager</value>
+  </data>
+  <data name="strFileBncMgrMenuItemToolTip" xml:space="preserve">
+    <value>Displays the BNC Manager.  From here, you can customize how Best Chat handles bouncers.</value>
+  </data>
+  <data name="strFileMenuItemTitle" xml:space="preserve">
+    <value>I_RC</value>
+  </data>
+  <data name="strFileMenuItemToolTip" xml:space="preserve">
+    <value>Holds all menu items for the IRC system in Best Chat</value>
+  </data>
+  <data name="strFileNetworkMgrMenuItemTitle" xml:space="preserve">
+    <value>_Network Manager</value>
+  </data>
+  <data name="strFileNetworkMgrMenuItemToolTip" xml:space="preserve">
+    <value>Displays the Network Manager.  From here, you can add, remove, or customize IRC networks available through out the rest of Best Chat.</value>
+  </data>
+  <data name="strTranslatedProtDesc" xml:space="preserve">
     <value>Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn't support IRC.</value>
+  </data>
+  <data name="strTranslatedProtName" xml:space="preserve">
+    <value>Internet Relay Chat (IRC)</value>
   </data>
 </root>

@@ -197,6 +197,52 @@
     <value>The user {0} just gained voice in this channel.  This action was taken by {1}.</value>
     <comment>All occurrences of "{0}" will be replaced by the nick of the user who just gained voice.  All occurrences of "{1}" will be replaced by the nick of the user that issued the voice.</comment>
   </data>
+  <data name="strBncInstanceNameBlankFmt" xml:space="preserve">
+    <value>Please enter a name for this instance.  It needs to be unique on the bouncer “{0}”.</value>
+    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+  </data>
+  <data name="strBncInstanceNameNotUniqueFmt" xml:space="preserve">
+    <value>You entered the name “{0}” for this bouncer instance, however, we already have an instance on “{1}” with that name.  Please choose another.</value>
+    <comment>All instances of "{0}" will be replaced by the name the user gave for the instance.  All instances of "[1}" will be replaced by the bouncer name.</comment>
+  </data>
+  <data name="strBncInstanceNeeded" xml:space="preserve">
+    <value>You need to create at least one instance before you can save.</value>
+  </data>
+  <data name="strBncInstanceServerNeededFmt" xml:space="preserve">
+    <value>Please specify a server to use for this instance of the bouncer “{0}”.</value>
+    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+  </data>
+  <data name="strBncNameBlank" xml:space="preserve">
+    <value>Please enter a name for this bouncer.</value>
+  </data>
+  <data name="strBncNameTakenFmt" xml:space="preserve">
+    <value>The name {0} is taken by another bouncer.  Please choose another.</value>
+    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+  </data>
+  <data name="strBncPortNeeded" xml:space="preserve">
+    <value>You need to specify at least one port.  It can be in either the Unencrypted Port list or the SSL Port list, but you need one.</value>
+  </data>
+  <data name="strBncServerDomainBlank" xml:space="preserve">
+    <value>The domain name you entered for this server is blank.  You need to enter a valid domain name that's unique in this bouncer.</value>
+  </data>
+  <data name="strBncServerDomainInvalidFmt" xml:space="preserve">
+    <value>The value you gave for the domain name, “{0}”, doesn't appear to be a valid domain name.  Please correct that.</value>
+    <comment>All instances of "{0}" will be replaced by the domain name as the user entered it.</comment>
+  </data>
+  <data name="strBncServerDomainNotUniqueFmt" xml:space="preserve">
+    <value>You already created another server on the bouncer {0} with the domain name “{1}”.  Please make the domain for this server unique.</value>
+    <comment>All instances of "{0}" will be replaced by the bouncer name.  All instances of "{1}" will be replaced by the domain name as the user entered it.</comment>
+  </data>
+  <data name="strBncServerNameBlank" xml:space="preserve">
+    <value>Please enter a valid server name that's unique</value>
+  </data>
+  <data name="strBncServerNameNotUniqueFmt" xml:space="preserve">
+    <value>The server name you entered, “{0}” isn't unique.  This bouncer, “{1}”, already has a server with that name.</value>
+    <comment>All instances of "{0}" will be replaced by the server name the user entered.  All instances of "{1}" will be replaced by the bouncer name.</comment>
+  </data>
+  <data name="strBncServerNeeded" xml:space="preserve">
+    <value>You need to create at least one server before you can save.</value>
+  </data>
   <data name="strBoolModeStateOffDesc" xml:space="preserve">
     <value>Off</value>
   </data>
@@ -236,6 +282,9 @@
   </data>
   <data name="strConversationGroupTypeRemoteUsers" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="strCustomBncType" xml:space="preserve">
+    <value>Custom</value>
   </data>
   <data name="strDefChanModeForwardDesc" xml:space="preserve">
     <value>join throttling to be sent to another channel.</value>
@@ -346,6 +395,66 @@
   <data name="strIrcName" xml:space="preserve">
     <value>IRC</value>
   </data>
+  <data name="strLogInModeChallengeText" xml:space="preserve">
+    <value>Challenge (User Name &amp; Password)</value>
+  </data>
+  <data name="strLogInModeChallengeToolTip" xml:space="preserve">
+    <value>The server will for your log in information.  If you fail to provide it in time, you won't get in.</value>
+  </data>
+  <data name="strLogInModeCustomText" xml:space="preserve">
+    <value>Custom / Manual</value>
+  </data>
+  <data name="strLogInModeCustomToolTip" xml:space="preserve">
+    <value>If you select this option, you'll need to enter one or more commands that will be sent to the server prior to connection.  Conceivably, some of these commands might ask the user for information.</value>
+  </data>
+  <data name="strLogInModeDefText" xml:space="preserve">
+    <value>Default </value>
+  </data>
+  <data name="strLogInModeDefToolTip" xml:space="preserve">
+    <value>TODO: What does this mean?</value>
+  </data>
+  <data name="strLogInModeNickServMsgText" xml:space="preserve">
+    <value>NickServ (via /msg NickServ)</value>
+  </data>
+  <data name="strLogInModeNickServMsgToolTip" xml:space="preserve">
+    <value>You'll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won't work if NickServ isn't present.  This option is provided as a few networks don't define the /ns or /nickserv commands.</value>
+  </data>
+  <data name="strLogInModeNickServNsText" xml:space="preserve">
+    <value>NickServ (via /ns)</value>
+  </data>
+  <data name="strLogInModeNickServNsToolTip" xml:space="preserve">
+    <value>You'll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won't work if NickServ isn't present.  This option requires a network defines the /ns command.</value>
+  </data>
+  <data name="strLogInModeNoneText" xml:space="preserve">
+    <value>Don't attempt to log in</value>
+  </data>
+  <data name="strLogInModeNoneToolTip" xml:space="preserve">
+    <value>Disables all attempts by Best Chat to log you in.</value>
+  </data>
+  <data name="strLogInModeSaslCertText" xml:space="preserve">
+    <value>SASL (Certificate)</value>
+  </data>
+  <data name="strLogInModeSaslCertToolTip" xml:space="preserve">
+    <value>This option only requires a certificate file you'll need to locate for Best Chat.</value>
+  </data>
+  <data name="strLogInModeSaslUserNamePwdText" xml:space="preserve">
+    <value>Use SASL (User Name &amp; Password)</value>
+  </data>
+  <data name="strLogInModeSaslUserNamePwdToolTip" xml:space="preserve">
+    <value>This option requires you to specify your user name and password.  If a NickServ is preset, the user name and password may come from your NickServ account.</value>
+  </data>
+  <data name="strLogInModeServerPwdText" xml:space="preserve">
+    <value>Server Password</value>
+  </data>
+  <data name="strLogInModeServerPwdToolTip" xml:space="preserve">
+    <value>Use if the server only asks for a simple password.</value>
+  </data>
+  <data name="strLogInModeUseQText" xml:space="preserve">
+    <value>Use Q</value>
+  </data>
+  <data name="strLogInModeUseQToolTip" xml:space="preserve">
+    <value>Q exists only, that we know of, on QuakeNet.  So you will probably never need to select this if it isn't selected.  For Quake, you only have two choices: Don't log in and Q.  Don't pick other options as they might not work.</value>
+  </data>
   <data name="strManual" xml:space="preserve">
     <value>Log in manually</value>
   </data>
@@ -427,6 +536,12 @@
   <data name="strPostActionSayDesc" xml:space="preserve">
     <value>say</value>
   </data>
+  <data name="strPredefinedBncType" xml:space="preserve">
+    <value>Predefined</value>
+  </data>
+  <data name="strPredefinedButModifiedBncType" xml:space="preserve">
+    <value>Predefined but modified</value>
+  </data>
   <data name="strPrefsForNetwork" xml:space="preserve">
     <value>Here you'll find all preferences for this “{0}”. Items under here are for channels and users you've talked with directly.</value>
     <comment>All instances of "{0}" will be replaced by the network name.</comment>
@@ -435,8 +550,11 @@
     <value>{0} is a remote user on the IRC network {1}.</value>
     <comment>All occurrences of "{0}" will be replaced with the current nick of the user on the other end of this conversation.  All occurrences of {1} will be replaced with the name of the network.</comment>
   </data>
-  <data name="strSASL" xml:space="preserve">
-    <value>Use SASL</value>
+  <data name="strServerInvalidWithOutAtLeastOnePort" xml:space="preserve">
+    <value>You need to specify at least one port.  It can be an SSL port or a non-SSL port, but you must specify one.</value>
+  </data>
+  <data name="strServerInvalidWithOutDomain" xml:space="preserve">
+    <value>Please specify a domain name.</value>
   </data>
   <data name="strThreeWayModeStateForcedOff" xml:space="preserve">
     <value>ChanServ is preventing this mode from being set.</value>

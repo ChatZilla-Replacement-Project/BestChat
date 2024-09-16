@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BestChat.IRC.Data.ProtocolMgr {
+namespace BestChat.IRC.ProtocolMgr {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BestChat.IRC.Data.ProtocolMgr {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.IRC.Data.ProtocolMgr.Rsrcs", typeof(Rsrcs).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BestChat.IRC.ProtocolMgr.Rsrcs", typeof(Rsrcs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,74 @@ namespace BestChat.IRC.Data.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _BNC Manager.
+        /// </summary>
+        internal static string strFileBncMgrMenuItemTitle {
+            get {
+                return ResourceManager.GetString("strFileBncMgrMenuItemTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the BNC Manager.  From here, you can customize how Best Chat handles bouncers..
+        /// </summary>
+        internal static string strFileBncMgrMenuItemToolTip {
+            get {
+                return ResourceManager.GetString("strFileBncMgrMenuItemToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I_RC.
+        /// </summary>
+        internal static string strFileMenuItemTitle {
+            get {
+                return ResourceManager.GetString("strFileMenuItemTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holds all menu items for the IRC system in Best Chat.
+        /// </summary>
+        internal static string strFileMenuItemToolTip {
+            get {
+                return ResourceManager.GetString("strFileMenuItemToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Network Manager.
+        /// </summary>
+        internal static string strFileNetworkMgrMenuItemTitle {
+            get {
+                return ResourceManager.GetString("strFileNetworkMgrMenuItemTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays the Network Manager.  From here, you can add, remove, or customize IRC networks available through out the rest of Best Chat..
+        /// </summary>
+        internal static string strFileNetworkMgrMenuItemToolTip {
+            get {
+                return ResourceManager.GetString("strFileNetworkMgrMenuItemToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn&apos;t support IRC..
         /// </summary>
-        internal static string strTranslatedPtotocolDesc {
+        internal static string strTranslatedProtDesc {
             get {
-                return ResourceManager.GetString("strTranslatedPtotocolDesc", resourceCulture);
+                return ResourceManager.GetString("strTranslatedProtDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internet Relay Chat (IRC).
+        /// </summary>
+        internal static string strTranslatedProtName {
+            get {
+                return ResourceManager.GetString("strTranslatedProtName", resourceCulture);
             }
         }
     }

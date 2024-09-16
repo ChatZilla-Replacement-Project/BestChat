@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Defs
 {
-	public enum NickServOpts
+	public enum NickServOpts : byte
 	{
 		[Platform.DataAndExt.Attr.LocalizedDesc("strNickServOptUnknown", "Available, but type unknown",
 			"strNickServOptUnknownTooltip", "Select this if the network has a NickServ, but you don't know much " +

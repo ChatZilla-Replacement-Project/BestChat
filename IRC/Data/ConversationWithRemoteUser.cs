@@ -7,7 +7,7 @@ using Platform.DataAndExt.Ext;
 public class ConversationWithRemoteUser : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 {
 	#region Constructors & Deconstructors
-		public ConversationWithRemoteUser(in ActiveNetwork anetOwner, in RemoteUser ru) :
+		public ConversationWithRemoteUser(in ActiveNet anetOwner, in RemoteUser ru) :
 			base(ru.CurNick, Rsrcs.strRemoteUserDescForTree.Fmt(ru.CurNick, anetOwner.Name))
 		{
 			if(ru == anetOwner.ru)
@@ -137,7 +137,7 @@ public class ConversationWithRemoteUser : AbstractConversation, Platform.DataAnd
 			};
 		#endif
 
-		public readonly ActiveNetwork anetOwner;
+		public readonly ActiveNet anetOwner;
 
 		public readonly RemoteUser ru;
 	#endregion

@@ -1026,7 +1026,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 		public class NetworkPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		{
 			#region Constructors & Deconstructors
-				public NetworkPrefs(Prefs<GlobalPrefsType> mgrParent, Defs.Network netOwner) :
+				public NetworkPrefs(Prefs<GlobalPrefsType> mgrParent, Defs.Net netOwner) :
 					base(mgrParent, "IRC", PrefsRsrcs.strNetTitle, PrefsRsrcs.strNetTitle)
 				{
 					OwnerNet = netOwner;
@@ -1045,7 +1045,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 				public NetworkPrefs(Prefs<GlobalPrefsType> mgrParent, DTO.IrcDTO.NetworkDTO dto) :
 					base(mgrParent, "IRC", PrefsRsrcs.strNetTitle, PrefsRsrcs.strNetTitle)
 				{
-					OwnerNet = (Defs.Network?)Defs.Network.AllInstancesByGUID[dto.OwnerNet] ?? throw new System.
+					OwnerNet = (Defs.Net?)Defs.Net.AllInstancesByGUID[dto.OwnerNet] ?? throw new System.
 						Exception($"While loading IRC preferences, found preferences for {dto.OwnerNet}, " +
 						"but we can't find that network.");
 
@@ -2239,7 +2239,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#region Helper Types
 						public new class InheritedItemEnabledStatus<InheritedType>(in InheritedType inheritedItem, bool
 								bStatus, InheritedItemEnabledStatus<InheritedType>.InheritedFromTypes ifSrc, string
-								strDescOfInheritedType, Defs.Network net)
+								strDescOfInheritedType, Defs.Net net)
 							: Platform.DataAndExt.Obj<InheritedItemEnabledStatus<InheritedType>>
 						{
 							public InheritedType InheritedItem = inheritedItem;
@@ -3033,7 +3033,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			#endregion
 
 			#region Properties
-				public Defs.Network OwnerNet
+				public Defs.Net OwnerNet
 				{
 					get;
 

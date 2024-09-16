@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Defs Loc evt dt iprot
+﻿// Ignore Spelling: Defs Loc evt dt iprot Prot
 
 using System.Linq;
 
@@ -9,39 +9,40 @@ using Ext;
 public abstract class MgrBase
 {
 	protected MgrBase()
-	{
-		instance = this;
-	}
+		=> instance = this;
 
 	private static MgrBase? instance;
 
 	public static MgrBase Instance
 		=> instance ?? throw new System.InvalidProgramException("No protocol manager created yet");
 
-	public abstract void TellAllProtocolsToSave(in System.IO.DirectoryInfo dirDataLoc);
+	public abstract void TellAllProtocolsToSave();
 }
 
 public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentModel.INotifyPropertyChanged
 	where ProtocolInterfaceType : IProtocolDef
 {
 	#region Constructors & Deconstructors
-		protected Mgr(in string strMaskForModules, in System.IO.DirectoryInfo dirProfileLoc, in System.Func<ProtocolMetaData, bool>
-			funcNewProtocolEnabler)
+		protected Mgr(in string strMaskForModules, in System.IO.DirectoryInfo dirDataLoc, in System
+			.Func<ProtocolMetaData, bool> funcNewProtEnabler)
 		{
-			this.funcNewProtocolEnabler = funcNewProtocolEnabler;
+			this.dirDataLoc = dirDataLoc;
+			this.funcNewProtEnabler = funcNewProtEnabler;
 
 			System.Reflection.Assembly? assemblyEntry = System.Reflection.Assembly.GetEntryAssembly() ?? throw new System
-				.InvalidProgramException("For some reason, BestChat.ProtocolMgr.ProtocolMgr was called from non-managed code.");
+				.InvalidProgramException("For some reason, BestChat.ProtocolMgr.ProtocolMgr was called from non" +
+				"-managed code.");
 
 			string? strEntryAssemblyLoc = System.IO.Path.GetDirectoryName(assemblyEntry.Location);
 			if(strEntryAssemblyLoc == null || strEntryAssemblyLoc == "")
-				throw new System.InvalidProgramException("For some reason, we can't get the location of the executable that's creating a " +
-					"BestChat.ProtocolMgr.ProtocolMgr instance.  We're expecting protocol module DLLs to be in a subdirectory thereof.");
+				throw new System.InvalidProgramException("For some reason, we can't get the location of the executable " +
+					"that's creating a BestChat.ProtocolMgr.ProtocolMgr instance.  We're expecting protocol module DLLs to " +
+					"be in a subdirectory thereof.");
 			System.IO.DirectoryInfo dirProtocolModuleLoc = new(System.IO.Path.Combine(strEntryAssemblyLoc,
 				strProtocolModuleSubdirectory));
 
-			string strSetingsPath = System.IO.Path.Combine(dirProfileLoc.FullName, strEnabledProtocolsFileName);
-			if(dirProfileLoc.Exists && System.IO.File.Exists(strSetingsPath))
+			string strSetingsPath = System.IO.Path.Combine(dirDataLoc.FullName, strEnabledProtocolsFileName);
+			if(dirDataLoc.Exists && System.IO.File.Exists(strSetingsPath))
 			{
 				if(dirProtocolModuleLoc.Exists)
 					foreach(System.IO.FileInfo fileCurProtocolModule in dirProtocolModuleLoc.GetFiles(strMaskForModules))
@@ -124,8 +125,9 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 
 					public readonly System.Reflection.Assembly assembly;
 
-					public override string Message => Rsrcs.strUnableToLoadAssemblyInfoExceptionMsgFmt.Fmt(assembly.FullName ?? throw new System
-						.Exception("Can't get full name of assembly as it doesn't seem to have one."), typeof(ProtocolInterfaceType));
+					public override string Message => Rsrcs.strUnableToLoadAssemblyInfoExceptionMsgFmt.Fmt(assembly.FullName
+						?? throw new System.Exception("Can't get full name of assembly as it doesn't seem to have " +
+						"one."), typeof(ProtocolInterfaceType));
 				}
 
 				public class FailedToCreateInstanceOfProtocolMgrForProtocolException : System.Exception
@@ -231,9 +233,10 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 				private void LoadProtocol()
 				{
 					if(strProtocolInterfaceTypeName != null)
-						protocol = (ProtocolInterfaceType)(assembly.CreateInstance(strProtocolInterfaceTypeName, false, System.Reflection
-							.BindingFlags.CreateInstance, System.Type.DefaultBinder, [], System.Globalization.CultureInfo.CurrentCulture,
-							[]) ?? throw new FailedToCreateInstanceOfProtocolMgrForProtocolException(this));
+						protocol = (ProtocolInterfaceType)(assembly.CreateInstance(strProtocolInterfaceTypeName,
+							false, System.Reflection.BindingFlags.CreateInstance, System.Type.DefaultBinder, [],
+							System.Globalization.CultureInfo.CurrentCulture,[]) ?? throw new
+							FailedToCreateInstanceOfProtocolMgrForProtocolException(this));
 				}
 			#endregion
 
@@ -243,6 +246,8 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 	#endregion
 
 	#region Members
+		public readonly System.IO.DirectoryInfo dirDataLoc;
+
 		private readonly System.IO.FileSystemWatcher fsw;
 
 		private readonly System.Collections.Generic.Dictionary<string, ProtocolMetaData> mapNameToProtocolDefs =
@@ -251,9 +256,9 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 		private readonly System.Collections.ObjectModel.ObservableCollection<ProtocolMetaData> ocUnsortedProtocolDefs =
 			[];
 
-		public readonly System.Func<ProtocolMetaData, bool> funcNewProtocolEnabler;
+		public readonly System.Func<ProtocolMetaData, bool> funcNewProtEnabler;
 
-		private static string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName;
+		private static readonly string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName;
 	#endregion
 
 	#region Properties
@@ -264,17 +269,21 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			=> ocUnsortedProtocolDefs;
 
 		public System.Collections.Generic.IEnumerable<ProtocolInterfaceType> AllEnabledProtocols
-			=> mapNameToProtocolDefs.Values.Where(iprotCur => iprotCur.IsEnabled).Select(iprotCur => iprotCur
-				.Protocol).Cast<ProtocolInterfaceType>();
+			=> mapNameToProtocolDefs.Values.Where(iprotCur => iprotCur.IsEnabled)
+				.Select(iprotCur
+					=> iprotCur.Protocol).Cast<ProtocolInterfaceType>();
 	#endregion
 
 	#region Methods
-		private void AddNewProtocolModule(in System.IO.FileInfo fileProtocolModule, in string[]? astrProtocolNamesToEnable = default)
+		private void AddNewProtocolModule(in System.IO.FileInfo fileProtocolModule, in string[]?
+			astrProtocolNamesToEnable = default)
 		{
-			System.Reflection.Assembly assemblyCurProtocolModule = System.Reflection.Assembly.LoadFile(fileProtocolModule.FullName);
+			System.Reflection.Assembly assemblyCurProtocolModule = System.Reflection.Assembly
+				.LoadFile(fileProtocolModule.FullName);
 
-			string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName ?? throw new System.InvalidProgramException("The type" +
-				" provided to BestChat.Platform.DataAndExt.Protocol.Mgr doesn't have a name.");
+			string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName ?? throw new System
+				.InvalidProgramException("The type provided to BestChat.Platform.DataAndExt.Protocol.Mgr doesn't " +
+				"have a name.");
 
 			ProtocolMetaData iprotNew = new(assemblyCurProtocolModule);
 			iprotNew.evtDirtyChanged += OnProtocolInfoDirtyChanged;
@@ -288,15 +297,15 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			ocUnsortedProtocolDefs.Add(iprotNew);
 
 			iprotNew.IsEnabled = astrProtocolNamesToEnable == null
-				? funcNewProtocolEnabler(iprotNew)
+				? funcNewProtEnabler(iprotNew)
 				: astrProtocolNamesToEnable.Contains(iprotNew.ProtocolName);
 		}
 
-		public override void TellAllProtocolsToSave(in System.IO.DirectoryInfo dirDataLoc)
-		{
-			foreach(ProtocolInterfaceType iprotCur in AllEnabledProtocols)
-				iprotCur.SaveAllData(dirDataLoc);
-		}
+		protected abstract void OnProtLoaded(ProtocolInterfaceType iprotNew);
+
+		public string GetFileNameForProt(IProtocolDef iprot)
+			=> System.IO.Path.Combine(dirDataLoc.FullName, $"{iprot.Name}.prefs.json");
+
 	#endregion
 
 	#region Event Handlers

@@ -241,6 +241,123 @@ namespace BestChat.IRC.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for this instance.  It needs to be unique on the bouncer “{0}”..
+        /// </summary>
+        internal static string strBncInstanceNameBlankFmt {
+            get {
+                return ResourceManager.GetString("strBncInstanceNameBlankFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You entered the name “{0}” for this bouncer instance, however, we already have an instance on “{1}” with that name.  Please choose another..
+        /// </summary>
+        internal static string strBncInstanceNameNotUniqueFmt {
+            get {
+                return ResourceManager.GetString("strBncInstanceNameNotUniqueFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to create at least one instance before you can save..
+        /// </summary>
+        internal static string strBncInstanceNeeded {
+            get {
+                return ResourceManager.GetString("strBncInstanceNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify a server to use for this instance of the bouncer “{0}”..
+        /// </summary>
+        internal static string strBncInstanceServerNeededFmt {
+            get {
+                return ResourceManager.GetString("strBncInstanceServerNeededFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for this bouncer..
+        /// </summary>
+        internal static string strBncNameBlank {
+            get {
+                return ResourceManager.GetString("strBncNameBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name {0} is taken by another bouncer.  Please choose another..
+        /// </summary>
+        internal static string strBncNameTakenFmt {
+            get {
+                return ResourceManager.GetString("strBncNameTakenFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to specify at least one port.  It can be in either the Unencrypted Port list or the SSL Port list, but you need one..
+        /// </summary>
+        internal static string strBncPortNeeded {
+            get {
+                return ResourceManager.GetString("strBncPortNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The domain name you entered for this server is blank.  You need to enter a valid domain name that&apos;s unique in this bouncer..
+        /// </summary>
+        internal static string strBncServerDomainBlank {
+            get {
+                return ResourceManager.GetString("strBncServerDomainBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value you gave for the domain name, “{0}”, doesn&apos;t appear to be a valid domain name.  Please correct that..
+        /// </summary>
+        internal static string strBncServerDomainInvalidFmt {
+            get {
+                return ResourceManager.GetString("strBncServerDomainInvalidFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already created another server on the bouncer {0} with the domain name “{1}”.  Please make the domain for this server unique..
+        /// </summary>
+        internal static string strBncServerDomainNotUniqueFmt {
+            get {
+                return ResourceManager.GetString("strBncServerDomainNotUniqueFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid server name that&apos;s unique.
+        /// </summary>
+        internal static string strBncServerNameBlank {
+            get {
+                return ResourceManager.GetString("strBncServerNameBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The server name you entered, “{0}” isn&apos;t unique.  This bouncer, “{1}”, already has a server with that name..
+        /// </summary>
+        internal static string strBncServerNameNotUniqueFmt {
+            get {
+                return ResourceManager.GetString("strBncServerNameNotUniqueFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to create at least one server before you can save..
+        /// </summary>
+        internal static string strBncServerNeeded {
+            get {
+                return ResourceManager.GetString("strBncServerNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string strBoolModeStateOffDesc {
@@ -354,6 +471,15 @@ namespace BestChat.IRC.Data {
         internal static string strConversationGroupTypeRemoteUsers {
             get {
                 return ResourceManager.GetString("strConversationGroupTypeRemoteUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        internal static string strCustomBncType {
+            get {
+                return ResourceManager.GetString("strCustomBncType", resourceCulture);
             }
         }
         
@@ -673,6 +799,186 @@ namespace BestChat.IRC.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Challenge (User Name &amp; Password).
+        /// </summary>
+        internal static string strLogInModeChallengeText {
+            get {
+                return ResourceManager.GetString("strLogInModeChallengeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The server will for your log in information.  If you fail to provide it in time, you won&apos;t get in..
+        /// </summary>
+        internal static string strLogInModeChallengeToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeChallengeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom / Manual.
+        /// </summary>
+        internal static string strLogInModeCustomText {
+            get {
+                return ResourceManager.GetString("strLogInModeCustomText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you select this option, you&apos;ll need to enter one or more commands that will be sent to the server prior to connection.  Conceivably, some of these commands might ask the user for information..
+        /// </summary>
+        internal static string strLogInModeCustomToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeCustomToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default .
+        /// </summary>
+        internal static string strLogInModeDefText {
+            get {
+                return ResourceManager.GetString("strLogInModeDefText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TODO: What does this mean?.
+        /// </summary>
+        internal static string strLogInModeDefToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeDefToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NickServ (via /msg NickServ).
+        /// </summary>
+        internal static string strLogInModeNickServMsgText {
+            get {
+                return ResourceManager.GetString("strLogInModeNickServMsgText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won&apos;t work if NickServ isn&apos;t present.  This option is provided as a few networks don&apos;t define the /ns or /nickserv commands..
+        /// </summary>
+        internal static string strLogInModeNickServMsgToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeNickServMsgToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NickServ (via /ns).
+        /// </summary>
+        internal static string strLogInModeNickServNsText {
+            get {
+                return ResourceManager.GetString("strLogInModeNickServNsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won&apos;t work if NickServ isn&apos;t present.  This option requires a network defines the /ns command..
+        /// </summary>
+        internal static string strLogInModeNickServNsToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeNickServNsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t attempt to log in.
+        /// </summary>
+        internal static string strLogInModeNoneText {
+            get {
+                return ResourceManager.GetString("strLogInModeNoneText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables all attempts by Best Chat to log you in..
+        /// </summary>
+        internal static string strLogInModeNoneToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeNoneToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SASL (Certificate).
+        /// </summary>
+        internal static string strLogInModeSaslCertText {
+            get {
+                return ResourceManager.GetString("strLogInModeSaslCertText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option only requires a certificate file you&apos;ll need to locate for Best Chat..
+        /// </summary>
+        internal static string strLogInModeSaslCertToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeSaslCertToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use SASL (User Name &amp; Password).
+        /// </summary>
+        internal static string strLogInModeSaslUserNamePwdText {
+            get {
+                return ResourceManager.GetString("strLogInModeSaslUserNamePwdText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option requires you to specify your user name and password.  If a NickServ is preset, the user name and password may come from your NickServ account..
+        /// </summary>
+        internal static string strLogInModeSaslUserNamePwdToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeSaslUserNamePwdToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Password.
+        /// </summary>
+        internal static string strLogInModeServerPwdText {
+            get {
+                return ResourceManager.GetString("strLogInModeServerPwdText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use if the server only asks for a simple password..
+        /// </summary>
+        internal static string strLogInModeServerPwdToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeServerPwdToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Q.
+        /// </summary>
+        internal static string strLogInModeUseQText {
+            get {
+                return ResourceManager.GetString("strLogInModeUseQText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Q exists only, that we know of, on QuakeNet.  So you will probably never need to select this if it isn&apos;t selected.  For Quake, you only have two choices: Don&apos;t log in and Q.  Don&apos;t pick other options as they might not work..
+        /// </summary>
+        internal static string strLogInModeUseQToolTip {
+            get {
+                return ResourceManager.GetString("strLogInModeUseQToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in manually.
         /// </summary>
         internal static string strManual {
@@ -898,6 +1204,24 @@ namespace BestChat.IRC.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Predefined.
+        /// </summary>
+        internal static string strPredefinedBncType {
+            get {
+                return ResourceManager.GetString("strPredefinedBncType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predefined but modified.
+        /// </summary>
+        internal static string strPredefinedButModifiedBncType {
+            get {
+                return ResourceManager.GetString("strPredefinedButModifiedBncType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Here you&apos;ll find all preferences for this “{0}”. Items under here are for channels and users you&apos;ve talked with directly..
         /// </summary>
         internal static string strPrefsForNetwork {
@@ -916,11 +1240,20 @@ namespace BestChat.IRC.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use SASL.
+        ///   Looks up a localized string similar to You need to specify at least one port.  It can be an SSL port or a non-SSL port, but you must specify one..
         /// </summary>
-        internal static string strSASL {
+        internal static string strServerInvalidWithOutAtLeastOnePort {
             get {
-                return ResourceManager.GetString("strSASL", resourceCulture);
+                return ResourceManager.GetString("strServerInvalidWithOutAtLeastOnePort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify a domain name..
+        /// </summary>
+        internal static string strServerInvalidWithOutDomain {
+            get {
+                return ResourceManager.GetString("strServerInvalidWithOutDomain", resourceCulture);
             }
         }
         

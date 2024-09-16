@@ -1,0 +1,237 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:Data="using:BestChat.IRC.Data.Defs"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.Views.Desktop.BncMgrDlg"
+				Title="List of IRC Networks"
+				WindowStartupLocation="CenterOwner"
+				ShowInTaskbar="False"
+				CanResize="False"
+				MinWidth="800"
+				MinHeight="450">
+	<DockPanel>
+		<Grid Dock="Bottom"
+					ColumnDefintions="1*"
+					RowDefintions="1*,Auto">
+			<Button x:Name="btnClose"
+							Contents="Close"/>
+		</Grid>
+		<DockPanel>
+			<TextBlock DockPanel="Top"
+								 TextWrapping="Wrap"
+								 TextAlignment="Justify"
+								 Text="This list is a combination of the the bouncers we know of and those you created.  If we know of it, you can create instances, but you won't be able to make other changes.  You also won’t be able to delete it.  Best Chat also doesn’t allow any bouncer, regardless of type, to be deleted if they’re in use.  In the list below, the Type field will show either “Predefined” or “Custom”.  “Predefined” means we know of it.  “Custom” means you defined it."/>
+			<StackPanel DockPanel.Dock="Bottom"
+									Orientation="Horizontal"
+									Spacing="4"
+									HorizontalContentAlignment="Center">
+				<Button
+					x:Name="btnAdd"
+					Grid.Row="5"
+					Grid.Column="1"
+					Content="Add…"
+					Click="OnAddClicked"/>
+				<Button
+					x:Name="btnEdit"
+					Grid.Row="5"
+					Grid.Column="3"
+					IsEnabled="{calc:Binding 'Count == 1 and SelectedItem != null', ElementName=dgUser}"
+					Content="Edit…"
+					Click="OnEditClicked"/>
+				<Button
+					x:Name="btnDel"
+					Grid.Row="5"
+					Grid.Column="5"
+					IsEnabled="{calc:Binding 'SelectedItems != null', ElementName=dgUser}"
+					Content="Delete"
+					Click="OnDelClicked"/>
+			</StackPanel>
+			<DataGrid
+				x:Name="dg"
+				Grid.ColumnSpan="7"
+				Grid.Row="3"
+				CanUserReorderColumns="False"
+				CanUserResizeColumns="True"
+				CanUserSortColumns="True"
+				GridLinesVisibility="Horizontal"
+				HorizontalScrollBarVisibility="Hidden"
+				IsReadOnly="True"
+				SelectionMode="Extended"
+				AutoGenerateColumns="False"
+				SelectionUnit="FullRow"
+				HeadersVisibility="Column">
+				<DataGrid.Columns>
+					<DataGridTextColumn
+						Header="Name"
+						IsReadOnly="True"
+						Binding="{Binding Name}"
+						CanUserSort="True"
+						CanUserResize="True" />
+					<DataGridHyperlinkColumn
+						Header="Homepage"
+						IsReadOnly="True"
+						Binding="{Binding Homepage}"
+						ContentBinding="{Binding Homepage}"
+						CanUserReorder="True"
+						CanUserSort="True"
+						CanUserResize="True">
+						<DataGridHyperlinkColumn.CellStyle>
+							<Style
+								TargetType="DataGridCell">
+								<Setter
+									Property="ToolTip.Tip"
+									Value="Clicking here will open this link" />
+							</Style>
+						</DataGridHyperlinkColumn.CellStyle>
+					</DataGridHyperlinkColumn>
+					<DataGridTemplateColumn Header="Allowed Networks"
+																	IsReadOnly="True"
+																	CanuserReorder="True"
+																	CanUserResize="True">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding AllowedNets}"
+													 TextTrimming="CharacterEllipsis">
+									<ToolTip.Tip>
+										<TextBlock>
+												This bouncer organization is known to allow these networks.  Those networks also allow connections from this bouncer.<LineBreak/><LineBreak/><Run Text="{Binding AllowedNets}"/>
+											</TextBlock>
+									</ToolTip.Tip>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn Header="Prohibited Networks"
+																	IsReadOnly="True"
+																	Binding="{Binding ProhibitedNets}"
+																	CanuserReorder="True"
+																	CanUserResize="True">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding ProhibitedNets}"
+													 TextTrimming="CharacterEllipsis"
+													 ToolTip.Tip="{Binding ProhibitedNets}">
+									<ToolTip.Tip>
+											This is a list of networks where either this bouncer organization has either refused to connect to the network or the network refuses to allow bouncers from this organization on the network.<LineBreak/><LineBreak/><Run Text="{Binding ProhibitedNets}"/>
+										</ToolTip.Tip>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridHyperlinkColumn Header="Tech Support Channel"
+																	 IsReadOnly="True"
+																	 Binding="{Binding HomeNetAndChannel}"
+																	 CanuserReorder="True"
+																	 CanUserResize="True">
+						<DataGridHyperlinkColumn.CellStyle>
+							<Style
+								TargetType="DataGridCell">
+								<Setter
+									Property="ToolTip.Tip"
+									Value="This is where you go for tech support regarding their bouncers.  You might also be able to request one here.  Clicking here will cause Best Chat to join this channel and, if needed, network." />
+								<Setter
+									Property="IsEnabled"
+									Value="{Binding HasValidTechSupportChan}"/>
+							</Style>
+						</DataGridHyperlinkColumn.CellStyle>
+					</DataGridHyperlinkColumn>
+					<DataGridTextColumn
+						Header="Own Bot"
+						IsReadOnly="True"
+						Binding="{Binding OwnBot}"
+						CanUserReorder="True"
+						CanUserResize="True" />
+					<DataGridTemplateColumn
+						Header="Servers"
+						IsReadOnly="True"
+						Binding="{Binding AllServersByNameAsText}"
+						CanUserReorder="True"
+						CanUserResize="True">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding AllServersByNameAsText}"
+													 TextTrimming="CharacterEllipse">
+									<ToolTip.Tip>
+										<TextBlock>
+												This bouncer organization has the following servers: <Span><Run Text="{Binding AllServersByNameAsText}"/></Span>
+											</TextBlock>
+									</ToolTip.Tip>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn
+						Header="Unencrypted Ports"
+						IsReadOnly="True"
+						Binding="{Binding AllPortsAsText}"
+						CanUserReorder="True"
+						CanUserResize="True">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding AllPortsAsText}"
+													 TextTrimming="CharacterEllipsis">
+									<ToolTip.Tip>
+										<TextBlock>
+												The following ports are enabled as unencrypted: <Span><Run Text="{Binding AllPortsAsText}"/></Span>
+											</TextBlock>
+									</ToolTip.Tip>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn
+						Header="SSL Ports"
+						IsReadOnly="True"
+						Binding="{Binding AllSslPortsAsText}"
+						CanUserReorder="True"
+						CanUserResize="True">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Bind AllSslPortsAsText}"
+													 TextTrimming="CharacterEllipsis">
+									<ToolTip.Tip>
+											The following ports are enabled as SSL: <Span><Run Text="{Binding AllPortsAsText}"/></Span>
+										</ToolTip.Tip>
+								</TextBlock>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTextColumn
+						Header="Maximum networks per instance"
+						IsReadOnly="True"
+						Binding="{Binding MaxNetworksPerBouncerInstance}"
+						CanUserReorder="True"
+						CanUserResize="True">
+						<DataGridTextColumn.CellStyle>
+							<Style
+								TargetType="DataGridCell">
+								<Setter
+									Property="ToolTip.Tip"
+									Value="Some bouncer organizations limit how many networks you can have on each bouncer instance.  This is that number." />
+							</Style>
+						</DataGridTextColumn.CellStyle>
+					</DataGridTextColumn>
+					<DataGridTextColumn Header="Type"
+															IsReadOnly="True"
+															Binding="{Binding TypeOfBNC}"
+															CanUserReorder="True"
+															CanUserResize="True"/>
+					<DataGridTemplateColumn Header="Instances">
+						<DataTemplate>
+							<TextBlock Text="{Binding AllInstancesAsText}"
+												 TextTrimming="CharacterEllipsis">
+								<ToolTip.Tip>
+									<TextBlock>You created these instances: <Span><Run Text="{Binding AllInstancesAsText}"/></Span>
+									</TextBlock>
+								</ToolTip.Tip>
+							</TextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+		</DockPanel>
+	</DockPanel>
+</Window>

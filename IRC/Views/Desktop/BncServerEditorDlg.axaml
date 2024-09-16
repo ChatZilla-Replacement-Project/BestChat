@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				mc:Ignorable="d"
+				xmlns:Data="using:BestChat.IRC.Data.Defs"
+				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				x:DataType="Data:BNC"
+				d:DataContext="{d:DesignInstance Type=Data:BNC}"
+				WindowStartupLocation="CenterOwner"
+				ShowInTaskbar="False"
+				CanResize="False"
+				x:Class="BestChat.IRC.Views.Desktop.BncServerEditorDlg">
+	<DockPanel Padding="4">
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalContentAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOK"
+							ToolTip.Tip="Saves any changes you made"
+							IsEnabled="{Binding IsValid}"
+							IsVisible="{Binding IsDirty}"
+							Content="OK"
+							IsDefault="True"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding IsDirty}"
+							ToolTip.Tip="Discards any changes you made and closes the window.  If you made changes, you'll be asked to confirm that you want to discard them."
+							Content="Cancel"
+							IsCancel="True"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
+							IsCancel="True"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<TextBlock DockPanel.Dock="Top"
+							 TextWrapping="Wrap"
+							 Text="The main thing here is the name and domain both need to be unique.  The domain also needs to look like a domain name."/>
+		<Grid RowDefinitions="Auto,4,Auto">
+			<Grid.ColumnDefintions>
+				<ColumnDefintion Width="Auto"/>
+				<ColumnDefintion Width="4"/>
+				<ColumnDefintion Width="Auto"
+												 MinWidth="200"/>
+			</Grid.ColumnDefintions>
+			<Label Content="Name:"/>
+			<TextBox Grid.Column="2"
+							 Text="{Binding Name}"/>
+			<Label Grid.Row="2"
+						 Content="Domain:"/>
+			<TextBox Grid.Row="2"
+							 Grid.Column="2"
+							 Text="{Binding Domain}"/>
+		</Grid>
+	</DockPanel>
+</Window>

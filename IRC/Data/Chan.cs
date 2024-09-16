@@ -7,7 +7,7 @@ using Platform.DataAndExt.Ext;
 public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 {
 	#region Constructors & Deconstructors
-		public Chan(in ActiveNetwork anetOwner, in string strName) :
+		public Chan(in ActiveNet anetOwner, in string strName) :
 			base(strName, Rsrcs.strChanNameDescForTree.Fmt(strName, anetOwner.unetDef.Name))
 		{
 			mapAllChanByName[strName] = this;
@@ -185,7 +185,7 @@ public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 			[];
 
 
-		public readonly ActiveNetwork anetOwner;
+		public readonly ActiveNet anetOwner;
 
 		public readonly string strName;
 
@@ -207,7 +207,7 @@ public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 			=> mapAllChanByName;
 
 
-		public ActiveNetwork Owner
+		public ActiveNet Owner
 			=> anetOwner;
 
 		public override string ProperName

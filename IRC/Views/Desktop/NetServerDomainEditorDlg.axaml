@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.Views.Desktop.ServerDomainEditorDlg"
+				WindowStartupLocation="CenterScreen"
+				SizeToContent="WidthAndHeight"
+				ResizeMode="NoResize"
+				ShowInTaskbar="False">
+	<Window.Title>
+		<TextBlock></TextBlock>
+	</Window.Title>
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalContentAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button
+				x:Name="btnOK"
+				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				ToolTip.Tip="Saves your changes"
+				IsDefault="True"
+				Content="OK"
+				Click="OnOkClicked"/>
+			<Button
+				x:Name="btnCancel"
+				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				ToolTip.Tip="Discards your changes if you've made any.  If you have made changes, you'll be asked if you're sure."
+				IsCancel="True"
+				Content="Cancel"
+				Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
+							IsCancel="True"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator
+			Margin="0,4"
+			DockPanel.Dock="Bottom" />
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto">
+			<Label
+				Content="Domain name for server: " />
+			<TextBox
+				x:Name="editDomainName"
+				Grid.Column="2"
+				IsVisible="{calc:Binding !ModeIsEdit, ElementName=window}"
+				Text="{Binding Domain}" />
+			<Label
+				Grid.Column="2"
+				Grid.Row="2"
+				IsVisible="{Binding ModeIsEdit, ElementName=window}"
+				Content="{Binding Domain}"/>
+			<CheckBox
+				x:Name="chkEnabled"
+				Grid.Row="4"
+				Grid.ColumnSpan="3"
+				Content="Enable this server"
+				IsChecked="{Binding IsEnabled, NotifyOnSourceUpdated=True}" />
+			<group:GroupBox Grid.Row="6"
+											Grid.ColumnSpan="3"
+											Header="_Unencrypted Ports">
+				<DockPanel>
+					<StackPanel DockPanel.Dock="Right"
+											VerticalContentAlignment="Center"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button
+							x:Name="btnAddUnencryptedPort"
+							Content="Add…" />
+						<Button
+							x:Name="btnEditUnencryptedPort"
+							Content="Edit…"
+							Grid.Row="2" />
+						<Button
+							x:Name="btnDeleteUnencryptedPort"
+							Content="Delete"
+							Grid.Row="4" />
+					</StackPanel>
+					<Rectangle DockPanel.Dock="Right"
+										 Fill="Gray"
+										 Width="2"/>
+					<ListBox
+						x:Name="lbKnownUnencryptedPorts"
+						ItemsSource="{Binding Ports, NotifyOnSourceUpdated=True}" />
+				</DockPanel>
+			</group:GroupBox>
+			<group:GroupBox Grid.Row="6"
+											Grid.ColumnSpan="3"
+											Header="SSL Ports">
+				<DockPanel>
+					<StackPanel DockPanel.Dock="Right"
+											VerticalContentAlignment="Center"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button
+							x:Name="btnAddSslPort"
+							Content="Add…" />
+						<Button
+							x:Name="btnEditSslPort"
+							Content="Edit…"
+							Grid.Row="2" />
+						<Button
+							x:Name="btnDeleteSslPort"
+							Content="Delete"
+							Grid.Row="4" />
+					</StackPanel>
+					<Rectangle DockPanel.Dock="Right"
+										 Fill="Gray"
+										 Width="2"/>
+					<ListBox
+						x:Name="lbKnownSslPorts"
+						ItemsSource="{Binding Ports, NotifyOnSourceUpdated=True}" />
+				</DockPanel>
+			</group:GroupBox>
+		</Grid>
+	</DockPanel>
+</Window>

@@ -7,6 +7,16 @@ public interface IProtocolDef
 		get;
 	}
 
+	string LocalizedName
+	{
+		get;
+	}
+
+	string LocalizedDesc
+	{
+		get;
+	}
+
 	string Publisher
 	{
 		get;
@@ -22,18 +32,9 @@ public interface IProtocolDef
 		get;
 	}
 
-	Prefs.AbstractChildMgr? RootPrefForProtocol
-	{
-		get;
-	}
-
 	Conversations.IGroupViewOrConversation? TopLevelViewGroupOrConversation
 	{
 		get;
-	}
-
-	void SaveAllData(in System.IO.DirectoryInfo dirDataLoc)
-	{
 	}
 
 	bool GuiRecommended

@@ -1,13 +1,13 @@
-﻿// Ignore Spelling: Defs evt IRC enet eunet Serv dnetwork
+﻿// Ignore Spelling: Defs evt IRC enet eunet Serv dnetwork Pwd
 
 using System.Linq;
 
 namespace BestChat.IRC.Data.Defs;
 
-public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Network>
+public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 {
 	#region Constructors & Deconstructors
-		public Network()
+		public Net()
 		{
 			mapGuidToNet[guid] = mapAllNetByName[string.Empty] = this;
 
@@ -15,46 +15,46 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			uriHomepage = null;
 		}
 
-		public Network(in string strName, in System.Uri uriHomepage, params ServerInfo[] allServers)
+		public Net(in string strName, in System.Uri uriHomepage, params NetServerInfo[] allServers)
 		{
 			mapGuidToNet[guid] = mapAllNetByName[strName] = this;
 
 			this.strName = strName;
 			this.uriHomepage = uriHomepage;
 
-			foreach(ServerInfo serverCur in allServers)
+			foreach(NetServerInfo serverCur in allServers)
 				mapServers[serverCur.Domain] = serverCur;
 		}
 
-		protected Network(in Network netCopyThis)
+		protected Net(in Net netCopyThis)
 		{
 			mapGuidToNet[guid] = mapAllNetByName[netCopyThis.strName] = this;
 
 			strName = netCopyThis.Name;
 			uriHomepage = netCopyThis.Homepage;
-			foreach(ServerInfo serverCur in netCopyThis.AllUnsortedServers)
+			foreach(NetServerInfo serverCur in netCopyThis.AllUnsortedServers)
 				mapServers[serverCur.Domain] = serverCur;
 			nickServ = netCopyThis.NickServ;
 			chanServ = netCopyThis.ChanServ;
-			bHasAlis = netCopyThis.HasAlis;
-			bHasQ = netCopyThis.HasQ;
+			alisStatus = netCopyThis.AlisStatus;
+			qStatus = netCopyThis.QStatus;
 		}
 
-		public Network(in DTO.NetworkDTO dnetworkUs)
+		public Net(in DTO.NetDTO dnetworkUs)
 		{
 			mapGuidToNet[guid] = mapAllNetByName[dnetworkUs.Name] = this;
 
 			strName = dnetworkUs.Name;
 			uriHomepage = dnetworkUs.Homepage;
-			foreach(DTO.ServerInfoDTO dserverCur in dnetworkUs.Servers)
+			foreach(DTO.NetServerInfoDTO dserverCur in dnetworkUs.Servers)
 				mapServers[dserverCur.Domain] = new(this, dserverCur);
 			nickServ = dnetworkUs.NickServ;
 			chanServ = dnetworkUs.ChanServ;
-			bHasAlis = dnetworkUs.HasAlis;
-			bHasQ = dnetworkUs.HasQ;
+			alisStatus = dnetworkUs.AlisStatus;
+			qStatus = dnetworkUs.QStatus;
 		}
 
-		~Network()
+		~Net()
 		{
 			mapAllNetByName.Remove(strName);
 			mapGuidToNet.Remove(guid);
@@ -67,14 +67,14 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 	#region Events
 		public event DFieldChanged<string>? evtNameChanged;
 		public event DFieldChanged<System.Uri?>? evtHomepageChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo>>?
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, NetServerInfo>>?
 			evtServersSortedByNameChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<string>>?
 			evtEnabledServerDomainsInSearchOrder;
 		public event DFieldChanged<NickServOpts?>? evtNickServChanged;
 		public event DFieldChanged<ChanServOpts?>? evtChanServChanged;
-		public event DFieldChanged<bool?>? evtHasAlisChanged;
-		public event DFieldChanged<bool?>? evtHasQChanged;
+		public event DFieldChanged<AlisOpts>? evtHasAlisChanged;
+		public event DFieldChanged<QOpts>? evtQStatusChanged;
 
 		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
@@ -86,10 +86,10 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.SortedDictionary<string, Network> mapAllNetByName =
+		private static readonly System.Collections.Generic.SortedDictionary<string, Net> mapAllNetByName =
 			[];
 
-		private static readonly System.Collections.Generic.Dictionary<System.Guid, Network> mapGuidToNet =
+		private static readonly System.Collections.Generic.Dictionary<System.Guid, Net> mapGuidToNet =
 			[];
 
 
@@ -98,23 +98,23 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 		private System.Uri? uriHomepage;
 
 
-		private readonly System.Collections.Generic.Dictionary<string, ServerInfo> mapServers =
+		private readonly System.Collections.Generic.Dictionary<string, NetServerInfo> mapServers =
 			[];
 
 		private NickServOpts? nickServ = null;
 
 		private ChanServOpts? chanServ = null;
 
-		private bool? bHasAlis = null;
+		private AlisOpts alisStatus = AlisOpts.unknown;
 
-		private bool? bHasQ = null;
+		private QOpts qStatus = QOpts.unknown;
 	#endregion
 
 	#region Properties
-		public static System.Collections.Generic.IReadOnlyDictionary<string, Network> AllNetByName
+		public static System.Collections.Generic.IReadOnlyDictionary<string, Net> AllNetByName
 			=> mapAllNetByName;
 
-		public static System.Collections.Generic.IReadOnlyDictionary<System.Guid, Network> AllNetByGUID
+		public static System.Collections.Generic.IReadOnlyDictionary<System.Guid, Net> AllNetByGUID
 			=> mapGuidToNet;
 
 
@@ -124,7 +124,7 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 
 			protected set
 			{
-				if(GetType() == typeof(Network))
+				if(GetType() == typeof(Net))
 					throw new System.InvalidProgramException($"The names of predefined networks, like {Name}, is readonly.");
 
 				if(strName != value)
@@ -146,7 +146,7 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 
 			protected set
 			{
-				if(GetType() == typeof(Network))
+				if(GetType() == typeof(Net))
 					throw new System.InvalidProgramException($"The homepage of predefined networks, like {Name}, is readonly.");
 
 				if(uriHomepage != value)
@@ -162,25 +162,25 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			}
 		}
 
-		public System.Collections.Generic.IEnumerable<ServerInfo> ServersSortedByName
+		public System.Collections.Generic.IEnumerable<NetServerInfo> ServersSortedByName
 			=>
-				from ServerInfo curServer in mapServers.Values
+				from NetServerInfo curServer in mapServers.Values
 				orderby curServer.Domain
 				select curServer;
 
 		public System.Collections.Generic.IEnumerable<string> EnabledServerDomainsInSearchOrder
 			=> 
-				from ServerInfo curServer in mapServers.Values
+				from NetServerInfo curServer in mapServers.Values
 				where curServer.IsEnabled
 				select curServer.Domain;
 
-		public System.Collections.Generic.IEnumerable<ServerInfo> EnabledServersInSearchOrder
+		public System.Collections.Generic.IEnumerable<NetServerInfo> EnabledServersInSearchOrder
 			=>
-				from ServerInfo curServer in mapServers.Values
+				from NetServerInfo curServer in mapServers.Values
 				where curServer.IsEnabled
 				select curServer;
 
-		public System.Collections.Generic.IReadOnlyCollection<ServerInfo> AllUnsortedServers
+		public System.Collections.Generic.IReadOnlyCollection<NetServerInfo> AllUnsortedServers
 			=> mapServers.Values;
 
 		public string EnabledServerDomainsInSearchOrderAsText
@@ -260,81 +260,143 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 					_ => throw new System.NotImplementedException(),
 				};
 
-		public bool? HasAlis
+		public AlisOpts AlisStatus
 		{
-			get => bHasAlis;
+			get => alisStatus;
 
 			set
 			{
-				if(bHasAlis != value)
+				if(alisStatus != value)
 				{
-					bool? bOldHasAlis = bHasAlis;
+					AlisOpts oldHasAlis = alisStatus;
 
-					bHasAlis = value;
+					alisStatus = value;
 
 					MakeDirty();
 
-					FireHasAlisChanged(bOldHasAlis);
+					FireHasAlisChanged(oldHasAlis);
 				}
 			}
 		}
 
 		public string HasAlisAsText
-			=> bHasAlis switch
+			=> alisStatus switch
 				{
-					null => Rsrcs.strHasAlisUnknown,
-					false => Rsrcs.strHasAlisFalse,
-					true => Rsrcs.strHasAlisTrue,
+					AlisOpts.unknown
+						=> Rsrcs.strHasAlisUnknown,
+
+					AlisOpts.present
+						=> Rsrcs.strHasAlisFalse,
+
+					AlisOpts.notPresent
+						=> Rsrcs.strHasAlisTrue,
+
+					_
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<AlisOpts>(alisStatus,
+							"While selecting ALIS display text."),
 				};
 
 		public string HasAlisToolTip
-			=> bHasAlis switch
+			=> alisStatus switch
 				{
-					null => Rsrcs.strHasAlisUnknownToolTip,
-					false => Rsrcs.strHasAlisFalseToolTip,
-					true => Rsrcs.strHasAlisTrueToolTip,
+					AlisOpts.unknown
+						=> Rsrcs.strHasAlisUnknownToolTip,
+
+					AlisOpts.present
+						=> Rsrcs.strHasAlisTrueToolTip,
+
+					AlisOpts.notPresent
+						=> Rsrcs.strHasAlisFalseToolTip,
+
+					_
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<AlisOpts>(alisStatus,
+							"While selecting ALIS tooltip text"),
 				};
 
-		public bool? HasQ
+		public QOpts QStatus
 		{
-			get => bHasQ;
+			get => qStatus;
 
 			set
 			{
-				if(bHasQ!= value)
+				if(qStatus!= value)
 				{
-					bool? bOldHasQ = bHasQ;
+					QOpts oldHasQ = qStatus;
 
-					bHasQ= value;
+					qStatus = value;
 
 					MakeDirty();
 
-					FireHasQChanged(bOldHasQ);
+					FireHasQChanged(oldHasQ);
 				}
 			}
 		}
 
-		public string HasQAsText
-			=> bHasQ switch
+		public string QStatusAsText
+			=> qStatus switch
 				{
-					null => Rsrcs.strHasQUnknown,
-					false => Rsrcs.strHasQFalse,
-					true => Rsrcs.strHasQTrue,
+					QOpts.unknown
+						=> Rsrcs.strHasQUnknown,
+
+					QOpts.notPresent
+						=> Rsrcs.strHasQFalse,
+
+					QOpts.present
+						=> Rsrcs.strHasQTrue,
+
+					_
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<QOpts>(qStatus,
+							"While getting the status of the q server as text.")
 				};
 
-		public string HasQToolTip
-			=> bHasQ switch
+		public string QStatusToolTip
+			=> qStatus switch
 				{
-					null => Rsrcs.strHasQUnknownToolTip,
-					false => Rsrcs.strHasQFalseToolTip,
-					true => Rsrcs.strHasQTrueToolTip,
+					QOpts.unknown
+						=> Rsrcs.strHasQUnknownToolTip,
+
+					QOpts.notPresent
+						=> Rsrcs.strHasQFalseToolTip,
+
+					QOpts.present
+						=> Rsrcs.strHasQTrueToolTip,
+
+					_
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<QOpts>(qStatus,
+							"While getting the tooltip for the status of the q server.")
 				};
 
 		public virtual bool IsServerListDefaulted
 			=> false;
 
 		public bool IsCustomized
-			=> UserNetworkMgr.mgr.AllItems.ContainsKey(strName);
+			=> UserNetMgr.mgr.AllItems.ContainsKey(strName);
+
+		public System.Collections.Generic.IEnumerable<ushort> AllPossiblePortsFromAllServers
+			=> mapServers.Values.Aggregate(
+					new System.Collections.Generic.HashSet<ushort>(),
+					(setExisting, setNew)
+						=> setExisting.Union(setNew.AllPossiblePorts).ToHashSet()
+				);
+
+		public System.Collections.Generic.IEnumerable<ushort> AllPossibleSslPortsFromAllServers
+			=> mapServers.Values.Aggregate(
+					new System.Collections.Generic.HashSet<ushort>(),
+					(setExisting, setNew)
+						=> setExisting.Union(setNew.SslPorts).ToHashSet()
+				);
+
+		public System.Collections.Generic.IEnumerable<ushort> AllPossibleNonSslPortsFromAllServers
+			=> mapServers.Values.Aggregate(
+					new System.Collections.Generic.HashSet<ushort>(),
+					(setExisting, setNew)
+						=> setExisting.Union(setNew.Ports).ToHashSet()
+				);
+
+		public abstract bool HasPredefinition
+		{
+			get;
+		}
 
 		public abstract System.Collections.Generic.IReadOnlyDictionary<char, ChanMode> ChanModesByModeChar
 		{
@@ -393,21 +455,21 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			evtChanServChanged?.Invoke(this, oldNickServ, chanServ);
 		}
 
-		protected void FireHasAlisChanged(in bool? bOldHasAlis)
+		protected void FireHasAlisChanged(in AlisOpts oldHasAlis)
 		{
-			FirePropChanged(nameof(HasAlis));
+			FirePropChanged(nameof(AlisStatus));
 
-			evtHasAlisChanged?.Invoke(this, bOldHasAlis, bHasAlis);
+			evtHasAlisChanged?.Invoke(this, oldHasAlis, alisStatus);
 		}
 
-		protected void FireHasQChanged(in bool? bOldHasQ)
+		protected void FireHasQChanged(in QOpts oldQStatus)
 		{
-			FirePropChanged(nameof(HasQ));
+			FirePropChanged(nameof(QStatus));
 
-			evtHasQChanged?.Invoke(this, bOldHasQ, bHasQ);
+			evtQStatusChanged?.Invoke(this, oldQStatus, qStatus);
 		}
 
-		protected void AddServerDomain(in ServerInfo server)
+		protected void AddServerDomain(in NetServerInfo server)
 		{
 			if(mapServers.ContainsKey(server.Domain))
 				throw new System.NotSupportedException("This server is already present");
@@ -422,7 +484,7 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
 
-		protected void DelServerDomain(in ServerInfo server)
+		protected void DelServerDomain(in NetServerInfo server)
 		{
 			if(!mapServers.ContainsKey(server.Domain))
 				return;
@@ -446,16 +508,16 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
 
-		protected void MoveServerDownSearchList(in ServerInfo server)
+		protected void MoveServerDownSearchList(in NetServerInfo server)
 		{
 			if(!mapServers.ContainsKey(server.Domain))
 				throw new System.InvalidProgramException($"Can't move the server {server.Domain} in the search list" +
 					$" for the network '{Name}' as it doesn't exist in the network.");
 
-			System.Collections.Generic.LinkedList<ServerInfo> llServers = new(mapServers.Values);
+			System.Collections.Generic.LinkedList<NetServerInfo> llServers = new(mapServers.Values);
 			mapServers.Clear();
 
-			System.Collections.Generic.LinkedListNode<ServerInfo>? llnNextServer = (llServers.Find(server)?.Next) ??
+			System.Collections.Generic.LinkedListNode<NetServerInfo>? llnNextServer = (llServers.Find(server)?.Next) ??
 				llServers.Last;
 
 			llServers.Remove(server);
@@ -465,22 +527,22 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			else
 				llServers.AddAfter(llnNextServer, server);
 
-			foreach(ServerInfo serverCur in llServers)
+			foreach(NetServerInfo serverCur in llServers)
 				mapServers[serverCur.Domain] = serverCur;
 
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
 
-		protected void MoveServerUpSearchList(in ServerInfo server)
+		protected void MoveServerUpSearchList(in NetServerInfo server)
 		{
 			if(!mapServers.ContainsKey(server.Domain))
 				throw new System.InvalidProgramException($"Can't move the server {server.Domain} in the search list" +
 					$" for the network '{Name}' as it doesn't exist in the network.");
 
-			System.Collections.Generic.LinkedList<ServerInfo> llServers = new(mapServers.Values);
+			System.Collections.Generic.LinkedList<NetServerInfo> llServers = new(mapServers.Values);
 			mapServers.Clear();
 
-			System.Collections.Generic.LinkedListNode<ServerInfo>? llnPrevServer = (llServers.Find(server)?.Previous) ??
+			System.Collections.Generic.LinkedListNode<NetServerInfo>? llnPrevServer = (llServers.Find(server)?.Previous) ??
 				llServers.First;
 
 			llServers.Remove(server);
@@ -490,7 +552,7 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 			else
 				llServers.AddBefore(llnPrevServer, server);
 
-			foreach(ServerInfo serverCur in llServers)
+			foreach(NetServerInfo serverCur in llServers)
 				mapServers[serverCur.Domain] = serverCur;
 
 			FirePropChanged(nameof(IsServerListDefaulted));
@@ -502,7 +564,7 @@ public abstract class Network : Platform.DataAndExt.Obj<Network>, IDataDef<Netwo
 	#endregion
 
 	#region Event Handlers
-		private void OnServerEnabledStateChanged(in ServerInfo objSender, in bool bNewVal)
+		private void OnServerEnabledStateChanged(in NetServerInfo objSender, in bool bNewVal)
 			=> FireEnabledServerDomainsInSearchOrderChanged(CollectionChangeType.changed);
 	#endregion
 }

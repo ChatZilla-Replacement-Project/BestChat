@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Defs.DTO;
 
-public record ServerInfoDTO
+public record NetServerInfoDTO
 (
 	string Domain,
 	ushort[] Ports,

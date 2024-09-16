@@ -2,7 +2,8 @@
 
 namespace BestChat.Platform.DataAndExt.Conversations;
 
-public abstract class AbstractConversation : IViewOrConversation, System.ComponentModel.INotifyPropertyChanged, Dieable.IDieable
+public abstract class AbstractConversation : IViewOrConversation, System.ComponentModel.INotifyPropertyChanged,
+	Dieable.IDieable
 {
 	#region Constructors & Deconstructors
 		public AbstractConversation(in string strName, in string strLongDesc, in System.Collections.Generic.IEnumerable<IEventInfo>? events =

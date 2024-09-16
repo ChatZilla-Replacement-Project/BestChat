@@ -2,14 +2,13 @@
 
 namespace BestChat.IRC.Data.Defs.DTO;
 
-public abstract record NetworkDTO
+public abstract record NetDTO
 (
 	string Name,
-	ServerInfoDTO[] Servers,
+	NetServerInfoDTO[] Servers,
 	System.Uri? Homepage = null,
 	NickServOpts? NickServ = null,
 	ChanServOpts? ChanServ = null,
-	bool? HasAlis = null,
-	bool? HasQ = null,
-	bool AutoConnect = false
-) : IDataDefBasic<NetworkDTO>;
+	AlisOpts AlisStatus = AlisOpts.unknown,
+	QOpts QStatus = QOpts.unknown
+) : IDataDefBasic<NetDTO>;

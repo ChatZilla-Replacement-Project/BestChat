@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Defs
 {
-	public enum ChanServOpts
+	public enum ChanServOpts : byte
 	{
 		[Platform.DataAndExt.Attr.LocalizedDesc("strChanServOptUnknown", "Available, but type unknown",
 			"strChanServOptUnknownTooltip", "Select this if the network has a ChanServ, but you don't know much " +

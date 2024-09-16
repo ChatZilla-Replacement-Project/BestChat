@@ -3,14 +3,14 @@
 namespace BestChat.IRC.Data.Defs;
 
 [System.ComponentModel.ImmutableObject(true)]
-public class PredefinedNetwork : Network
+public class PredefinedNet : Net
 {
 	#region Constructors & Deconstructors
-		public PredefinedNetwork()
+		public PredefinedNet()
 		{
 		}
 
-		public PredefinedNetwork(in DTO.PredefinedNetworkDTO dpnetworkUs) :
+		public PredefinedNet(in DTO.PredefinedNetworkDTO dpnetworkUs) :
 			base(dpnetworkUs)
 		{
 			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModes)
@@ -33,9 +33,11 @@ public class PredefinedNetwork : Network
 	#endregion
 
 	#region Members
-		private readonly System.Collections.Generic.SortedDictionary<char, ChanMode> mapChanModesByModeChar = [];
+		private readonly System.Collections.Generic.SortedDictionary<char, ChanMode> mapChanModesByModeChar =
+			[];
 
-		private readonly System.Collections.Generic.SortedDictionary<char, UserMode> mapUserModesByModeChar = [];
+		private readonly System.Collections.Generic.SortedDictionary<char, UserMode> mapUserModesByModeChar =
+			[];
 	#endregion
 
 	#region Properties
@@ -44,6 +46,9 @@ public class PredefinedNetwork : Network
 
 		public override System.Collections.Generic.IReadOnlyDictionary<char, UserMode> UserModesByModeChar
 			=> mapUserModesByModeChar;
+
+		public override bool HasPredefinition
+			=> true;
 	#endregion
 
 	#region Methods

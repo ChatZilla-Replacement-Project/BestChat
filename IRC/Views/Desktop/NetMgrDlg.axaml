@@ -1,0 +1,134 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:Data="using:BestChat.IRC.Data.Defs"
+				x:Class="BestChat.IRC.Views.Desktop.NetMgrDlg"
+				Title="List of IRC Networks"
+				WindowStartupLocation="CenterOwner"
+				FontFamily="Times New Roman"
+				ShowInTaskbar="False"
+				ResizeMode="CanResizeWithGrip"
+				mc:Ignorable="d"
+				MinWidth="800"
+				MinHeight="450">
+	<DockPanel>
+		<Grid Dock="Bottom"
+					ColumnDefintions="1*"
+					RowDefintions="1*,Auto">
+			<Button x:Name="btnClose"
+							Contents="Close"/>
+		</Grid>
+		<Grid ColumnDefintions =",4,"
+					RowDefintions="1*">
+			<group:GroupBox Header="Predefined">
+				<DockPanel>
+					<TextBlock MaxWidth="500"
+										 DockPanel.Dock="Top"
+										 TextWrap="Wrap">These items are the networks the developers of Best Chat know of.  This list is kept up to date as best possible.  You can't change this list, but you can hide items if they cause too much clutter.  This hiding only takes effect in the connect dialog.  To hide a network, click “Hide Network” below.  The network will appear to the right, but be hidden in the Connect dialog.  The “Start Connecting” button down below is only available if the network also isn't listed to the right.  It starts a wizard asking how you want to connect to the network for the first time.  When the wizard is complete, that network will also be listed on the right.  Normally, the Connect dialog lists all networks from both sides of this dialog that aren't marked Hidden.</TextBlock>
+				</DockPanel>
+				<StackPanel Orientation="Horizontal"
+										Spacing="4"
+										HorizontalContentAlignment="Center"
+										DockPanel.Dock="Bottom">
+					<Button
+						x:Name="btnViewPredefined"
+						Content="View Details…"
+						Grid.Row="5"
+						Grid.Column="1"
+						IsEnabled="{calc:Binding Items.Count > 0, ElementName=dgPredefined}"
+						ToolTip.Tip="Lets you view the details of this network.  If it's listed on the right as well as the left, this only shows the defaults." />
+					<Button
+						x:Name="btnStartConnecting"
+						Content="Start Connecting…"
+						Grid.Column="3"
+						Grid.Row="5"
+						IsEnabled="{calc:Binding 'Items.Count > 0 and SelectedValue != null and !SelectedValue.IsCustomized', ElementName=dgPredefined}" />
+					<Button
+						x:Name="btnHidePredefinedNetwork"
+						Content="Hide Network"
+						Grid.Row="5"
+						Grid.Column="5"
+						IsEnabled="{calc:Binding 'Items.Count > 0 and SelectedValue != null!SelectedValue.IsCustomized', ElementName=dgPredefined, NotifyOnSourceUpdated=True}"
+						ToolTip.Tip="Hides the selected network.  Available only if the network you selected above isn't also listed on the right.  If it is, hide it from there." />
+				</StackPanel>
+				<DataGrid
+					x:Name="dgPredefined"
+					Grid.ColumnSpan="7"
+					Grid.Row="3"
+					d:DataContext="{d:DesignInstance Type=Data:Network}"
+					SelectionUnit="FullRow"
+					HeadersVisibility="Column">
+					<DataGrid.Columns>
+						<DataGridTextColumn
+							Header="Name"
+							IsReadOnly="True"
+							Binding="{Binding Name}"
+							CanUserSort="True"
+							CanUserResize="True" />
+						<DataGridHyperlinkColumn
+							Header="Homepage"
+							IsReadOnly="True"
+							Binding="{Binding Homepage}"
+							ContentBinding="{Binding Homepage}"
+							CanUserReorder="True"
+							CanUserSort="True"
+							CanUserResize="True">
+							<DataGridHyperlinkColumn.CellStyle>
+								<Style
+									TargetType="DataGridCell">
+									<Setter
+										Property="ToolTip.Tip"
+										Value="Clicking here will open this link" />
+								</Style>
+							</DataGridHyperlinkColumn.CellStyle>
+						</DataGridHyperlinkColumn>
+						<DataGridTextColumn
+							Header="Servers"
+							IsReadOnly="True"
+							Binding="{Binding EnabledServerDomainsInSearchOrderAsText}"
+							CanUserReorder="True"
+							CanUserResize="True" />
+					</DataGrid.Columns>
+				</DataGrid>
+			</group:GroupBox>
+			<GridSplitter GridResizeBehavior="PreviousAndNext"
+										ShowsPreview="false"
+										ResizeDirection="Columns"
+										Grid.Column="1"/>
+			<group:GroupBox Header="Networks Defined By You"
+											Grid.Column="2">
+				<DockPanel>
+					<TextBlock DockPanel="Top"
+										 TextWrapping="Wrap"
+										 TextAlignment="Justify">These networks are either predefined networks from the left list that you've made changes to or created yourself.  The functionality of the “Delete” button below changes depending on if the network is predefined.  With a predefined network, you can't really delete it.  You can however, hide it.  Hidden networks aren't listed in the connect dialog.  Your other option if you don't want to have a predefined network is to reset it to the defaults.  That will delete any changes you made, but you'd also need to hide it if you don't want to see it anymore at all.  The Delete button will give you the option to do both at once.  Do note a network listed on both sides of this window may have different servers.
+					</TextBlock>
+					<StackPanel DockPanel.Dock="Bottom"
+											Orientation="Horizontal"
+											Spacing="4"
+											HorizontalContentAlignment="Center">
+						<Button
+							x:Name="btnAdd"
+							Content="Add…"
+							Grid.Row="5"
+							Grid.Column="1" />
+						<Button
+							x:Name="btnEdit"
+							Content="Edit…"
+							Grid.Column="3"
+							IsEnabled="{calc:Binding 'SelectedItem != null', ElementName=dgUser}"
+							Grid.Row="5" />
+						<Button
+							x:Name="btnDel"
+							Content="Delete"
+							Grid.Column="5"
+							IsEnabled="{calc:Binding 'SelectedItem != null', ElementName=dgUser}"
+							Grid.Row="5" />
+					</StackPanel>
+				</DockPanel>
+			</group:GroupBox>
+		</Grid>
+	</DockPanel>
+</Window>

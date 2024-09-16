@@ -61,6 +61,24 @@ namespace BestChat.Platform.UI.Desktop {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please locate the file.
+        /// </summary>
+        internal static string strDefFileBrowserTitle {
+            get {
+                return ResourceManager.GetString("strDefFileBrowserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please locate the folder.
+        /// </summary>
+        internal static string strDefFolderBrowserTitle {
+            get {
+                return ResourceManager.GetString("strDefFolderBrowserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bold.
         /// </summary>
         internal static string strFontWeightBold {

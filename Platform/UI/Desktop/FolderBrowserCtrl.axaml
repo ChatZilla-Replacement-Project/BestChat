@@ -8,11 +8,13 @@
 	FontFamily="Times New Roman">
 	<Grid ColumnDefinitions="1*,Auto"
 				RowDefinitions="Auto">
-		<TextBox
-			x:Name="editCtnts" />
+		<TextBlock
+			x:Name="textCtnts"
+			Text="{Binding LocSpecified, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 		<Button
 			x:Name="btnBrowse"
+			Grid.Column="1"
 			Content="…"
-			Grid.Column="1" />
+			Click="OnBrowseBtnClicked"/>
 	</Grid>
 </UserControl>

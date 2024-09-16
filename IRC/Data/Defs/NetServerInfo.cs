@@ -1,18 +1,20 @@
 ﻿// Ignore Spelling: IRC Defs eunet evt Ssl dserver eus unet
 
+using System.Linq;
+
 namespace BestChat.IRC.Data.Defs;
 
-public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
+public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 {
 	#region Constructors & Deconstructors
-		public ServerInfo(in Network netParent)
+		public NetServerInfo(in Net netParent)
 		{
 			this.netParent = netParent;
 			strDomain = "";
 		}
 
-		public ServerInfo(in Network netParent, in string strDomain, in System.Collections.Generic.IEnumerable<ushort> eusPorts, in System
-			.Collections.Generic.IEnumerable<ushort> eusSslPorts)
+		public NetServerInfo(in Net netParent, in string strDomain, in System.Collections.Generic.IEnumerable<ushort>
+			eusPorts, in System.Collections.Generic.IEnumerable<ushort> eusSslPorts)
 		{
 			this.netParent = netParent;
 			this.strDomain = strDomain;
@@ -24,10 +26,11 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 			MakeDirty();
 		}
 
-		protected ServerInfo(in UserNetwork.Editable eunetParent, in ServerInfo serverCopyThis)
+		protected NetServerInfo(in UserNet.Editable eunetParent, in NetServerInfo serverCopyThis)
 		{
 			if(eunetParent.unetOriginal != serverCopyThis.netParent)
-				throw new System.InvalidProgramException($"Editable ServerInfo instances must be owned by an Editable created from the parent of the value in {nameof(serverCopyThis)}");
+				throw new System.InvalidProgramException($"Editable ServerInfo instances must be owned by an " +
+					$"Editable created from the parent of the value in {nameof(serverCopyThis)}");
 
 			netParent = eunetParent;
 
@@ -38,7 +41,7 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 			setSslPorts.UnionWith(serverCopyThis.SslPorts);
 		}
 
-		public ServerInfo(in Network netParent, in DTO.ServerInfoDTO dserverUs)
+		public NetServerInfo(in Net netParent, in DTO.NetServerInfoDTO dserverUs)
 		{
 			this.netParent = netParent;
 
@@ -53,6 +56,7 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 	#endregion
 
 	#region Events
+		public event DFieldChanged<string>? evtDomainChanged;
 		public event DBoolFieldChanged? evtIsEnabledChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtPortsChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtSslPortsChanged;
@@ -65,12 +69,38 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 	#endregion
 
 	#region Helper Types
-		public class Editable : ServerInfo
+		public class Editable : NetServerInfo, System.ComponentModel.INotifyDataErrorInfo
 		{
-			public Editable(in UserNetwork.Editable eunetParent, in ServerInfo serverOriginal) :
-				base(eunetParent, serverOriginal) => this.serverOriginal = serverOriginal;
+			public Editable(in UserNet.Editable eunetParent, in NetServerInfo serverOriginal) :
+				base(eunetParent, serverOriginal)
+			{
+				this.serverOriginal = serverOriginal;
+				this.eunetParent = eunetParent;
+			}
 
-			public readonly ServerInfo serverOriginal;
+			public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+
+			public readonly NetServerInfo serverOriginal;
+
+			public readonly UserNet.Editable eunetParent;
+
+			public new UserNet.Editable Parent
+				=> eunetParent;
+
+			public bool HasErrors
+				=> Domain != "" && (Ports.Count > 0 || SslPorts.Count > 0);
+
+			public new string Domain
+			{
+				get => base.Domain;
+
+				set
+				{
+					base.Domain = value;
+
+					WereChangesMade = true;
+				}
+			}
 
 			public bool WereChangesMade
 			{
@@ -138,11 +168,43 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 					WereChangesMade = true;
 				}
 			}
+		
+			public System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
+			{
+				System.Collections.Generic.SortedSet<string> strsetErrors = [];
+
+				System.Collections.Generic.SortedSet<string> strsetProp = strPropNameToGetErrorsFor == null
+					? [nameof(Domain), nameof(Ports), nameof(SslPorts)]
+					: [strPropNameToGetErrorsFor];
+
+				foreach(string strCurPropToGetErrorsFor in strsetProp)
+					switch(strCurPropToGetErrorsFor)
+					{
+						case nameof(Domain):
+							if(Domain == "")
+								strsetErrors.Add(Rsrcs.strServerInvalidWithOutDomain);
+
+							break;
+
+						case nameof(Ports):
+						case nameof(SslPorts):
+							if(Ports.Count == 0 || SslPorts.Count == 0)
+								strsetErrors.Add(Rsrcs.strServerInvalidWithOutAtLeastOnePort);
+
+							break;
+
+						default: // Just ignore values we don't know what to do with
+							break;
+					}
+
+				return strsetErrors;
+			}
 
 			public void Save()
 			{
 				if(WereChangesMade)
 				{
+					serverOriginal.Domain = Domain;
 					serverOriginal.bEnabled = bEnabled;
 
 					if(Ports.SetEquals(serverOriginal.Ports))
@@ -164,10 +226,10 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 	#endregion
 
 	#region Members
-		private readonly Network netParent;
+		private readonly Net netParent;
 
 
-		private readonly string strDomain;
+		private string strDomain;
 
 		private bool bEnabled;
 
@@ -177,8 +239,27 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 	#endregion
 
 	#region Properties
+		public Net Parent
+			=> netParent;
+
 		public string Domain
-			=> strDomain;
+		{
+			get => strDomain;
+
+			set
+			{
+				if(strDomain != value)
+				{
+					string strOldDomain = strDomain;
+
+					strDomain = value;
+
+					MakeDirty();
+
+					FireDomainChanged(strOldDomain);
+				}
+			}
+		}
 
 		public bool IsEnabled
 		{
@@ -186,7 +267,7 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 
 			protected set
 			{
-				if(netParent is not UserNetwork)
+				if(netParent is not UserNet)
 					throw new System.InvalidProgramException("ServerInfo instances owned by anything other than a UserNetwork are readonly.");
 
 				if(bEnabled != value)
@@ -209,14 +290,22 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 		public System.Collections.Generic.IReadOnlySet<ushort> SslPorts
 			=> setSslPorts;
 
+		public System.Collections.Generic.IEnumerable<ushort> AllPossiblePorts
+			=> setPorts.Union(setSslPorts);
+
 		public string SslPortsAsText
 			=> string.Join(strPortDelimiter, setSslPorts);
 	#endregion
 
 	#region Methods
 		protected void FirePropChanged(in string strPropName)
+			=> PropertyChanged?.Invoke(this, new(strPropName));
+
+		protected void FireDomainChanged(in string strOldDomain)
 		{
-			PropertyChanged?.Invoke(this, new(strPropName));
+			FirePropChanged(nameof(Domain));
+
+			evtDomainChanged?.Invoke(this, strOldDomain, strDomain);
 		}
 
 		protected void FireEnabledChanged()
@@ -304,8 +393,11 @@ public class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
 			}
 		}
 
-		public Editable MakeEditableVersion(in UserNetwork.Editable eunetParent)
+		public Editable MakeEditableVersion(in UserNet.Editable eunetParent)
 			=> new(eunetParent, this);
+
+		public DTO.NetServerInfoDTO ToDTO()
+			=> new(strDomain, [.. setPorts], [.. setSslPorts], bEnabled);
 	#endregion
 
 	#region Event Handlers

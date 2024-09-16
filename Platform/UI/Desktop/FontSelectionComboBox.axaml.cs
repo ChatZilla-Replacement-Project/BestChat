@@ -25,19 +25,24 @@ public partial class FontSelectionComboBox : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Constants
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Due to naming " +
-			"standards that are inherited")]
-		public static readonly Avalonia.DirectProperty<FontSelectionComboBox, bool> ListOnlyFixedWidthFontsProperty = Avalonia.AvaloniaProperty
-			.RegisterDirect<FontSelectionComboBox, bool>(nameof(ListOnlyFixedWidthFonts), (FontSelectionComboBox instance) => instance
-			.ListOnlyFixedWidthFonts, (FontSelectionComboBox instance, bool bNewVal) => instance.ListOnlyFixedWidthFonts = bNewVal);
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification
+			= "Due to naming standards that are inherited")]
+		public static readonly Avalonia.DirectProperty<FontSelectionComboBox, bool> ListOnlyFixedWidthFontsProperty 
+			= Avalonia.AvaloniaProperty.RegisterDirect<FontSelectionComboBox, bool>(
+				nameof(ListOnlyFixedWidthFonts),
+				instance
+					=> instance.ListOnlyFixedWidthFonts,
+				(instance, bNewVal)
+					=> instance.ListOnlyFixedWidthFonts = bNewVal);
 	#endregion
 
 	#region Helper Types
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.List<SkiaSharp.SKTypeface> listtfAllSysFonts = new(SkiaSharp
-			.SKFontManager.Default.FontFamilies.Select(strCurFontFamilyName => SkiaSharp.SKTypeface.FromFamilyName(strCurFontFamilyName)));
+		private static readonly System.Collections.Generic.List<SkiaSharp.SKTypeface> listtfAllSysFonts =
+			new(SkiaSharp.SKFontManager.Default.FontFamilies.Select(strCurFontFamilyName => SkiaSharp
+			.SKTypeface.FromFamilyName(strCurFontFamilyName)));
 	#endregion
 
 	#region Properties

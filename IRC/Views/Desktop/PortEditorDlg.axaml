@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.Views.Desktop.PortEditorDlg">
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalContentAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button
+				x:Name="btnOK"
+				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				IsEnabled="{Binding IsValid}"
+				ToolTip.Tip="Saves your changes"
+				IsDefault="True"
+				Content="OK"
+				Click="OnOkClicked"/>
+			<Button
+				x:Name="btnCancel"
+				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				ToolTip.Tip="Discards your changes if you've made any.  If you have made changes, you'll be asked if you're sure."
+				IsCancel="True"
+				Content="Cancel"
+				Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
+							IsCancel="True"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto,4,Auto,Auto">
+			<Label
+				Content="Which port should be used:"
+				HorizontalContentAlignment="Right"
+				VerticalContentAlignment="Center" />
+			<ctrls:NumberUpDown
+				x:Name="nudPortNum"
+				Grid.Column="2"
+				Minimum="0"
+				Maximum="65535"
+				Value="{Binding CurPort, Mode=TwoWay, NotifyOnSourceUpdated=true, NotifyOnTargetUpdated=True}"/>
+			<group:GroupBox
+				Grid.Row="2"
+				Grid.ColumnSpan="3"
+				IsVisible="{calc:Binding 'UnavailablePorts &gt; 0'}"
+				Header="These ports have already been specified and are unavailable">
+				<ItemsRepeater
+					ItemsSource="{Binding UnavailablePorts, ElementName=window}"
+					Visibility="{calc:Binding 'UnavailablePorts &gt; 0'}">
+					<ItemsRepeater.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel />
+						</ItemsPanelTemplate>
+					</ItemsRepeater.ItemsPanel>
+				</ItemsRepeater>
+			</group:GroupBox>
+		</Grid>
+	</DockPanel>
+</Window>

@@ -1,0 +1,144 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:Data="using:BestChat.IRC.Data.Defs"
+				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				x:DataType="Data:BNC"
+				d:DataContext="{d:DesignInstance Type=Data:BNC}"
+				mc:Ignorable="d"
+				WindowStartupLocation="CenterOwner"
+				ShowInTaskbar="False"
+				CanResize="False"
+				x:Class="BestChat.IRC.Views.Desktop.PredefinedBncEditorDlg">
+	<Window.Title>
+		<TextBlock>You're viewing the predefined bouncer <Span><Run Text="{Binding Name}"/>.</Span>
+	</TextBlock>
+	</Window.Title>
+	<DockPanel Padding="4">
+		<StackPanel DockPanel.Dock="Right"
+								VerticalContentAlignment="Middle"
+								Orientation="Vertical"
+								Spacing="4">
+			<Button x:Name="btnAddSslPort"
+							ToolTip.Tip="Click to add a new SSL port to this list"
+							Content="Add…"
+							Click="OnAddSslPortClicked"/>
+			<Button x:Name="btnEditSslPort"
+							ToolTip.Tip="Click to change the selected SSL port"
+							IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
+							Content="Edit…"
+							Click="OnEditSslPortClicked"/>
+			<Button x:Name="btnDelSslPort"
+							ToolTip.Tip="Delete the selected SSL port"
+							IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
+							Content="Delete"
+							Click="OnDelSslPortClicked"/>
+		</StackPanel>
+		<Grid ColumnDefinitions="Auto,4,Auto"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+			<Label Content="Name:"/>
+			<Label Grid.Column="2"
+						 Content="{Binding Name}"/>
+			<Label Grid.Row="2"
+						 Content="HomePage:"/>
+			<HyperlinkButton Grid.Row="2"
+											 Grid.Column="2"
+											 ToolTip.Tip="Clicking will cause Best Chat to open the URL shown in your default browser"
+											 NavigateURI="{Binding Homepage}"
+											 Content="{Binding Homepage}"/>
+			<Label Grid.Row="4"
+						 Content="Allowed Networks:"/>
+			<ItemsRepeater Grid.Row="4"
+										 Grid.Column="2"
+										 ItemsSource="{Binding AllowedNets}">
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Label Content="{Binding}"/>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+			<Label Grid.Row="6"
+						 Content="Prohibited Network:s"/>
+			<ItemsRepeater Grid.Row="6"
+										 Grid.Column="2"
+										 ItemsSource="{Binding ProhibitedNets}">
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Label Content="{Binding}"/>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+			<Label Grid.Row="8"
+						 Content="Tech Support Channel:"/>
+			<HyperlinkButton Grid.Row="8"
+											 Grid.Column="2"
+											 ToolTip.Tip="Clicking will cause Best Chat to open this channel and, if needed, its network"
+											 Content="{Binding HomeNetAndChan}"
+											 Click="OnTechSupportChanLinkClicked"/>
+			<Label Grid.Row="10"
+						 Content="Own Bot:"/>
+			<Label Grid.Row="10"
+						 Grid.Column="2"
+						 Content="{Binding OwnBot}"/>
+			<Label Grid.Row="12"
+						 Content="Servers:"/>
+			<DataGrid Grid.Row="12"
+								Grid.Column="2"
+								IsReadOnly="True"
+								ItemsSource="{Binding AllServersByNameAsText}"
+								CanUserReorderColumns="False"
+								CanUserResizeColumns="True"
+								CanUserSortColumns="True"
+								GridLinesVisibility="Horizontal"
+								HorizontalScrollBarVisibility="Hidden"
+								SelectionMode="Extended"
+								AutoGenerateColumns="False"
+								SelectionUnit="FullRow"
+								HeadersVisibility="Column">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name"
+															CanUserSort="True"
+															CanUserResize="True"
+															Binding="{Binding Name}"/>
+					<DataGridTextColumn Header="Domain"
+															CanUserSort="True"
+															CanUserResize="True"
+															Binding="{Binding Domain}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+			<Label Grid.Row="14"
+						 Content="Unencrypted Ports:"/>
+			<ItemsRepeater Grid.Row="14"
+										 Grid.Column="2"
+										 ItemsSource="{Binding AllPorts}">
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Label Content="{Binding}"/>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+			<Label Grid.Row="16"
+						 Content="SSL Ports"/>
+			<ItemsRepeater Grid.Row="16"
+										 Grid.Column="2"
+										 ItemsSource="{Binding AllSslPortsAsText}">
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Label Content="{Binding}"/>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+			<Label Grid.Row="18"
+						 Content="Maximum Networks Allowed per Instance"/>
+			<Label Grid.Row="18"
+						 Grid.Column="2"
+						 Content="{Binding MaxNetworksPerBouncerInstance}"/>
+		</Grid>
+		<SpecializedCtrls:BncInstanceListCtrl Grid.Row="20"
+																					Grid.ColumnSpan="3"
+																					CtxtBNC="{Binding}"/>
+	</DockPanel>
+</Window>

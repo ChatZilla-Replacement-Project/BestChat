@@ -1,0 +1,23 @@
+<ComboBox xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					mc:Ignorable="d"
+					x:Class="BestChat.IRC.Views.Desktop.BncServerSelCombBox">
+	<ComboBox.ItemTemplate>
+		<DataTemplate>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"
+														SharedSizeGroup="Name"/>
+					<ColumnDefinition Width="4"/>
+					<ColumnDefinition Width="Auto"
+														SharedSizeGroup="Domain"/>
+				</Grid.ColumnDefinitions>
+			<Label Content="{Binding Name}"/>
+				<Label Grid.Column="2"
+							 Content="{Binding Domain}"/>
+			</Grid>
+		</DataTemplate>
+	</ComboBox.ItemTemplate>
+</ComboBox>

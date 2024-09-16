@@ -5,12 +5,12 @@ namespace BestChat.IRC.Data;
 using System.Linq;
 using Platform.DataAndExt.Ext;
 
-public class ActiveNetwork : AbstractConversation, Platform.DataAndExt.Conversations.IGroup, System.ComponentModel.INotifyPropertyChanged,
-	Platform.DataAndExt.TreeData.IChildOwner
+public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations.IGroup, System.ComponentModel
+	.INotifyPropertyChanged, Platform.DataAndExt.TreeData.IChildOwner
 {
 	#region Constructors & Deconstructors
 		#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-			public ActiveNetwork(in Defs.UserNetwork unetDef) :
+			public ActiveNet(in Defs.UserNet unetDef) :
 				base(unetDef.Name, Rsrcs.strNetworkNameDescForTree.Fmt(unetDef.Name))
 			{
 				this.unetDef = unetDef;
@@ -79,7 +79,7 @@ public class ActiveNetwork : AbstractConversation, Platform.DataAndExt.Conversat
 			}
 		#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-		~ActiveNetwork()
+		~ActiveNet()
 			=> evtDieing?.Invoke(this);
 	#endregion
 
@@ -112,39 +112,41 @@ public class ActiveNetwork : AbstractConversation, Platform.DataAndExt.Conversat
 		#endif
 
 
-		public readonly Defs.UserNetwork unetDef;
+		public readonly Defs.UserNet unetDef;
 
 		public readonly RemoteUser ru;
 
-		private readonly System.Collections.Generic.SortedDictionary<char, Defs.Mode<Defs.BoolModeState, Defs.BoolModeStates>> mapModesOnUser =
-			[];
+		private readonly System.Collections.Generic.SortedDictionary<char, Defs.Mode<Defs.BoolModeState, Defs
+			.BoolModeStates>> mapModesOnUser = [];
 
 		// TODO: Remove this attribute once the field is functional
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Field not yet"
-			+ " implemented")]
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier",
+			Justification = "Field not yet implemented")]
 		private System.Uri uriConnectedTo;
 
 		// TODO: We need a way to update this map when the remote user's nick changes.
-		private readonly System.Collections.Generic.SortedDictionary<string, RemoteUser> mapChanMembersByNick = [];
+		private readonly System.Collections.Generic.SortedDictionary<string, RemoteUser> mapChanMembersByNick =
+			[];
 
 
-		private readonly System.Collections.Generic.SortedDictionary<string, Platform.DataAndExt.Conversations.IGroupViewOrConversation>
-			mapConversationsByPath = [];
+		private readonly System.Collections.Generic.SortedDictionary<string, Platform.DataAndExt.Conversations
+			.IGroupViewOrConversation> mapConversationsByPath = [];
 
-		private readonly System.Collections.ObjectModel.ObservableCollection<Platform.DataAndExt.Conversations.IGroupViewOrConversation>
-			ocAllConversations = [];
+		private readonly System.Collections.ObjectModel.ObservableCollection<Platform.DataAndExt.Conversations
+			.IGroupViewOrConversation> ocAllConversations = [];
 	#endregion
 
 	#region Properties
-		public Defs.UserNetwork Def
+		public Defs.UserNet Def
 			=> unetDef;
 
 		// TODO: We need a way to update the nick on this user.
 		public RemoteUser UserInfo
 			=> ru;
 
-		public System.Collections.Generic.IReadOnlyDictionary<char, Defs.Mode<Defs.BoolModeState, Defs.BoolModeStates>> AllModesOnUser
-			=> mapModesOnUser;
+		public System.Collections.Generic.IReadOnlyDictionary<char, Defs.Mode<Defs.BoolModeState, Defs.BoolModeStates>>
+			AllModesOnUser
+				=> mapModesOnUser;
 
 		public System.Uri ConnectedTo
 			=> uriConnectedTo;
@@ -152,14 +154,17 @@ public class ActiveNetwork : AbstractConversation, Platform.DataAndExt.Conversat
 		public System.Collections.Generic.IReadOnlyDictionary<string, RemoteUser> AllKnownUsersByNick
 			=> mapChanMembersByNick;
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, Platform.DataAndExt.Conversations.IGroupViewOrConversation> ChildrenByName
-			=> mapConversationsByPath;
+		public System.Collections.Generic.IReadOnlyDictionary<string, Platform.DataAndExt.Conversations
+			.IGroupViewOrConversation> ChildrenByName
+				=> mapConversationsByPath;
 
-		public System.Collections.Generic.IEnumerable<Platform.DataAndExt.Conversations.IGroupViewOrConversation> UnsortedChildren
-			=> ocAllConversations;
+		public System.Collections.Generic.IEnumerable<Platform.DataAndExt.Conversations.IGroupViewOrConversation>
+			UnsortedChildren
+				=> ocAllConversations;
 
-		System.Collections.Generic.IEnumerable<Platform.DataAndExt.TreeData.IItemInfo> Platform.DataAndExt.TreeData.IChildOwner.Children
-			=> ocAllConversations;
+		System.Collections.Generic.IEnumerable<Platform.DataAndExt.TreeData.IItemInfo> Platform.DataAndExt.TreeData
+			.IChildOwner.Children
+				=> ocAllConversations;
 
 
 		public override string ProperName
@@ -214,15 +219,15 @@ public class MgrForActiveNetworks
 
 	public static readonly MgrForActiveNetworks instance = new();
 
-	private readonly System.Collections.Generic.SortedDictionary<string, ActiveNetwork> mapAllActiveNetworksByName =
+	private readonly System.Collections.Generic.SortedDictionary<string, ActiveNet> mapAllActiveNetworksByName =
 		[];
 
-	private readonly System.Collections.ObjectModel.ObservableCollection<ActiveNetwork> ocUnsortedAllActiveNetworks =
+	private readonly System.Collections.ObjectModel.ObservableCollection<ActiveNet> ocUnsortedAllActiveNetworks =
 		[];
 
-	public System.Collections.Generic.IReadOnlyDictionary<string, ActiveNetwork> AllActiveNetworksByName
+	public System.Collections.Generic.IReadOnlyDictionary<string, ActiveNet> AllActiveNetworksByName
 		=> mapAllActiveNetworksByName;
 
-	public System.Collections.Generic.IEnumerable<ActiveNetwork> UnsortedAllActiveNetworks
+	public System.Collections.Generic.IEnumerable<ActiveNet> UnsortedAllActiveNetworks
 		=> ocUnsortedAllActiveNetworks;
 }

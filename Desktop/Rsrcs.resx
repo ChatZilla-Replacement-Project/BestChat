@@ -117,67 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="strGlboalAppearanceAppFontsDesc" xml:space="preserve">
-    <value>These fonts are used by the main window, the preference window, and anywhere else that isn't a view provided by a protocol.</value>
-  </data>
-  <data name="strGlobalAppearanceAppFontsTitle" xml:space="preserve">
-    <value>Fonts for the Application's main windows</value>
-  </data>
-  <data name="strGlobalAppearanceCLientFontsDesc" xml:space="preserve">
-    <value>These fonts are used only inside views provided by a protocol implementation.  Some may override or ignore these settings.  They may also add additional settings as some will support more format information.</value>
-  </data>
-  <data name="strGlobalAppearanceClientFontsTitle" xml:space="preserve">
-    <value>Fonts for views provided by a protocol.</value>
-  </data>
-  <data name="strGlobalAppearanceFixedWidthFontFamilyDesc" xml:space="preserve">
-    <value>Best Chat uses this font when it needs a fixed width font.  Note: Emoji characters may force Best Chat to switch to another font as most fonts don't include the emoji characters.  Furthermore, if you choose to use graphical emoji, those will almost certainly be a different width.</value>
-  </data>
-  <data name="strGlobalAppearanceFixedWidthFontFamilyTitle" xml:space="preserve">
-    <value>Fixed Width Font Family</value>
-  </data>
-  <data name="strGlobalAppearanceFontBlockPairIsOverriddenDesc" xml:space="preserve">
-    <value>Check this to override the theme and uncheck it to allow the theme's selection to take affect.</value>
-  </data>
-  <data name="strGlobalAppearanceFontBlockPairIsOverriddenTitle" xml:space="preserve">
-    <value>Is Overriden</value>
-  </data>
-  <data name="strGlobalAppearanceFontBlockPairOverriddenValDesc" xml:space="preserve">
-    <value />
-  </data>
-  <data name="strGlobalAppearanceFontBlockPairOverriddenValTitle" xml:space="preserve">
-    <value>The value you chose</value>
-  </data>
-  <data name="strGlobalAppearanceFontDesc" xml:space="preserve">
-    <value>Your chosen theme specified a series of fonts to use.  However, you can override the font selections the application.</value>
-  </data>
-  <data name="strGlobalAppearanceFontSizeDesc" xml:space="preserve">
-    <value>Specify the size of the font used.  This affects the size of both the normal and fixed width fonts you (or your theme) use.</value>
-  </data>
-  <data name="strGlobalAppearanceFontSizeTitle" xml:space="preserve">
-    <value>Size of the fonts used</value>
-  </data>
-  <data name="strGlobalAppearanceFontTitle" xml:space="preserve">
-    <value>Fonts</value>
-  </data>
-  <data name="strGlobalAppearanceFontWeightDesc" xml:space="preserve">
-    <value>Specify the weight or boldness of the fonts used.  This affects the weight of both the normal and fixed width fonts.  Note: In your client views, you may find incoming posts causing text to be bolder than what you specifiy here.</value>
-  </data>
-  <data name="strGlobalAppearanceFontWeightTitle" xml:space="preserve">
-    <value>Weight (boldness) of the fonts used</value>
-  </data>
-  <data name="strGlobalAppearanceNormalFontFamilyDesc" xml:space="preserve">
-    <value>This is the font family used when Best Chat doesn't require a fixed width font.</value>
-  </data>
-  <data name="strGlobalAppearanceNormalFontFamilyTitle" xml:space="preserve">
-    <value>Normal Font Family</value>
-  </data>
-  <data name="strPermNeededToEnableProtocolCaption" xml:space="preserve">
-    <value>New protocol detected!</value>
-  </data>
-  <data name="strPermNeededToEnableProtocolQuestion" xml:space="preserve">
-    <value>A new protocol called {0} published by {1} has been installed.  The publisher's description:\r\n\r\n"{2}"\r\n\r\nDo you wish to enable it?  A faulty module could cause Best Chat to become unstable.  Modules could also be used to attack your system.  Be sure you have a trusted source.</value>
-    <comment>"{0}" will be replaced by the name of the protocol.  "{1}" will be replaced by the publisher's name.  "{2}" will be replaced by a potentially lengthy description of that protocol.  Plan on putting newlines before and after the description.</comment>
-  </data>
   <data name="strQuestionNo" xml:space="preserve">
     <value>No</value>
   </data>

@@ -18,31 +18,41 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <WarningLevel>9999</WarningLevel>
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	  <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
+		<WarningLevel>9999</WarningLevel>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <WarningLevel>9999</WarningLevel>
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	  <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
+		<WarningLevel>9999</WarningLevel>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114</WarningsAsErrors>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Avalonia">
-	  <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
+		<AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  <None Include="..\..\Data\Readme.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<PackageReference Include="Avalonia" Version="11.1.3" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BestChat.Platform.DataAndExt" Version="1.0.0.19" />
-		<PackageReference Include="BestChat.Platform.UI.Desktop" Version="1.0.0.2" />
+		<None Include="..\..\Data\Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Platform\DataAndExt\BestChat.Platform.DataAndExt.csproj" />
+		<ProjectReference Include="..\..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj" />
+		<ProjectReference Include="..\Data\BestChat.IRC.Data.csproj" />
+		<ProjectReference Include="..\Views\Desktop\BestChat.IRC.Views.Desktop.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

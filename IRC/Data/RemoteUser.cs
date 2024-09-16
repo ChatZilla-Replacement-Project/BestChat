@@ -7,7 +7,7 @@ namespace BestChat.IRC.Data;
 public class RemoteUser : System.ComponentModel.INotifyPropertyChanged
 {
 	#region Constructors & Deconstructors
-		internal RemoteUser(in ActiveNetwork anetOwner, string strCurNick, System.Collections.Generic.IEnumerable<Defs.IReadOnlyMode<Defs
+		internal RemoteUser(in ActiveNet anetOwner, string strCurNick, System.Collections.Generic.IEnumerable<Defs.IReadOnlyMode<Defs
 			.BoolModeState, Defs.BoolModeStates>> modes, System.Collections.Generic.IEnumerable<Chan> echanMemberOfThese)
 		{
 			this.anetOwner = anetOwner;
@@ -38,7 +38,7 @@ public class RemoteUser : System.ComponentModel.INotifyPropertyChanged
 	#endregion
 
 	#region Members
-		public readonly ActiveNetwork anetOwner;
+		public readonly ActiveNet anetOwner;
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Later, we'll "
 			+ "be updating this at times.")]
@@ -56,7 +56,7 @@ public class RemoteUser : System.ComponentModel.INotifyPropertyChanged
 	#endregion
 
 	#region Properties
-		public ActiveNetwork Owner
+		public ActiveNet Owner
 			=> anetOwner;
 
 		public string CurNick

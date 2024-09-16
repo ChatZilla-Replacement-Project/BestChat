@@ -17,33 +17,13 @@ public partial class App : Avalonia.Application
 	public new static App? Current => Avalonia.Application.Current as App;
 
 	public static System.IO.DirectoryInfo LocalDataLoc
-		=> new(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
-			"Best Chat"));
+		=> new(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder
+			.ApplicationData), "Best Chat"));
+}
 
-	public static bool AskUserIfTheyWantToEnableNewProtocol(Platform.DataAndExt.Protocol.Mgr<Platform.UI.Desktop.ProtocolGuiMgr
-			.IProtocolGuiDef>.ProtocolMetaData metadataForProtocol)
-		=> MsBox.Avalonia.MessageBoxManager.GetMessageBoxCustom(new()
-		{
-			ButtonDefinitions =
-				[
-					new()
-					{
-						Name = Rsrcs.strQuestionNo,
-						IsDefault = true,
-						IsCancel = true,
-					},
-					new()
-					{
-						Name = Rsrcs.strQuestionYes,
-					},
-				],
-			ContentTitle = Rsrcs.strPermNeededToEnableProtocolCaption,
-			ContentMessage = Rsrcs.strPermNeededToEnableProtocolQuestion,
-			Icon = MsBox.Avalonia.Enums.Icon.Warning,
-			WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner,
-			CanResize = false,
-			SizeToContent = Avalonia.Controls.SizeToContent.WidthAndHeight,
-			ShowInCenter = true,
-			FontFamily = RootPrefs.Instance.Global.Appearance.Fonts.AppFonts.NormalFontFamily.OverriddenVal.CurVal,
-		}).ShowWindowDialogAsync(MainWnd.Instance).Result == Rsrcs.strQuestionYes;
+public class DataLoc : Platform.DataAndExt.DataLoc
+{
+	public override System.IO.DirectoryInfo? ProfileLoc
+		=> new System.IO.DirectoryInfo(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment
+			.SpecialFolder.ApplicationData, "ChatZilla Replacement Project", "BestChat")));
 }
