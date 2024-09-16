@@ -7,7 +7,7 @@ public partial class PredefinedNetViewerDlg : Avalonia.Controls.Window
 	public PredefinedNetViewerDlg()
 		=> InitializeIfNeeded();
 
-	public Data.Defs.NetServerInfo.Editable? WhatsBeingShown
+	public Data.Defs.NetServerInfo.Editable? ServerInfoCtxt
 	{
 		get => DataContext as Data.Defs.NetServerInfo.Editable;
 

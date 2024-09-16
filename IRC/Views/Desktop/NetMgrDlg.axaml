@@ -15,15 +15,15 @@
 				MinWidth="800"
 				MinHeight="450">
 	<DockPanel>
-		<Grid Dock="Bottom"
-					ColumnDefintions="1*"
-					RowDefintions="1*,Auto">
-			<Button x:Name="btnClose"
-							Contents="Close"/>
-		</Grid>
+		<Button x:Name="btnClose"
+						DockPanel.Dock="Bottom"
+						Margin="4"
+						HorizontalAlignment="Right"
+						Contents="Close"/>
 		<Grid ColumnDefintions =",4,"
 					RowDefintions="1*">
-			<group:GroupBox Header="Predefined">
+			<group:GroupBox x:Name="groupPredefined"
+											Header="Predefined">
 				<DockPanel>
 					<TextBlock MaxWidth="500"
 										 DockPanel.Dock="Top"
@@ -35,11 +35,12 @@
 										DockPanel.Dock="Bottom">
 					<Button
 						x:Name="btnViewPredefined"
-						Content="View Details…"
 						Grid.Row="5"
 						Grid.Column="1"
+						ToolTip.Tip="Lets you view the details of this network.  If it's listed on the right as well as the left, this only shows the defaults."
 						IsEnabled="{calc:Binding Items.Count > 0, ElementName=dgPredefined}"
-						ToolTip.Tip="Lets you view the details of this network.  If it's listed on the right as well as the left, this only shows the defaults." />
+						Content="View Details…"
+						Click="OnViewPredefinedClicked"/>
 					<Button
 						x:Name="btnStartConnecting"
 						Content="Start Connecting…"
@@ -51,7 +52,7 @@
 						Content="Hide Network"
 						Grid.Row="5"
 						Grid.Column="5"
-						IsEnabled="{calc:Binding 'Items.Count > 0 and SelectedValue != null!SelectedValue.IsCustomized', ElementName=dgPredefined, NotifyOnSourceUpdated=True}"
+						IsEnabled="{calc:Binding 'Items.Count > 0 and SelectedValue != null and !SelectedValue.IsCustomized', ElementName=dgPredefined, NotifyOnSourceUpdated=True}"
 						ToolTip.Tip="Hides the selected network.  Available only if the network you selected above isn't also listed on the right.  If it is, hide it from there." />
 				</StackPanel>
 				<DataGrid
@@ -98,7 +99,8 @@
 										ShowsPreview="false"
 										ResizeDirection="Columns"
 										Grid.Column="1"/>
-			<group:GroupBox Header="Networks Defined By You"
+			<group:GroupBox x:Name="groupUser"
+											Header="Networks Defined By You"
 											Grid.Column="2">
 				<DockPanel>
 					<TextBlock DockPanel="Top"
@@ -111,22 +113,99 @@
 											HorizontalContentAlignment="Center">
 						<Button
 							x:Name="btnAdd"
-							Content="Add…"
 							Grid.Row="5"
-							Grid.Column="1" />
+							Grid.Column="1"
+							Content="Add…" 
+							Click="OnAddUserNet"/>
 						<Button
 							x:Name="btnEdit"
-							Content="Edit…"
+							Grid.Row="5"
 							Grid.Column="3"
-							IsEnabled="{calc:Binding 'SelectedItem != null', ElementName=dgUser}"
-							Grid.Row="5" />
+							IsEnabled="{calc:Binding 'SelectedItem != null and SelectedItems.Count == 1', ElementName=dgUser}"
+							Content="Edit…"
+							Click="OnEditUserNet"/>
 						<Button
 							x:Name="btnDel"
-							Content="Delete"
+							Grid.Row="5"
 							Grid.Column="5"
-							IsEnabled="{calc:Binding 'SelectedItem != null', ElementName=dgUser}"
-							Grid.Row="5" />
+							IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=dgUser}"
+							Content="Delete"
+							Click="OnDelUserNet"/>
 					</StackPanel>
+					<DataGrid
+						x:Name="dgUser"
+						Grid.Row="3"
+						Grid.ColumnSpan="7"
+						d:DataContext="{d:DesignInstance Type=Data:UserNetwork}"
+						CanUserResizeRows="False"
+						RowDetailsVisibilityMode="Visible"
+						CanUserDeleteRows="False"
+						CanUserAddRows="False">
+						<DataGrid.Columns>
+							<DataGridTextColumn
+								Header="Name"
+								IsReadOnly="True"
+								Binding="{Binding Name}"
+								CanUserSort="True"
+								CanUserResize="True" />
+							<DataGridHyperlinkColumn
+								Header="Homepage"
+								IsReadOnly="True"
+								Binding="{Binding Homepage}"
+								ContentBinding="{Binding Homepage}"
+								CanUserResize="True"
+								CanUserSort="True"
+								CanUserReorder="True">
+								<DataGridHyperlinkColumn.CellStyle>
+									<Style
+										TargetType="DataGridCell">
+										<Setter
+											Property="ToolTip.Tip"
+											Value="Clicking here will open this link" />
+									</Style>
+								</DataGridHyperlinkColumn.CellStyle>
+							</DataGridHyperlinkColumn>
+							<DataGridTextColumn
+								Header="State"
+								IsReadOnly="True"
+								Binding="{Binding NetworkInfoType}"
+								CanUserResize="True"
+								CanUserSort="True"
+								CanUserReorder="True">
+								<DataGridTextColumn.CellStyle>
+									<Style
+										TargetType="DataGridCell">
+										<Setter
+											Property="ToolTip.Tip"
+											Value="{Binding NetworkInfoTypeDesc}" />
+									</Style>
+								</DataGridTextColumn.CellStyle>
+							</DataGridTextColumn>
+							<DataGridTextColumn
+								Header="Servers"
+								IsReadOnly="True"
+								Binding="{Binding EnabledServerDomainsInSearchOrderAsText}"
+								CanUserResize="True"
+								CanUserReorder="True" />
+							<DataGridCheckBoxColumn
+								Header="Hide it?"
+								IsReadOnly="True"
+								CanUserSort="True"
+								CanUserReorder="True" />
+							<DataGridCheckBoxColumn
+								Header="Auto-connect?"
+								IsReadOnly="True"
+								Binding="{Binding AutoConnect}"
+								CanUserSort="True"
+								CanUserReorder="True" />
+							<DataGridCheckBoxColumn
+								Header="Use SSL?"
+								IsReadOnly="True"
+								Binding="{Binding UseSSL}"
+								CanUserSort="True"
+								CanUserReorder="True" />
+						</DataGrid.Columns>
+					</DataGrid>
 				</DockPanel>
 			</group:GroupBox>
 		</Grid>

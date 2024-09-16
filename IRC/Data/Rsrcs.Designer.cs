@@ -1283,5 +1283,23 @@ namespace BestChat.IRC.Data {
                 return ResourceManager.GetString("strThreeWayModeStateNoPrefDesc", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for this network..
+        /// </summary>
+        internal static string strUserNetNameBlank {
+            get {
+                return ResourceManager.GetString("strUserNetNameBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name you entered for this network isn&apos;t unique.  Please choose another..
+        /// </summary>
+        internal static string strUserNetNameTaken {
+            get {
+                return ResourceManager.GetString("strUserNetNameTaken", resourceCulture);
+            }
+        }
     }
 }

@@ -20,8 +20,8 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 			this.strDomain = strDomain;
 			bEnabled = true;
 
-			setPorts.UnionWith(eusPorts);
-			setSslPorts.UnionWith(eusSslPorts);
+			ussetPorts.UnionWith(eusPorts);
+			ussetSslPorts.UnionWith(eusSslPorts);
 
 			MakeDirty();
 		}
@@ -37,8 +37,8 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 			strDomain = serverCopyThis.strDomain;
 			bEnabled = serverCopyThis.bEnabled;
 
-			setPorts.UnionWith (serverCopyThis.Ports);
-			setSslPorts.UnionWith(serverCopyThis.SslPorts);
+			ussetPorts.UnionWith (serverCopyThis.Ports);
+			ussetSslPorts.UnionWith(serverCopyThis.SslPorts);
 		}
 
 		public NetServerInfo(in Net netParent, in DTO.NetServerInfoDTO dserverUs)
@@ -47,8 +47,8 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 			strDomain = dserverUs.Domain;
 			bEnabled = dserverUs.IsEnabled;
-			setPorts.UnionWith(dserverUs.Ports);
-			setSslPorts.UnionWith(dserverUs.SslPorts);
+			ussetPorts.UnionWith(dserverUs.Ports);
+			ussetSslPorts.UnionWith(dserverUs.SslPorts);
 		}
 	#endregion
 
@@ -233,9 +233,9 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		private bool bEnabled;
 
-		private readonly System.Collections.Generic.SortedSet<ushort> setPorts = [];
+		private readonly System.Collections.Generic.SortedSet<ushort> ussetPorts = [];
 
-		private readonly System.Collections.Generic.SortedSet<ushort> setSslPorts = [];
+		private readonly System.Collections.Generic.SortedSet<ushort> ussetSslPorts = [];
 	#endregion
 
 	#region Properties
@@ -282,19 +282,36 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 		}
 
 		public System.Collections.Generic.IReadOnlySet<ushort> Ports
-			=> setPorts;
+			=> ussetPorts;
 
 		public string PortsAsText
-			=> string.Join(strPortDelimiter, setPorts);
+			=> string.Join(strPortDelimiter, ussetPorts);
 
 		public System.Collections.Generic.IReadOnlySet<ushort> SslPorts
-			=> setSslPorts;
+			=> ussetSslPorts;
 
 		public System.Collections.Generic.IEnumerable<ushort> AllPossiblePorts
-			=> setPorts.Union(setSslPorts);
+			=> ussetPorts.Union(ussetSslPorts);
 
 		public string SslPortsAsText
-			=> string.Join(strPortDelimiter, setSslPorts);
+			=> string.Join(strPortDelimiter, ussetSslPorts);
+
+		public ushort? NextAvailablePort
+		{
+			get
+			{
+				ushort usNextUnusedPort = 0;
+
+				while(usNextUnusedPort < ushort.MaxValue && (ussetPorts.Contains(usNextUnusedPort) ||
+						ussetSslPorts.Contains(usNextUnusedPort)))
+					usNextUnusedPort++;
+
+				return usNextUnusedPort == ushort.MaxValue || ussetPorts.Contains(usNextUnusedPort) ||
+						ussetSslPorts.Contains(usNextUnusedPort)
+					? null
+					: usNextUnusedPort;
+			}
+		}
 	#endregion
 
 	#region Methods
@@ -319,7 +336,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 		{
 			FirePropChanged(nameof(Ports));
 
-			evtPortsChanged?.Invoke(this, setPorts, collectionChangeType);
+			evtPortsChanged?.Invoke(this, ussetPorts, collectionChangeType);
 		}
 
 		protected void FireSslPortsChanged(in CollectionChangeType collectionChangeType)
@@ -331,7 +348,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void AddPort(in ushort usNewPort)
 		{
-			if(setPorts.Add(usNewPort))
+			if(ussetPorts.Add(usNewPort))
 			{
 				MakeDirty();
 
@@ -341,7 +358,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void RemovePort(in ushort usPortToRemove)
 		{
-			if(setPorts.Remove(usPortToRemove))
+			if(ussetPorts.Remove(usPortToRemove))
 			{
 				MakeDirty();
 
@@ -351,9 +368,9 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void ClearPorts()
 		{
-			if(setPorts.Count > 0)
+			if(ussetPorts.Count > 0)
 			{
-				setPorts.Clear();
+				ussetPorts.Clear();
 
 				MakeDirty();
 
@@ -363,7 +380,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void AddSslPort(in ushort usNewSslPort)
 		{
-			if(setSslPorts.Add(usNewSslPort))
+			if(ussetSslPorts.Add(usNewSslPort))
 			{
 				MakeDirty();
 
@@ -373,7 +390,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void RemoveSslPort(in ushort usSslPortToRemove)
 		{
-			if(setSslPorts.Remove(usSslPortToRemove))
+			if(ussetSslPorts.Remove(usSslPortToRemove))
 			{
 				MakeDirty();
 
@@ -383,9 +400,9 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		protected void ClearSslPorts()
 		{
-			if(setSslPorts.Count > 0)
+			if(ussetSslPorts.Count > 0)
 			{
-				setSslPorts.Clear();
+				ussetSslPorts.Clear();
 
 				MakeDirty();
 
@@ -397,7 +414,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 			=> new(eunetParent, this);
 
 		public DTO.NetServerInfoDTO ToDTO()
-			=> new(strDomain, [.. setPorts], [.. setSslPorts], bEnabled);
+			=> new(strDomain, [.. ussetPorts], [.. ussetSslPorts], bEnabled);
 	#endregion
 
 	#region Event Handlers

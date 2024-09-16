@@ -7,7 +7,7 @@
 				xmlns:group="using:GroupBox.Avalonia.Controls"
 				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.Views.Desktop.NetEditorDlg">
+				x:Class="BestChat.IRC.Views.Desktop.UserNetEditorDlg">
 	<DockPanel>
 		<StackPanel DockPanel.Dock="Bottom"
 								HorizontalContentAlignment="Right"

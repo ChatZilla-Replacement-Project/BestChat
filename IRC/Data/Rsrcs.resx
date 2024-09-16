@@ -565,4 +565,10 @@
   <data name="strThreeWayModeStateNoPrefDesc" xml:space="preserve">
     <value>ChanServ isn't controlling this mode</value>
   </data>
+  <data name="strUserNetNameBlank" xml:space="preserve">
+    <value>Please enter a name for this network.</value>
+  </data>
+  <data name="strUserNetNameTaken" xml:space="preserve">
+    <value>The name you entered for this network isn't unique.  Please choose another.</value>
+  </data>
 </root>

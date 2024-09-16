@@ -305,11 +305,29 @@
   <data name="strDelBncUnencryptedPortTitle" xml:space="preserve">
     <value>Delete the port from this bouncer?</value>
   </data>
+  <data name="strDelNetServerSslPortMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the selected SSL ports from this server on this network?</value>
+  </data>
+  <data name="strDelNetServerSslPortTitle" xml:space="preserve">
+    <value>Delete the selected ports?</value>
+  </data>
+  <data name="strDelNetServerUnencryptedPortMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the selected unencrypted ports from this server on this network?</value>
+  </data>
+  <data name="strDelNetServerUnencryptedPortTitle" xml:space="preserve">
+    <value>Delete the selected ports?</value>
+  </data>
   <data name="strDelServerDomainAreYouSure" xml:space="preserve">
     <value>Are you sure you want to delete this server domain?</value>
   </data>
   <data name="strDelServerDomainAreYouSureTitle" xml:space="preserve">
     <value>Delete this server domain?</value>
+  </data>
+  <data name="strDelUserNetMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the selected custom networks?  You won't be able to undo this unless you have backups of Best Chat’s profile folder.  Any that are predefined will revert to the way our information has them.  They will continue to remain visible.  If you had them hidden, they will reappear in Best Chat’s windows.</value>
+  </data>
+  <data name="strDelUserNetTitle" xml:space="preserve">
+    <value>Delete the selected networks?</value>
   </data>
   <data name="strEditingBncServerTitleFmt" xml:space="preserve">
     <value>You’re editing a server for the bouncer “{0}”</value>

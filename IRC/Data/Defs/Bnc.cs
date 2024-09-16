@@ -1078,12 +1078,14 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		public System.Collections.Generic.IReadOnlySet<string> AllowedNets => strsetAllowedNets;
+		public System.Collections.Generic.IReadOnlySet<string> AllowedNets
+			=> strsetAllowedNets;
 
 		public string AllowedNetsAsText
 			=> strsetAllowedNets.Join(", ");
 
-		public System.Collections.Generic.IReadOnlySet<string> ProhibitedNets => strsetProhibitedNets;
+		public System.Collections.Generic.IReadOnlySet<string> ProhibitedNets
+			=> strsetProhibitedNets;
 
 		public string ProhibitedNetsAsText
 			=> strsetProhibitedNets.Join(", ");

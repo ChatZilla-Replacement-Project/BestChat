@@ -49,8 +49,8 @@
 	  <Compile Update="BncMgrDlg.axaml.cs">
 	    <DependentUpon>BncMgrDlg.axaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="NetEditorDlg.axaml.cs">
-	    <DependentUpon>NetEditorDlg.axaml</DependentUpon>
+	  <Compile Update="UserNetEditorDlg.axaml.cs">
+	    <DependentUpon>UserNetEditorDlg.axaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="NetMgrDlg.axaml.cs">
 	    <DependentUpon>NetMgrDlg.axaml</DependentUpon>

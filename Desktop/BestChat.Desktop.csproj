@@ -22,9 +22,13 @@
 		<PackageIcon>We Chat icon 180x180.png</PackageIcon>
 	</PropertyGroup>
 	<ItemGroup>
-		<EmbeddedResource Include="WeChat.ico">
+		<EmbeddedResource Include="Assets\WeChat.ico">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
 
 	<ItemGroup>

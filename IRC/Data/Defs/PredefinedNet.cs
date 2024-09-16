@@ -10,7 +10,7 @@ public class PredefinedNet : Net
 		{
 		}
 
-		public PredefinedNet(in DTO.PredefinedNetworkDTO dpnetworkUs) :
+		public PredefinedNet(in DTO.PredefinedNetDTO dpnetworkUs) :
 			base(dpnetworkUs)
 		{
 			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModes)

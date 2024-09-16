@@ -23,6 +23,22 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 			msgboxCancelEditingAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
 			.strCancelEditingServerMsgFmt, Rsrcs.strCancelEditingServerTitle, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox
 			.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+
+		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult>
+			msgboxOutOfPorts = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
+			.strOutOfPortsMsg, Rsrcs.strOutOfPortsTitle, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia
+			.Enums.Icon.Error, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+
+		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult>
+			msgboxDelUnencryptedPortAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
+			.strDelNetServerUnencryptedPortMsg, Rsrcs.strDelNetServerUnencryptedPortTitle, MsBox.Avalonia.Enums
+			.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation
+			.CenterOwner);
+
+		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult>
+			msgboxDelSslPortAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
+			.strDelNetServerSslPortMsg, Rsrcs.strDelNetServerSslPortTitle, MsBox.Avalonia.Enums.ButtonEnum.YesNo,
+			MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 	#endregion
 
 	#region Helper Types
@@ -37,7 +53,7 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.NetServerInfo.Editable? eserverWhatsBeingEdited;
+		private Data.Defs.NetServerInfo.Editable? eserverCtxt;
 	#endregion
 
 	#region Properties
@@ -51,21 +67,21 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 				{
 					mode = value;
 
-					if(eserverWhatsBeingEdited != null)
+					if(eserverCtxt != null)
 						UpdateTitle();
 				}
 			}
 		}
 
-		public Data.Defs.NetServerInfo.Editable? WhatsBeingEdited
+		public Data.Defs.NetServerInfo.Editable? ServerCtxt
 		{
-			get => eserverWhatsBeingEdited;
+			get => eserverCtxt;
 
 			set
 			{
-				if(eserverWhatsBeingEdited != value)
+				if(eserverCtxt != value)
 				{
-					DataContext = eserverWhatsBeingEdited = value;
+					DataContext = eserverCtxt = value;
 
 					if(mode != Modes.invalid)
 						UpdateTitle();
@@ -74,7 +90,7 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 		}
 
 		private bool IsOkToClose
-			=> eserverWhatsBeingEdited != null && (mode switch
+			=> eserverCtxt != null && (mode switch
 					{
 						Modes.invalid
 							=> throw new System.InvalidProgramException("This dialog should never have been shown with an " +
@@ -100,10 +116,10 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 						=> throw new System.InvalidOperationException("Set the mode before showing a server editor"),
 
 					Modes.creatingNew
-						=> Rsrcs.strCreatingServerTitleFmt.Fmt(eserverWhatsBeingEdited!.Parent.Name),
+						=> Rsrcs.strCreatingServerTitleFmt.Fmt(eserverCtxt!.Parent.Name),
 
 					Modes.editingExisting
-						=> Rsrcs.strEditingServerTitleFmt.Fmt(eserverWhatsBeingEdited!.Domain, eserverWhatsBeingEdited.Parent
+						=> Rsrcs.strEditingServerTitleFmt.Fmt(eserverCtxt!.Domain, eserverCtxt.Parent
 							.Name),
 
 					_
@@ -113,6 +129,108 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 	#endregion
 
 	#region Event Handlers
+		private async void OnAddUnencryptedPortClicked(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			ushort? usNextAvailablePort = eserverCtxt!.NextAvailablePort;
+
+			if(usNextAvailablePort == null)
+			{
+				await msgboxOutOfPorts.ShowWindowDialogAsync(this);
+
+				return;
+			}
+
+			PortEditorDlg dlg = new()
+			{
+				CurPort = (ushort)usNextAvailablePort,
+				Mode = PortEditorDlg.Modes.@new,
+				Title = Rsrcs.strAddingBncUnencryptedPortDlgTitleFmt.Fmt(eserverCtxt.Domain),
+			};
+
+			if(dlg.ShowDialog<bool?>(this).Result == true)
+				eserverCtxt.AddPort(dlg.CurPort);
+		}
+
+		private void OnEditUnencryptedPort(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			ushort usExistingPort = (ushort)lbKnownUnencryptedPorts.SelectedItem;
+
+			PortEditorDlg dlg = new()
+			{
+				CurPort = usExistingPort,
+				Mode = PortEditorDlg.Modes.changing,
+				Title = Rsrcs.strEditingServerTitleFmt.Fmt(eserverCtxt!.Domain, eserverCtxt!.eunetParent.Name),
+			};
+
+			if(dlg.ShowDialog<bool?>(this).Result == true)
+			{
+				eserverCtxt.RemovePort(usExistingPort);
+				eserverCtxt.AddPort(dlg.CurPort);
+			}
+		}
+
+		private void OnDelUnencryptedPort(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			if(msgboxDelUnencryptedPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
+					.ButtonResult.Yes)
+				foreach(ushort usCurPortToRemove in lbKnownUnencryptedPorts.SelectedItems)
+					eserverCtxt!.RemovePort(usCurPortToRemove);
+		}
+
+		private async void OnAddSslPortClicked(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			ushort? usNextAvailablePort = eserverCtxt!.NextAvailablePort;
+
+			if(usNextAvailablePort == null)
+			{
+				await msgboxOutOfPorts.ShowWindowDialogAsync(this);
+
+				return;
+			}
+
+			PortEditorDlg dlg = new()
+			{
+				CurPort = (ushort)usNextAvailablePort,
+				Mode = PortEditorDlg.Modes.@new,
+				Title = Rsrcs.strAddingBncSslPortDlgTitleFmt.Fmt(eserverCtxt.Domain),
+			};
+
+			if(dlg.ShowDialog<bool?>(this).Result == true)
+				eserverCtxt.AddPort(dlg.CurPort);
+		}
+
+		private void OnEditSslPort(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			ushort usExistingPort = (ushort)lbKnownSslPorts.SelectedItem;
+
+			PortEditorDlg dlg = new()
+			{
+				CurPort = usExistingPort,
+				Mode = PortEditorDlg.Modes.changing,
+				Title = Rsrcs.strEditingServerTitleFmt.Fmt(eserverCtxt!.Domain, eserverCtxt!.eunetParent.Name),
+			};
+
+			if(dlg.ShowDialog<bool?>(this).Result == true)
+			{
+				eserverCtxt.RemovePort(usExistingPort);
+				eserverCtxt.AddPort(dlg.CurPort);
+			}
+		}
+
+		private void OnDelSslPort(Avalonia.Controls.Button btnSender, Avalonia
+			.Interactivity.RoutedEventArgs args)
+		{
+			if(msgboxDelSslPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
+					.ButtonResult.Yes)
+				foreach(ushort usCurPortToRemove in lbKnownSslPorts.SelectedItems)
+					eserverCtxt!.RemovePort(usCurPortToRemove);
+		}
+
 		protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs e)
 		{
 			if(!e.IsProgrammatic && !IsOkToClose)
@@ -121,16 +239,19 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+			args)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+			args)
 			=> Close(true);
 
-		private void OnCloseClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnCloseClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+			args)
 			=> Close(null);
 	#endregion
 }

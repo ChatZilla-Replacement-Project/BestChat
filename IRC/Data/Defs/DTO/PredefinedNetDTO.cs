@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Defs.DTO;
 
-public record PredefinedNetworkDTO
+public record PredefinedNetDTO
 (
 	string Name,
 	NetServerInfoDTO[] Servers,
@@ -14,4 +14,4 @@ public record PredefinedNetworkDTO
 	AlisOpts AlisStatus = AlisOpts.unknown,
 	QOpts QStatus = QOpts.unknown
 ) : NetDTO(Name, Servers, Homepage, NickServ, ChanServ, AlisStatus, QStatus),
-	IDataDefBasic<PredefinedNetworkDTO>;
+	IDataDefBasic<PredefinedNetDTO>;

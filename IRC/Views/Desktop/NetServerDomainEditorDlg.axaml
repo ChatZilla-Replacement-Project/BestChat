@@ -72,15 +72,16 @@
 											Spacing="4">
 						<Button
 							x:Name="btnAddUnencryptedPort"
-							Content="Add…" />
+							Content="Add…"
+							Click="OnAddUnencryptedPortClicked"/>
 						<Button
 							x:Name="btnEditUnencryptedPort"
 							Content="Edit…"
-							Grid.Row="2" />
+							Click="OnEditUnencryptedPort"/>
 						<Button
 							x:Name="btnDeleteUnencryptedPort"
 							Content="Delete"
-							Grid.Row="4" />
+							Click="OnDelUnencryptedPort"/>
 					</StackPanel>
 					<Rectangle DockPanel.Dock="Right"
 										 Fill="Gray"
@@ -100,15 +101,16 @@
 											Spacing="4">
 						<Button
 							x:Name="btnAddSslPort"
-							Content="Add…" />
+							Content="Add…"
+							Click="OnAddSslPortClicked"/>
 						<Button
 							x:Name="btnEditSslPort"
 							Content="Edit…"
-							Grid.Row="2" />
+							Click="OnEditSslPortClicked" />
 						<Button
 							x:Name="btnDeleteSslPort"
 							Content="Delete"
-							Grid.Row="4" />
+							Click="OnDelSslPortClicked" />
 					</StackPanel>
 					<Rectangle DockPanel.Dock="Right"
 										 Fill="Gray"

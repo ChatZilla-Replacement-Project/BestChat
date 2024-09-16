@@ -166,7 +166,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 	#endregion
 }
 
-public class PredefinedNetMgr : MgrBase<PredefinedNet, Net, DTO.PredefinedNetworkDTO>
+public class PredefinedNetMgr : MgrBase<PredefinedNet, Net, DTO.PredefinedNetDTO>
 {
 	private PredefinedNetMgr() :
 		base(new System.Uri("https://raw.githubusercontent.com/ChatZilla-Replacement-Project/" +
@@ -176,7 +176,7 @@ public class PredefinedNetMgr : MgrBase<PredefinedNet, Net, DTO.PredefinedNetwor
 
 	public static readonly PredefinedNetMgr mgr = new();
 
-	private static PredefinedNet? MakeNetworkFromDto(in DTO.PredefinedNetworkDTO dpnet)
+	private static PredefinedNet? MakeNetworkFromDto(in DTO.PredefinedNetDTO dpnet)
 		=> new(dpnet);
 }
 
