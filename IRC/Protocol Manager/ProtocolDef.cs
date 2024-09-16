@@ -28,13 +28,16 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 			Header = Rsrcs.strFileNetworkMgrMenuItemTitle,
 		};
 		miFileIrcNetMgr.Click += OnFileIrcNetMgrClicked;
-		miFileIrcNetMgr.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs.strFileNetworkMgrMenuItemToolTip);
+		miFileIrcNetMgr.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs
+			.strFileNetworkMgrMenuItemToolTip);
 
 		miFileIrcBncMgr = new()
 		{
 			Header = Rsrcs.strFileBncMgrMenuItemTitle,
 		};
-		miFileIrcBncMgr.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs.strFileBncMgrMenuItemToolTip);
+		miFileIrcBncMgr.Click += OnFileIrcBncMgrClicked;
+		miFileIrcBncMgr.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs
+			.strFileBncMgrMenuItemToolTip);
 
 		miFileIrc = new()
 		{
@@ -91,10 +94,15 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 
 	private readonly Avalonia.Controls.MenuItem miFileIrcBncMgr;
 
-	private Views.Desktop.NetMgrDlg wndNetMgr = new();
+	private readonly Views.Desktop.NetMgrDlg wndNetMgr = new();
+
+	private readonly Views.Desktop.BncMgrDlg wndBncMgr = new();
 
 	public readonly Avalonia.Controls.Window wndMain;
 
 	private void OnFileIrcNetMgrClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		=> wndNetMgr.Show(wndMain);
+
+	private void OnFileIrcBncMgrClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		=> wndBncMgr.Show(wndMain);
 }
