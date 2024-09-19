@@ -23,16 +23,45 @@ public class MappedObjListItem<KeyType, EntryType> : MappedListItem<KeyType, Ent
 			: new System.Collections.Generic.Dictionary<KeyType, EntryType>())
 	{
 	}
+	
+	private readonly System.Collections.Generic.Dictionary<System.Guid, EntryType> mapGuidToEntry =
+		[];
+
+	public System.Collections.Generic.IEnumerable<System.Guid> GuidKeys
+		=> ((System.Collections.Generic.IReadOnlyDictionary<System.Guid, EntryType>)mapGuidToEntry).Keys;
+
+	public override bool ContainsKey(System.Guid guidKey)
+		=> mapGuidToEntry.ContainsKey(guidKey);
+
+	public override void Clear()
+	{
+		base.Clear();
+
+		mapGuidToEntry.Clear();
+	}
 
 	protected override void OnNewEntry(EntryType entryNew)
-		=> entryNew.evtDirtyChanged += OnEntryDirtyChanged;
+	{
+		entryNew.evtDirtyChanged += OnEntryDirtyChanged;
+		mapGuidToEntry[entryNew.guid] = entryNew;
+	}
 
 	protected override void OnEntryRemoved(EntryType entryDeleted)
-		=> entryDeleted.evtDirtyChanged -= OnEntryDirtyChanged;
+	{
+		entryDeleted.evtDirtyChanged -= OnEntryDirtyChanged;
+		mapGuidToEntry.Remove(entryDeleted.guid);
+	}
 
 	private void OnEntryDirtyChanged(in EntryType objSender, in bool bIsNowDirty)
 	{
 		if(bIsNowDirty)
 			MakeDirty();
 	}
+
+	public EntryType this[System.Guid guidKey]
+		=> ((System.Collections.Generic.IReadOnlyDictionary<System.Guid, EntryType>)mapGuidToEntry)[guidKey];
+
+	public void CopyTo(System.Collections.Generic.KeyValuePair<System.Guid, EntryType>[] array, int
+			iArrayIndex)
+		=> ((System.Collections.ICollection)mapGuidToEntry).CopyTo(array, iArrayIndex);
 }

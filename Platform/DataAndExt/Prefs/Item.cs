@@ -166,7 +166,7 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 
 					valCur = value;
 
-					PropertyChanged?.Invoke(this, new(nameof(CurVal)));
+					FirePropChanged(nameof(CurVal));
 
 					evtCurValChanged?.Invoke(this, oldVal, value);
 				}

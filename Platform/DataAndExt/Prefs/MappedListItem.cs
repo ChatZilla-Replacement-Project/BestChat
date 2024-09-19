@@ -7,7 +7,6 @@ namespace BestChat.Platform.DataAndExt.Prefs;
 public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.Generic.IDictionary<KeyType,
 		EntryType>, System.Collections.Generic.IReadOnlyDictionary<KeyType, EntryType>
 	where KeyType : notnull
-	where EntryType : Obj<EntryType>
 {
 	#region Constructors & Deconstructors
 		public MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
@@ -90,9 +89,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 
 		private readonly System.Collections.Generic.IDictionary<KeyType, EntryType> mapEntriesByMainKey;
 
-		private readonly System.Collections.Generic.Dictionary<System.Guid, EntryType> mapGuidToEntry =
-			[];
-
 		private readonly System.Func<EntryType, KeyType> funcKeyObtainer;
 	#endregion
 
@@ -142,9 +138,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public System.Collections.Generic.IEnumerable<EntryType> Values
 			=> mapEntriesByMainKey.Values;
 
-		public System.Collections.Generic.IEnumerable<System.Guid> GuidKeys
-			=> ((System.Collections.Generic.IReadOnlyDictionary<System.Guid, EntryType>)mapGuidToEntry).Keys;
-
 		System.Collections.Generic.ICollection<KeyType> System.Collections.Generic.IDictionary<KeyType,
 			EntryType>.Keys
 			=> mapEntriesByMainKey.Keys;
@@ -152,9 +145,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		System.Collections.Generic.ICollection<EntryType> System.Collections.Generic.IDictionary<KeyType,
 			EntryType>.Values
 				=> mapEntriesByMainKey.Values;
-
-		public EntryType this[System.Guid guidKey]
-			=> ((System.Collections.Generic.IReadOnlyDictionary<System.Guid, EntryType>)mapGuidToEntry)[guidKey];
 
 		public EntryType this[KeyType key]
 		{
@@ -181,7 +171,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public void Add(System.Collections.Generic.KeyValuePair<KeyType, EntryType> item)
 			=> throw new System.NotImplementedException();
 
-		public void Clear()
+		public virtual void Clear()
 		{
 			if(backedUpVal == null)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
@@ -190,11 +180,13 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 				OnEntryRemoved(entryCur);
 
 			mapEntriesByMainKey.Clear();
-			mapGuidToEntry.Clear();
 		}
 
 		public bool Contains(System.Collections.Generic.KeyValuePair<KeyType, EntryType> item)
 			=> mapEntriesByMainKey.Contains(item);
+
+		public virtual bool ContainsKey(System.Guid guidToTestFor)
+			=> false;
 
 		public void CopyTo(System.Collections.Generic.KeyValuePair<KeyType, EntryType>[] array, int
 				iArrayIndex)
@@ -213,9 +205,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public void Add(System.Guid key, EntryType value)
 			=> throw new System.NotImplementedException();
 
-		public bool ContainsKey(System.Guid guidKey)
-			=> mapGuidToEntry.ContainsKey(guidKey);
-
 		public bool Remove(System.Guid key)
 			=> throw new System.NotImplementedException();
 
@@ -228,10 +217,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 
 		public bool Contains(System.Collections.Generic.KeyValuePair<System.Guid, EntryType> item)
 			=> throw new System.NotImplementedException();
-
-		public void CopyTo(System.Collections.Generic.KeyValuePair<System.Guid, EntryType>[] array, int
-				iArrayIndex)
-			=> ((System.Collections.ICollection)mapGuidToEntry).CopyTo(array, iArrayIndex);
 
 		public bool Remove(System.Collections.Generic.KeyValuePair<System.Guid, EntryType> item)
 			=> throw new System.NotImplementedException();
@@ -252,7 +237,6 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 					OnEntryRemoved(entryCur);
 
 				mapEntriesByMainKey.Clear();
-				mapGuidToEntry.Clear();
 
 				foreach(EntryType entryCur in Def)
 					Add(entryCur);
@@ -266,11 +250,13 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 			if(backedUpVal == null)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			if(mapGuidToEntry.ContainsKey(entryNew.guid))
+			KeyType keyForEntry = funcKeyObtainer(entryNew);
+
+			if(entryNew is ObjBase objNewEntry && ContainsKey(objNewEntry.guid) || mapEntriesByMainKey
+					.ContainsKey(keyForEntry))
 				return false;
 
-			mapEntriesByMainKey[funcKeyObtainer(entryNew)] = entryNew;
-			mapGuidToEntry[entryNew.guid] = entryNew;
+			mapEntriesByMainKey[keyForEntry] = entryNew;
 
 			OnNewEntry(entryNew);
 
@@ -282,11 +268,13 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 			if(backedUpVal == null)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			if(!mapGuidToEntry.ContainsKey(entryRemoveThis.guid))
+			KeyType keyForEntry = funcKeyObtainer(entryRemoveThis);
+
+			if(entryRemoveThis is ObjBase objEntryToRemove && ContainsKey(objEntryToRemove.guid) ||
+					!mapEntriesByMainKey.ContainsKey(keyForEntry))
 				return false;
 
-			mapEntriesByMainKey.Remove(funcKeyObtainer(entryRemoveThis));
-			mapGuidToEntry.Remove(entryRemoveThis.guid);
+			mapEntriesByMainKey.Remove(keyForEntry);
 
 			OnEntryRemoved(entryRemoveThis);
 
@@ -339,8 +327,10 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 			if(backedUpVal == null || backedUpVal.Length == 0)
 				throw new EditingException(EditingException.WhenPossibilities.reverting);
 
+			foreach(EntryType entryCur in mapEntriesByMainKey.Values)
+				OnEntryRemoved(entryCur);
+
 			mapEntriesByMainKey.Clear();
-			mapGuidToEntry.Clear();
 
 			foreach(EntryType entryCur in backedUpVal)
 				Add(entryCur);
