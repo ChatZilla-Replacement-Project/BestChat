@@ -130,8 +130,6 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 		public event DFieldChanged<TypeOfItem>? evtCurValChanged;
 	#endregion
 

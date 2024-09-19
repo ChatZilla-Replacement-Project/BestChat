@@ -32,9 +32,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler?
 			CollectionChanged;
 

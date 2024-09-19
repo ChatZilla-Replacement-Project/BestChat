@@ -4,6 +4,7 @@ namespace BestChat.Platform.DataAndExt.Prefs;
 
 public class MappedSortedListItem<KeyType, EntryType> : MappedListItem<KeyType, EntryType>
 	where KeyType : notnull
+	where EntryType : Obj<EntryType>
 {
 	public MappedSortedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in
 			string strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System

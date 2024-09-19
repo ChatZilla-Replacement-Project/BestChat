@@ -6,7 +6,8 @@ namespace BestChat.IRC.Data.Defs;
 
 using Platform.DataAndExt.Ext;
 
-public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.ComponentModel.INotifyDataErrorInfo
+public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.ComponentModel
+	.INotifyDataErrorInfo
 {
 	#region Constructors & Deconstructors
 		public BNC()
