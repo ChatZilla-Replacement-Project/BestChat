@@ -56,8 +56,6 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 
 	#region Events
 		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<ItemType>>? evtListChanged;
-
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
@@ -125,7 +123,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 
 				evtListChanged?.Invoke(this, AllItemsSortedByName, CollectionChangeType.add);
 
-				PropertyChanged?.Invoke(this, new(nameof(AllItemsSortedByName)));
+				FirePropChanged(nameof(AllItemsSortedByName));
 
 				MakeDirty();
 			}
@@ -143,7 +141,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 
 				evtListChanged?.Invoke(this, AllItemsSortedByName, CollectionChangeType.removed);
 
-				PropertyChanged?.Invoke(this, new(nameof(AllItemsSortedByName)));
+				FirePropChanged(nameof(AllItemsSortedByName));
 
 				MakeDirty();
 			}

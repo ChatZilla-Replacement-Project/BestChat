@@ -60,8 +60,6 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 		public event DBoolFieldChanged? evtIsEnabledChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtPortsChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtSslPortsChanged;
-
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
@@ -315,9 +313,6 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 	#endregion
 
 	#region Methods
-		protected void FirePropChanged(in string strPropName)
-			=> PropertyChanged?.Invoke(this, new(strPropName));
-
 		protected void FireDomainChanged(in string strOldDomain)
 		{
 			FirePropChanged(nameof(Domain));

@@ -1417,7 +1417,7 @@ public abstract class Prefs<GlobalPrefsType, GlobalDtoType> : Platform.DataAndEx
 								{
 									foreach(InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep>
 											entryCur in mapAllInheritanceOverrides.Def)
-										if(!mapAllInheritanceOverrides[entryCur.InheritedItem].Status)
+										if(!mapAllInheritanceOverrides[entryCur.InheritedItem.WhatToDo].Status)
 											return false;
 
 									return false;

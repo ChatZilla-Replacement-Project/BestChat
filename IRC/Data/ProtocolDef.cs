@@ -94,6 +94,15 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 		}
 
 		public bool GuiRecommended => false;
+
+		public abstract string LocalizedName
+		{
+			get;
+		}
+		public abstract string LocalizedDesc
+		{
+			get;
+		}
 	#endregion
 
 	#region Methods
