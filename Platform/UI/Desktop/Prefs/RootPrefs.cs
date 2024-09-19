@@ -125,7 +125,6 @@ public class RootPrefs : DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -182,7 +181,6 @@ public class RootPrefs : DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 									#endregion
 
 									#region Constants
@@ -256,7 +254,6 @@ public class RootPrefs : DataAndExt.Prefs.Prefs<RootPrefs.GlobalPrefs, RootPrefs
 											#endregion
 
 											#region Events
-												public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 											#endregion
 
 											#region Constants

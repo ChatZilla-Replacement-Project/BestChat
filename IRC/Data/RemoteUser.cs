@@ -91,7 +91,8 @@ public class RemoteUser : System.ComponentModel.INotifyPropertyChanged
 	#endregion
 
 	#region Methods
-		private void FirePropChanged(in string strWhichProp) => PropertyChanged?.Invoke(this, new(strWhichProp));
+		private void FirePropChanged(in string strWhichProp)
+			=> PropertyChanged?.Invoke(this, new(strWhichProp));
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification =
 			"Once we figure out how to update the nick, this will get called.")]

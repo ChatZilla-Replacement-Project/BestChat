@@ -87,8 +87,6 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler? CollectionChanged;
 
 		public override event System.Action<Platform.DataAndExt.Dieable.IDieable>? evtDieing;
@@ -188,9 +186,6 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 	#endregion
 
 	#region Methods
-		protected override void FirePropChanged(in string strWhichProp)
-			=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 		private void AddChild(Platform.DataAndExt.Conversations.IGroupViewOrConversation gvcToBeAdded)
 		{
 			mapConversationsByPath[gvcToBeAdded.Path] = gvcToBeAdded;

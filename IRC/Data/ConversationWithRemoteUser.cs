@@ -115,8 +115,6 @@ public class ConversationWithRemoteUser : AbstractConversation, Platform.DataAnd
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 		public override event System.Action<Platform.DataAndExt.Dieable.IDieable>? evtDieing;
 	#endregion
 
@@ -159,8 +157,6 @@ public class ConversationWithRemoteUser : AbstractConversation, Platform.DataAnd
 	#endregion
 
 	#region Methods
-		protected override void FirePropChanged(in string strPropName)
-			=> PropertyChanged?.Invoke(this, new(strPropName));
 	#endregion
 
 	#region Event Handlers

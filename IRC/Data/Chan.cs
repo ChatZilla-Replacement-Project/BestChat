@@ -152,8 +152,6 @@ public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 		public override event System.Action<Platform.DataAndExt.Dieable.IDieable>? evtDieing;
 
 		public event DStrFieldChanged? evtTopicChanged;
@@ -290,9 +288,6 @@ public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 	#region Methods
 		public override string? ToString()
 			=> strName;
-
-		protected override void FirePropChanged(in string strPropName)
-			=> PropertyChanged?.Invoke(this, new(strPropName));
 
 		private void FireTopicChanged(string strOldTopic)
 		{
