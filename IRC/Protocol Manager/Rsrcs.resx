@@ -135,6 +135,12 @@
   <data name="strFileNetworkMgrMenuItemToolTip" xml:space="preserve">
     <value>Displays the Network Manager.  From here, you can add, remove, or customize IRC networks available through out the rest of Best Chat.</value>
   </data>
+  <data name="strPrefsGlobalFmtDesc" xml:space="preserve">
+    <value>Lets you specify how things should be formatted.</value>
+  </data>
+  <data name="strPrefsGlobalFmtTitle" xml:space="preserve">
+    <value>Format</value>
+  </data>
   <data name="strTranslatedProtDesc" xml:space="preserve">
     <value>Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn't support IRC.</value>
   </data>

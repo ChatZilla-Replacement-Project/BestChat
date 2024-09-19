@@ -6,7 +6,8 @@ namespace BestChat.Platform.DataAndExt.Prefs;
 
 public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.Generic.IDictionary<KeyType,
 		EntryType>, System.Collections.Generic.IReadOnlyDictionary<KeyType, EntryType>
-	where KeyType: notnull
+	where KeyType : notnull
+	where EntryType : Obj<EntryType>
 {
 	#region Constructors & Deconstructors
 		public MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
@@ -71,11 +72,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification
-			= "Name required to implement interface")]
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
+			Justification = "Name required to implement interface")]
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler? CollectionChanged;
 
 		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<EntryType>>? evtEntriesChanged;
@@ -106,7 +104,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 			init;
 		}
 
-		public System.Func<bool> DefTester
+		public System.Func<System.Collections.Generic.IEnumerable<EntryType>, bool> DefTester
 		{
 			get;
 
@@ -147,11 +145,12 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public System.Collections.Generic.IEnumerable<System.Guid> GuidKeys
 			=> ((System.Collections.Generic.IReadOnlyDictionary<System.Guid, EntryType>)mapGuidToEntry).Keys;
 
-		System.Collections.Generic.ICollection<KeyType> System.Collections.Generic.IDictionary<KeyType, EntryType>.Keys
+		System.Collections.Generic.ICollection<KeyType> System.Collections.Generic.IDictionary<KeyType,
+			EntryType>.Keys
 			=> mapEntriesByMainKey.Keys;
 
-		System.Collections.Generic.ICollection<EntryType> System.Collections.Generic.IDictionary<KeyType, EntryType>
-			.Values
+		System.Collections.Generic.ICollection<EntryType> System.Collections.Generic.IDictionary<KeyType,
+			EntryType>.Values
 				=> mapEntriesByMainKey.Values;
 
 		public EntryType this[System.Guid guidKey]
@@ -175,8 +174,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public bool Remove(KeyType key)
 			=> throw new System.NotImplementedException();
 
-		public bool TryGetValue(KeyType key, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out
-				EntryType value)
+		public bool TryGetValue(KeyType key, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)]
+				out EntryType value)
 			=> throw new System.NotImplementedException();
 
 		public void Add(System.Collections.Generic.KeyValuePair<KeyType, EntryType> item)
@@ -197,14 +196,15 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public bool Contains(System.Collections.Generic.KeyValuePair<KeyType, EntryType> item)
 			=> mapEntriesByMainKey.Contains(item);
 
-		public void CopyTo(System.Collections.Generic.KeyValuePair<KeyType, EntryType>[] array, int iArrayIndex)
+		public void CopyTo(System.Collections.Generic.KeyValuePair<KeyType, EntryType>[] array, int
+				iArrayIndex)
 			=> mapEntriesByMainKey.CopyTo(array, iArrayIndex);
 
 		public bool Remove(System.Collections.Generic.KeyValuePair<KeyType, EntryType> item)
 			=> throw new System.NotImplementedException();
 
-		public System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<KeyType, EntryType>>
-			GetEnumerator()
+		public System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<KeyType,
+			EntryType>> GetEnumerator()
 				=> mapEntriesByMainKey.GetEnumerator();
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -219,8 +219,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public bool Remove(System.Guid key)
 			=> throw new System.NotImplementedException();
 
-		public bool TryGetValue(System.Guid guidKey, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)]
-				out EntryType value)
+		public bool TryGetValue(System.Guid guidKey, [System.Diagnostics.CodeAnalysis
+				.MaybeNullWhen(false)] out EntryType value)
 			=> throw new System.NotImplementedException();
 
 		public void Add(System.Collections.Generic.KeyValuePair<System.Guid, EntryType> item)
@@ -229,14 +229,16 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public bool Contains(System.Collections.Generic.KeyValuePair<System.Guid, EntryType> item)
 			=> throw new System.NotImplementedException();
 
-		public void CopyTo(System.Collections.Generic.KeyValuePair<System.Guid, EntryType>[] array, int iArrayIndex)
+		public void CopyTo(System.Collections.Generic.KeyValuePair<System.Guid, EntryType>[] array, int
+				iArrayIndex)
 			=> ((System.Collections.ICollection)mapGuidToEntry).CopyTo(array, iArrayIndex);
 
 		public bool Remove(System.Collections.Generic.KeyValuePair<System.Guid, EntryType> item)
 			=> throw new System.NotImplementedException();
 
-		System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<KeyType, EntryType>> System
-			.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<KeyType, EntryType>>.GetEnumerator()
+		System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<KeyType, EntryType>>
+			System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<KeyType, EntryType>>
+			.GetEnumerator()
 				=> mapEntriesByMainKey.GetEnumerator();
 
 		private bool TestCurValForDef(System.Collections.Generic.IEnumerable<EntryType> entries)

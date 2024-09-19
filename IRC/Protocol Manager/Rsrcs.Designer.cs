@@ -115,6 +115,24 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lets you specify how things should be formatted..
+        /// </summary>
+        internal static string strPrefsGlobalFmtDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        internal static string strPrefsGlobalFmtTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn&apos;t support IRC..
         /// </summary>
         internal static string strTranslatedProtDesc {

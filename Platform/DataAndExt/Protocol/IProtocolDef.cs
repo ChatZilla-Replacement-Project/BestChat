@@ -41,4 +41,7 @@ public interface IProtocolDef
 	{
 		get;
 	}
+
+	Prefs.AbstractChildMgr? TopLevelPrefsMgr
+		=> null;
 }

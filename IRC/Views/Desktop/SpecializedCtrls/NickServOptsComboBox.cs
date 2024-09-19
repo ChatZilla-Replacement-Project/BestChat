@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Ctrls
+﻿// Ignore Spelling: Ctrls Serv
 
 namespace BestChat.IRC.Views.Desktop.SpecializedCtrls;
 

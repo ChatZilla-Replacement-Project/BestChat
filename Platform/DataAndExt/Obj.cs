@@ -6,8 +6,8 @@ namespace BestChat.Platform.DataAndExt;
 /// Provides a means to access some aspects of <see cref="Obj{TypeOfObj}"/> even if you don't know the type parameters.
 /// </summary>
 [System.Text.Json.Serialization.JsonSourceGenerationOptions(GenerationMode = System.Text.Json.Serialization
-	.JsonSourceGenerationMode.Metadata | System.Text.Json.Serialization.JsonSourceGenerationMode.Serialization,
-	IgnoreReadOnlyFields = true, IgnoreReadOnlyProperties = true, WriteIndented = true)]
+	.JsonSourceGenerationMode.Metadata | System.Text.Json.Serialization.JsonSourceGenerationMode
+	.Serialization, IgnoreReadOnlyFields = true, IgnoreReadOnlyProperties = true, WriteIndented = true)]
 public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 {
 	/// <summary>
@@ -36,7 +36,8 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// <summary>
 	/// Stores a list of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.
 	/// </summary>
-	private static readonly System.Collections.Generic.SortedDictionary<System.Guid, ObjBase> mapAllInstances = [];
+	private static readonly System.Collections.Generic.SortedDictionary<System.Guid, ObjBase> mapAllInstances
+		= [];
 
 	/// <summary>
 	/// Returns a readonly dictionary of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.  Derived classes should provide their
@@ -69,7 +70,7 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	public override int GetHashCode() 
 		=> guid.GetHashCode();
 
-	public abstract event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+	public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 
 	/// <summary>
 	/// Indicates how a collection changed.
@@ -112,6 +113,9 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 		ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip,
 		WriteIndented = true,
 	};
+
+	protected void FirePropChanged(in string strWhichPropChanged)
+		=> PropertyChanged?.Invoke(this, new(strWhichPropChanged));
 }
 
 /// <summary>
@@ -152,7 +156,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <param name="objSender">The sender of this notification</param>
 		/// <param name="oldVal">The old value of the field</param>
 		/// <param name="newVal">The new value of the field</param>
-		public delegate void DFieldChanged<FieldType>(in TypeOfObj objSender, in FieldType oldVal, in FieldType newVal);
+		public delegate void DFieldChanged<FieldType>(in TypeOfObj objSender, in FieldType oldVal, in FieldType
+			newVal);
 
 		/// <summary>
 		/// Like <see cref="DFieldChanged{FieldType}"/>, but for <see cref="bool"/> fields.  This omits the old value as it's always <c>!<paramref
@@ -170,8 +175,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <param name="objSender">The sender of this notification</param>
 		/// <param name="collectionThatChanged">Which collection changed</param>
 		/// <param name="howTheCollectionChanged">How it changed</param>
-		public delegate void DCollectionFieldChanged<CollectionType>(in TypeOfObj objSender, in CollectionType collectionThatChanged,
-			CollectionChangeType howTheCollectionChanged);
+		public delegate void DCollectionFieldChanged<CollectionType>(in TypeOfObj objSender, in CollectionType
+			collectionThatChanged, CollectionChangeType howTheCollectionChanged);
 
 		/// <summary>
 		/// Provides a way to notify interested callers that you have a new instance.  This will normally be an event on the owner of the <typeparamref
@@ -208,8 +213,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Stores a dictionary of all instances of <see cref="Obj{TypeOfObj}"/> indexed by their <see cref="System.Guid"/>
 		/// </summary>
-		private static readonly System.Collections.Generic.SortedDictionary<System.Guid, Obj<TypeOfObj>> mapAllInstances =
-			[];
+		private static readonly System.Collections.Generic.SortedDictionary<System.Guid, Obj<TypeOfObj>>
+			mapAllInstances = [];
 	#endregion
 
 	#region Properties
@@ -228,7 +233,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Returns a readonly dictionary of all <see cref="Obj{TypeOfObj}"/> instances indexed by their <see cref="System.Guid"/>
 		/// </summary>
-		public static new System.Collections.Generic.IReadOnlyDictionary<System.Guid, Obj<TypeOfObj>> AllInstancesByGUID
+		public static new System.Collections.Generic.IReadOnlyDictionary<System.Guid, Obj<TypeOfObj>>
+			AllInstancesByGUID
 			=> mapAllInstances;
 	#endregion
 

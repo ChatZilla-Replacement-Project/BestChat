@@ -1,4 +1,4 @@
-// Ignore Spelling: evt
+// Ignore Spelling: evt Bnc Ctxt
 
 using System.Linq;
 
@@ -20,13 +20,17 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 	#endregion
 
 	#region Events
-		public new event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+		#pragma warning disable IDE1006 // Naming Styles
+			public new event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+		#pragma warning restore IDE1006 // Naming Styles
 
 		public event System.Action<BncNetworkSelectionDlg, string, string>? evtCurValChanged;
 
 		public event System.Action<BncNetworkSelectionDlg, string, string>? evtStartingValChanged;
 
-		public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+		#pragma warning disable IDE1006 // Naming Styles
+			public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+		#pragma warning restore IDE1006 // Naming Styles
 	#endregion
 
 	#region Constants
@@ -340,7 +344,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 			FirePropChanged(nameof(SpecifiedNet));
 		}
 
-		private System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
+		public System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
 			=> strCurVal == ""
 				? [Rsrcs.strBncNetNameBlank]
 				: ebncCtxt == null

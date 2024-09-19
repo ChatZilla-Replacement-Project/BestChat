@@ -27,12 +27,14 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 	#region Helper Types
 		public interface IProtocolGuiDef : DataAndExt.Protocol.IProtocolDef
 		{
-			void RegisterPrefCtrlMap();
+			System.Collections.Generic.IReadOnlyDictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
+				VisualPrefsTabCtrl>> PrefCtrlMap
+			{
+				get;
+			}
 
-			DataAndExt.Prefs.AbstractChildMgr? RootPrefForProtocol
-				=> null;
-
-			DataAndExt.Prefs.AbstractChildMgr? LoadAllPrefsData(in System.IO.StreamReader stream)
+			DataAndExt.Prefs.AbstractChildMgr? LoadAllPrefsData(in System.IO.StreamReader stream, in DataAndExt
+					.Prefs.AbstractMgr mgrYourParent)
 				=> null;
 
 			void SaveAllPrefsData(in System.IO.StreamWriter stream)
@@ -52,13 +54,14 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 	#endregion
 
 	#region Properties
-		public static ProtocolGuiMgr Mgr => mgr ?? throw new System.InvalidProgramException("Call BestChat.Platform" +
-			".Ctrls.Desktop.ProtocolGuiMgr.Init before accessing Mgr.");
+		public static ProtocolGuiMgr Mgr
+			=> mgr ?? throw new System.InvalidProgramException("Call BestChat.Platform.Ctrls.Desktop" +
+				".ProtocolGuiMgr.Init before accessing Mgr.");
 	#endregion
 
 	#region Methods
-		public static ProtocolGuiMgr Init(in System.IO.DirectoryInfo dirProfileLoc, System.Func<ProtocolMetaData, bool>
-				funcNewProtocolEnabler)
+		public static ProtocolGuiMgr Init(in System.IO.DirectoryInfo dirProfileLoc, System
+				.Func<ProtocolMetaData, bool> funcNewProtocolEnabler)
 			=> new(dirProfileLoc, funcNewProtocolEnabler);
 
 		public override void TellAllProtocolsToSave()
@@ -75,10 +78,15 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 		{
 			using System.IO.StreamReader stream = new(GetFileNameForProt(iprotNew));
 
-			DataAndExt.Prefs.AbstractChildMgr? cmgrOfPrefs = iprotNew.LoadAllPrefsData(stream);
+			DataAndExt.Prefs.AbstractChildMgr? cmgrOfPrefs = iprotNew.LoadAllPrefsData(stream, Prefs.RootPrefs
+				.Instance);
 
 			if(cmgrOfPrefs != null && RootPrefs.IsReady)
 				RootPrefs.Instance.RegisterNewProtMgr(cmgrOfPrefs);
+
+			foreach(System.Collections.Generic.KeyValuePair<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
+					VisualPrefsTabCtrl>> kvCurEntry in iprotNew.PrefCtrlMap)
+				Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(kvCurEntry.Key, kvCurEntry.Value);
 		}
 	#endregion
 

@@ -6,7 +6,7 @@
 				xmlns:simplecto_rtf="using:AvRichTextBox"
 				mc:Ignorable="d"
 				x:Class="BestChat.Desktop.MainWnd"
-				Icon="WeChat.ico"
+				Icon="We Chat.ico"
 				MinHeight="500"
 				MinWidth="800"
 				WindowState="Maximized"

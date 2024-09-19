@@ -137,11 +137,11 @@ public class UserNet : Net, IDataDef<Net>
 
 				public new System.Uri? HomePage
 				{
-					get => base.Homepage;
+					get => base.HomePage;
 
 					set
 					{
-						base.Homepage = value;
+						base.HomePage = value;
 
 						WereChangesMade = true;
 					}
@@ -335,7 +335,7 @@ public class UserNet : Net, IDataDef<Net>
 						if(unetOriginal.netPredefinedParent == null)
 						{
 							unetOriginal.Name = Name;
-							unetOriginal.Homepage = HomePage;
+							unetOriginal.HomePage = HomePage;
 						}
 
 						if(AllUnsortedServers.Any((NetServerInfo serverCur)
@@ -1024,7 +1024,7 @@ public class UserNet : Net, IDataDef<Net>
 			evtLogInCustomStepsChanged?.Invoke(this, ocLogInCustomSteps, howTheCollectionChanged);
 		}
 
-		protected void FireLogInSaslCertChanged(in System.IO.FileInfo fileOldLogInSaslCert)
+		protected void FireLogInSaslCertChanged(in System.IO.FileInfo? fileOldLogInSaslCert)
 		{
 			FirePropChanged(nameof(LogInSaslCert));
 
@@ -1143,7 +1143,7 @@ public class UserNet : Net, IDataDef<Net>
 				ServersSortedByName.Select(serverCur
 					=> serverCur.ToDTO()
 				).ToArray(),
-				Homepage,
+				HomePage,
 				NickServ,
 				ChanServ,
 				AlisStatus,

@@ -1,12 +1,13 @@
-﻿// Ignore Spelling: Prefs evt Dcc dto Ip Ctnts istep
+﻿// Ignore Spelling: Prefs evt Dcc dto Ip Ctnts istep Chans
 
 using System.Linq;
 using BestChat.Platform.DataAndExt.Ext;
 
 namespace BestChat.IRC.Data.Prefs;
 
-public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.AbstractChildMgr
-	where GlobalPrefsType : Prefs<GlobalPrefsType>.GlobalPrefs
+public abstract class Prefs<GlobalPrefsType, GlobalDtoType> : Platform.DataAndExt.Prefs.AbstractChildMgr
+	where GlobalPrefsType : Prefs<GlobalPrefsType, GlobalDtoType>.GlobalPrefs
+	where GlobalDtoType : DTO.IrcDTO<GlobalDtoType>.GlobalDTO
 {
 	#region Constructors & Deconstructors
 		protected Prefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent) : base(mgrParent, "IRC",
@@ -17,7 +18,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			listNetworks = [];
 		}
 
-		protected Prefs(Platform.DataAndExt.Prefs.AbstractChildMgr mgrParent, DTO.IrcDTO dto) :
+		protected Prefs(Platform.DataAndExt.Prefs.AbstractChildMgr mgrParent, DTO.IrcDTO<GlobalDtoType> dto) :
 			base(mgrParent, "IRC", PrefsRsrcs.strIrcRootTitle, PrefsRsrcs.strIrcRootDesc)
 		{
 			instance = this;
@@ -33,7 +34,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
@@ -54,7 +54,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					stalkWords = new(this);
 				}
 
-				public GlobalPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO dto)
+				public GlobalPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, GlobalDtoType dto)
 					: base(mgrParent, "Global", PrefsRsrcs.strGlobalTitle, PrefsRsrcs.strGlobalDesc)
 				{
 					autoPerform = new(this, dto.AutoPerform);
@@ -70,7 +70,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 			#endregion
 
 			#region Constants
@@ -87,8 +86,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strGlobalAliasesTitle, PrefsRsrcs.strGlobalAliasesDesc, [], aliasCur
 								=> aliasCur.Name);
 
-						public AliasesPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO
-								.OneAliasDTO[]? dto) :
+						public AliasesPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO<GlobalDtoType>
+								.GlobalDTO.OneAliasDTO[]? dto) :
 							base(mgrParent, "Aliases", PrefsRsrcs.strGlobalAliasesTitle, PrefsRsrcs
 								.strGlobalAliasesDesc)
 							=> entries = new(this, "Entries", PrefsRsrcs
@@ -101,7 +100,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -137,7 +135,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneAlias(in DTO.IrcDTO.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent) :
+								public OneAlias(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent) :
 									base(dto.GUID)
 								{
 									strName = dto.Name;
@@ -151,8 +149,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtNameChanged;
 
 								public event DFieldChanged<string>? evtCmdChanged;
@@ -213,9 +209,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(in string strPropName)
-									=> PropertyChanged?.Invoke(this, new(strPropName));
-
 								private void FireNameChanged(in string strOldName)
 								{
 									FirePropChanged(nameof(Name));
@@ -230,7 +223,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtCmdChanged?.Invoke(this, strOldCmd, strCmd);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneAliasDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO ToDTO()
 									=> new(guid, strName, strCmd);
 							#endregion
 
@@ -249,7 +242,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.GlobalDTO.OneAliasDTO[]? ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO[]? ToDTO()
 							=> entries.Values.Select(aliasCur => aliasCur.ToDTO()).ToArray();
 					#endregion
 
@@ -278,20 +271,23 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strGlobalAutoPerformWhenOpeningUserChatDesc);
 						}
 
-						public AutoPerformPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO
-							.GlobalDTO.AutoPerformDTO dto) :
-							base(mgrParent, "Auto-perform", PrefsRsrcs.strGlobalAutoPerformTitle, PrefsRsrcs.strGlobalAutoPerformDesc)
+						public AutoPerformPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO
+							.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO dto) :
+							base(mgrParent, "Auto-perform", PrefsRsrcs.strGlobalAutoPerformTitle, PrefsRsrcs
+								.strGlobalAutoPerformDesc)
 						{
 							whenStartingBestChat = new(this, "When Starting Best Chat", PrefsRsrcs
-								.strGlobalAutoPerformWhenStartingBestChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenStartingBestChatDesc, dto
-								.WhenStartingBestChat);
-							whenJoiningNet = new(this, "When Joining a Network", PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetTitle,
-								PrefsRsrcs.strGlobalAutoPerformWhenJoiningNetTitle, dto.WhenJoiningNet);
-							whenJoiningChan = new(this, "When Joining a Channel", PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanTitle,
-								PrefsRsrcs.strGlobalAutoPerformWhenJoiningChanDesc, dto.WhenJoiningChan);
+								.strGlobalAutoPerformWhenStartingBestChatTitle, PrefsRsrcs
+								.strGlobalAutoPerformWhenStartingBestChatDesc, dto.WhenStartingBestChat);
+							whenJoiningNet = new(this, "When Joining a Network", PrefsRsrcs
+								.strGlobalAutoPerformWhenJoiningNetTitle, PrefsRsrcs
+								.strGlobalAutoPerformWhenJoiningNetTitle, dto.WhenJoiningNet);
+							whenJoiningChan = new(this, "When Joining a Channel", PrefsRsrcs
+								.strGlobalAutoPerformWhenJoiningChanTitle, PrefsRsrcs
+								.strGlobalAutoPerformWhenJoiningChanDesc, dto.WhenJoiningChan);
 							whenOpeningUserChat = new(this, "When Opening a User Chat", PrefsRsrcs
-								.strGlobalAutoPerformWhenOpeningUserChatTitle, PrefsRsrcs.strGlobalAutoPerformWhenOpeningUserChatDesc, dto
-								.WhenOpeningUserChat);
+								.strGlobalAutoPerformWhenOpeningUserChatTitle, PrefsRsrcs
+								.strGlobalAutoPerformWhenOpeningUserChatDesc, dto.WhenOpeningUserChat);
 						}
 					#endregion
 
@@ -299,7 +295,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -315,8 +310,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									=> steps = new(this, "Steps", strLocalizedName, strLocalizedDesc, []);
 
 								public OnEvtPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in string
-										strName, in string strLocalizedName, in string strLocalizedDesc, in DTO.IrcDTO
-										.GlobalDTO.AutoPerformDTO.OneStepDTO[]? dto) :
+										strName, in string strLocalizedName, in string strLocalizedDesc, in DTO
+										.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO[]? dto) :
 									base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 									=> steps = new(this, "Steps", strLocalizedName, strLocalizedDesc,
 										[], dto?.Select(dstep
@@ -328,7 +323,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -358,8 +352,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											this.parent = parent;
 										}
 
-										public OneStep(in DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO dto, in OnEvtPrefs parent, in
-												System.Guid guid = default) :
+										public OneStep(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO dto, in
+												OnEvtPrefs parent, in System.Guid guid = default) :
 											base(guid)
 										{
 											strWhatToDo = dto.WhatToDo;
@@ -372,8 +366,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 										public event DFieldChanged<string>? evtWhatToDoChanged;
 									#endregion
 
@@ -411,9 +403,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Methods
-										private void FirePropChanged(in string strPropChanged)
-											=> PropertyChanged?.Invoke(this, new(strPropChanged));
-
 										private void FireWhatToDoChanged(in string strOldWhatToDo)
 										{
 											FirePropChanged(nameof(strWhatToDo));
@@ -421,7 +410,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											evtWhatToDoChanged?.Invoke(this, strOldWhatToDo, strWhatToDo);
 										}
 
-										public DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO ToDTO()
+										public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO ToDTO()
 											=> new(guid, strWhatToDo);
 									#endregion
 
@@ -440,7 +429,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO[]? ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO[]? ToDTO()
 									=> steps.Select(aliasCur
 										=> aliasCur.ToDTO()).ToArray();
 							#endregion
@@ -475,7 +464,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.GlobalDTO.AutoPerformDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO ToDTO()
 							=> new(whenStartingBestChat.ToDTO(), whenJoiningNet.ToDTO(), whenJoiningChan
 								.ToDTO(), whenOpeningUserChat.ToDTO());
 					#endregion
@@ -493,7 +482,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							=> entries = new(this, "Entries", PrefsRsrcs
 								.strGlobalAltNicksTitle, PrefsRsrcs.strGlobalAltNicksDesc, []);
 
-						public AltNicksPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO
+						public AltNicksPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO<GlobalDtoType>
 								.GlobalDTO.OneAltNickDTO[]? dto): 
 							base(mgrParent, "Alternate Nicks", PrefsRsrcs.strGlobalAltNicksTitle, PrefsRsrcs
 								.strGlobalAltNicksDesc)
@@ -508,7 +497,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -533,7 +521,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneAltNick(in DTO.IrcDTO.GlobalDTO.OneAltNickDTO dto, in AltNicksPrefs parent) :
+								public OneAltNick(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO dto, in
+									AltNicksPrefs parent) :
 									base(dto.GUID)
 								{
 									strNickToUse = dto.NickToUse;
@@ -546,8 +535,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtNickToUseChanged;
 							#endregion
 
@@ -585,9 +572,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(string strWhichProp)
-									=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 								private void FireCtntsChanged(string strOldNickToUse)
 								{
 									FirePropChanged(nameof(NickToUse));
@@ -595,7 +579,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtNickToUseChanged?.Invoke(this, strOldNickToUse, strNickToUse);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneAltNickDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO ToDTO()
 									=> new(guid, strNickToUse);
 							#endregion
 
@@ -614,7 +598,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.GlobalDTO.OneAltNickDTO[]? ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO[]? ToDTO()
 							=> entries.Select(aliasCur => aliasCur.ToDTO()).ToArray();
 					#endregion
 
@@ -633,7 +617,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								val
 									=> val.Ctnts);
 
-						public StalkWordsPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO
+						public StalkWordsPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO<GlobalDtoType>
 								.GlobalDTO.OneStalkWordDTO[]? dto)
 							: base(mgrParent, "Stalk Words", PrefsRsrcs.strGlobalStalkWordsTitle, PrefsRsrcs
 								.strGlobalStalkWordsDesc)
@@ -649,7 +633,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -679,7 +662,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneStalkWord(in DTO.IrcDTO.GlobalDTO.OneStalkWordDTO dto, in StalkWordsPrefs
+								public OneStalkWord(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO dto, in StalkWordsPrefs
 										parent) :
 									base(dto.GUID)
 								{
@@ -693,8 +676,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtCtntsChanged;
 							#endregion
 
@@ -732,9 +713,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(string strWhichProp)
-									=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 								private void FireCtntsChanged(string strOldCtnts)
 								{
 									FirePropChanged(nameof(Ctnts));
@@ -742,7 +720,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtCtntsChanged?.Invoke(this, strOldCtnts, strCtnts);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneStalkWordDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO ToDTO()
 									=> new(guid, strCtnts);
 							#endregion
 
@@ -761,7 +739,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.GlobalDTO.OneStalkWordDTO[]? ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO[]? ToDTO()
 							=> entries.Values.Select(swCur => swCur.ToDTO()).ToArray();
 					#endregion
 
@@ -787,7 +765,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							llistPorts = [];
 						}
 
-						public DccPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO
+						public DccPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.IrcDTO<GlobalDtoType>
 								.GlobalDTO.DccDTO dto) :
 							base(mgrParent, "DCC (Direct Client Chat)", PrefsRsrcs.strGlobalDccTitle,
 								PrefsRsrcs.strGlobalDccTitle)
@@ -810,7 +788,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -844,8 +821,13 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public virtual DTO.IrcDTO.GlobalDTO.DccDTO ToDTO()
-							=> new(enabled.CurVal, getIpFromServer.CurVal, downloadsFolder.CurVal, [.. llistPorts]);
+						public virtual DTO.IrcDTO<GlobalDtoType>.GlobalDTO.DccDTO ToDTO()
+							=> new(
+								enabled.CurVal,
+								getIpFromServer.CurVal,
+								downloadsFolder.CurVal,
+								[.. llistPorts]
+							);
 					#endregion
 
 					#region Event Handlers
@@ -887,8 +869,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strDefQuitMsg);
 						}
 
-						internal ConnPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO.GlobalDTO
-								.ConnDTO dto) :
+						internal ConnPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.IrcDTO<GlobalDtoType>
+								.GlobalDTO.ConnDTO dto) :
 							base(mgrParent, "Connection", PrefsRsrcs.strGlobalConnTitle, PrefsRsrcs
 								.strGlobalConnDesc)
 						{
@@ -926,7 +908,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -970,7 +951,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public virtual DTO.IrcDTO.GlobalDTO.ConnDTO ToDTO()
+						public virtual DTO.IrcDTO<GlobalDtoType>.GlobalDTO.ConnDTO ToDTO()
 							=> new(enableIndent.CurVal, autoReconnect.CurVal, rejoinAfterKick.CurVal,
 								characterEncoding.CurVal, unlimitedAttempts.CurVal, maxAttempts.CurVal, defQuitMsg
 								.CurVal);
@@ -1016,7 +997,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			#endregion
 
 			#region Methods
-				public abstract DTO.IrcDTO.GlobalDTO ToDTO();
+				public abstract GlobalDtoType ToDTO();
 			#endregion
 
 			#region Event Handlers
@@ -1026,7 +1007,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 		public class NetworkPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		{
 			#region Constructors & Deconstructors
-				public NetworkPrefs(Prefs<GlobalPrefsType> mgrParent, Defs.Net netOwner) :
+				public NetworkPrefs(Prefs<GlobalPrefsType, GlobalDtoType> mgrParent, Defs.Net netOwner) :
 					base(mgrParent, "IRC", PrefsRsrcs.strNetTitle, PrefsRsrcs.strNetTitle)
 				{
 					OwnerNet = netOwner;
@@ -1042,7 +1023,8 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					knownChans = new(this);
 				}
 
-				public NetworkPrefs(Prefs<GlobalPrefsType> mgrParent, DTO.IrcDTO.NetworkDTO dto) :
+				public NetworkPrefs(Prefs<GlobalPrefsType, GlobalDtoType> mgrParent, DTO.IrcDTO<GlobalDtoType>
+						.NetworkDTO dto) :
 					base(mgrParent, "IRC", PrefsRsrcs.strNetTitle, PrefsRsrcs.strNetTitle)
 				{
 					OwnerNet = (Defs.Net?)Defs.Net.AllInstancesByGUID[dto.OwnerNet] ?? throw new System.
@@ -1065,17 +1047,17 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 			#endregion
 
 			#region Constants
 			#endregion
 
 			#region Helper Types
-				public class InheritedItemEnabledStatus<InheritedType>(in InheritedType inheritedItem, bool bStatus = true)
+				public class InheritedItemEnabledStatus<InheritedType>(InheritedType inheritedItem, bool bStatus =
+						true)
 					: Platform.DataAndExt.Obj<InheritedItemEnabledStatus<InheritedType>>
 				{
-					public InheritedType InheritedItem = inheritedItem;
+					public InheritedType InheritedItem => inheritedItem;
 
 					public bool Status
 					{
@@ -1094,12 +1076,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 						}
 					}
 
-					public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 					public event DFieldChanged<bool>? evtStatusChanged;
-
-					private void FirePropChanged(string strWhichProp)
-						=> PropertyChanged?.Invoke(this, new(strWhichProp));
 
 					private void FireStatusChanged()
 					{
@@ -1118,7 +1095,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strNetTimeStampOverrideNetTitle, PrefsRsrcs.strNetTimeStampOverrideNetDesc,
 								false);
 
-						public TimeStampPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.TimeStampDTO dto) :
+						public TimeStampPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.TimeStampDTO dto) :
 							base(mgrParent, dto)
 							=> @override = new(mgrParent, "Override", PrefsRsrcs
 								.strNetTimeStampOverrideNetTitle, PrefsRsrcs.strNetTimeStampOverrideNetDesc,
@@ -1147,7 +1124,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public override DTO.IrcDTO.NetworkDTO.TimeStampDTO ToDTO()
+						public override DTO.IrcDTO<GlobalDtoType>.NetworkDTO.TimeStampDTO ToDTO()
 							=> new(@override.CurVal, Show.CurVal, Fmt.CurVal);
 					#endregion
 
@@ -1163,7 +1140,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							=> @override = new(mgrParent, "Override", PrefsRsrcs
 								.strNetDccOverrideTitle, PrefsRsrcs.strNetDccOverrideDesc, false);
 
-						public DccPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.DccDTO dto) :
+						public DccPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.DccDTO dto) :
 							base(mgrParent, dto)
 							=> @override = new(mgrParent, "Override", PrefsRsrcs
 								.strNetDccOverrideTitle, PrefsRsrcs.strNetDccOverrideDesc, false, dto.Override);
@@ -1191,7 +1168,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public override DTO.IrcDTO.NetworkDTO.DccDTO ToDTO()
+						public override DTO.IrcDTO<GlobalDtoType>.NetworkDTO.DccDTO ToDTO()
 							=> new(@override.CurVal, Enabled.CurVal, GetIpFromServer.CurVal, DownloadsFolder.CurVal,
 								[.. Ports]);
 					#endregion
@@ -1221,7 +1198,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.WhenOpeningUserChat);
 						}
 
-						public AutoPerformPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.AutoPerformDTO dto)
+						public AutoPerformPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AutoPerformDTO dto)
 							: base(mgrParent, "Auto-perform", PrefsRsrcs.strNetAutoPerformTitle, PrefsRsrcs
 								.strNetAutoPerformDesc)
 						{
@@ -1245,7 +1222,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -1281,7 +1257,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								}
 
 								public OnEvtPrefs(AutoPerformPrefs mgrParent, in string strName,
-										in string strLocalizedName, in string strLocalizedDesc, DTO.IrcDTO.NetworkDTO
+										in string strLocalizedName, in string strLocalizedDesc, DTO.IrcDTO<GlobalDtoType>.NetworkDTO
 										.AutoPerformDTO.OnEvtDTO dto, GlobalPrefs.AutoPerformPrefs.OnEvtPrefs
 										inheritedSettings) :
 									base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
@@ -1320,7 +1296,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -1334,7 +1309,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										public OneStep(in string strWhatToDo)
 											=> this.strWhatToDo = strWhatToDo;
 
-										public OneStep(in DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO dto) :
+										public OneStep(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO dto) :
 											base(dto.GUID)
 											=> strWhatToDo = dto.WhatToDo;
 									#endregion
@@ -1343,8 +1318,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 										public event DFieldChanged<string>? evtWhatToDoChanged;
 									#endregion
 
@@ -1380,9 +1353,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Methods
-										private void FirePropChanged(in string strPropChanged)
-											=> PropertyChanged?.Invoke(this, new(strPropChanged));
-
 										private void FireWhatToDoChanged(in string strOldWhatToDo)
 										{
 											FirePropChanged(nameof(strWhatToDo));
@@ -1390,7 +1360,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											evtWhatToDoChanged?.Invoke(this, strOldWhatToDo, strWhatToDo);
 										}
 
-										public DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO ToDTO()
+										public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO ToDTO()
 											=> new(guid, strWhatToDo);
 									#endregion
 
@@ -1423,7 +1393,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public DTO.IrcDTO.NetworkDTO.AutoPerformDTO.OnEvtDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AutoPerformDTO.OnEvtDTO ToDTO()
 									=> new(
 										(
 											from InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep>
@@ -1433,7 +1403,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										).ToArray(),
 										additionalSteps.Select(
 											stepCur
-												=> new DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO(stepCur.guid, stepCur.WhatToDo)
+												=> new DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO(stepCur.guid, stepCur.WhatToDo)
 											).ToArray()
 									);
 
@@ -1441,10 +1411,12 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									.OnEvtPrefs.OneStep> item)
 									=> item.InheritedItem.WhatToDo;
 
-								private bool TestCurValForDef()
+								private bool TestCurValForDef(System.Collections.Generic
+									.IEnumerable<InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep>>
+									entries)
 								{
-									foreach(InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep> entryCur in
-											mapAllInheritanceOverrides.Def)
+									foreach(InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep>
+											entryCur in mapAllInheritanceOverrides.Def)
 										if(!mapAllInheritanceOverrides[entryCur.InheritedItem].Status)
 											return false;
 
@@ -1486,7 +1458,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.NetworkDTO.AutoPerformDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AutoPerformDTO ToDTO()
 							=> new(whenJoiningNet.ToDTO(), whenJoiningChan.ToDTO(), whenOpeningUserChat
 								.ToDTO());
 					#endregion
@@ -1503,7 +1475,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							=> @override = new(mgrParent, "Override", PrefsRsrcs
 								.strNetConnOverrideTitle, PrefsRsrcs.strNetConnOverrideDesc, false);
 
-						public ConnPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.ConnDTO dto) :
+						public ConnPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ConnDTO dto) :
 							base(mgrParent)
 							=> @override = new(mgrParent, "Override", PrefsRsrcs
 								.strNetConnOverrideTitle, PrefsRsrcs.strNetConnOverrideDesc, false, dto.Override);
@@ -1531,7 +1503,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public override DTO.IrcDTO.NetworkDTO.ConnDTO ToDTO()
+						public override DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ConnDTO ToDTO()
 							=> new(@override.CurVal, EnableIdent.CurVal, AutoReconnect.CurVal, RejoinAfterKick.CurVal,
 								CharEncoding.CurVal, UnlimitedAttempts.CurVal, MaxAttempts.CurVal, DefQuitMsg.CurVal);
 					#endregion
@@ -1562,7 +1534,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								KeyObtainer);
 						}
 
-						public AliasesPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.AliasesDTO dto, GlobalPrefs
+						public AliasesPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AliasesDTO dto, GlobalPrefs
 								.AliasesPrefs inheritedSettings) :
 							base(mgrParent, "Alias overrides for this network", PrefsRsrcs.strNetAliasTitle, PrefsRsrcs
 								.strNetAliasDesc)
@@ -1596,7 +1568,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -1614,7 +1585,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneAlias(in DTO.IrcDTO.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent)
+								public OneAlias(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent)
 								{
 									strName = dto.Name;
 									strCmd = dto.Cmd;
@@ -1627,8 +1598,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtNameChanged;
 
 								public event DFieldChanged<string>? evtCmdChanged;
@@ -1689,9 +1658,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(in string strPropName)
-									=> PropertyChanged?.Invoke(this, new(strPropName));
-
 								private void FireNameChanged(in string strOldName)
 								{
 									FirePropChanged(nameof(Name));
@@ -1706,7 +1672,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtCmdChanged?.Invoke(this, strOldCmd, strCmd);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneAliasDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO ToDTO()
 									=> new(guid, strName, strCmd);
 							#endregion
 
@@ -1737,7 +1703,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.NetworkDTO.AliasesDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AliasesDTO ToDTO()
 							=> new(
 								(
 									from InheritedItemEnabledStatus<GlobalPrefs.AliasesPrefs.OneAlias> ialiasCur in
@@ -1748,7 +1714,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.ToArray(),
 								addedAliases.Values.Select(
 									aliasCur
-										=> new DTO.IrcDTO.GlobalDTO.OneAliasDTO(aliasCur.guid, aliasCur.Name, aliasCur.Cmd)
+										=> new DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO(aliasCur.guid, aliasCur.Name, aliasCur.Cmd)
 									).ToArray()
 							);
 
@@ -1786,7 +1752,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								[]);
 						}
 
-						public AltNicksPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.AltNicksDTO dto, in GlobalPrefs
+						public AltNicksPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AltNicksDTO dto, in GlobalPrefs
 								.AltNicksPrefs inheritedSettings) :
 							base(mgrParent, "Alternate Nicks", PrefsRsrcs.strNetAltNicksTitle, PrefsRsrcs
 								.strNetAltNicksDesc)
@@ -1819,7 +1785,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -1837,7 +1802,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneAltNick(in DTO.IrcDTO.GlobalDTO.OneAltNickDTO dto, in AltNicksPrefs parent) :
+								public OneAltNick(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO dto, in AltNicksPrefs parent) :
 									base(dto.GUID)
 								{
 									strNickToUse = dto.NickToUse;
@@ -1850,8 +1815,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtNickToUseChanged;
 							#endregion
 
@@ -1889,9 +1852,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(in string strPropName)
-									=> PropertyChanged?.Invoke(this, new(strPropName));
-
 								private void FireNickToUseChanged(in string strOldName)
 								{
 									FirePropChanged(nameof(NickToUse));
@@ -1899,7 +1859,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtNickToUseChanged?.Invoke(this, strOldName, strNickToUse);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneAltNickDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO ToDTO()
 									=> new(guid, strNickToUse);
 							#endregion
 
@@ -1930,7 +1890,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.NetworkDTO.AltNicksDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AltNicksDTO ToDTO()
 							=> new(
 								(
 									from InheritedItemEnabledStatus<GlobalPrefs.AltNicksPrefs.OneAltNick> entryCur in
@@ -1939,7 +1899,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									select entryCur.InheritedItem.guid
 								).ToArray(),
 								mapAllInheritanceOverridesByNick.Values.Select(ianickCur
-										=> new DTO.IrcDTO.GlobalDTO.OneAltNickDTO(ianickCur.guid, ianickCur.InheritedItem.NickToUse)
+										=> new DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO(ianickCur.guid, ianickCur.InheritedItem.NickToUse)
 									).ToArray()
 							);
 
@@ -1975,7 +1935,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strNetStalkWordsAdditionalDesc, [], KeyObtainer);
 						}
 
-						public StalkWordsPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.StalkWordsDTO dto,
+						public StalkWordsPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.StalkWordsDTO dto,
 								GlobalPrefs.StalkWordsPrefs inheritedSettings) :
 							base(mgrParent, "Stalk words", PrefsRsrcs.strNetStalkWordsTitle, PrefsRsrcs
 								.strNetStalkWordsDesc)
@@ -2010,7 +1970,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -2028,7 +1987,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									this.parent = parent;
 								}
 
-								public OneStalkWord(in DTO.IrcDTO.GlobalDTO.OneStalkWordDTO dto, in StalkWordsPrefs
+								public OneStalkWord(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO dto, in StalkWordsPrefs
 									parent)
 								{
 									strCtnts = dto.Ctnts;
@@ -2041,8 +2000,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 								public event DFieldChanged<string>? evtCtntsChanged;
 							#endregion
 
@@ -2080,9 +2037,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(string strWhichProp)
-									=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 								private void FireCtntsChanged(string strOldCtnts)
 								{
 									FirePropChanged(nameof(Ctnts));
@@ -2090,7 +2044,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									evtCtntsChanged?.Invoke(this, strOldCtnts, strCtnts);
 								}
 
-								public DTO.IrcDTO.GlobalDTO.OneStalkWordDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO ToDTO()
 									=> new(guid, strCtnts);
 							#endregion
 
@@ -2122,7 +2076,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.NetworkDTO.StalkWordsDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.StalkWordsDTO ToDTO()
 							=> new(
 								(
 									from InheritedItemEnabledStatus<GlobalPrefs.StalkWordsPrefs.OneStalkWord> iswCur in
@@ -2130,7 +2084,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									where !iswCur.Status
 									select iswCur.InheritedItem.guid
 								).ToArray(),
-								addedStalkWords.Values.Select(swCur => new DTO.IrcDTO.GlobalDTO
+								addedStalkWords.Values.Select(swCur => new DTO.IrcDTO<GlobalDtoType>.GlobalDTO
 									.OneStalkWordDTO(swCur.guid, swCur.Ctnts)).ToArray()
 							);
 
@@ -2165,7 +2119,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -2210,7 +2163,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							stalkWords = new(this, mgrParent.mgrParent.stalkWords);
 						}
 
-						public ChanPrefs(ChanListPrefs mgrParent, DTO.IrcDTO.NetworkDTO.ChanDTO dto) :
+						public ChanPrefs(ChanListPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO dto) :
 							base(mgrParent, "Preferences for one channel", PrefsRsrcs.strNetChanTitle,
 								PrefsRsrcs.strNetChanDesc)
 						{
@@ -2230,19 +2183,18 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
 					#endregion
 
 					#region Helper Types
-						public new class InheritedItemEnabledStatus<InheritedType>(in InheritedType inheritedItem, bool
+						public class InheritedItemEnabledStatus<InheritedType>(InheritedType inheritedItem, bool
 								bStatus, InheritedItemEnabledStatus<InheritedType>.InheritedFromTypes ifSrc, string
 								strDescOfInheritedType, Defs.Net net)
 							: Platform.DataAndExt.Obj<InheritedItemEnabledStatus<InheritedType>>
 						{
-							public InheritedType InheritedItem = inheritedItem;
+							public InheritedType InheritedItem => inheritedItem;
 
 							public bool Status
 							{
@@ -2261,12 +2213,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								}
 							}
 
-							public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 							public event DFieldChanged<bool>? evtStatusChanged;
-
-							private void FirePropChanged(string strWhichProp)
-								=> PropertyChanged?.Invoke(this, new(strWhichProp));
 
 							private void FireStatusChanged()
 							{
@@ -2318,7 +2265,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										.strNetTimeStampOverrideNetTitle, PrefsRsrcs.strNetTimeStampOverrideNetDesc,
 										false);
 
-								public TimeStampPrefs(ChanPrefs mgrParent, DTO.IrcDTO.NetworkDTO.TimeStampDTO dto) :
+								public TimeStampPrefs(ChanPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.TimeStampDTO dto) :
 									base(mgrParent)
 									=> @override = new(mgrParent, "Override", PrefsRsrcs
 										.strNetTimeStampOverrideNetTitle, PrefsRsrcs.strNetTimeStampOverrideNetDesc,
@@ -2347,7 +2294,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public override DTO.IrcDTO.NetworkDTO.TimeStampDTO ToDTO()
+								public override DTO.IrcDTO<GlobalDtoType>.NetworkDTO.TimeStampDTO ToDTO()
 									=> new(@override.CurVal, Show.CurVal, Fmt.CurVal);
 							#endregion
 
@@ -2390,7 +2337,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										[], KeyObtainer, true);
 								}
 
-								public AliasesPrefs(ChanPrefs mgrParent, DTO.IrcDTO.NetworkDTO.AliasesDTO dto, NetworkPrefs
+								public AliasesPrefs(ChanPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AliasesDTO dto, NetworkPrefs
 									.AliasesPrefs inheritedSettings) :
 									base(mgrParent, "Alias overrides for this network", PrefsRsrcs
 										.strNetAliasTitle, PrefsRsrcs.strNetAliasDesc)
@@ -2448,7 +2395,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -2466,7 +2412,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											this.parent = parent;
 										}
 
-										public OneAlias(in DTO.IrcDTO.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent)
+										public OneAlias(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO dto, in AliasesPrefs parent)
 										{
 											strName = dto.Name;
 											strCmd = dto.Cmd;
@@ -2479,8 +2425,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 										public event DFieldChanged<string>? evtNameChanged;
 
 										public event DFieldChanged<string>? evtCmdChanged;
@@ -2541,9 +2485,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 									#endregion
 
 									#region Methods
-										private void FirePropChanged(in string strPropName)
-											=> PropertyChanged?.Invoke(this, new(strPropName));
-
 										private void FireNameChanged(in string strOldName)
 										{
 											FirePropChanged(nameof(Name));
@@ -2558,7 +2499,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											evtCmdChanged?.Invoke(this, strOldCmd, strCmd);
 										}
 
-										public DTO.IrcDTO.GlobalDTO.OneAliasDTO ToDTO()
+										public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAliasDTO ToDTO()
 											=> new(guid, strName, strCmd);
 									#endregion
 
@@ -2579,8 +2520,9 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Properties
-								public Platform.DataAndExt.Prefs.MappedObjListItem<string, InheritedItemEnabledStatus<GlobalPrefs
-									.AliasesPrefs.IReadOnlyOneAlias>> AllInheritanceOverridesByName
+								public Platform.DataAndExt.Prefs.MappedObjListItem<string,
+									InheritedItemEnabledStatus<GlobalPrefs.AliasesPrefs.IReadOnlyOneAlias>>
+									AllInheritanceOverridesByName
 										=> mapAllInheritanceOverridesByName;
 
 
@@ -2589,7 +2531,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public DTO.IrcDTO.NetworkDTO.AliasesDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.AliasesDTO ToDTO()
 									=> new(
 										(
 											from InheritedItemEnabledStatus<GlobalPrefs.AliasesPrefs.IReadOnlyOneAlias> ialiasCur in
@@ -2597,7 +2539,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 											where !ialiasCur.Status
 											select ialiasCur.InheritedItem.GUID
 										).ToArray(),
-										addedAliases.Values.Select(aliasCur => new DTO.IrcDTO.GlobalDTO
+										addedAliases.Values.Select(aliasCur => new DTO.IrcDTO<GlobalDtoType>.GlobalDTO
 											.OneAliasDTO(aliasCur.guid, aliasCur.Name, aliasCur.Cmd)).ToArray()
 									);
 
@@ -2613,7 +2555,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 						}
 
-						public new class AutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+						public class AutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 						{
 							#region Constructors & Deconstructors
 								public AutoPerformPrefs(ChanPrefs mgrParent, NetworkPrefs.AutoPerformPrefs inheritedSettings) :
@@ -2646,7 +2588,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										[]);
 								}
 
-								public AutoPerformPrefs(ChanPrefs mgrParent, DTO.IrcDTO.NetworkDTO.ChanDTO.AutoPerformDTO dto,
+								public AutoPerformPrefs(ChanPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO.AutoPerformDTO dto,
 										NetworkPrefs.AutoPerformPrefs inheritedSettings) :
 									base(mgrParent, "Steps to take when joining this channel", PrefsRsrcs
 										.strNetChanAutoPerformTitle, PrefsRsrcs.strNetChanAutoPerformDesc)
@@ -2699,7 +2641,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -2731,7 +2672,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public DTO.IrcDTO.NetworkDTO.ChanDTO.AutoPerformDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO.AutoPerformDTO ToDTO()
 									=> new(
 										(
 											from InheritedItemEnabledStatus<GlobalPrefs.AutoPerformPrefs.OnEvtPrefs.IReadOnlyOneStep>
@@ -2741,7 +2682,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										).ToArray(),
 										(
 											from NetworkPrefs.AutoPerformPrefs.OnEvtPrefs.OneStep stepCur in addedSteps
-											select new DTO.IrcDTO.GlobalDTO.AutoPerformDTO.OneStepDTO(stepCur.GUID, stepCur.WhatToDo)
+											select new DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO(stepCur.GUID, stepCur.WhatToDo)
 										).ToArray()
 									);
 
@@ -2754,7 +2695,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 						}
 
-						public new class StalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+						public class StalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 						{
 							#region Constructors & Deconstructors
 								public StalkWordsPrefs(ChanPrefs mgrParent, NetworkPrefs.StalkWordsPrefs inheritedSettings) :
@@ -2788,7 +2729,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 										[], KeyObtainer, true);
 								}
 
-								public StalkWordsPrefs(ChanPrefs mgrParent, DTO.IrcDTO.NetworkDTO.StalkWordsDTO dto, NetworkPrefs
+								public StalkWordsPrefs(ChanPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.StalkWordsDTO dto, NetworkPrefs
 										.StalkWordsPrefs inheritedSettings) :
 									base(mgrParent, "Stalk words for this channel", PrefsRsrcs
 										.strNetChanStalkWordsInheritedTitle, PrefsRsrcs.strNetChanStalkWordsInheritedDesc)
@@ -2841,7 +2782,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -2874,7 +2814,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							#endregion
 
 							#region Methods
-								public DTO.IrcDTO.NetworkDTO.StalkWordsDTO ToDTO()
+								public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.StalkWordsDTO ToDTO()
 									=> new(
 										(from iswCur in mapAllInheritanceOverridesByName.Values
 										where !iswCur.Status
@@ -2930,7 +2870,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Methods
-						public DTO.IrcDTO.NetworkDTO.ChanDTO ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO ToDTO()
 							=> new(OwnerChan.Name, timeStamps.ToDTO(), aliases.ToDTO(), autoPeform.ToDTO(), stalkWords
 								.ToDTO());
 					#endregion
@@ -2947,14 +2887,14 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 								.strNetKnownChanDesc)
 							=> this.mgrParent = mgrParent;
 
-						public ChanListPrefs(NetworkPrefs mgrParent, DTO.IrcDTO.NetworkDTO.ChanDTO[]? dto) :
+						public ChanListPrefs(NetworkPrefs mgrParent, DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO[]? dto) :
 							base(mgrParent, "Known Channels", PrefsRsrcs.strNetKnownChanTitle, PrefsRsrcs
 								.strNetKnownChanDesc)
 						{
 							this.mgrParent = mgrParent;
 
 							if(dto != null)
-								foreach(DTO.IrcDTO.NetworkDTO.ChanDTO dchanCur in dto)
+								foreach(DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO dchanCur in dto)
 									RegisterChan(Chan.AllChanByName[dchanCur.OwnerChan]);
 						}
 					#endregion
@@ -2963,7 +2903,6 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -2999,7 +2938,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 							mapAllChanPrefsByChan.Remove(chanToRemovePrefsFor);
 						}
 
-						public DTO.IrcDTO.NetworkDTO.ChanDTO[]? ToDTO()
+						public DTO.IrcDTO<GlobalDtoType>.NetworkDTO.ChanDTO[]? ToDTO()
 							=> mapAllChanPrefsByChan.Values.IsEmpty()
 								? []
 								: mapAllChanPrefsByChan.Values.Select(pchanCur
@@ -3073,7 +3012,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 			#endregion
 
 			#region Methods
-				public DTO.IrcDTO.NetworkDTO ToDTO()
+				public DTO.IrcDTO<GlobalDtoType>.NetworkDTO ToDTO()
 					=> new(OwnerNet.guid, timeStamps.ToDTO(), dcc.ToDTO(), autoPeform.ToDTO(), conn
 						.ToDTO(), aliases.ToDTO(), altNicks.ToDTO(), stalkWords.ToDTO(), notifyWhenOnline
 						.ToDTO(), knownChans.ToDTO());
@@ -3085,7 +3024,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 	#endregion
 
 	#region Members
-		private static Prefs<GlobalPrefsType>? instance = null;
+		private static Prefs<GlobalPrefsType, GlobalDtoType>? instance = null;
 
 		private readonly System.Collections.Generic.List<NetworkPrefs> listNetworks;
 	#endregion
@@ -3101,7 +3040,7 @@ public abstract class Prefs<GlobalPrefsType> : Platform.DataAndExt.Prefs.Abstrac
 	#endregion
 
 	#region Methods
-		public abstract DTO.IrcDTO ToDTO();
+		public abstract DTO.IrcDTO<GlobalDtoType> ToDTO();
 	#endregion
 
 	#region Event Handlers

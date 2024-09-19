@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Defs DTO
+﻿// Ignore Spelling: Defs DTO Bnc
 
 namespace BestChat.IRC.Data.Defs.DTO;
 
@@ -12,7 +12,7 @@ public record UserBncDTO
 	string? HomeNet = null,
 	string? HomeChan = null,
 	string? OwnBot = null,
-	UserBncDTO.InstanceDTO[] Instances = null,
+	UserBncDTO.InstanceDTO[]? Instances = null,
 	ushort[]? Ports = null,
 	ushort[]? SslPorts = null,
 	uint? MaxNetworksPerBouncerInstance = null

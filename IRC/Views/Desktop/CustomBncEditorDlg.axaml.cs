@@ -195,7 +195,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 		private void OnDelAllowedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
 			.RoutedEventArgs e)
 		{
-			if(msgboxDelAllowedNetAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enum
+			if(msgboxDelAllowedNetAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
 					.ButtonResult.Yes)
 				foreach(string strCurAllowedNetToRemove in lbAllowedNets.SelectedItems.Cast<string>())
 					ebncCtxt!.RemoveAllowedNetwork(strCurAllowedNetToRemove);

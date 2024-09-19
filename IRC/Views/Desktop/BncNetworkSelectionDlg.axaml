@@ -5,7 +5,7 @@
 				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
 				xmlns:Data="using:BestChat.IRC.Data.Defs"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.Views.Desktop.BncMgrDlg"
+				x:Class="BestChat.IRC.Views.Desktop.BncNetworkSelectionDlg"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False">
 	<DockPanel Padding="4">

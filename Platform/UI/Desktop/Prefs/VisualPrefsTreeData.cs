@@ -44,8 +44,8 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-			VisualPrefsTabCtrl>> mapDataMgrToCtrlType = [];
+		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs
+			.AbstractMgr, VisualPrefsTabCtrl>> mapDataMgrToCtrlType = [];
 
 		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren =
 			[];
@@ -70,8 +70,8 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 	#endregion
 
 	#region Methods
-		public static void RegisterDataEditorCtrlType(in System.Type typeOfMgr, in System.Func<DataAndExt.Prefs.AbstractMgr,
-			VisualPrefsTabCtrl> funcCtrlMaker)
+		public static void RegisterDataEditorCtrlType(in System.Type typeOfMgr, in System.Func<DataAndExt.Prefs
+			.AbstractMgr, VisualPrefsTabCtrl> funcCtrlMaker)
 		{
 			if(!typeOfMgr.IsDerivedFrom(typeof(DataAndExt.Prefs.AbstractMgr)))
 				throw new System.ArgumentException("When calling BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType, the" +

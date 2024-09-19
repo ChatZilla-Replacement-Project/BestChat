@@ -30,9 +30,6 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler?
 			CollectionChanged;
 
@@ -247,7 +244,7 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 		internal override void SaveEdits()
 		{
 			
-			bool bChangesWereMade = hsEntries.SetEquals(backedUpVal);
+			bool bChangesWereMade = backedUpVal != null && hsEntries.SetEquals(backedUpVal);
 			if(!bChangesWereMade)
 				return;
 

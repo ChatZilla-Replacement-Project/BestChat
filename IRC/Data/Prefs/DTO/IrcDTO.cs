@@ -2,7 +2,9 @@
 
 namespace BestChat.IRC.Data.Prefs.DTO;
 
-public abstract record IrcDTO(IrcDTO.GlobalDTO Global, IrcDTO.NetworkDTO[]? Networks = null)
+public abstract record IrcDTO<GlobalDtoType>(GlobalDtoType Global, IrcDTO<GlobalDtoType>
+		.NetworkDTO[]? Networks = null)
+	where GlobalDtoType : IrcDTO<GlobalDtoType>.GlobalDTO
 {
 	public abstract record GlobalDTO
 	(
@@ -11,7 +13,7 @@ public abstract record IrcDTO(IrcDTO.GlobalDTO Global, IrcDTO.NetworkDTO[]? Netw
 		GlobalDTO.ConnDTO Conn,
 		GlobalDTO.OneAliasDTO[]? Aliases = null,
 		GlobalDTO.OneAltNickDTO[]? AltNicks = null,
-		GlobalDTO.OneStalkWordDTO[]? StalkWords = null,
+		GlobalDTO.OneStalkWordDTO[]? StalkWords = null
 	) : Platform.DataAndExt.Prefs.AbstractMgr.AbstractDTO("IRC/Global")
 	{
 		public record AutoPerformDTO

@@ -82,8 +82,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-	
 		public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
 
 		public event DFieldChanged<string>? evtNameChanged;
@@ -92,11 +90,11 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			evtAllowedNetworksChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<string>>?
 			evtProhibitedNetworksChanged;
-		public event DFieldChanged<string>? evtHomeNetworkChanged;
-		public event DFieldChanged<string>? evtHomeChanChanged;
-		public event DFieldChanged<string>? evtOwnBotChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo>>?
-			evtServersChanged;
+		public event DFieldChanged<string?>? evtHomeNetworkChanged;
+		public event DFieldChanged<string?>? evtHomeChanChanged;
+		public event DFieldChanged<string?>? evtOwnBotChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string,
+			ServerInfo>>? evtServersChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, Instance>>?
 			evtInstancesChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>?
@@ -146,9 +144,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-
 				public event DFieldChanged<string>? evtNameChanged;
 
 				public event DFieldChanged<string>? evtDomainChanged;
@@ -351,9 +346,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			#endregion
 
 			#region Methods
-				private void FirePropChanged(in string strWhichProp)
-					=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 				private void FireNameChanged(in string strOldName)
 				{
 					FirePropChanged(nameof(Name));
@@ -413,7 +405,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					private set;
 				}
 
-				public new string DisplayName
+				public new string Name
 				{
 					get => base.Name;
 
@@ -443,7 +435,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					}
 				}
 
-				public new string HomeNetwork
+				public new string? HomeNet
 				{
 					get => base.HomeNet;
 
@@ -458,7 +450,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					}
 				}
 
-				public new string HomeChan
+				public new string? HomeChan
 				{
 					get => base.HomeChan;
 
@@ -473,7 +465,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					}
 				}
 
-				public new string OwnBot
+				public new string? OwnBot
 				{
 					get => base.OwnBot;
 
@@ -490,12 +482,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo> AllServersByName
 					=> bncOriginal.AllServersByName;
-
-				public new System.Collections.Generic.IReadOnlySet<ushort> Ports
-					=> bncOriginal.AllPorts;
-
-				public new System.Collections.Generic.IReadOnlySet<ushort> SslPorts
-					=> bncOriginal.AllSslPorts;
 
 				public new uint? MaxNetworksPerBouncerInstance
 				{
@@ -638,7 +624,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void AddPort(ushort usNewPort)
 				{
-					if(!Ports.Contains(usNewPort))
+					if(!AllPorts.Contains(usNewPort))
 					{
 						bncOriginal.AddPort(usNewPort);
 
@@ -648,7 +634,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void RemovePort(ushort usPortToRemove)
 				{
-					if(Ports.Contains(usPortToRemove))
+					if(AllPorts.Contains(usPortToRemove))
 					{
 						bncOriginal.RemovePort(usPortToRemove);
 
@@ -658,7 +644,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void ClearPorts()
 				{
-					if(Ports.Count > 0)
+					if(AllPorts.Count > 0)
 					{
 						bncOriginal.ClearPorts();
 
@@ -668,7 +654,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void AddSslPort(ushort usNewSslPort)
 				{
-					if(!SslPorts.Contains(usNewSslPort))
+					if(!AllSslPorts.Contains(usNewSslPort))
 					{
 						bncOriginal.AddSslPort(usNewSslPort);
 
@@ -678,7 +664,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void RemoveSslPort(ushort usSslPortToRemove)
 				{
-					if(SslPorts.Contains(usSslPortToRemove))
+					if(AllSslPorts.Contains(usSslPortToRemove))
 					{
 						bncOriginal.RemoveSslPort(usSslPortToRemove);
 
@@ -688,7 +674,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public new void ClearSslPorts()
 				{
-					if(SslPorts.Count > 0)
+					if(AllSslPorts.Count > 0)
 					{
 						bncOriginal.ClearSslPorts();
 
@@ -698,9 +684,9 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				public void Save()
 				{
-					bncOriginal.Name = DisplayName;
+					bncOriginal.Name = Name;
 					bncOriginal.HomePage = HomePage;
-					bncOriginal.HomeNet = HomeNetwork;
+					bncOriginal.HomeNet = HomeNet;
 					bncOriginal.HomeChan = HomeChan;
 					bncOriginal.OwnBot = OwnBot;
 					bncOriginal.MaxNetworksPerBouncerInstance = MaxNetworksPerBouncerInstance;
@@ -737,19 +723,19 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 							bncOriginal.AddInstance(instanceCur);
 					}
 
-					if(!Ports.SetEquals(bncOriginal.AllPorts))
+					if(!AllPorts.SetEquals(bncOriginal.AllPorts))
 					{
 						bncOriginal.ClearPorts();
 
-						foreach(ushort usCurPort in Ports)
+						foreach(ushort usCurPort in AllPorts)
 							bncOriginal.AddPort(usCurPort);
 					}
 
-					if(!SslPorts.SetEquals(bncOriginal.AllSslPorts))
+					if(!AllSslPorts.SetEquals(bncOriginal.AllSslPorts))
 					{
 						bncOriginal.ClearSslPorts();
 
-						foreach(ushort usCurSslPort in SslPorts)
+						foreach(ushort usCurSslPort in AllSslPorts)
 							bncOriginal.AddSslPort(usCurSslPort);
 					}
 				}
@@ -777,8 +763,8 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					strName = dinstance.Name;
 					serverAssigned = bncOwner.AllServersByName.ContainsKey(dinstance.AssignedServer)
 						? bncOwner.AllServersByName[dinstance.AssignedServer]
-						: throw new System.InvalidProgramException($"Can't find the assigned BNC server {dinstance
-							.AssignedServer}");
+						: throw new System.InvalidProgramException($"Can't find the assigned BNC server {
+							dinstance.AssignedServer}");
 				}
 			#endregion
 
@@ -786,12 +772,9 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-
 				public event DFieldChanged<string>? evtNameChanged;
 
-				public event DFieldChanged<ServerInfo>? evtAssignedServerChanged;
+				public event DFieldChanged<ServerInfo?>? evtAssignedServerChanged;
 			#endregion
 
 			#region Constants
@@ -976,9 +959,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			#endregion
 
 			#region Methods
-				private void FirePropChanged(in string strWhichProp)
-					=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 				private void FireNameChanged(in string strOldName)
 				{
 					FirePropChanged(nameof(Name));
@@ -986,7 +966,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					evtNameChanged?.Invoke(this, strOldName, strName);
 				}
 
-				private void FireAssignedServerChanged(in ServerInfo serverOldAssignedServer)
+				private void FireAssignedServerChanged(in ServerInfo? serverOldAssignedServer)
 				{
 					FirePropChanged(nameof(AssignedServer));
 
@@ -1069,11 +1049,13 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			{
 				if (uriHomePage != value)
 				{
-					System.Uri? uriOldHomepage = uriHomePage;
+					System.Uri? uriOldHomePage = uriHomePage;
 
 					uriHomePage= value;
 
 					MakeDirty();
+
+					FireHomePageChanged(uriOldHomePage);
 				}
 			}
 		}
@@ -1246,9 +1228,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 	#endregion
 
 	#region Methods
-		protected void FirePropChanged(string strWhichProp)
-			=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 		protected void FireDisplayNameChanged(string strOldName)
 		{
 			FirePropChanged(nameof(Name));
@@ -1256,7 +1235,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			evtNameChanged?.Invoke(this, strOldName, strName);
 		}
 
-		protected void FireHomepageChanged(System.Uri uriOldHomepage)
+		protected void FireHomePageChanged(System.Uri? uriOldHomepage)
 		{
 			FirePropChanged(nameof(HomePage));
 
@@ -1494,7 +1473,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		protected void RemoveInstance(string strNameOfInstanceToRemove)
 		{
-			if(instancemapByName.TryGetValue(strNameOfInstanceToRemove, out Instance? instanceBeingRemoved))
+			if(instancemapByName.ContainsKey(strNameOfInstanceToRemove))
 			{
 				instancemapByName.Remove(strNameOfInstanceToRemove);
 
@@ -1622,8 +1601,8 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					nameof(AllSslPorts)]
 				: [strPropNameToGetErrorsFor];
 
-			foreach(string strCurPropName in astrPropToCheck)
-				switch(strPropNameToGetErrorsFor)
+			foreach(string strCurPropNameToGetErrorsFor in astrPropToCheck)
+				switch(strCurPropNameToGetErrorsFor)
 				{
 					case nameof(Name):
 						if(strName == "")

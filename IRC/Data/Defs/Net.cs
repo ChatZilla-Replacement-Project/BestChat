@@ -31,7 +31,7 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 			mapGuidToNet[guid] = mapAllNetByName[netCopyThis.strName] = this;
 
 			strName = netCopyThis.Name;
-			uriHomepage = netCopyThis.Homepage;
+			uriHomepage = netCopyThis.HomePage;
 			foreach(NetServerInfo serverCur in netCopyThis.AllUnsortedServers)
 				mapServers[serverCur.Domain] = serverCur;
 			nickServ = netCopyThis.NickServ;
@@ -75,8 +75,6 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 		public event DFieldChanged<ChanServOpts?>? evtChanServChanged;
 		public event DFieldChanged<AlisOpts>? evtHasAlisChanged;
 		public event DFieldChanged<QOpts>? evtQStatusChanged;
-
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
@@ -140,7 +138,7 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 			}
 		}
 
-		public System.Uri? Homepage
+		public System.Uri? HomePage
 		{
 			get => uriHomepage;
 
@@ -410,9 +408,6 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 	#endregion
 
 	#region Methods
-		protected void FirePropChanged(in string strPropName)
-			=> PropertyChanged?.Invoke(this, new(strPropName));
-
 		protected void FireNameChanged(in string strOldVal)
 		{
 			FirePropChanged(nameof(Name));
@@ -422,7 +417,7 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 
 		protected void FireHomepageChanged(in System.Uri? uriOldHomepage)
 		{
-			FirePropChanged(nameof(Homepage));
+			FirePropChanged(nameof(HomePage));
 
 			evtHomepageChanged?.Invoke(this, uriOldHomepage, uriHomepage);
 		}

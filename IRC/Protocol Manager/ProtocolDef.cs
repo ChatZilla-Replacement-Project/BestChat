@@ -1,4 +1,6 @@
-﻿// Ignore Spelling: Ctrl gvc
+﻿// Ignore Spelling: Ctrl gvc Prefs
+
+using BestChat.IRC.ProtocolMgr.Prefs;
 
 [assembly: BestChat.Platform.DataAndExt.Attr.ProtocolAssemblyInfo("IRC", "ChatZilla Replacement " +
 	"Project", nameof(BestChat.IRC.ProtocolMgr.Rsrcs.strTranslatedProtDesc), "Implements the Internet Relay"
@@ -69,9 +71,6 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 	public System.Uri PublisherHomepage
 		=> new("https://github.com/ChatZilla-Replacement-Project");
 
-	public Platform.DataAndExt.Prefs.AbstractChildMgr? RootPrefForProtocol
-		=> throw new System.NotImplementedException();
-
 	public Platform.DataAndExt.Conversations.IGroupViewOrConversation? TopLevelViewGroupOrConversation
 		=> throw new System.NotImplementedException();
 
@@ -82,8 +81,24 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 			.IGroupViewOrConversation gvcWhatWeNeedCtrlFor)
 		=> throw new System.NotImplementedException();
 
-	public void RegisterPrefCtrlMap()
-		=> throw new System.NotImplementedException();
+	public Platform.DataAndExt.Prefs.AbstractChildMgr? TopLevelPrefsMgr
+		=> Prefs.IrcPrefs.Instance;
+
+	public System.Collections.Generic.IReadOnlyDictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
+			.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>
+		PrefCtrlMap
+			=> new System.Collections.Generic.Dictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
+				.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>()
+			{
+				// TODO: Add the entries
+			};
+
+	public Platform.DataAndExt.Prefs.AbstractChildMgr? LoadAllPrefsData(in System.IO.StreamReader stream, in
+		Platform.DataAndExt.Prefs.AbstractMgr mgrYourParent)
+	{
+		// TODO: Load the data
+		return IrcPrefs.InitInstance(mgrYourParent);
+	}
 
 	public Avalonia.Controls.MenuItem? FileMenuItem
 		=> miFileIrc;

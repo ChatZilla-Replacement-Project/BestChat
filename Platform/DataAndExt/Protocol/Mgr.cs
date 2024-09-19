@@ -109,8 +109,6 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
 				public event DFieldChanged<bool>? evtIsEnabledChanged;
 			#endregion
 
@@ -220,9 +218,6 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			#endregion
 
 			#region Methods
-				private void FirePropChanged(in string strPropName)
-					=> PropertyChanged?.Invoke(this, new(strPropName));
-
 				private void FireIsEnabledChanged()
 				{
 					FirePropChanged(nameof(bIsEnabled));
@@ -233,10 +228,12 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 				private void LoadProtocol()
 				{
 					if(strProtocolInterfaceTypeName != null)
+					{
 						protocol = (ProtocolInterfaceType)(assembly.CreateInstance(strProtocolInterfaceTypeName,
-							false, System.Reflection.BindingFlags.CreateInstance, System.Type.DefaultBinder, [],
-							System.Globalization.CultureInfo.CurrentCulture,[]) ?? throw new
+							false, System.Reflection.BindingFlags.CreateInstance, System.Type.DefaultBinder,
+							[], System.Globalization.CultureInfo.CurrentCulture,[]) ?? throw new
 							FailedToCreateInstanceOfProtocolMgrForProtocolException(this));
+					}
 				}
 			#endregion
 
@@ -303,8 +300,8 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 
 		protected abstract void OnProtLoaded(ProtocolInterfaceType iprotNew);
 
-		public string GetFileNameForProt(IProtocolDef iprot)
-			=> System.IO.Path.Combine(dirDataLoc.FullName, $"{iprot.Name}.prefs.json");
+		public string GetFileNameForProt(ProtocolInterfaceType iprot)
+			=> System.IO.Path.Combine(dirDataLoc.FullName, iprot.Name, "prefs.json");
 
 	#endregion
 

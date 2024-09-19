@@ -44,7 +44,6 @@ public abstract class PrefsBase : AbstractMgr
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 			#endregion
 
 			#region Constants
@@ -91,14 +90,13 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 	#endregion
 
 	#region Events
-		public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 	#endregion
 
 	#region Constants
 	#endregion
 
 	#region Helper Types
-		public abstract class GlobalPrefs : PrefsBase.GlobalPrefs
+		public new abstract class GlobalPrefs : PrefsBase.GlobalPrefs
 		{
 			#region Constructors & Deconstructors
 				protected GlobalPrefs(AbstractMgr mgrParent) :
@@ -118,7 +116,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 			#endregion
 
 			#region Events
-				public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 			#endregion
 
 			#region Constants
@@ -151,7 +148,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -204,7 +200,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -287,7 +282,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -316,9 +310,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							#endregion
 
 							#region Methods
-								private void FirePropChanged(string strWhichProp)
-									=> PropertyChanged?.Invoke(this, new(strWhichProp));
-
 								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.UserListDTO ToDTO()
 									=> new(location.CurVal, howToShowModes.CurVal, sortByMode.CurVal);
 							#endregion
@@ -372,7 +363,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 					#endregion
 
 					#region Events
-						public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 					#endregion
 
 					#region Constants
@@ -436,7 +426,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							#endregion
 
 							#region Events
-								public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 							#endregion
 
 							#region Constants
@@ -483,7 +472,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 									#endregion
 
 									#region Constants
@@ -532,7 +520,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 									#endregion
 
 									#region Constants
@@ -553,7 +540,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 											#endregion
 
 											#region Events
-												public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 											#endregion
 
 											#region Constants
@@ -589,7 +575,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 											#endregion
 
 											#region Events
-												public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 											#endregion
 
 											#region Constants
@@ -659,7 +644,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 									#endregion
 
 									#region Constants
@@ -749,9 +733,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Methods
-										private void FirePropChanged(string strNameOfChangedProp) => PropertyChanged?.Invoke(this, new
-											(strNameOfChangedProp));
-
 										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
 											=> new(strFileNameExtOrMask, fileProgramNeeded, strParamsToPass,
 												bEnabled);
@@ -787,7 +768,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Events
-										public override event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 									#endregion
 
 									#region Constants
@@ -877,9 +857,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 									#endregion
 
 									#region Methods
-										private void FirePropChanged(string strNameOfChangedProp) => PropertyChanged?.Invoke(this, new
-											(strNameOfChangedProp));
-
 										public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO ToDTO()
 											=> new(strName, fileProgram, strParamsToPass, bEnabled);
 									#endregion
@@ -982,8 +959,6 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 			mapMgrsForProtolsByName = [];
 
 		private static System.IO.FileInfo? fileOurSettings = null;
-
-		private static System.Xml.Serialization.XmlSerializer? serializer;
 	#endregion
 
 	#region Properties
@@ -1008,7 +983,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 
 		protected abstract DTO.PrefsDTO ToDTO();
 
-		public void Save(in System.IO.DirectoryInfo dirLocalDataLoc)
+		public void Save()
 		{
 			if(fileOurSettings == null)
 				throw new System.InvalidProgramException("The settings file wasn't set before " +
@@ -1017,7 +992,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 			using(System.IO.FileStream stream = fileOurSettings.OpenWrite())
 				System.Text.Json.JsonSerializer.Serialize(stream, ToDTO(), jsoStandard);
 
-			Protocol.MgrBase.Instance.TellAllProtocolsToSave(dirLocalDataLoc);
+			Protocol.MgrBase.Instance.TellAllProtocolsToSave();
 		}
 	#endregion
 
