@@ -15,7 +15,8 @@ public abstract record PrefsDTO
 		(
 			AppearanceDTO.ConfModeDTO ConfMode,
 			AppearanceDTO.TimeStampDTO TimeStamp,
-			AppearanceDTO.UserListDTO UserList
+			AppearanceDTO.UserListDTO UserList,
+			AppearanceDTO.MsgGroupsDTO MsgGroups
 		) : AbstractMgr.AbstractDTO("Global/Appearance")
 		{
 			public record ConfModeDTO
@@ -30,7 +31,9 @@ public abstract record PrefsDTO
 			(
 				bool Show = true,
 				string Fmt = "G",
-				string? KeyOverride = null
+				string? KeyOverride = null,
+				PrefsBase.GlobalPrefs.TimeStampPrefs.HowOftenToRepeatOpts HowOftenToRepeat = PrefsBase.GlobalPrefs
+					.TimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds
 			) : AbstractMgr.AbstractDTO(KeyOverride ?? "Global/Appearance/TimeStamp");
 
 			public record UserListDTO
@@ -39,6 +42,14 @@ public abstract record PrefsDTO
 				WaysToShowUserModes HowToShowModes = WaysToShowUserModes.symbols,
 				bool SortByMode = true
 			) : AbstractMgr.AbstractDTO("Global/Appearance/UserList");
+
+			public record MsgGroupsDTO
+			(
+				bool Enabled,
+				bool LimitMsgsPerGroup,
+				int MaxMsgsPerGroup,
+				System.TimeSpan? HowLongToWaitBeforeStartingNewGroup = null
+			);
 		}
 
 		public abstract AppearanceDTO BaseAppearance

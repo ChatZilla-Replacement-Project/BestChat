@@ -104,6 +104,10 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 		Converters =
 		{
 			new System.Text.Json.Serialization.JsonStringEnumConverter(),
+			new JSON.FileConverter(),
+			new JSON.FileThatMightBeNullConverter(),
+			new JSON.FolderConverter(),
+			new JSON.FolderThatMightBeNullConverter(),
 		},
 		IgnoreReadOnlyFields = true,
 		IgnoreReadOnlyProperties = true,

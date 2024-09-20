@@ -1,9 +1,10 @@
 ﻿// Ignore Spelling: Prefs evt Dcc dto Ip Ctnts istep Chans
 
 using System.Linq;
-using BestChat.Platform.DataAndExt.Ext;
 
 namespace BestChat.IRC.Data.Prefs;
+
+using Platform.DataAndExt.Ext;
 
 public abstract class Prefs<GlobalPrefsType, GlobalDtoType> : Platform.DataAndExt.Prefs.AbstractChildMgr
 	where GlobalPrefsType : Prefs<GlobalPrefsType, GlobalDtoType>.GlobalPrefs

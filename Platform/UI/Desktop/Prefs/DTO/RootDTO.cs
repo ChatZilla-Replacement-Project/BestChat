@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Prefs Conf
+﻿// Ignore Spelling: Prefs Conf Ctrl
 
 namespace BestChat.Platform.UI.Desktop.Prefs.DTO;
 
@@ -9,9 +9,17 @@ internal record RootDTO
 {
 	public new record GlobalDTO : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO
 	{
-		public GlobalDTO(in AppearanceDTO appearance, in PluginsDTO plugins) :
+		public GlobalDTO
+		(
+			in AppearanceDTO appearance,
+			in PluginsDTO plugins,
+			in CompositionDTO composition
+		) :
 			base(plugins)
-			=> Appearance = appearance;
+		{
+			Appearance = appearance;
+			Composition = composition;
+		}
 
 		public new record AppearanceDTO : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO
 		{
@@ -20,11 +28,30 @@ internal record RootDTO
 				ConfModeDTO confMode,
 				TimeStampDTO timeStamp,
 				UserListDTO userList,
-				FontDTO fonts
-			) : base(confMode, timeStamp, userList)
-				=> Fonts = fonts;
+				FontDTO fonts,
+				EmojiDTO emoji,
+				AnimationDTO animation,
+				bool bHyphenateLongWords,
+				bool bRecognizeLinks,
+				bool bDisplayCtrlChars,
+				bool bUseTypographicalQuotes,
+				MsgGroupsDTO msgGroups
+			) : base(confMode, timeStamp, userList, msgGroups)
+			{
+				Fonts = fonts;
+				Emoji = emoji;
+				Animation = animation;
+				HyphenateLongWords = bHyphenateLongWords;
+				RecognizeLinks = bRecognizeLinks;
+				DisplayCtrlChars = bDisplayCtrlChars;
+				UseTypographicalQuotes = bUseTypographicalQuotes;
+			}
 
-			public record FontDTO(FontDTO.OneFontBlockDTO AppFontData, FontDTO.OneFontBlockDTO ViewFontData)
+			public record FontDTO
+			(
+				FontDTO.OneFontBlockDTO AppFontData,
+				FontDTO.OneFontBlockDTO ViewFontData
+			)
 			{
 				public record OneFontBlockDTO
 				(
@@ -42,7 +69,66 @@ internal record RootDTO
 				}
 			}
 
+			public record EmojiDTO
+			(
+				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.SendingEmojiOpts SendingEmoji,
+				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.SendingEmoticonsOpts SendingEmoticons,
+				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.DisplayingEmojiOpts DisplayingEmoji,
+				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.DisplayingEmoticonsOpts DisplayingEmoticons,
+				bool MakeEmojiOnlyPostsBigger,
+				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.EmojiAnimationOpts EmojiAnimation
+			);
+
+			public record AnimationDTO
+			(
+				RootPrefs.GlobalPrefs.AppearancePrefs.AnimationPrefs.GifAnimationOpts GIFs,
+				RootPrefs.GlobalPrefs.AppearancePrefs.AnimationPrefs.GifAnimationOpts Avatars,
+				bool ResumeOnMouseOver
+			);
+
 			public FontDTO Fonts
+			{
+				get;
+
+				private init;
+			}
+
+			public EmojiDTO Emoji
+			{
+				get;
+
+				private init;
+			}
+
+			public AnimationDTO Animation
+			{
+				get;
+
+				private init;
+			}
+
+			public bool HyphenateLongWords
+			{
+				get;
+
+				private init;
+			}
+
+			public bool RecognizeLinks
+			{
+				get;
+
+				private init;
+			}
+
+			public bool DisplayCtrlChars
+			{
+				get;
+
+				private init;
+			}
+
+			public bool UseTypographicalQuotes
 			{
 				get;
 
@@ -50,11 +136,27 @@ internal record RootDTO
 			}
 		}
 
+		public record CompositionDTO
+		(
+			bool UseTypeographicalQuotes,
+			bool TreatDblDashAsMDash,
+			bool TreatThreePeriodsAsEllipsis,
+			bool EnableEmojiShortCuts,
+			bool EnableEntityShortCuts
+		);
+
 		public AppearanceDTO Appearance
 		{
 			get;
 
 			init;
+		}
+
+		public CompositionDTO Composition
+		{
+			get;
+
+			private init;
 		}
 
 		public override DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO BaseAppearance

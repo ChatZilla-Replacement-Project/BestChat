@@ -6,13 +6,9 @@ namespace BestChat.Platform.DataAndExt.Prefs;
 
 public abstract class PrefsBase : AbstractMgr
 {
-	public abstract class GlobalPrefs : AbstractChildMgr
+	public abstract class GlobalPrefs(AbstractMgr mgrParent) : AbstractChildMgr(mgrParent, "Global",
+		Rsrcs.strGlobalName, Rsrcs.strGlobalNameToolTipText)
 	{
-		protected GlobalPrefs(AbstractMgr mgrParent) :
-			base(mgrParent, "Global", Rsrcs.strGlobalName, Rsrcs.strGlobalNameToolTipText)
-		{
-		}
-
 		public class TimeStampPrefs : AbstractChildMgr
 		{
 			#region Constructors & Deconstructors
@@ -25,6 +21,9 @@ public abstract class PrefsBase : AbstractMgr
 						true);
 					fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
 						Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G");
+					howOftenToRepeat = new(this, "How Often to Repeat", Rsrcs
+						.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs
+						.strGlobalAppearanceTimeStampHowOftenToRepeatDesc, HowOftenToRepeatOpts.everyThirtySeconds);
 				}
 
 				public TimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO
@@ -37,6 +36,10 @@ public abstract class PrefsBase : AbstractMgr
 						true, dto.Show);
 					fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
 						Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G", dto.Fmt);
+					howOftenToRepeat = new(this, "How Often to Repeat", Rsrcs
+						.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs
+						.strGlobalAppearanceTimeStampHowOftenToRepeatDesc, HowOftenToRepeatOpts.everyThirtySeconds, dto
+						.HowOftenToRepeat);
 				}
 			#endregion
 
@@ -50,12 +53,51 @@ public abstract class PrefsBase : AbstractMgr
 			#endregion
 
 			#region Helper Types
+				public enum HowOftenToRepeatOpts : byte
+				{
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryEvt), "Every Other Event",
+						nameof(Rsrcs.strTimeStampRepeatEveryEvtToolTip), "Best Chat will display time " +
+						"stamps only for every other event.", typeof(HowOftenToRepeatOpts))]
+					everyEvt,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryThirtySecs), "Every 30 " +
+						"seconds", nameof(Rsrcs.strTimeStampRepeatEveryThirtySecsToolTip), "Best Chat " +
+						"will wait 30 seconds to display a new time stamp.", typeof(HowOftenToRepeatOpts))]
+					everyThirtySeconds,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryOtherEvt), "Every Other Event",
+						nameof(Rsrcs.strTimeStampRepeatEveryOtherEvtToolTip), "Best Chat will display " +
+						"time stamps only for every other event.", typeof(HowOftenToRepeatOpts))]
+					everyOtherEvt,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryMinute), "Every Minute",
+						nameof(Rsrcs.strTimeStampRepeatEveryMinuteToolTip), "Best Chat will wait 1 " +
+						"minute to display a new time stamp.", typeof(HowOftenToRepeatOpts))]
+					everyMinute,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryFiveEvts), "Every 5 Events",
+						nameof(Rsrcs.strTimeStampRepeatEveryFiveEvtsToolTip), "Best Chat will display " +
+						"time stamps only every five (5) events.", typeof(HowOftenToRepeatOpts))]
+					everyFiveEvts,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryTenMinutes), "Every 10 " +
+						"Minutes", nameof(Rsrcs.strTimeStampRepeatEveryTenMinutesToolTip), "Best Chat " +
+						"will display time stamps only every ten (10) minutes.", typeof(HowOftenToRepeatOpts))]
+					everyTenMinutes,
+
+					[Attr.LocalizedDesc(nameof(Rsrcs.strTimeStampRepeatEveryTwentyEvts), "Every 20 " +
+						"Events", nameof(Rsrcs.strTimeStampRepeatEveryTwentyEvtsToolTip), "Best Chat " +
+						"will display time stamps only every twenty (20) events", typeof(HowOftenToRepeatOpts))]
+					everyTwentyEvts,
+				}
 			#endregion
 
 			#region Members
 				private readonly Item<bool> show;
 
 				private readonly Item<string> fmt;
+
+				private readonly Item<HowOftenToRepeatOpts> howOftenToRepeat;
 			#endregion
 
 			#region Properties
@@ -64,11 +106,18 @@ public abstract class PrefsBase : AbstractMgr
 
 				public Item<string> Fmt
 					=> fmt;
+
+				public Item<HowOftenToRepeatOpts> HowOftenToRepeat
+					=> howOftenToRepeat;
 			#endregion
 
 			#region Methods
 				public virtual DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO ToDTO()
-					=> new(show.CurVal, Fmt.CurVal);
+					=> new(
+						show.CurVal,
+						Fmt.CurVal,
+						HowOftenToRepeat: howOftenToRepeat.CurVal
+					);
 			#endregion
 
 			#region Event Handlers
@@ -132,6 +181,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							confMode = new(this);
 							timestamp = new(this);
 							userlist = new(this);
+							msgGroups = new(this);
 						}
 
 						protected AppearancePrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO dto)
@@ -141,6 +191,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							confMode = new(this, dto.ConfMode);
 							timestamp = new(this, dto.TimeStamp);
 							userlist = new(this, dto.UserList);
+							msgGroups = new(this, dto.MsgGroups);
 						}
 					#endregion
 
@@ -317,6 +368,101 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 							#region Event Handlers
 							#endregion
 						}
+
+						public class MsgGroupsPrefs : DataAndExt.Prefs.AbstractChildMgr
+						{
+							#region Constructors & Deconstructors
+								public MsgGroupsPrefs(AppearancePrefs mgrParent) :
+									base(mgrParent, "Message Groups", Rsrcs.strGlobalAppearanceMsgGroupsTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsDesc)
+								{
+									enabled = new(this, "Enabled", Rsrcs
+										.strGlobalAppearanceMsgGroupsEnableTitle, Rsrcs.strGlobalAppearanceMsgGroupsEnableDesc,
+										true);
+									howLongToWaitBeforeStartingNewGroup = new(this, "How Long to Wait Before " +
+										"Starting New Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupDesc, null);
+									limitMsgsPerGroup = new(this, "Limit Messages Per Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsLimitMsgsPerGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsLimitMsgsPerGroupDesc, false);
+									maxMsgsPerGroup = new(this, "Maximum Messages Per Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsMaxMsgsPerGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsMaxMsgsPerGroupDesc, 20, iMinVal: 2);
+								}
+
+								internal MsgGroupsPrefs(AppearancePrefs mgrParent, DTO.PrefsDTO.GlobalDTO.AppearanceDTO
+										.MsgGroupsDTO dto) :
+									base(mgrParent, "Message Groups", Rsrcs.strGlobalAppearanceMsgGroupsEnableTitle,
+										Rsrcs.strGlobalAppearanceMsgGroupsEnableDesc)
+								{
+									enabled = new(this, "Enabled", Rsrcs
+										.strGlobalAppearanceMsgGroupsEnableTitle, Rsrcs.strGlobalAppearanceMsgGroupsEnableDesc,
+										true, dto.Enabled);
+									howLongToWaitBeforeStartingNewGroup = new(this, "How Long to Wait Before " +
+										"Starting New Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupDesc, null, dto
+										.HowLongToWaitBeforeStartingNewGroup);
+									limitMsgsPerGroup = new(this, "Limit Messages Per Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsLimitMsgsPerGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsLimitMsgsPerGroupDesc, false, dto.LimitMsgsPerGroup);
+									maxMsgsPerGroup = new(this, "Maximum Messages Per Group", Rsrcs
+										.strGlobalAppearanceMsgGroupsMaxMsgsPerGroupTitle, Rsrcs
+										.strGlobalAppearanceMsgGroupsMaxMsgsPerGroupDesc, 20, dto.MaxMsgsPerGroup,
+										iMinVal: 2);
+								}
+							#endregion
+
+							#region Delegates
+							#endregion
+
+							#region Events
+							#endregion
+
+							#region Constants
+							#endregion
+
+							#region Helper Types
+							#endregion
+
+							#region Members
+								private readonly Item<bool> enabled;
+
+								private readonly Item<System.TimeSpan?> howLongToWaitBeforeStartingNewGroup;
+
+								private readonly Item<bool> limitMsgsPerGroup;
+
+								private readonly IntItem maxMsgsPerGroup;
+							#endregion
+
+							#region Properties
+								public Item<bool> Enabled
+									=> enabled;
+
+								public Item<System.TimeSpan?> HowLongToWaitBeforeStartingNewGroup
+										=> howLongToWaitBeforeStartingNewGroup;
+
+								public Item<bool> LimitMsgsPerGroup
+									=> limitMsgsPerGroup;
+
+								public IntItem MaxMsgsPerGroup
+									=> maxMsgsPerGroup;
+							#endregion
+
+							#region Methods
+								public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.MsgGroupsDTO ToDTO()
+									=> new(
+										enabled.CurVal,
+										limitMsgsPerGroup.CurVal,
+										maxMsgsPerGroup.CurVal,
+										howLongToWaitBeforeStartingNewGroup.CurVal
+									);
+							#endregion
+
+							#region Event Handlers
+							#endregion
+						}
 					#endregion
 
 					#region Members
@@ -325,14 +471,22 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 						private readonly TimeStampPrefs timestamp;
 
 						private readonly UserListPrefs userlist;
+
+						private readonly MsgGroupsPrefs msgGroups;
 					#endregion
 
 					#region Properties
-						public ConfModePrefs ConfMode => confMode;
+						public ConfModePrefs ConfMode
+							=> confMode;
 
-						public TimeStampPrefs TimeStamp => timestamp;
+						public TimeStampPrefs TimeStamp
+							=> timestamp;
 
-						public UserListPrefs UserList => userlist;
+						public UserListPrefs UserList
+							=> userlist;
+
+						public MsgGroupsPrefs MsgGroups
+							=> msgGroups;
 					#endregion
 
 					#region Methods

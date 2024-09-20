@@ -353,4 +353,82 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
   <data name="strGlobalPluginsExtWhereToLookPathsDesc" xml:space="preserve">
     <value>Specify where to look for files.  This should be a list of folders AKA directories.  The order is important.  Best Chat starts with the first entry in the list and continues from there.  System paths, if enabled, are checked AFTER the entries here.</value>
   </data>
+  <data name="strGlobalAppearanceMsgGroupsDesc" xml:space="preserve">
+    <value>Best Chat can group messages so messages from the same sender are grouped.  These messages must have nothing other than other messages from the same sender in between.  Any of the following can cause Best Chat to start a new group: Messages from other senders (including you), someone joins or leaves, etc.  How groups look will depend on your theme.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsEnableDesc" xml:space="preserve">
+    <value>Do you want to enable message grouping?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsEnableTitle" xml:space="preserve">
+    <value>Enable Message Grouping</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupDesc" xml:space="preserve">
+    <value>This controls how long Best Chat considers a group active in a view where nothing is happeneing.  Any activity by the sender of the current group will restart the clock keeping the group active.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupTitle" xml:space="preserve">
+    <value>How Long Can Best Chat Wait Before It Starts a New Group?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsLimitMsgsPerGroupDesc" xml:space="preserve">
+    <value>Some users may prefer to limit how long a group can get.  If so, turn this setting on.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsLimitMsgsPerGroupTitle" xml:space="preserve">
+    <value>Do you wish to limit how many messages can be in a group?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsMaxMsgsPerGroupDesc" xml:space="preserve">
+    <value>Please specify how long a group can get before Best Chat starts a new one.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsMaxMsgsPerGroupTitle" xml:space="preserve">
+    <value>Maximum Messages Per Group</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsTitle" xml:space="preserve">
+    <value>Message Grouping</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampHowOftenToRepeatDesc" xml:space="preserve">
+    <value>How often would you like Best Chat to show a new time stamp?  Regardless of this value, as long as you're showing some time stamps, you'll be able to mouse over the time stamp area to see when events happened even if no time stamp is visible for the event in question.</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampHowOftenToRepeatTitle" xml:space="preserve">
+    <value>How Often to Repeat</value>
+  </data>
+  <data name="strTimeStampRepeatEveryEvt" xml:space="preserve">
+    <value>Every Event</value>
+  </data>
+  <data name="strTimeStampRepeatEveryEvtToolTip" xml:space="preserve">
+    <value>Best Chat will display a new time stamp for every event.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryFiveEvts" xml:space="preserve">
+    <value>Every 5 Events</value>
+  </data>
+  <data name="strTimeStampRepeatEveryFiveEvtsToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every five (5) events.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryMinute" xml:space="preserve">
+    <value>Every Minute</value>
+  </data>
+  <data name="strTimeStampRepeatEveryMinuteToolTip" xml:space="preserve">
+    <value>Best Chat will wait 1 minute to display a new time stamp.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryOtherEvt" xml:space="preserve">
+    <value>Every Other Event</value>
+  </data>
+  <data name="strTimeStampRepeatEveryOtherEvtToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only for every other event.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTenMinutes" xml:space="preserve">
+    <value>Every 10 Minutes</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTenMinutesToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every ten (10) minutes.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryThirtySecs" xml:space="preserve">
+    <value>Every 30 seconds</value>
+  </data>
+  <data name="strTimeStampRepeatEveryThirtySecsToolTip" xml:space="preserve">
+    <value>Best Chat will wait 30 seconds to display a new time stamp.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTwentyEvts" xml:space="preserve">
+    <value>Every 20 Events</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTwentyEvtsToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every twenty (20) events</value>
+  </data>
 </root>

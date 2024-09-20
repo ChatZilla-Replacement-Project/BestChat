@@ -4,14 +4,14 @@ namespace BestChat.IRC.Data.Defs.DTO;
 
 public record PredefinedNetDTO
 (
-	string Name,
-	NetServerInfoDTO[] Servers,
-	ChanModeDTO[] ChanModes,
-	UserModeDTO[] UserModes,
-	System.Uri? Homepage = null,
-	NickServOpts? NickServ = null,
-	ChanServOpts? ChanServ = null,
-	AlisOpts AlisStatus = AlisOpts.unknown,
-	QOpts QStatus = QOpts.unknown
-) : NetDTO(Name, Servers, Homepage, NickServ, ChanServ, AlisStatus, QStatus),
+	string strName,
+	NetServerInfoDTO[] aservers,
+	ChanModeDTO[] aChanModes,
+	UserModeDTO[] aUserModes,
+	System.Uri? uriHomepage = null,
+	NickServOpts? nickServ = null,
+	ChanServOpts? chanServ = null,
+	AlisOpts alisStatus = AlisOpts.unknown,
+	QOpts qStatus = QOpts.unknown
+) : NetDTO(strName, aservers, uriHomepage, nickServ, chanServ, alisStatus, qStatus),
 	IDataDefBasic<PredefinedNetDTO>;

@@ -135,11 +135,65 @@
   <data name="strFileNetworkMgrMenuItemToolTip" xml:space="preserve">
     <value>Displays the Network Manager.  From here, you can add, remove, or customize IRC networks available through out the rest of Best Chat.</value>
   </data>
+  <data name="strFmtMarkerTypeMIRC" xml:space="preserve">
+    <value>MIRC</value>
+  </data>
+  <data name="strFmtMarkerTypeMircToolTip" xml:space="preserve">
+    <value>When you use the UI to select formatting other than color, Best Chat will insert into the text control characters you won't be able to see.  Some clients will see these and trigger the formatting.</value>
+  </data>
+  <data name="strFmtMarkerTypeTraditional" xml:space="preserve">
+    <value>Traditional</value>
+  </data>
+  <data name="strFmtMarkerTypeTraditonalToolTip" xml:space="preserve">
+    <value>When you use the UI to select formatting other than color, Best Chat will insert into the text ASCII formatting marks.  So if you want "text" in bold and use the UI rather than typing, you'll get "*text*".</value>
+  </data>
+  <data name="strPrefsGlobalFmtBoldDesc" xml:space="preserve">
+    <value>If you check this, Best Chat will respond to formatting marks for bold.  This applies to both types of bold marks.  Best Chat might receive bold marks in just ASCII (you'll see asterisks in the text) or hidden control characters.  You wouldn't see anything.</value>
+  </data>
+  <data name="strPrefsGlobalFmtBoldTitle" xml:space="preserve">
+    <value>Bold</value>
+  </data>
   <data name="strPrefsGlobalFmtDesc" xml:space="preserve">
     <value>Lets you specify how things should be formatted.</value>
   </data>
+  <data name="strPrefsGlobalFmtItalicsDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for italics.  This applies to both types of italics marks.  Best Chat might receive italic marks in just ASCII (you'll see slashes in the text or as MIRC control characters in which case you'd see nothing.</value>
+  </data>
+  <data name="strPrefsGlobalFmtItalicsTitle" xml:space="preserve">
+    <value>Italics</value>
+  </data>
+  <data name="strPrefsGlobalFmtMarkerTypeDesc" xml:space="preserve">
+    <value>Controls how Best Chat sends formatting other than colors when you rely on the UI to specify that formatting instead of typing it directly.</value>
+  </data>
+  <data name="strPrefsGlobalFmtMarkerTypeTitle" xml:space="preserve">
+    <value>Outgoing Marker Type</value>
+  </data>
+  <data name="strPrefsGlobalFmtMircColorsDesc" xml:space="preserve">
+    <value>If checked, Best Chat responds to color codes hidden in the text.  This cooressponds to the color button on the formatting toolbar.  You can also change the color with % values by typing a % followed by a number.  Use one of the following formats: "%foreground", "%,background", or "%foreground,background".  The comma is needed to specify a background color.  Best Chat will show these codes in the editor, but not the channel.  Note: Some channels don't like colors and either refuse the message or strip out the colors.  See the modes on those channels for details.  Some users also tell their clients to ignore these codes.  The system started with the MIRC client, hence the name of this setting.</value>
+  </data>
+  <data name="strPrefsGlobalFmtMircColorsTitle" xml:space="preserve">
+    <value>MIRC Colors</value>
+  </data>
+  <data name="strPrefsGlobalFmtStrikeThroughDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for strike through.  There's no IRC convention for this, so Best Chat treats text surrounded by tildes as strike through.  So you'd see "~text~".  The default for this preference is false as support may be limited.</value>
+  </data>
+  <data name="strPrefsGlobalFmtStrikeThroughTitle" xml:space="preserve">
+    <value>Strike Through</value>
+  </data>
+  <data name="strPrefsGlobalFmtTeleTypeDesc" xml:space="preserve">
+    <value>If checked, Best Chat switches to a fixed width font selected by your theme or the global preferences if you override it there.  Normally, it might use a variable pitch (width) font.</value>
+  </data>
+  <data name="strPrefsGlobalFmtTeleTypeTitle" xml:space="preserve">
+    <value>Teletype</value>
+  </data>
   <data name="strPrefsGlobalFmtTitle" xml:space="preserve">
     <value>Format</value>
+  </data>
+  <data name="strPrefsGlobalFmtUnderlineDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for underline.  This applies to both types of underline marks.  Best Chat might receive underline marks in just ASCII (you'll see underlines in the text or as MIRC control characters in which case you'd see nothing.</value>
+  </data>
+  <data name="strPrefsGlobalFmtUnderlineTitle" xml:space="preserve">
+    <value>Underline</value>
   </data>
   <data name="strTranslatedProtDesc" xml:space="preserve">
     <value>Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn't support IRC.</value>

@@ -115,6 +115,60 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MIRC.
+        /// </summary>
+        internal static string strFmtMarkerTypeMIRC {
+            get {
+                return ResourceManager.GetString("strFmtMarkerTypeMIRC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When you use the UI to select formatting other than color, Best Chat will insert into the text control characters you won&apos;t be able to see.  Some clients will see these and trigger the formatting..
+        /// </summary>
+        internal static string strFmtMarkerTypeMircToolTip {
+            get {
+                return ResourceManager.GetString("strFmtMarkerTypeMircToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traditional.
+        /// </summary>
+        internal static string strFmtMarkerTypeTraditional {
+            get {
+                return ResourceManager.GetString("strFmtMarkerTypeTraditional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When you use the UI to select formatting other than color, Best Chat will insert into the text ASCII formatting marks.  So if you want &quot;text&quot; in bold and use the UI rather than typing, you&apos;ll get &quot;*text*&quot;..
+        /// </summary>
+        internal static string strFmtMarkerTypeTraditonalToolTip {
+            get {
+                return ResourceManager.GetString("strFmtMarkerTypeTraditonalToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you check this, Best Chat will respond to formatting marks for bold.  This applies to both types of bold marks.  Best Chat might receive bold marks in just ASCII (you&apos;ll see asterisks in the text) or hidden control characters.  You wouldn&apos;t see anything..
+        /// </summary>
+        internal static string strPrefsGlobalFmtBoldDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtBoldDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bold.
+        /// </summary>
+        internal static string strPrefsGlobalFmtBoldTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtBoldTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lets you specify how things should be formatted..
         /// </summary>
         internal static string strPrefsGlobalFmtDesc {
@@ -124,11 +178,119 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you check this, Best Chat wil respond to formatting marks for italics.  This applies to both types of italics marks.  Best Chat might receive italic marks in just ASCII (you&apos;ll see slashes in the text or as MIRC control characters in which case you&apos;d see nothing..
+        /// </summary>
+        internal static string strPrefsGlobalFmtItalicsDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtItalicsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italics.
+        /// </summary>
+        internal static string strPrefsGlobalFmtItalicsTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtItalicsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls how Best Chat sends formatting other than colors when you rely on the UI to specify that formatting instead of typing it directly..
+        /// </summary>
+        internal static string strPrefsGlobalFmtMarkerTypeDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtMarkerTypeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outgoing Marker Type.
+        /// </summary>
+        internal static string strPrefsGlobalFmtMarkerTypeTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtMarkerTypeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If checked, Best Chat responds to color codes hidden in the text.  This cooressponds to the color button on the formatting toolbar.  You can also change the color with % values by typing a % followed by a number.  Use one of the following formats: &quot;%foreground&quot;, &quot;%,background&quot;, or &quot;%foreground,background&quot;.  The comma is needed to specify a background color.  Best Chat will show these codes in the editor, but not the channel.  Note: Some channels don&apos;t like colors and either refuse the message or strip out t [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string strPrefsGlobalFmtMircColorsDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtMircColorsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIRC Colors.
+        /// </summary>
+        internal static string strPrefsGlobalFmtMircColorsTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtMircColorsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you check this, Best Chat wil respond to formatting marks for strike through.  There&apos;s no IRC convention for this, so Best Chat treats text surrounded by tildes as strike through.  So you&apos;d see &quot;~text~&quot;.  The default for this preference is false as support may be limited..
+        /// </summary>
+        internal static string strPrefsGlobalFmtStrikeThroughDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtStrikeThroughDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strike Through.
+        /// </summary>
+        internal static string strPrefsGlobalFmtStrikeThroughTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtStrikeThroughTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If checked, Best Chat switches to a fixed width font selected by your theme or the global preferences if you override it there.  Normally, it might use a variable pitch (width) font..
+        /// </summary>
+        internal static string strPrefsGlobalFmtTeleTypeDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtTeleTypeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teletype.
+        /// </summary>
+        internal static string strPrefsGlobalFmtTeleTypeTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtTeleTypeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format.
         /// </summary>
         internal static string strPrefsGlobalFmtTitle {
             get {
                 return ResourceManager.GetString("strPrefsGlobalFmtTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you check this, Best Chat wil respond to formatting marks for underline.  This applies to both types of underline marks.  Best Chat might receive underline marks in just ASCII (you&apos;ll see underlines in the text or as MIRC control characters in which case you&apos;d see nothing..
+        /// </summary>
+        internal static string strPrefsGlobalFmtUnderlineDesc {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtUnderlineDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underline.
+        /// </summary>
+        internal static string strPrefsGlobalFmtUnderlineTitle {
+            get {
+                return ResourceManager.GetString("strPrefsGlobalFmtUnderlineTitle", resourceCulture);
             }
         }
         
