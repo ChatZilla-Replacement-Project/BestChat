@@ -2,11 +2,9 @@
 
 namespace BestChat.IRC.Data;
 
-using System.Linq;
 using Platform.DataAndExt.Ext;
 
-public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations.IGroup, System.ComponentModel
-	.INotifyPropertyChanged, Platform.DataAndExt.TreeData.IChildOwner
+public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations.IGroup
 {
 	#region Constructors & Deconstructors
 		#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -14,11 +12,12 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 				base(unetDef.Name, Rsrcs.strNetworkNameDescForTree.Fmt(unetDef.Name))
 			{
 				this.unetDef = unetDef;
+				uriConnectedTo = new("google.com"); // TODO: Figure out the real URL
 
 				// TODO: Figure out how to actually connect.
 
 				// TODO: Determine how to get the user's real nick
-				ru = new(this, "UserNick", mapModesOnUser.Values, []); 
+				ru = new(this, "UserNick", mapModesOnUser.Values, []);
 
 
 				// TODO: Get the real modes for the user on this network
@@ -47,6 +46,7 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 						"-Replacement-Project/JSON-Data/blob/main/Sample%20Data/Sample%20Libera%20Log.json").Result, jdo);
 
 					if(doc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+						// ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
 						foreach(System.Text.Json.JsonElement elementCur in doc.RootElement.EnumerateArray())
 							if(elementCur.ValueKind == System.Text.Json.JsonValueKind.Object)
 								switch(elementCur.GetProperty(nameof(Type)).GetString())
@@ -120,7 +120,7 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 		// TODO: Remove this attribute once the field is functional
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier",
 			Justification = "Field not yet implemented")]
-		private System.Uri uriConnectedTo;
+		private readonly System.Uri uriConnectedTo;
 
 		// TODO: We need a way to update this map when the remote user's nick changes.
 		private readonly System.Collections.Generic.SortedDictionary<string, RemoteUser> mapChanMembersByNick =
@@ -195,8 +195,8 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 	#endregion
 
 	#region Event Handlers
-		private void OnStateOfModeChanged(in Defs.Mode<Defs.BoolModeState, Defs.BoolModeStates> modeSender, in Defs.BoolModeState stateOld, in
-			Defs.BoolModeState stateNew)
+		private void OnStateOfModeChanged(in Defs.Mode<Defs.BoolModeState, Defs.BoolModeStates> modeSender, in Defs
+			.BoolModeState stateOld, in Defs.BoolModeState stateNew)
 		{
 			// TODO: Attempt to change the mode on the network
 		}

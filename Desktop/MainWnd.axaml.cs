@@ -24,9 +24,9 @@ namespace BestChat.Desktop
 		#endregion
 
 		#region Members
-			private PrefsWnd? prefsWnd = null;
+			private PrefsWnd? prefsWnd;
 
-			private static MainWnd? instance = null;
+			private static MainWnd? instance;
 		#endregion
 
 		#region Properties

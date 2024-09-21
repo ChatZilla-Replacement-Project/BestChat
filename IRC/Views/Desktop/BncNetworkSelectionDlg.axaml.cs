@@ -1,6 +1,7 @@
 // Ignore Spelling: evt Bnc Ctxt
 
 using System.Linq;
+using BestChat.IRC.Data.Defs;
 
 namespace BestChat.IRC.Views.Desktop;
 
@@ -80,7 +81,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 
 		private NetStatuses statusForNet = NetStatuses.invalid;
 
-		private Data.Defs.BNC.Editable? ebncCtxt = null;
+		private BncEditable? ebncCtxt = null;
 
 		private string strCurVal = "";
 
@@ -120,7 +121,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 			}
 		}
 
-		public Data.Defs.BNC.Editable? CtxtBNC
+		public BncEditable? CtxtBNC
 		{
 			get => ebncCtxt;
 
@@ -156,22 +157,25 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 		{
 			get => strStartingVal;
 
-			set
+			init
 			{
-				if(strStartingVal != value)
-				{
-					if(value != "")
-						mode = Modes.changing;
+				if(strStartingVal == value)
+					return;
 
-					string strOldStartingVal = strStartingVal;
+				if(value != "")
+					mode = Modes.changing;
 
-					strCurVal = strStartingVal = value;
+				string strOldStartingVal = strStartingVal;
 
-					FireCurValChanged("");
-					FireStartingValChanged(strOldStartingVal);
-				}
+				strCurVal = strStartingVal = value;
+
+				FireCurValChanged("");
+				FireStartingValChanged(strOldStartingVal);
 			}
 		}
+
+		public bool WereChangesMade
+			=> CurVal != StartingVal;
 
 		private bool IsOkToClose
 			=> (mode switch
@@ -222,7 +226,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 					}).ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult.Yes;
 
 		public bool IsValid
-			=> strCurVal != "";
+			=> !HasErrors;
 
 		public bool IsDirty
 			=> strCurVal != strStartingVal;
@@ -383,15 +387,18 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs
 			e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
+		private void OnCloseClicked(object? objSender
+			, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
 	#endregion
 
 	#region Event Handlers

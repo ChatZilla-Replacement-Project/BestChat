@@ -1,13 +1,40 @@
 ﻿// Ignore Spelling: dcm Defs
 
-namespace BestChat.IRC.Data.Defs;
+using System.Collections.Generic;
+using System.ComponentModel;
+using BestChat.IRC.Data.Defs.DTO;
+using BestChat.Platform.DataAndExt.Exceptions;
 
-[System.ComponentModel.ImmutableObject(true)]
-public class ChanMode : IMode
+namespace BestChat.IRC.Data.Defs
 {
-	#region Constructors & Deconstructors
-		internal ChanMode(in char chModeChar, in LocalizedTextSystem textDesc, in bool bNotAlwaysAvailable = false, in System.Collections
-			.Generic.IEnumerable<ModeParam>? @params = null, in string strFmtAsSentToNetwork = "", in bool bIsOperRequiredToChange = false,
+	[ImmutableObject(true)]
+	public class ChanMode : IMode
+	{
+		#region Helper Types
+
+		public enum StdModeTypes
+		{
+			TopicLock,
+			Moderated,
+			ColorStrip,
+			NoOutsideMsg,
+			InviteOnly,
+			Keyword,
+			Private,
+			Secret,
+		}
+
+		#endregion
+
+		#region Constructors & Deconstructors
+
+		internal ChanMode(
+			in char chModeChar,
+			in LocalizedTextSystem textDesc,
+			in bool bNotAlwaysAvailable = false,
+			in IEnumerable<ModeParam>? @params = null,
+			in string strFmtAsSentToNetwork = "",
+			in bool bIsOperRequiredToChange = false,
 			StdModeTypes? smt = null)
 		{
 			this.chModeChar = chModeChar;
@@ -21,64 +48,56 @@ public class ChanMode : IMode
 			this.smt = smt;
 		}
 
-		internal ChanMode(DTO.ChanModeDTO dcmUs)
+		internal ChanMode(ChanModeDTO dcmUs)
 		{
 			chModeChar = dcmUs.Mode;
-			textDesc = new(dcmUs.LocalizedDesc, dcmUs.DefaultDesc);
+			textDesc = new LocalizedTextSystem(dcmUs.LocalizedDesc, dcmUs.DefaultDesc);
 			bNotAlwaysAvailable = dcmUs.NotAlwaysAvailable;
 			if(dcmUs.Parameters != null)
-				foreach(DTO.ModeParamDTO dmpCurParam in dcmUs.Parameters)
-					mapParamsByName[dmpCurParam.Name] = new(dmpCurParam);
+				foreach(ModeParamDTO dmpCurParam in dcmUs.Parameters)
+					mapParamsByName[dmpCurParam.Name] = new ModeParam(dmpCurParam);
 			strFmtAsSentToNetwork = dcmUs.FmtAsSentToNetwork;
 			bIsOperRequiredToChange = dcmUs.IsOperRequiredToChange;
 			smt = dcmUs.StdModeType switch
-			{
-				DTO.ChanModeDTO.StdModeTypes.TopicLock => StdModeTypes.TopicLock,
-				DTO.ChanModeDTO.StdModeTypes.Moderated => StdModeTypes.Moderated,
-				DTO.ChanModeDTO.StdModeTypes.ColorStrip => StdModeTypes.ColorStrip,
-				DTO.ChanModeDTO.StdModeTypes.NoOutsideMsg => StdModeTypes.NoOutsideMsg,
-				DTO.ChanModeDTO.StdModeTypes.InviteOnly => StdModeTypes.InviteOnly,
-				DTO.ChanModeDTO.StdModeTypes.Keyword => StdModeTypes.Keyword,
-				DTO.ChanModeDTO.StdModeTypes.Private => StdModeTypes.Private,
-				DTO.ChanModeDTO.StdModeTypes.Secret => StdModeTypes.Secret,
-				null => null,
-				_ => throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<DTO.ChanModeDTO.StdModeTypes?>(dcmUs.StdModeType,
-					"Loading standard mode type for channel mode."),
-			};
+						{
+							ChanModeDTO.StdModeTypes.TopicLock => StdModeTypes.TopicLock,
+							ChanModeDTO.StdModeTypes.Moderated => StdModeTypes.Moderated,
+							ChanModeDTO.StdModeTypes.ColorStrip => StdModeTypes.ColorStrip,
+							ChanModeDTO.StdModeTypes.NoOutsideMsg => StdModeTypes.NoOutsideMsg,
+							ChanModeDTO.StdModeTypes.InviteOnly => StdModeTypes.InviteOnly,
+							ChanModeDTO.StdModeTypes.Keyword => StdModeTypes.Keyword,
+							ChanModeDTO.StdModeTypes.Private => StdModeTypes.Private,
+							ChanModeDTO.StdModeTypes.Secret => StdModeTypes.Secret,
+							null => null,
+							_ => throw new UnknownOrInvalidEnumException<ChanModeDTO.StdModeTypes?>(
+								dcmUs.StdModeType,
+								"Loading standard mode type for channel mode."),
+						};
 		}
-	#endregion
 
-	#region Delegates
-	#endregion
+		#endregion
 
-	#region Events
-	#endregion
+		#region Delegates
 
-	#region Constants
-	#endregion
+		#endregion
 
-	#region Helper Types
-		public enum StdModeTypes
-		{
-			TopicLock,
-			Moderated,
-			ColorStrip,
-			NoOutsideMsg,
-			InviteOnly,
-			Keyword,
-			Private,
-			Secret
-		}
-	#endregion
+		#region Events
 
-	#region Members
+		#endregion
+
+		#region Constants
+
+		#endregion
+
+		#region Members
+
 		public readonly char chModeChar;
 
 		public readonly LocalizedTextSystem textDesc;
 
 		public readonly bool bNotAlwaysAvailable;
 
-		private readonly System.Collections.Generic.SortedDictionary<string, ModeParam> mapParamsByName =
+		private readonly SortedDictionary<string, ModeParam> mapParamsByName =
 			new();
 
 		public readonly string strFmtAsSentToNetwork;
@@ -86,9 +105,11 @@ public class ChanMode : IMode
 		public readonly bool bIsOperRequiredToChange;
 
 		public readonly StdModeTypes? smt;
-	#endregion
 
-	#region Properties
+		#endregion
+
+		#region Properties
+
 		public char ModeChar
 			=> chModeChar;
 
@@ -98,7 +119,7 @@ public class ChanMode : IMode
 		public bool NotAlwaysAvailable
 			=> bNotAlwaysAvailable;
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, ModeParam>? ParamsByName
+		public IReadOnlyDictionary<string, ModeParam>? ParamsByName
 			=> mapParamsByName;
 
 		public string FmtAsSentToNetwork
@@ -109,11 +130,15 @@ public class ChanMode : IMode
 
 		public StdModeTypes? StdModeType
 			=> smt;
-	#endregion
 
-	#region Methods
-	#endregion
+		#endregion
 
-	#region Event Handlers
-	#endregion
+		#region Methods
+
+		#endregion
+
+		#region Event Handlers
+
+		#endregion
+	}
 }

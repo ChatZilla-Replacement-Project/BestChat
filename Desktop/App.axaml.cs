@@ -25,5 +25,5 @@ public class DataLoc : Platform.DataAndExt.DataLoc
 {
 	public override System.IO.DirectoryInfo? ProfileLoc
 		=> new System.IO.DirectoryInfo(System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment
-			.SpecialFolder.ApplicationData, "ChatZilla Replacement Project", "BestChat")));
+			.SpecialFolder.ApplicationData), "ChatZilla Replacement Project", "BestChat"));
 }

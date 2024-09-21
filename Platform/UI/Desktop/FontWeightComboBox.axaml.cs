@@ -11,12 +11,8 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 {
 	#region Constructors & Deconstructors
 		public FontWeightComboBox()
-		{
-			Initialized += OnInitialized;
-
-			InitializeIfNeeded();
-		}
-	#endregion
+			=> InitializeComponent();
+		#endregion
 
 	#region Delegates
 	#endregion
@@ -40,32 +36,29 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.Dictionary<Avalonia.Media.FontWeight, string> mapWeightsToText =
+		private static readonly System.Collections.Generic.Dictionary<Avalonia.Media.FontWeight, FontWeightEnumWrapper> mapWeightsToText =
 			new()
 		{
-			[Avalonia.Media.FontWeight.Thin] = Rsrcs.strFontWeightThin,
-			[Avalonia.Media.FontWeight.ExtraLight] = Rsrcs.strFontWeightExtraLight,
-			[Avalonia.Media.FontWeight.UltraLight] = Rsrcs.strFontWeightExtraLight,
-			[Avalonia.Media.FontWeight.Light] = Rsrcs.strFontWeightLight,
-			[Avalonia.Media.FontWeight.Normal] = Rsrcs.strFontWeightNormal,
-			[Avalonia.Media.FontWeight.Regular] = Rsrcs.strFontWeightNormal,
-			[Avalonia.Media.FontWeight.Medium] = Rsrcs.strFontWeightMedium,
-			[Avalonia.Media.FontWeight.DemiBold] = Rsrcs.strFontWeightDemiBold,
-			[Avalonia.Media.FontWeight.SemiBold] = Rsrcs.strFontWeightDemiBold,
-			[Avalonia.Media.FontWeight.Bold] = Rsrcs.strFontWeightBold,
-			[Avalonia.Media.FontWeight.ExtraBold] = Rsrcs.strFontWeightExtraBold,
-			[Avalonia.Media.FontWeight.UltraBold] = Rsrcs.strFontWeightExtraBold,
-			[Avalonia.Media.FontWeight.Black] = Rsrcs.strFontWeightHeavy,
-			[Avalonia.Media.FontWeight.Heavy] = Rsrcs.strFontWeightHeavy,
-			[Avalonia.Media.FontWeight.UltraBlack] = Rsrcs.strFontWeightExtraBlack,
-			[Avalonia.Media.FontWeight.ExtraBlack] = Rsrcs.strFontWeightExtraBlack,
+			[Avalonia.Media.FontWeight.Thin] = new(Avalonia.Media.FontWeight.Thin, Rsrcs.strFontWeightThin),
+			[Avalonia.Media.FontWeight.ExtraLight] = new(Avalonia.Media.FontWeight.ExtraLight, Rsrcs
+				.strFontWeightExtraLight),
+			[Avalonia.Media.FontWeight.Light] = new(Avalonia.Media.FontWeight.Light, Rsrcs.strFontWeightLight),
+			[Avalonia.Media.FontWeight.Normal] = new(Avalonia.Media.FontWeight.Normal, Rsrcs.strFontWeightNormal),
+			[Avalonia.Media.FontWeight.Medium] = new(Avalonia.Media.FontWeight.Medium, Rsrcs.strFontWeightMedium),
+			[Avalonia.Media.FontWeight.DemiBold] = new(Avalonia.Media.FontWeight.DemiBold, Rsrcs.strFontWeightDemiBold),
+			[Avalonia.Media.FontWeight.Bold] = new(Avalonia.Media.FontWeight.Bold, Rsrcs.strFontWeightBold),
+			[Avalonia.Media.FontWeight.ExtraBold] = new(Avalonia.Media.FontWeight.ExtraBold, Rsrcs
+				.strFontWeightExtraBold),
+			[Avalonia.Media.FontWeight.Black] = new(Avalonia.Media.FontWeight.Black, Rsrcs.strFontWeightHeavy),
+			[Avalonia.Media.FontWeight.UltraBlack] = new(Avalonia.Media.FontWeight.UltraBlack, Rsrcs
+				.strFontWeightExtraBlack),
 		};
 	#endregion
 
 	#region Properties
 		public Avalonia.Media.FontWeight? SelVal
 		{
-			get => (Avalonia.Media.FontWeight?)SelectedValue;
+			get => ((FontWeightEnumWrapper?)SelectedValue)?.FW;
 
 			set => SelectedValue = value;
 		}
@@ -75,10 +68,20 @@ public partial class FontWeightComboBox : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Event Handlers
-		protected void OnInitialized(object? objSender, System.EventArgs e)
+		protected override void OnInitialized()
 		{
-			foreach(System.Collections.Generic.KeyValuePair<Avalonia.Media.FontWeight, string> kvCurWeightInfo in mapWeightsToText)
-				Items.Add(kvCurWeightInfo);
+			foreach(FontWeightEnumWrapper wrapperCur in mapWeightsToText.Values)
+				Items.Add(wrapperCur);
 		}
 	#endregion
+}
+
+internal class FontWeightEnumWrapper(Avalonia.Media.FontWeight fw, string strLocalizedName)
+{
+	// ReSharper disable once InconsistentNaming
+	public Avalonia.Media.FontWeight FW
+		=> fw;
+
+	public string LocalizedName
+		=> strLocalizedName;
 }

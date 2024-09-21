@@ -1,4 +1,5 @@
 using System.Linq;
+using BestChat.IRC.Data.Defs;
 
 namespace BestChat.IRC.Views.Desktop;
 
@@ -27,15 +28,14 @@ public partial class NetMgrDlg : Avalonia.Controls.Window
 	#endregion
 
 	#region Event Handlers
-		private async void OnViewPredefinedClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-				.RoutedEventArgs args)
+		private async void OnViewPredefinedClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 			=> await new PredefinedNetViewerDlg()
 			{
-				ServerInfoCtxt = (Data.Defs.NetServerInfo.Editable)dgPredefined.SelectedItem,
+				NetCtxt = (PredefinedNet?)dgPredefined.SelectedItem ?? throw new System.InvalidProgramException("Somehow we " +
+					"let the user click view predefined even though there is no selection."),
 			}.ShowDialog(this);
 
-		private void OnAddUserNet(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			args)
+		private void OnAddUserNet(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
 			Data.Defs.UserNet unetNew = new();
 
@@ -53,8 +53,7 @@ public partial class NetMgrDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnEditUserNet(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			args)
+		private void OnEditUserNet(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
 			Data.Defs.UserNet unetWhatsBeingEdited = (Data.Defs.UserNet)dgUser.SelectedItem;
 
@@ -68,8 +67,7 @@ public partial class NetMgrDlg : Avalonia.Controls.Window
 				dlg.UserNetCtxt.Save();
 		}
 
-		private void OnDelUserNet(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			args)
+		private void OnDelUserNet(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
 		if(msgboxDelUserNetAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult
 				.Yes)

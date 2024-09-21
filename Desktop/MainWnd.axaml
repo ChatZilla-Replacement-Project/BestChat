@@ -3,7 +3,7 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:lucide="clr-namespace:LucideAvalonia;assembly=LucideAvalonia"
-				xmlns:simplecto_rtf="using:AvRichTextBox"
+				xmlns:simplectoRtf="using:AvRichTextBox"
 				mc:Ignorable="d"
 				x:Class="BestChat.Desktop.MainWnd"
 				Icon="We Chat.ico"
@@ -120,9 +120,9 @@
 														Name="chkExtendedToolBarShow">
 								<lucide:Lucide Icon="Pin"/>
 							</ToggleButton>
-							<Separator Grid.Column="1"
+							<Rectangle Grid.Column="1"
 												 Grid.Row="1"
-												 Classes="Vertical"/>
+												 Fill="Gray"/>
 							<Button Grid.Column="2"
 											Grid.Row="1" >
 								<lucide:Lucide Icon="ClipboardCopy"/>
@@ -139,9 +139,9 @@
 								Grid.Row="1">
 								<lucide:Lucide Icon="ClipboardPaste"/>
 							</Button>
-							<Separator Grid.Column="7"
+							<Rectangle Grid.Column="7"
 												 Grid.Row="1"
-												 Classes="Vertical"/>
+												 Fill="Gray"/>
 							<Button
 								Name="btnEditorBold"
 								Content="B"
@@ -214,9 +214,9 @@
 										Foreground="Brown">r</Span>
 								</TextBlock>
 							</Button>
-							<Separator Grid.Column="19"
+							<Rectangle Grid.Column="19"
 												 Grid.Row="1"
-												 Classes="Vertical"/>
+												 Fill="Gray"/>
 							<Button
 								Name="btnPasteBinText"
 								FontSize="19"
@@ -237,7 +237,7 @@
 									ColumnDefinitions="Auto,4,1*"
 									RowDefinitions="Auto,4,Auto">
 							<DropDownButton Content="Your Nick"/>
-							<simplecto_rtf:RichTextBox Grid.Column="2"/>
+							<simplectoRtf:RichTextBox Grid.Column="2"/>
 						</Grid>
 						<ContentControl/>
 					</DockPanel>

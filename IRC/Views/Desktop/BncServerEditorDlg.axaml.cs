@@ -40,7 +40,7 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BNC.ServerInfo.Editable? eserverCtxt = null;
+		private Data.Defs.BncInfoEditable? eserverCtxt = null;
 	#endregion
 
 	#region Properties
@@ -50,29 +50,29 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 
 			set
 			{
-				if(mode != value)
-				{
-					mode = value;
+				if(mode == value)
+					return;
 
-					if(eserverCtxt != null)
-						UpdateTitle();
-				}
+				mode = value;
+
+				if(eserverCtxt != null)
+					UpdateTitle();
 			}
 		}
 
-		public Data.Defs.BNC.ServerInfo.Editable? CtxtServer
+		public Data.Defs.BncInfoEditable? CtxtServer
 		{
 			get => eserverCtxt;
 
-			set
+			init
 			{
-				if(eserverCtxt != value)
-				{
-					eserverCtxt = value;
+				if(eserverCtxt == value)
+					return;
 
-					if(mode != Modes.invalid)
-						UpdateTitle();
-				}
+				eserverCtxt = value;
+
+				if(mode != Modes.invalid)
+					UpdateTitle();
 			}
 		}
 
@@ -123,14 +123,16 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			e)
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
+
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
 	#endregion
 }

@@ -23,8 +23,8 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 			Justification = "Naming convention for property declarations require a certain format even though " +
 			"these aren't properties")]
-		public static readonly Avalonia.DirectProperty<UserNetEditorDlg, Modes> ModeProperty = Avalonia
-			.AvaloniaProperty.RegisterDirect<UserNetEditorDlg, Modes>(
+		public static readonly Avalonia.DirectProperty<UserNetEditorDlg, Modes> ModeProperty = Avalonia.AvaloniaProperty
+			.RegisterDirect<UserNetEditorDlg, Modes>(
 				nameof(Mode),
 				sender
 					=> sender.Mode,
@@ -34,11 +34,21 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 			);
 
 
+		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxCancelAreYouSure =
+			MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelServerDomainAreYouSure, Rsrcs
+			.strDelServerDomainAreYouSureTitle, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question,
+			Avalonia.Controls.WindowStartupLocation.CenterOwner);
+
 		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult>
-			msgboxCancelAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
-			.strDelServerDomainAreYouSure, Rsrcs.strDelServerDomainAreYouSureTitle, MsBox.Avalonia.Enums
-			.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation
-			.CenterOwner);
+			msgboxCancelCreatingAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
+				.strCancelCreatingUserNetTitle, Rsrcs.strCancelCreatingUserNetMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo,
+				MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+
+		private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult>
+			msgboxCancelEditingAreYouSure = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs
+				.strCancelEditingUserNetTitle, Rsrcs.strCancelCreatingUserNetMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo,
+				MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+
 	#endregion
 
 	#region Helper Types
@@ -64,18 +74,19 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 				=> pwConvertThis.Val;
 		}
 
-		private class PlaceHolderPortWrapper(PlaceHolderPortWrapper.Types pwtType) : PortWrapper(pwtType switch
-			{
-				Types.letBestChatDecide
-					=> Rsrcs.strDefPortToUseForNetworks,
+		private class PlaceHolderPortWrapper(PlaceHolderPortWrapper.Types pwtType) :
+			PortWrapper(pwtType switch
+				{
+					Types.letBestChatDecide
+						=> Rsrcs.strDefPortToUseForNetworks,
 
-				Types.notListed
-					=> Rsrcs.strNetworkPortTouseNotListed,
+					Types.notListed
+						=> Rsrcs.strNetworkPortTouseNotListed,
 
-				_
-					=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Types>(pwtType,
-						"While constructing placeholder port wrapper"),
-			})
+					_
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Types>(pwtType,
+							"While constructing placeholder port wrapper"),
+				})
 		{
 			public enum Types : byte
 			{
@@ -86,28 +97,24 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 	#endregion
 
 	#region Members
-		private Data.Defs.UserNet.Editable? eunetCtxt = null;
+		private Data.Defs.UserNetEditable? eunetCtxt = null;
 
 		private Modes mode = Modes.invalid;
 
 		private ushort? usPortToUse;
 
-		private System.Collections.Generic.SortedDictionary<ushort, GeneralPortWrapper> mapNonSslPortsToWrapper
-			=
-			[];
+		private System.Collections.Generic.SortedDictionary<ushort, GeneralPortWrapper> mapNonSslPortsToWrapper = [];
 
-		private System.Collections.Generic.SortedDictionary<ushort, GeneralPortWrapper> mapSslPortsToWrapper =
-			[];
+		private System.Collections.Generic.SortedDictionary<ushort, GeneralPortWrapper> mapSslPortsToWrapper = [];
 
-		private static readonly PlaceHolderPortWrapper pwLetBestChatDecide =
-			new(PlaceHolderPortWrapper.Types.letBestChatDecide);
+		private static readonly PlaceHolderPortWrapper pwLetBestChatDecide = new(PlaceHolderPortWrapper.Types
+			.letBestChatDecide);
 
-		private static readonly PlaceHolderPortWrapper pwUnlisted = new(PlaceHolderPortWrapper
-			.Types.notListed);
+		private static readonly PlaceHolderPortWrapper pwUnlisted = new(PlaceHolderPortWrapper.Types.notListed);
 	#endregion
 
 	#region Properties
-		public Data.Defs.UserNet.Editable? UserNetCtxt
+		public Data.Defs.UserNetEditable? UserNetCtxt
 		{
 			get => eunetCtxt;
 
@@ -142,6 +149,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 				{
 					mode = value;
 
+					PropertyChanged?.Invoke(this, new(nameof(Mode)));
 				}
 			}
 		}
@@ -149,19 +157,42 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 		private System.Collections.Generic.IEnumerable<PortWrapper> PortsToShow
 			=> eunetCtxt == null
 				? [pwUnlisted]
-				: (chkUseSSL.IsChecked
+				: (chkUseSsl.IsChecked == true
 						? mapSslPortsToWrapper.Values
 						: mapNonSslPortsToWrapper.Values
-					).Append(pwLetBestChatDecide).Append(pwUnlisted);
+					).Append<PortWrapper>(pwLetBestChatDecide).Append(pwUnlisted);
 
 		private PortWrapper? CurPortToUseSel
-			=> (chkUseSsl.IsChecked
+			=> (chkUseSsl.IsChecked == true
 				? mapSslPortsToWrapper
 				: mapNonSslPortsToWrapper
-			).Values.FirstOrDefault(pwCur => pwCur == usPortToUse, null);
+			).Values.FirstOrDefault(pwCur => pwCur != null && pwCur == usPortToUse, null);
 
 		private bool DidUserRequestAnUnlistedPort
 			=> comboPortToUse.SelectedItem == pwUnlisted;
+
+		private bool IsOkToClose
+			=> (mode switch
+					{
+						Modes.invalid
+							=> throw new System.InvalidProgramException(
+								"This dialog should never have been shown with an " +
+								"invalid mode"),
+
+						Modes.create
+							=> msgboxCancelCreatingAreYouSure,
+
+						Modes.edit
+							=> msgboxCancelEditingAreYouSure,
+
+						_
+							=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Modes>(
+								mode,
+								"While handling the cancel button being clicked"),
+					}).ShowWindowDialogAsync(this)
+				.Result ==
+				MsBox.Avalonia.Enums.ButtonResult.Yes;
+
 	#endregion
 
 	#region Methods
@@ -187,7 +218,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 	#endregion
 
 	#region Event Handlers
-		private void OnAddDomain(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnAddDomain(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(eunetCtxt == null)
 				return;
@@ -202,25 +233,56 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 				eunetCtxt.AddServerDomain(dlg.ServerCtxt!);
 		}
 
-		private void OnEditDomain(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnEditDomain(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			ServerDomainEditorDlg dlg = new(true, ((Data.Defs
-				.NetServerInfo)dgServerDomains.SelectedItem).MakeEditableVersion(eunetCtxt))
-			{
-				Owner = this,
-			};
+			if(eunetCtxt == null)
+				return;
+
+			ServerDomainEditorDlg dlg = new()
+				{
+					Mode = ServerDomainEditorDlg.Modes.editingExisting,
+					ServerCtxt = ((Data.Defs.NetServerInfo)dgServerDomains.SelectedItem).MakeEditableVersion(eunetCtxt),
+				};
 
 			if(dlg.ShowDialog<bool?>(this).Result == true)
 				dlg.ServerCtxt!.Save();
 		}
 
-		private void OnDelDomain(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnDelDomain(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if(eunetCtxt != null && msgboxCancelAreYouSure.ShowWindowDialogAsync(this).Result == MsBox
-				.Avalonia.Enums.ButtonResult.Yes)
-			{
+			if(eunetCtxt != null && msgboxCancelAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
+					.ButtonResult.Yes)
 				eunetCtxt.DelServerDomain((Data.Defs.NetServerInfo)dgServerDomains.SelectedItem);
-			}
 		}
+
+		private void OnMoveDomainUp(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		{
+
+		}
+
+		private void OnMoveDomainDown(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		{
+
+		}
+
+		protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs e)
+		{
+			if(!e.IsProgrammatic && !IsOkToClose)
+				e.Cancel = true;
+
+			base.OnClosing(e);
+		}
+
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		{
+			if(IsOkToClose)
+				Close(false);
+		}
+
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(true);
+
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
 	#endregion
 }

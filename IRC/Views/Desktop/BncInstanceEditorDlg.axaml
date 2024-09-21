@@ -2,32 +2,34 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-				xmlns:Data="using:BestChat.IRC.Data.Defs"
-				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				xmlns:calc="using:CalcBinding"
+				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
 				mc:Ignorable="d"
 				x:Class="BestChat.IRC.Views.Desktop.BncInstanceEditorDlg"
 				WindowStartupLocation="CenterOwner"
-				ShowInTaskbar="False">
-	<DockPanel Padding="4">
+				ShowInTaskbar="False"
+				x:DataType="data:BncEditable">
+	<DockPanel Margin="4">
 		<StackPanel DockPanel.Dock="Bottom"
-								HorizontalContentAlignment="Right"
+								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="4">
-			<Button x:Name="btnOK"
+			<Button x:Name="btnOk"
 							ToolTip.Tip="Saves any changes you made"
 							IsEnabled="{Binding IsValid}"
-							IsVisible="{Binding IsDirty}"
+							IsVisible="{Binding WereChangedMade}"
 							Content="OK"
 							IsDefault="True"
 							Click="OnOkClicked"/>
 			<Button x:Name="btnCancel"
-							IsVisible="{Binding IsDirty}"
+							IsVisible="{Binding WereChangedMade}"
 							ToolTip.Tip="Discards any changes you made and closes the window.  If you made changes, you'll be asked to confirm that you want to discard them."
 							Content="Cancel"
 							IsCancel="True"
 							Click="OnCancelClicked"/>
 			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							IsVisible="{calc:Binding '!WereChangesMade'}"
 							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
 							IsCancel="True"
 							Click="OnCloseClicked"/>
@@ -42,14 +44,13 @@
 			</Grid.ColumnDefinitions>
 			<Label Content="Name:"/>
 			<TextBox Grid.Column="2"
-							 Text="{Binding Name}"/>
+							Text="{Binding Name}"/>
 			<Label Grid.Row="2"
-						 Content="Associated Server"/>
-			<SpecializedCtrls:BncServerSelComboBox
-				Grid.Row="2"
-				Grid.Column="2"
-				SelServer="{Binding AssignedServer, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-				AllServers="{Binding OwnerBNC.AllServersByName.Values}"/>
+						Content="Associated Server"/>
+			<specializedCtrls:BncServerSelComboBox Grid.Row="2"
+																						Grid.Column="2"
+																						SelServer="{Binding AssignedServer, Mode=TwoWay}"
+																						AllServers="{Binding OwnerBNC.AllServersByName.Values}"/>
 		</Grid>
 	</DockPanel>
 </Window>

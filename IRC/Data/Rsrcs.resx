@@ -1,574 +1,579 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    <!--
+      Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="strActionEventTypeBanOfUserDesc" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="strActionEventTypeBanOfUserDesc" xml:space="preserve">
     <value>The user {0} was banned from the channel by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced with the nick of the user that was banned.  All occurrences of "{1}" will be replaced by the nick of the user that did the banning.</comment>
+        <comment>All occurrences of "{0}" will be replaced with the nick of the user that was banned.  All occurrences of "{1}" will be replaced by the nick of the user that did the banning.</comment>
   </data>
-  <data name="strActionEventTypeChanModeAddedAndRemovedDesc" xml:space="preserve">
+    <data name="strActionEventTypeChanModeAddedAndRemovedDesc" xml:space="preserve">
     <value>The modes {0} were just added to the channel while modes {1} were removed.</value>
-    <comment>All occurrences of "{0}" will be replaced by a description of the new modes for the channel.  All occurrences of "{1}" will be replaced by a description of the modes that were removed.  In both cases, this could be a list of textual descriptions or a mode string.</comment>
+        <comment>All occurrences of "{0}" will be replaced by a description of the new modes for the channel.  All occurrences of "{1}" will be replaced by a description of the modes that were removed.  In both cases, this could be a list of textual descriptions or a mode string.</comment>
   </data>
-  <data name="strActionEventTypeChanModeAddedDesc" xml:space="preserve">
+    <data name="strActionEventTypeChanModeAddedDesc" xml:space="preserve">
     <value>The modes {0} were just added to the channel.</value>
-    <comment>All occurrences of "{0}" will be replaced by a description of the new modes.  Depending on the user preferences, this could be a list of textual descriptions of the new modes or a mode string.</comment>
+        <comment>All occurrences of "{0}" will be replaced by a description of the new modes.  Depending on the user preferences, this could be a list of textual descriptions of the new modes or a mode string.</comment>
   </data>
-  <data name="strActionEventTypeChanModeRemovedDesc" xml:space="preserve">
+    <data name="strActionEventTypeChanModeRemovedDesc" xml:space="preserve">
     <value>The modes {0} were just removed from the channel.</value>
-    <comment>All occurrences of "{0}" will be replaced by a description of the modes removed.  Depending on the user's preferences, this could be a list of textual descriptions or a mode string.</comment>
+        <comment>All occurrences of "{0}" will be replaced by a description of the modes removed.  Depending on the user's preferences, this could be a list of textual descriptions or a mode string.</comment>
   </data>
-  <data name="strActionEventTypeJoinDesc" xml:space="preserve">
+    <data name="strActionEventTypeJoinDesc" xml:space="preserve">
     <value>The user {0} has just joined the channel.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that just joined the channel.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that just joined the channel.</comment>
   </data>
-  <data name="strActionEventTypeKickOfUserDesc" xml:space="preserve">
+    <data name="strActionEventTypeKickOfUserDesc" xml:space="preserve">
     <value>The user {0} was kicked from the channel by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced with the nick of the user that was kicked.  All occurrences of "{1}" will be replaced by the nick of the user that did the kicking.</comment>
+        <comment>All occurrences of "{0}" will be replaced with the nick of the user that was kicked.  All occurrences of "{1}" will be replaced by the nick of the user that did the kicking.</comment>
   </data>
-  <data name="strActionEventTypeNickOfUserChangedDesc" xml:space="preserve">
+    <data name="strActionEventTypeNickOfUserChangedDesc" xml:space="preserve">
     <value>The user formerly known as {0} is now known as {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the old nick of the user.  All occurrences of "{1}" will be replaced by the new nick.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the old nick of the user.  All occurrences of "{1}" will be replaced by the new nick.</comment>
   </data>
-  <data name="strActionEventTypePartDesc" xml:space="preserve">
+    <data name="strActionEventTypePartDesc" xml:space="preserve">
     <value>The user {0} just left the channel.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that left the channel.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that left the channel.</comment>
   </data>
-  <data name="strActionEventTypeQuietOfUserDesc" xml:space="preserve">
+    <data name="strActionEventTypeQuietOfUserDesc" xml:space="preserve">
     <value>The user {0} was quieted in the channel by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user being quieted.  All </comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user being quieted.  All </comment>
   </data>
-  <data name="strActionEventTypeQuitDesc" xml:space="preserve">
+    <data name="strActionEventTypeQuitDesc" xml:space="preserve">
     <value>The user {0} just left the network {1} of which this channel is part of.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that just left the network.  All occurrences of "{1}" will be replaced by the network name.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that just left the network.  All occurrences of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strActionEventTypeSelfJoinDesc" xml:space="preserve">
+    <data name="strActionEventTypeSelfJoinDesc" xml:space="preserve">
     <value>YOU have joined the channel {0}.</value>
-    <comment>All instances of "{0}" will be replaced by the proper name of the channel the user joined.</comment>
+        <comment>All instances of "{0}" will be replaced by the proper name of the channel the user joined.</comment>
   </data>
-  <data name="strActionEventTypeTopicChangedDesc" xml:space="preserve">
+    <data name="strActionEventTypeTopicChangedDesc" xml:space="preserve">
     <value>The topic for {0} has been changed to “{1}” by {2} at {3}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the proper name (always with the leading #) of the channel.  All occurrences of "{1}" will be replaced with the new topic.  It's suggested you make sure the new topic is in quotes, preferably typographical quotes.  Similarly, "{2}" will be replaced by the person who set the topic and "{3}" will be the date/time the user set the topic at.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the proper name (always with the leading #) of the channel.  All occurrences of "{1}" will be replaced with the new topic.  It's suggested you make sure the new topic is in quotes, preferably typographical quotes.  Similarly, "{2}" will be replaced by the person who set the topic and "{3}" will be the date/time the user set the topic at.</comment>
   </data>
-  <data name="strActionEventTypeUnbanOfUserDesc" xml:space="preserve">
+    <data name="strActionEventTypeUnbanOfUserDesc" xml:space="preserve">
     <value>The user {0} was unbanned from the channel by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that was unbanned from the channel.  All occurrences of the "{1}" will be replaced by the nick that did the unbanning.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that was unbanned from the channel.  All occurrences of the "{1}" will be replaced by the nick that did the unbanning.</comment>
   </data>
-  <data name="strActionEventTypeUnquietOfUserDesc" xml:space="preserve">
+    <data name="strActionEventTypeUnquietOfUserDesc" xml:space="preserve">
     <value>{1} is now permitting {0} to talk again in the channel.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that was unquieted.  All occurrences of "{1}" will be replaced by the nick of the user that did the unquieting.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that was unquieted.  All occurrences of "{1}" will be replaced by the nick of the user that did the unquieting.</comment>
   </data>
-  <data name="strActionEventTypeUserDehalfOppedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserDehalfOppedDesc" xml:space="preserve">
     <value>The user {0} just revoked half-op status from the user {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user who revoked half-op status.  All occurrences of "{1}" will be replaced by the nick of the user who lost half op status.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user who revoked half-op status.  All occurrences of "{1}" will be replaced by the nick of the user who lost half op status.</comment>
   </data>
-  <data name="strActionEventTypeUserDeoppedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserDeoppedDesc" xml:space="preserve">
     <value>The user {0} just revoked op status from the user {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user that revoked the op status.  All occurrences of "{1}" will be replaced by the nick of the user who lost op status.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user that revoked the op status.  All occurrences of "{1}" will be replaced by the nick of the user who lost op status.</comment>
   </data>
-  <data name="strActionEventTypeUserDevoicedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserDevoicedDesc" xml:space="preserve">
     <value>The user {0} just lost voice in this channel.  This action was taken by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user who just lost voice.  All occurrences of "{1}" will be replaced by the nick of the user who did the devoicing.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user who just lost voice.  All occurrences of "{1}" will be replaced by the nick of the user who did the devoicing.</comment>
   </data>
-  <data name="strActionEventTypeUserHalfOppedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserHalfOppedDesc" xml:space="preserve">
     <value>The user {0} just issued half-op status to the user {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user who issued the half-op status.  All occurrences of "{1}" will be replaced by the nick of the user who received half-op status.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user who issued the half-op status.  All occurrences of "{1}" will be replaced by the nick of the user who received half-op status.</comment>
   </data>
-  <data name="strActionEventTypeUserOppedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserOppedDesc" xml:space="preserve">
     <value>The user {0} just issued op status to the user {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user who issued the op status.  All occurrences of "{1}" will be replaced by the nick of the user who received the op status.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user who issued the op status.  All occurrences of "{1}" will be replaced by the nick of the user who received the op status.</comment>
   </data>
-  <data name="strActionEventTypeUserVoicedDesc" xml:space="preserve">
+    <data name="strActionEventTypeUserVoicedDesc" xml:space="preserve">
     <value>The user {0} just gained voice in this channel.  This action was taken by {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced by the nick of the user who just gained voice.  All occurrences of "{1}" will be replaced by the nick of the user that issued the voice.</comment>
+        <comment>All occurrences of "{0}" will be replaced by the nick of the user who just gained voice.  All occurrences of "{1}" will be replaced by the nick of the user that issued the voice.</comment>
   </data>
-  <data name="strBncInstanceNameBlankFmt" xml:space="preserve">
+    <data name="strBncInstanceNameBlankFmt" xml:space="preserve">
     <value>Please enter a name for this instance.  It needs to be unique on the bouncer “{0}”.</value>
-    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+        <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
   </data>
-  <data name="strBncInstanceNameNotUniqueFmt" xml:space="preserve">
+    <data name="strBncInstanceNameNotUniqueFmt" xml:space="preserve">
     <value>You entered the name “{0}” for this bouncer instance, however, we already have an instance on “{1}” with that name.  Please choose another.</value>
-    <comment>All instances of "{0}" will be replaced by the name the user gave for the instance.  All instances of "[1}" will be replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will be replaced by the name the user gave for the instance.  All instances of "[1}" will be replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncInstanceNeeded" xml:space="preserve">
+    <data name="strBncInstanceNeeded" xml:space="preserve">
     <value>You need to create at least one instance before you can save.</value>
   </data>
-  <data name="strBncInstanceServerNeededFmt" xml:space="preserve">
+    <data name="strBncInstanceServerNeededFmt" xml:space="preserve">
     <value>Please specify a server to use for this instance of the bouncer “{0}”.</value>
-    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+        <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
   </data>
-  <data name="strBncNameBlank" xml:space="preserve">
+    <data name="strBncNameBlank" xml:space="preserve">
     <value>Please enter a name for this bouncer.</value>
   </data>
-  <data name="strBncNameTakenFmt" xml:space="preserve">
+    <data name="strBncNameTakenFmt" xml:space="preserve">
     <value>The name {0} is taken by another bouncer.  Please choose another.</value>
-    <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
+        <comment>All instances of "{0}" will be replaced the bouncer name.</comment>
   </data>
-  <data name="strBncPortNeeded" xml:space="preserve">
+    <data name="strBncPortNeeded" xml:space="preserve">
     <value>You need to specify at least one port.  It can be in either the Unencrypted Port list or the SSL Port list, but you need one.</value>
   </data>
-  <data name="strBncServerDomainBlank" xml:space="preserve">
+    <data name="strBncServerDomainBlank" xml:space="preserve">
     <value>The domain name you entered for this server is blank.  You need to enter a valid domain name that's unique in this bouncer.</value>
   </data>
-  <data name="strBncServerDomainInvalidFmt" xml:space="preserve">
+    <data name="strBncServerDomainInvalidFmt" xml:space="preserve">
     <value>The value you gave for the domain name, “{0}”, doesn't appear to be a valid domain name.  Please correct that.</value>
-    <comment>All instances of "{0}" will be replaced by the domain name as the user entered it.</comment>
+        <comment>All instances of "{0}" will be replaced by the domain name as the user entered it.</comment>
   </data>
-  <data name="strBncServerDomainNotUniqueFmt" xml:space="preserve">
+    <data name="strBncServerDomainNotUniqueFmt" xml:space="preserve">
     <value>You already created another server on the bouncer {0} with the domain name “{1}”.  Please make the domain for this server unique.</value>
-    <comment>All instances of "{0}" will be replaced by the bouncer name.  All instances of "{1}" will be replaced by the domain name as the user entered it.</comment>
+        <comment>All instances of "{0}" will be replaced by the bouncer name.  All instances of "{1}" will be replaced by the domain name as the user entered it.</comment>
   </data>
-  <data name="strBncServerNameBlank" xml:space="preserve">
+    <data name="strBncServerNameBlank" xml:space="preserve">
     <value>Please enter a valid server name that's unique</value>
   </data>
-  <data name="strBncServerNameNotUniqueFmt" xml:space="preserve">
+    <data name="strBncServerNameNotUniqueFmt" xml:space="preserve">
     <value>The server name you entered, “{0}” isn't unique.  This bouncer, “{1}”, already has a server with that name.</value>
-    <comment>All instances of "{0}" will be replaced by the server name the user entered.  All instances of "{1}" will be replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server name the user entered.  All instances of "{1}" will be replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncServerNeeded" xml:space="preserve">
+    <data name="strBncServerNeeded" xml:space="preserve">
     <value>You need to create at least one server before you can save.</value>
   </data>
-  <data name="strBoolModeStateOffDesc" xml:space="preserve">
+    <data name="strBoolModeStateOffDesc" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="strBoolModeStateOnDesc" xml:space="preserve">
+    <data name="strBoolModeStateOnDesc" xml:space="preserve">
     <value>On</value>
   </data>
-  <data name="strChanNameDescForTree" xml:space="preserve">
+    <data name="strChanNameDescForTree" xml:space="preserve">
     <value>{0} is an IRC channel on the network {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced with the proper channel name (always including the leading #).  All occurrences of "{1}" will be replaced with the name of the network.</comment>
+        <comment>All occurrences of "{0}" will be replaced with the proper channel name (always including the leading #).  All occurrences of "{1}" will be replaced with the name of the network.</comment>
   </data>
-  <data name="strChanServOptAtTheme" xml:space="preserve">
+    <data name="strChanServOptAtTheme" xml:space="preserve">
     <value>AtTheme</value>
   </data>
-  <data name="strChanServOptAtThemeToolTip" xml:space="preserve">
+    <data name="strChanServOptAtThemeToolTip" xml:space="preserve">
     <value>ChanServ is implemented by AtTheme.  Only select this if you're sure that's what they use.</value>
   </data>
-  <data name="strChanServOptNull" xml:space="preserve">
+    <data name="strChanServOptNull" xml:space="preserve">
     <value>None available</value>
   </data>
-  <data name="strChanServOptNullToolTip" xml:space="preserve">
+    <data name="strChanServOptNullToolTip" xml:space="preserve">
     <value>Select this if the network doesn't have ChanServ</value>
   </data>
-  <data name="strChanServOptUnknown" xml:space="preserve">
+    <data name="strChanServOptUnknown" xml:space="preserve">
     <value>Available, but type unknown</value>
   </data>
-  <data name="strChanServOptUnknownToolTip" xml:space="preserve">
+    <data name="strChanServOptUnknownToolTip" xml:space="preserve">
     <value>Select this if the network has a ChanServ, but you don't know much about it</value>
   </data>
-  <data name="strConversationGroupChannelsDesc" xml:space="preserve">
+    <data name="strConversationGroupChannelsDesc" xml:space="preserve">
     <value>All your channels on this IRC network are here.</value>
   </data>
-  <data name="strConversationGroupRemoteUsersDesc" xml:space="preserve">
+    <data name="strConversationGroupRemoteUsersDesc" xml:space="preserve">
     <value>Anytime you PM another user, a service, or a bot on this network, that conversation will show up here.</value>
   </data>
-  <data name="strConversationGroupTypeChannels" xml:space="preserve">
+    <data name="strConversationGroupTypeChannels" xml:space="preserve">
     <value>Channels</value>
   </data>
-  <data name="strConversationGroupTypeRemoteUsers" xml:space="preserve">
+    <data name="strConversationGroupTypeRemoteUsers" xml:space="preserve">
     <value>Users</value>
   </data>
-  <data name="strCustomBncType" xml:space="preserve">
+    <data name="strCustomBncType" xml:space="preserve">
     <value>Custom</value>
   </data>
-  <data name="strDefChanModeForwardDesc" xml:space="preserve">
+    <data name="strDefChanModeForwardDesc" xml:space="preserve">
     <value>join throttling to be sent to another channel.</value>
   </data>
-  <data name="strDefChanModeForwardDestParamDesc" xml:space="preserve">
+    <data name="strDefChanModeForwardDestParamDesc" xml:space="preserve">
     <value>Enter the name of the channel you want the forward to go to.</value>
   </data>
-  <data name="strDefChanModeForwardDetParamName" xml:space="preserve">
+    <data name="strDefChanModeForwardDetParamName" xml:space="preserve">
     <value>Destination</value>
   </data>
-  <data name="strDefChanModeInviteOnlyDesc" xml:space="preserve">
+    <data name="strDefChanModeInviteOnlyDesc" xml:space="preserve">
     <value>This mode causes the channel to be invite only.  People must get an invite via either the ChanServ/Q's invite function or the |/invite| command.</value>
-    <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
+        <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
   </data>
-  <data name="strDefChanModeKeyDesc" xml:space="preserve">
+    <data name="strDefChanModeKeyDesc" xml:space="preserve">
     <value>Setting a key requires anyone who wants to join to enter a key in order to join.</value>
   </data>
-  <data name="strDefChanModeKeyParamDesc" xml:space="preserve">
+    <data name="strDefChanModeKeyParamDesc" xml:space="preserve">
     <value>Enter the key for this channel</value>
   </data>
-  <data name="strDefChanModeKeyParamName" xml:space="preserve">
+    <data name="strDefChanModeKeyParamName" xml:space="preserve">
     <value>Key</value>
   </data>
-  <data name="strDefChanModeModDesc" xml:space="preserve">
+    <data name="strDefChanModeModDesc" xml:space="preserve">
     <value>When this mode is on, only users with op, half-op, or voice may talk in the channel.</value>
   </data>
-  <data name="strDefChanModeNoColorDesc" xml:space="preserve">
+    <data name="strDefChanModeNoColorDesc" xml:space="preserve">
     <value>This mode causes colors to be stripped</value>
   </data>
-  <data name="strDefChanModeNoExternMsgDesc" xml:space="preserve">
+    <data name="strDefChanModeNoExternMsgDesc" xml:space="preserve">
     <value>This mode prevents messages from being set from outside the channel.  When set, users or bots must be in the channel to post.</value>
   </data>
-  <data name="strDefChanModeOpsModDesc" xml:space="preserve">
+    <data name="strDefChanModeOpsModDesc" xml:space="preserve">
     <value>When this mode is set, all posts from anyone without voice or op privileges are sent to ops instead of the channel as a whole.</value>
   </data>
-  <data name="strDefChanModePrivateDesc" xml:space="preserve">
+    <data name="strDefChanModePrivateDesc" xml:space="preserve">
     <value>Private channels disable |/knock|.</value>
-    <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
+        <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
   </data>
-  <data name="strDefChanModeRegisteredUserOnlyDesc" xml:space="preserve">
+    <data name="strDefChanModeRegisteredUserOnlyDesc" xml:space="preserve">
     <value>This mode, when set, prevents users who aren't registered from joining.  If you set this, be sure to set a forwarding location with 'f'.</value>
   </data>
-  <data name="strDefChanModeSecretDesc" xml:space="preserve">
+    <data name="strDefChanModeSecretDesc" xml:space="preserve">
     <value>If this mode is set, the channel won't be listed in |/whois| or |/list|.</value>
-    <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
+        <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
   </data>
-  <data name="strDefChanModeTopicLockDesc" xml:space="preserve">
+    <data name="strDefChanModeTopicLockDesc" xml:space="preserve">
     <value>This mode prevents changes to the topic by users who aren't ops or half ops.  Note: Services like ChanServ or Q may prevent such topic changes even if this mode is off.</value>
   </data>
-  <data name="strDefUserModeInvisibleDesc" xml:space="preserve">
+    <data name="strDefUserModeInvisibleDesc" xml:space="preserve">
     <value>Designates this client as “invisible”.</value>
   </data>
-  <data name="strDefUserModeIrcOpDesc" xml:space="preserve">
+    <data name="strDefUserModeIrcOpDesc" xml:space="preserve">
     <value>Designates the user as a IRC operator.  Use |/oper| to obtain this.</value>
-    <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
+        <comment>Note: The text in pipes will be formatted at runtime as fixed with.  Also, don't translate text in pipes as they're always special.</comment>
   </data>
-  <data name="strDefUserModeMsgRestrictDesc" xml:space="preserve">
+    <data name="strDefUserModeMsgRestrictDesc" xml:space="preserve">
     <value>Prevents users not in your |/accept| list from messaging you and inviting you to channels</value>
   </data>
-  <data name="strDefUserModeMsgRestrictSoftDesc" xml:space="preserve">
+    <data name="strDefUserModeMsgRestrictSoftDesc" xml:space="preserve">
     <value>Prevent users not on your |/accept| list and not in a channel with you from messaging you or inviting you to channels.  This is a softer form of +g.</value>
   </data>
-  <data name="strDefUserModeRestrictMsgUnidentUsersDesc" xml:space="preserve">
+    <data name="strDefUserModeRestrictMsgUnidentUsersDesc" xml:space="preserve">
     <value>Prevents unidentified users that you haven't accepted from messaging you.</value>
   </data>
-  <data name="strDefUserModeWallopsDesc" xml:space="preserve">
+    <data name="strDefUserModeWallopsDesc" xml:space="preserve">
     <value>Can see wallops</value>
   </data>
-  <data name="strHasAlisFalse" xml:space="preserve">
+    <data name="strHasAlisFalse" xml:space="preserve">
     <value>False / Not Available</value>
   </data>
-  <data name="strHasAlisFalseToolTip" xml:space="preserve">
+    <data name="strHasAlisFalseToolTip" xml:space="preserve">
     <value>No ALIS is present on this network</value>
   </data>
-  <data name="strHasAlisTrue" xml:space="preserve">
+    <data name="strHasAlisTrue" xml:space="preserve">
     <value>True / Available</value>
   </data>
-  <data name="strHasAlisTrueToolTip" xml:space="preserve">
+    <data name="strHasAlisTrueToolTip" xml:space="preserve">
     <value>ALIS is available and ready to use.</value>
   </data>
-  <data name="strHasAlisUnknown" xml:space="preserve">
+    <data name="strHasAlisUnknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
-  <data name="strHasAlisUnknownToolTip" xml:space="preserve">
+    <data name="strHasAlisUnknownToolTip" xml:space="preserve">
     <value>ALIS may or may not be present</value>
   </data>
-  <data name="strHasQFalse" xml:space="preserve">
+    <data name="strHasQFalse" xml:space="preserve">
     <value>False / Not Available</value>
   </data>
-  <data name="strHasQFalseToolTip" xml:space="preserve">
+    <data name="strHasQFalseToolTip" xml:space="preserve">
     <value>No Q present on this network.  Q is really only QuakeNet.</value>
   </data>
-  <data name="strHasQTrue" xml:space="preserve">
+    <data name="strHasQTrue" xml:space="preserve">
     <value>True / Available</value>
   </data>
-  <data name="strHasQTrueToolTip" xml:space="preserve">
+    <data name="strHasQTrueToolTip" xml:space="preserve">
     <value>Q is present</value>
   </data>
-  <data name="strHasQUnknown" xml:space="preserve">
+    <data name="strHasQUnknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
-  <data name="strHasQUnknownToolTip" xml:space="preserve">
+    <data name="strHasQUnknownToolTip" xml:space="preserve">
     <value>Q might or might not be present on this network</value>
   </data>
-  <data name="strIrcLongDesc" xml:space="preserve">
+    <data name="strIrcLongDesc" xml:space="preserve">
     <value>Holds preferences for the Internet Relay Chat protocol.  Items under here are the network you've connected to in the past.  These settings don't include how to connect to those networks or how to log into it.  For those, see the network list editor.</value>
   </data>
-  <data name="strIrcName" xml:space="preserve">
+    <data name="strIrcName" xml:space="preserve">
     <value>IRC</value>
   </data>
-  <data name="strLogInModeChallengeText" xml:space="preserve">
+    <data name="strLogInModeChallengeText" xml:space="preserve">
     <value>Challenge (User Name &amp; Password)</value>
   </data>
-  <data name="strLogInModeChallengeToolTip" xml:space="preserve">
+    <data name="strLogInModeChallengeToolTip" xml:space="preserve">
     <value>The server will for your log in information.  If you fail to provide it in time, you won't get in.</value>
   </data>
-  <data name="strLogInModeCustomText" xml:space="preserve">
+    <data name="strLogInModeCustomText" xml:space="preserve">
     <value>Custom / Manual</value>
   </data>
-  <data name="strLogInModeCustomToolTip" xml:space="preserve">
+    <data name="strLogInModeCustomToolTip" xml:space="preserve">
     <value>If you select this option, you'll need to enter one or more commands that will be sent to the server prior to connection.  Conceivably, some of these commands might ask the user for information.</value>
   </data>
-  <data name="strLogInModeDefText" xml:space="preserve">
+    <data name="strLogInModeDefText" xml:space="preserve">
     <value>Default </value>
   </data>
-  <data name="strLogInModeDefToolTip" xml:space="preserve">
+    <data name="strLogInModeDefToolTip" xml:space="preserve">
     <value>TODO: What does this mean?</value>
   </data>
-  <data name="strLogInModeNickServMsgText" xml:space="preserve">
+    <data name="strLogInModeNickServMsgText" xml:space="preserve">
     <value>NickServ (via /msg NickServ)</value>
   </data>
-  <data name="strLogInModeNickServMsgToolTip" xml:space="preserve">
+    <data name="strLogInModeNickServMsgToolTip" xml:space="preserve">
     <value>You'll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won't work if NickServ isn't present.  This option is provided as a few networks don't define the /ns or /nickserv commands.</value>
   </data>
-  <data name="strLogInModeNickServNsText" xml:space="preserve">
+    <data name="strLogInModeNickServNsText" xml:space="preserve">
     <value>NickServ (via /ns)</value>
   </data>
-  <data name="strLogInModeNickServNsToolTip" xml:space="preserve">
+    <data name="strLogInModeNickServNsToolTip" xml:space="preserve">
     <value>You'll need to specify your NickServ user name and password.  However, if you have a cloak on this network, you will appear briefly without it.  This is only for networks with a NickServ.  This option won't work if NickServ isn't present.  This option requires a network defines the /ns command.</value>
   </data>
-  <data name="strLogInModeNoneText" xml:space="preserve">
+    <data name="strLogInModeNoneText" xml:space="preserve">
     <value>Don't attempt to log in</value>
   </data>
-  <data name="strLogInModeNoneToolTip" xml:space="preserve">
+    <data name="strLogInModeNoneToolTip" xml:space="preserve">
     <value>Disables all attempts by Best Chat to log you in.</value>
   </data>
-  <data name="strLogInModeSaslCertText" xml:space="preserve">
+    <data name="strLogInModeSaslCertText" xml:space="preserve">
     <value>SASL (Certificate)</value>
   </data>
-  <data name="strLogInModeSaslCertToolTip" xml:space="preserve">
+    <data name="strLogInModeSaslCertToolTip" xml:space="preserve">
     <value>This option only requires a certificate file you'll need to locate for Best Chat.</value>
   </data>
-  <data name="strLogInModeSaslUserNamePwdText" xml:space="preserve">
+    <data name="strLogInModeSaslUserNamePwdText" xml:space="preserve">
     <value>Use SASL (User Name &amp; Password)</value>
   </data>
-  <data name="strLogInModeSaslUserNamePwdToolTip" xml:space="preserve">
+    <data name="strLogInModeSaslUserNamePwdToolTip" xml:space="preserve">
     <value>This option requires you to specify your user name and password.  If a NickServ is preset, the user name and password may come from your NickServ account.</value>
   </data>
-  <data name="strLogInModeServerPwdText" xml:space="preserve">
+    <data name="strLogInModeServerPwdText" xml:space="preserve">
     <value>Server Password</value>
   </data>
-  <data name="strLogInModeServerPwdToolTip" xml:space="preserve">
+    <data name="strLogInModeServerPwdToolTip" xml:space="preserve">
     <value>Use if the server only asks for a simple password.</value>
   </data>
-  <data name="strLogInModeUseQText" xml:space="preserve">
+    <data name="strLogInModeUseQText" xml:space="preserve">
     <value>Use Q</value>
   </data>
-  <data name="strLogInModeUseQToolTip" xml:space="preserve">
+    <data name="strLogInModeUseQToolTip" xml:space="preserve">
     <value>Q exists only, that we know of, on QuakeNet.  So you will probably never need to select this if it isn't selected.  For Quake, you only have two choices: Don't log in and Q.  Don't pick other options as they might not work.</value>
   </data>
-  <data name="strManual" xml:space="preserve">
+    <data name="strManual" xml:space="preserve">
     <value>Log in manually</value>
   </data>
-  <data name="strModulePublisher" xml:space="preserve">
+    <data name="strModulePublisher" xml:space="preserve">
     <value>ChatZilla Replacement Project</value>
   </data>
-  <data name="strModuleTitle" xml:space="preserve">
+    <data name="strModuleTitle" xml:space="preserve">
     <value>IRC</value>
   </data>
-  <data name="strNetworkInfoTypeCustom" xml:space="preserve">
+    <data name="strNetworkInfoTypeCustom" xml:space="preserve">
     <value>Custom/User defined</value>
-    <comment>A network created by the user and not based on another network.</comment>
+        <comment>A network created by the user and not based on another network.</comment>
   </data>
-  <data name="strNetworkInfoTypeCustomToolTipText" xml:space="preserve">
+    <data name="strNetworkInfoTypeCustomToolTipText" xml:space="preserve">
     <value>A network created by the user and not based on another network.</value>
   </data>
-  <data name="strNetworkInfoTypeHidden" xml:space="preserve">
+    <data name="strNetworkInfoTypeHidden" xml:space="preserve">
     <value>Hidden</value>
-    <comment>A network provided by Best Chat, but the user has chosen to hide the network from views</comment>
+        <comment>A network provided by Best Chat, but the user has chosen to hide the network from views</comment>
   </data>
-  <data name="strNetworkInfoTypeHiddenToolTipText" xml:space="preserve">
+    <data name="strNetworkInfoTypeHiddenToolTipText" xml:space="preserve">
     <value>A network provided by Best Chat, but the user has chosen to hide the network from views</value>
   </data>
-  <data name="strNetworkInfoTypeModified" xml:space="preserve">
+    <data name="strNetworkInfoTypeModified" xml:space="preserve">
     <value>Modified</value>
-    <comment>A network whose information was originally provided by Best Chat, but the user has made changes.</comment>
+        <comment>A network whose information was originally provided by Best Chat, but the user has made changes.</comment>
   </data>
-  <data name="strNetworkInfoTypeModifiedToolTipText" xml:space="preserve">
+    <data name="strNetworkInfoTypeModifiedToolTipText" xml:space="preserve">
     <value>A network whose information was originally provided by Best Chat, but the user has made changes.</value>
   </data>
-  <data name="strNetworkInfoTypePredefined" xml:space="preserve">
+    <data name="strNetworkInfoTypePredefined" xml:space="preserve">
     <value>Predefined</value>
-    <comment>A network whose information is provided by Best Chat and hasn't been changed.</comment>
+        <comment>A network whose information is provided by Best Chat and hasn't been changed.</comment>
   </data>
-  <data name="strNetworkInfoTypePredefinedToolTipText" xml:space="preserve">
+    <data name="strNetworkInfoTypePredefinedToolTipText" xml:space="preserve">
     <value>A network whose information is provided by Best Chat and hasn't been changed.</value>
   </data>
-  <data name="strNetworkNameDescForTree" xml:space="preserve">
+    <data name="strNetworkNameDescForTree" xml:space="preserve">
     <value>Every channel join and user (or service/bot) you talk in the network “{0}” will be listed here.</value>
-    <comment>All occurrences of "{0}" will be replaced with the network name.</comment>
+        <comment>All occurrences of "{0}" will be replaced with the network name.</comment>
   </data>
-  <data name="strNickServ" xml:space="preserve">
+    <data name="strNickServ" xml:space="preserve">
     <value>Attempt to use NickServ (Requires a network that provides NickServ)</value>
   </data>
-  <data name="strNickServOptAtTheme" xml:space="preserve">
+    <data name="strNickServOptAtTheme" xml:space="preserve">
     <value>AtTheme</value>
   </data>
-  <data name="strNickServOptAtThemeToolTip" xml:space="preserve">
+    <data name="strNickServOptAtThemeToolTip" xml:space="preserve">
     <value>NickServ is implemented by AtTheme.  Only select this if you're sure that's what they use.</value>
   </data>
-  <data name="strNickServOptNull" xml:space="preserve">
+    <data name="strNickServOptNull" xml:space="preserve">
     <value>None available</value>
   </data>
-  <data name="strNickServOptNullToolTip" xml:space="preserve">
+    <data name="strNickServOptNullToolTip" xml:space="preserve">
     <value>Select this if the network doesn't have NickServ</value>
   </data>
-  <data name="strNickServOptUnknown" xml:space="preserve">
+    <data name="strNickServOptUnknown" xml:space="preserve">
     <value>Available, but type unknown</value>
   </data>
-  <data name="strNickServOptUnknownToolTip" xml:space="preserve">
+    <data name="strNickServOptUnknownToolTip" xml:space="preserve">
     <value>Select this if the network has a NickServ, but you don't know much about it</value>
   </data>
-  <data name="strNoticeEventTypeConnectionAttemptInProgressDesc" xml:space="preserve">
+    <data name="strNoticeEventTypeConnectionAttemptInProgressDesc" xml:space="preserve">
     <value>Attempting to connect to {0}.</value>
-    <comment>All instances of "{0}" will be replaced by the name of the network we're connecting to.</comment>
+        <comment>All instances of "{0}" will be replaced by the name of the network we're connecting to.</comment>
   </data>
-  <data name="strNoticeEventTypeInfoName" xml:space="preserve">
+    <data name="strNoticeEventTypeInfoName" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="strOneChannel" xml:space="preserve">
+    <data name="strOneChannel" xml:space="preserve">
     <value>Channel</value>
   </data>
-  <data name="strOneRemoteUser" xml:space="preserve">
+    <data name="strOneRemoteUser" xml:space="preserve">
     <value>Remote User</value>
   </data>
-  <data name="strPostActionMeDesc" xml:space="preserve">
+    <data name="strPostActionMeDesc" xml:space="preserve">
     <value>me</value>
   </data>
-  <data name="strPostActionSayDesc" xml:space="preserve">
+    <data name="strPostActionSayDesc" xml:space="preserve">
     <value>say</value>
   </data>
-  <data name="strPredefinedBncType" xml:space="preserve">
+    <data name="strPredefinedBncType" xml:space="preserve">
     <value>Predefined</value>
   </data>
-  <data name="strPredefinedButModifiedBncType" xml:space="preserve">
+    <data name="strPredefinedButModifiedBncType" xml:space="preserve">
     <value>Predefined but modified</value>
   </data>
-  <data name="strPrefsForNetwork" xml:space="preserve">
+    <data name="strPrefsForNetwork" xml:space="preserve">
     <value>Here you'll find all preferences for this “{0}”. Items under here are for channels and users you've talked with directly.</value>
-    <comment>All instances of "{0}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the network name.</comment>
   </data>
-  <data name="strRemoteUserDescForTree" xml:space="preserve">
+    <data name="strRemoteUserDescForTree" xml:space="preserve">
     <value>{0} is a remote user on the IRC network {1}.</value>
-    <comment>All occurrences of "{0}" will be replaced with the current nick of the user on the other end of this conversation.  All occurrences of {1} will be replaced with the name of the network.</comment>
+        <comment>All occurrences of "{0}" will be replaced with the current nick of the user on the other end of this conversation.  All occurrences of {1} will be replaced with the name of the network.</comment>
   </data>
-  <data name="strServerInvalidWithOutAtLeastOnePort" xml:space="preserve">
+    <data name="strServerInvalidWithOutAtLeastOnePort" xml:space="preserve">
     <value>You need to specify at least one port.  It can be an SSL port or a non-SSL port, but you must specify one.</value>
   </data>
-  <data name="strServerInvalidWithOutDomain" xml:space="preserve">
+    <data name="strServerInvalidWithOutDomain" xml:space="preserve">
     <value>Please specify a domain name.</value>
   </data>
-  <data name="strThreeWayModeStateForcedOff" xml:space="preserve">
+    <data name="strThreeWayModeStateForcedOff" xml:space="preserve">
     <value>ChanServ is preventing this mode from being set.</value>
   </data>
-  <data name="strThreeWayModeStateLockedOnDesc" xml:space="preserve">
+    <data name="strThreeWayModeStateLockedOnDesc" xml:space="preserve">
     <value>ChanServ is ensuring this mode is set</value>
   </data>
-  <data name="strThreeWayModeStateNoPrefDesc" xml:space="preserve">
+    <data name="strThreeWayModeStateNoPrefDesc" xml:space="preserve">
     <value>ChanServ isn't controlling this mode</value>
   </data>
-  <data name="strUserNetNameBlank" xml:space="preserve">
+    <data name="strUserNetNameBlank" xml:space="preserve">
     <value>Please enter a name for this network.</value>
   </data>
-  <data name="strUserNetNameTaken" xml:space="preserve">
+    <data name="strUserNetNameTaken" xml:space="preserve">
     <value>The name you entered for this network isn't unique.  Please choose another.</value>
   </data>
 </root>

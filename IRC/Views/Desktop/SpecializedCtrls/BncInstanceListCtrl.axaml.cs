@@ -19,15 +19,15 @@ public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
 		#pragma warning disable IDE1006 // Naming Styles
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 				Justification = "Due to naming standards that are inherited")]
-			public static readonly Avalonia.DirectProperty<BncInstanceListCtrl, Data.Defs.BNC.Editable?>
-					CtxtBNCProperty = Avalonia.AvaloniaProperty.RegisterDirect<BncInstanceListCtrl, Data.Defs.BNC
-					.Editable?>(
-				nameof(CtxtBNC),
-				ctrl
-					=> ctrl.CtxtBNC,
-				(ctrl, bncNewVal)
-					=> ctrl.CtxtBNC = bncNewVal,
-				null);
+			public static readonly Avalonia.DirectProperty<BncInstanceListCtrl, Data.Defs.BncEditable?> CtxtBNCProperty =
+				Avalonia.AvaloniaProperty.RegisterDirect<BncInstanceListCtrl, Data.Defs.BncEditable?>(
+					nameof(CtxtBNC),
+					ctrl
+						=> ctrl.CtxtBNC,
+					(ctrl, bncNewVal)
+						=> ctrl.CtxtBNC = bncNewVal,
+					null
+				);
 		#pragma warning restore IDE1006 // Naming Styles
 	#endregion
 
@@ -35,11 +35,11 @@ public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
 	#endregion
 
 	#region Members
-		private Data.Defs.BNC.Editable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt = null;
 	#endregion
 
 	#region Properties
-		public Data.Defs.BNC.Editable? CtxtBNC
+		public Data.Defs.BncEditable? CtxtBNC
 		{
 			get => ebncCtxt;
 
@@ -58,22 +58,19 @@ public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
 	#endregion
 
 	#region Event Handlers
-		private void OnAddInstanceClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnAddInstanceClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(ebncCtxt != null)
 			{
-				
+
 			}
 		}
 
-		private void OnEditInstanceClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditInstanceClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 		}
 
-		private void OnDelInstanceClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelInstanceClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 		}
 	#endregion

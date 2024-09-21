@@ -233,7 +233,7 @@ public class Chan : AbstractConversation, Platform.DataAndExt.TreeData.IItemInfo
 				{
 					string strOldTopic = strTopic;
 
-					strTopic = value;
+					strTopic = value ?? "";
 
 					FireTopicChanged(strOldTopic);
 

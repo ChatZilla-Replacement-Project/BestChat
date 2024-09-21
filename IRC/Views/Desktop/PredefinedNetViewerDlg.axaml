@@ -3,21 +3,18 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
+				x:DataType="data:PredefinedNet"
 				mc:Ignorable="d"
 				x:Class="BestChat.IRC.Views.Desktop.PredefinedNetViewerDlg"
-				WindowStyle="SingleBorderWindow"
 				SizeToContent="WidthAndHeight"
 				WindowStartupLocation="CenterOwner"
 				Focusable="True"
 				ShowActivated="True">
 	<DockPanel>
-		<Grid DockPanel.Dock="Bottom"
-					ColumnDefinitions="1*"
-					RowDefintions="Auto">
-			<Button Grid.Column="1"
+			<Button DockPanel.Dock="Bottom"
+							HorizontalAlignment="Right"
 							Content="Close"
-							Clicked="OnCloseClicked"/>
-		</Grid>
+							Click="OnCloseClicked"/>
 		<Separator
 			DockPanel.Dock="Bottom"
 			VerticalAlignment="Center"
@@ -41,20 +38,19 @@
 				Grid.Column="2"
 				BorderThickness="0"
 				Background="Transparent"
-				ToolTip="Click to visit this page."
+				ToolTip.Tip="Click to visit this page."
 				Click="OnVisitHomepageClicked"
 				Cursor="Hand"
 				Padding="4"
 				HorizontalAlignment="Left">
-				<Hyperlink
-					NavigateUri="{Binding Homepage}"
+				<HyperlinkButton
+					NavigateUri="{Binding HomePage}"
 					IsEnabled="True"
 					Foreground="Blue"
-					TextDecorations="Underline"
 					Focusable="True">
 					<TextBlock
-						Text="{Binding Homepage}" />
-				</Hyperlink>
+						Text="{Binding HomePage}" />
+				</HyperlinkButton>
 			</Button>
 			<Label
 				Content="NickServ availability: "
@@ -88,10 +84,10 @@
 				Grid.Row="10"
 				HorizontalContentAlignment="Right" />
 			<Label
-				Content="{Binding HasQAsText}"
+				Content="{Binding QStatusAsText}"
 				Grid.Row="10"
 				Grid.Column="2"
-				ToolTip.Tip="{Binding HasQToolTip}" />
+				ToolTip.Tip="{Binding QStatusToolTip}" />
 		</Grid>
 		<Rectangle DockPanel.Dock="Left"
 							 Fill="Gray"
@@ -102,16 +98,12 @@
 			HorizontalAlignment="Center"
 			Content="Known Servers:" />
 		<DataGrid
-			CanUserAddRows="False"
-			CanUserDeleteRows="False"
-			CanUserResizeRows="False"
-			SelectionUnit="FullRow"
-			AlternatingRowBackground="LightGray"
-			GridLineVisibility="Vertical"
-			ItemsSource="{Binding AllUnsortedServers}"
-			AutoGeneratingColumn="OnServerListAutoGeneratingColumns">
-			<DataGrid.Columns
-				d:DataContext="{d:DesignInstance Type=Data:ServerInfo}">
+			CanUserReorderColumns="False"
+			CanUserResizeColumns="False"
+			CanUserSortColumns="False"
+			GridLinesVisibility="Vertical"
+			ItemsSource="{Binding AllUnsortedServers}">
+			<DataGrid.Columns>
 				<DataGridTextColumn
 					Header="Domain Name"
 					IsReadOnly="True"

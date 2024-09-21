@@ -1,32 +1,32 @@
 ﻿using System.Linq;
 
-namespace BestChat.IRC.Data.Defs
+namespace BestChat.IRC.Data.Defs;
+
+public class BncEditable : BNC
 {
-	public class BncEditable : BNC
-	{
-		#region Constructors & Deconstructors
+	#region Constructors & Deconstructors
 		public BncEditable(in BNC bncOriginal) :
 			base(bncOriginal)
 			=> this.bncOriginal = bncOriginal;
-		#endregion
+	#endregion
 
-		#region Delegates
-		#endregion
+	#region Delegates
+	#endregion
 
-		#region Events
-		#endregion
+	#region Events
+	#endregion
 
-		#region Constants
-		#endregion
+	#region Constants
+	#endregion
 
-		#region Helper Types
-		#endregion
+	#region Helper Types
+	#endregion
 
-		#region Members
+	#region Members
 		public readonly BNC bncOriginal;
-		#endregion
+	#endregion
 
-		#region Properties
+	#region Properties
 		public bool WereChangedMade
 		{
 			get;
@@ -70,12 +70,12 @@ namespace BestChat.IRC.Data.Defs
 
 			protected set
 			{
-				if(base.HomeNet != value)
-				{
-					base.HomeNet = value;
+				if(base.HomeNet == value)
+					return;
 
-					WereChangedMade = true;
-				}
+				base.HomeNet = value;
+
+				WereChangedMade = true;
 			}
 		}
 
@@ -85,12 +85,12 @@ namespace BestChat.IRC.Data.Defs
 
 			protected set
 			{
-				if(base.HomeChan != value)
-				{
-					base.HomeChan = value;
+				if(base.HomeChan == value)
+					return;
 
-					WereChangedMade = true;
-				}
+				base.HomeChan = value;
+
+				WereChangedMade = true;
 			}
 		}
 
@@ -100,12 +100,12 @@ namespace BestChat.IRC.Data.Defs
 
 			set
 			{
-				if(base.OwnBot != value)
-				{
-					base.OwnBot = value;
+				if(base.OwnBot == value)
+					return;
 
-					WereChangedMade = true;
-				}
+				base.OwnBot = value;
+
+				WereChangedMade = true;
 			}
 		}
 
@@ -118,17 +118,17 @@ namespace BestChat.IRC.Data.Defs
 
 			set
 			{
-				if(base.MaxNetworksPerBouncerInstance != value)
-				{
-					base.MaxNetworksPerBouncerInstance = value;
+				if(base.MaxNetworksPerBouncerInstance == value)
+					return;
 
-					WereChangedMade = true;
-				}
+				base.MaxNetworksPerBouncerInstance = value;
+
+				WereChangedMade = true;
 			}
 		}
-		#endregion
+	#endregion
 
-		#region Methods
+	#region Methods
 		public new void AddAllowedNetwork(string strNewAllowedNetwork)
 		{
 			base.AddAllowedNetwork(strNewAllowedNetwork);
@@ -173,204 +173,150 @@ namespace BestChat.IRC.Data.Defs
 
 		public new void AddServer(BncServerInfo serverNew)
 		{
-			if(!AllServersByName.ContainsKey(serverNew.Name))
-			{
-				base.AddServer(serverNew);
+			if(AllServersByName.ContainsKey(serverNew.Name))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.AddServer(serverNew);
+
+			WereChangedMade = true;
 		}
 
 		public new void RemoveServer(string strNameOfServerToRemove)
 		{
-			if(AllServersByName.ContainsKey(strNameOfServerToRemove))
-			{
-				base.RemoveServer(strNameOfServerToRemove);
+			if(!AllServersByName.ContainsKey(strNameOfServerToRemove))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemoveServer(strNameOfServerToRemove);
+
+			WereChangedMade = true;
 		}
 
 		public new void RemoveServer(BncServerInfo serverBeingRemoved)
 		{
-			if(AllServersByName.ContainsKey(serverBeingRemoved.Name))
-			{
-				base.RemoveServer(serverBeingRemoved);
+			if(!AllServersByName.ContainsKey(serverBeingRemoved.Name))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemoveServer(serverBeingRemoved);
+
+			WereChangedMade = true;
 		}
 
 		public new void ClearServers()
 		{
-			if(AllServersByName.Count > 0)
-			{
-				base.ClearServers();
+			if(AllServersByName.Count <= 0)
+				return;
 
-				WereChangedMade = true;
-			}
+			base.ClearServers();
+
+			WereChangedMade = true;
 		}
 
-		public new void AddInstance(Instance instanceNew)
+		public new void AddInstance(BncInstance instanceNew)
 		{
-			if(!AllInstancesByName.ContainsKey(instanceNew.Name))
-			{
-				base.AddInstance(instanceNew);
+			if(AllInstancesByName.ContainsKey(instanceNew.Name))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.AddInstance(instanceNew);
+
+			WereChangedMade = true;
 		}
 
 		public new void RemoveInstance(string strNameOfInstanceToRemove)
 		{
-			if(AllInstancesByName.ContainsKey(strNameOfInstanceToRemove))
-			{
-				base.RemoveInstance(strNameOfInstanceToRemove);
+			if(!AllInstancesByName.ContainsKey(strNameOfInstanceToRemove))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemoveInstance(strNameOfInstanceToRemove);
+
+			WereChangedMade = true;
 		}
 
-		public new void RemoveInstance(Instance instanceToRemove)
+		public new void RemoveInstance(BncInstance instanceToRemove)
 		{
-			if(AllInstancesByName.ContainsKey(instanceToRemove.Name))
-			{
-				base.RemoveInstance(instanceToRemove);
+			if(!AllInstancesByName.ContainsKey(instanceToRemove.Name))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemoveInstance(instanceToRemove);
+
+			WereChangedMade = true;
 		}
 
 		public new void ClearInstances()
 		{
-			if(AllInstancesByName.Count > 0)
-			{
-				base.ClearInstances();
+			if(AllInstancesByName.Count <= 0)
+				return;
 
-				WereChangedMade = true;
-			}
+			base.ClearInstances();
+
+			WereChangedMade = true;
 		}
 
 		public new void AddPort(ushort usNewPort)
 		{
-			if(!AllPorts.Contains(usNewPort))
-			{
-				bncOriginal.AddPort(usNewPort);
+			if(AllPorts.Contains(usNewPort))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.AddPort(usNewPort);
+
+			WereChangedMade = true;
 		}
 
 		public new void RemovePort(ushort usPortToRemove)
 		{
-			if(AllPorts.Contains(usPortToRemove))
-			{
-				bncOriginal.RemovePort(usPortToRemove);
+			if(!AllPorts.Contains(usPortToRemove))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemovePort(usPortToRemove);
+
+			WereChangedMade = true;
 		}
 
 		public new void ClearPorts()
 		{
-			if(AllPorts.Count > 0)
-			{
-				bncOriginal.ClearPorts();
+			if(AllPorts.Count <= 0)
+				return;
 
-				WereChangedMade = true;
-			}
+			base.ClearPorts();
+
+			WereChangedMade = true;
 		}
 
 		public new void AddSslPort(ushort usNewSslPort)
 		{
-			if(!AllSslPorts.Contains(usNewSslPort))
-			{
-				bncOriginal.AddSslPort(usNewSslPort);
+			if(AllSslPorts.Contains(usNewSslPort))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.AddSslPort(usNewSslPort);
+
+			WereChangedMade = true;
 		}
 
 		public new void RemoveSslPort(ushort usSslPortToRemove)
 		{
-			if(AllSslPorts.Contains(usSslPortToRemove))
-			{
-				bncOriginal.RemoveSslPort(usSslPortToRemove);
+			if(!AllSslPorts.Contains(usSslPortToRemove))
+				return;
 
-				WereChangedMade = true;
-			}
+			base.RemoveSslPort(usSslPortToRemove);
+
+			WereChangedMade = true;
 		}
 
 		public new void ClearSslPorts()
 		{
-			if(AllSslPorts.Count > 0)
-			{
-				bncOriginal.ClearSslPorts();
+			if(AllSslPorts.Count <= 0)
+				return;
 
-				WereChangedMade = true;
-			}
+			base.ClearSslPorts();
+
+			WereChangedMade = true;
 		}
 
 		public void Save()
-		{
-			bncOriginal.Name = Name;
-			bncOriginal.HomePage = HomePage;
-			bncOriginal.HomeNet = HomeNet;
-			bncOriginal.HomeChan = HomeChan;
-			bncOriginal.OwnBot = OwnBot;
-			bncOriginal.MaxNetworksPerBouncerInstance = MaxNetworksPerBouncerInstance;
+			=> bncOriginal.SaveFrom(this);
 
-			if(!AllowedNets.SetEquals(bncOriginal.AllowedNets))
-			{
-				bncOriginal.ClearAllowedNetworks();
-
-				foreach(string strCurAllowedNetwork in AllowedNets)
-					bncOriginal.AddAllowedNetwork(strCurAllowedNetwork);
-			}
-
-			if(!ProhibitedNets.SetEquals(bncOriginal.ProhibitedNets))
-			{
-				bncOriginal.ClearProhibitedNetworks();
-
-				foreach(string strCurProhibitedNetwork in ProhibitedNets)
-					bncOriginal.AddProhibitedNetwork(strCurProhibitedNetwork);
-			}
-
-			if(!AllServersByName.Values.ToHashSet().SetEquals(bncOriginal.AllServersByName.Values))
-			{
-				bncOriginal.ClearServers();
-
-				foreach(BncServerInfo serverCur in AllServersByName.Values)
-					bncOriginal.AddServer(serverCur);
-			}
-
-			if(!AllInstancesByName.Values.ToHashSet().SetEquals(bncOriginal.AllInstancesByName.Values))
-			{
-				bncOriginal.ClearInstances();
-
-				foreach(Instance instanceCur in AllInstancesByName.Values)
-					bncOriginal.AddInstance(instanceCur);
-			}
-
-			if(!AllPorts.SetEquals(bncOriginal.AllPorts))
-			{
-				bncOriginal.ClearPorts();
-
-				foreach(ushort usCurPort in AllPorts)
-					bncOriginal.AddPort(usCurPort);
-			}
-
-			if(!AllSslPorts.SetEquals(bncOriginal.AllSslPorts))
-			{
-				bncOriginal.ClearSslPorts();
-
-				foreach(ushort usCurSslPort in AllSslPorts)
-					bncOriginal.AddSslPort(usCurSslPort);
-			}
-		}
 		#endregion
 
 		#region Event Handlers
+
 		#endregion
-	}
 }

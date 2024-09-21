@@ -1,3 +1,5 @@
+using BestChat.IRC.Data.Defs;
+
 namespace BestChat.IRC.Views.Desktop;
 
 using Platform.DataAndExt.Ext;
@@ -41,7 +43,7 @@ public partial class BncInstanceEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BNC.Instance.Editable? einstanceCtxt = null;
+		private BncInstanceEditable? einstanceCtxt = null;
 	#endregion
 
 	#region Properties
@@ -61,7 +63,7 @@ public partial class BncInstanceEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		public Data.Defs.BNC.Instance.Editable? CtxtBNC
+		public BncInstanceEditable? CtxtBNC
 		{
 			get => einstanceCtxt;
 
@@ -122,14 +124,17 @@ public partial class BncInstanceEditorDlg : Avalonia.Controls.Window
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs
 			e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
+
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
 	#endregion
 }

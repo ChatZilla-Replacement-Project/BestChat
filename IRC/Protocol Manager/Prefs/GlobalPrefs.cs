@@ -82,7 +82,7 @@ public class GlobalPrefs : Data.Prefs.Prefs<GlobalPrefs, DTO.GlobalDTO>.GlobalPr
 				public enum MarkerTypes : byte
 				{
 					[Platform.DataAndExt.Attr.LocalizedDesc(nameof(Rsrcs.strFmtMarkerTypeTraditional),
-						"Traditional", nameof(Rsrcs.strFmtMarkerTypeTraditonalToolTip), 
+						"Traditional", nameof(Rsrcs.strFmtMarkerTypeTraditonalToolTip),
 						"When you use the UI to select formatting other than color, Best Chat will " +
 						"insert into the text ASCII formatting marks.  So if you want \"text\" in bold and use the UI "
 						+ "rather than typing, you'll get \"*text*\".", typeof(FmtPrefs))]
@@ -168,10 +168,10 @@ public class GlobalPrefs : Data.Prefs.Prefs<GlobalPrefs, DTO.GlobalDTO>.GlobalPr
 				AutoPerform.ToDTO(),
 				DCC.ToDTO(),
 				Conn.ToDTO(),
+				fmt.ToDTO(),
 				Aliases.ToDTO(),
 				AltNicks.ToDTO(),
-				StalkWords.ToDTO(),
-				fmt.ToDTO()
+				StalkWords.ToDTO()
 			);
 	#endregion
 

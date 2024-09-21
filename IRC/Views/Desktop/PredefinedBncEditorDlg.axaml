@@ -2,41 +2,41 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-				xmlns:group="using:GroupBox.Avalonia.Controls"
-				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
-				xmlns:Data="using:BestChat.IRC.Data.Defs"
-				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
-				x:DataType="Data:BNC"
-				d:DataContext="{d:DesignInstance Type=Data:BNC}"
+				xmlns:calc="using:CalcBinding"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				x:DataType="data:BNC"
+				d:DataContext="{d:DesignInstance Type=data:BNC}"
 				mc:Ignorable="d"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False"
 				CanResize="False"
 				x:Class="BestChat.IRC.Views.Desktop.PredefinedBncEditorDlg">
-	<Window.Title>
-		<TextBlock>You're viewing the predefined bouncer <Span><Run Text="{Binding Name}"/>.</Span>
-	</TextBlock>
-	</Window.Title>
-	<DockPanel Padding="4">
-		<StackPanel DockPanel.Dock="Right"
-								VerticalContentAlignment="Middle"
-								Orientation="Vertical"
+	<DockPanel Margin="4">
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
 								Spacing="4">
-			<Button x:Name="btnAddSslPort"
-							ToolTip.Tip="Click to add a new SSL port to this list"
-							Content="Add…"
-							Click="OnAddSslPortClicked"/>
-			<Button x:Name="btnEditSslPort"
-							ToolTip.Tip="Click to change the selected SSL port"
-							IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
-							Content="Edit…"
-							Click="OnEditSslPortClicked"/>
-			<Button x:Name="btnDelSslPort"
-							ToolTip.Tip="Delete the selected SSL port"
-							IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
-							Content="Delete"
-							Click="OnDelSslPortClicked"/>
+			<Button x:Name="btnOk"
+							ToolTip.Tip="Saves any changes you made"
+							IsEnabled="{Binding IsValid}"
+							IsVisible="{Binding IsDirty}"
+							Content="OK"
+							IsDefault="True"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding IsDirty}"
+							ToolTip.Tip="Discards any changes you made and closes the window.  If you made changes, you'll be asked to confirm that you want to discard them."
+							Content="Cancel"
+							IsCancel="True"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !IsDirty}"
+							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
+							IsCancel="True"
+							Click="OnCloseClicked"/>
 		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"/>
 		<Grid ColumnDefinitions="Auto,4,Auto"
 					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
 			<Label Content="Name:"/>
@@ -47,8 +47,8 @@
 			<HyperlinkButton Grid.Row="2"
 											 Grid.Column="2"
 											 ToolTip.Tip="Clicking will cause Best Chat to open the URL shown in your default browser"
-											 NavigateURI="{Binding Homepage}"
-											 Content="{Binding Homepage}"/>
+											 NavigateUri="{Binding HomePage}"
+											 Content="{Binding HomePage}"/>
 			<Label Grid.Row="4"
 						 Content="Allowed Networks:"/>
 			<ItemsRepeater Grid.Row="4"
@@ -88,7 +88,7 @@
 			<DataGrid Grid.Row="12"
 								Grid.Column="2"
 								IsReadOnly="True"
-								ItemsSource="{Binding AllServersByNameAsText}"
+								ItemsSource="{Binding AllServersByName.Values}"
 								CanUserReorderColumns="False"
 								CanUserResizeColumns="True"
 								CanUserSortColumns="True"
@@ -96,7 +96,6 @@
 								HorizontalScrollBarVisibility="Hidden"
 								SelectionMode="Extended"
 								AutoGenerateColumns="False"
-								SelectionUnit="FullRow"
 								HeadersVisibility="Column">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name"
@@ -137,8 +136,6 @@
 						 Grid.Column="2"
 						 Content="{Binding MaxNetworksPerBouncerInstance}"/>
 		</Grid>
-		<SpecializedCtrls:BncInstanceListCtrl Grid.Row="20"
-																					Grid.ColumnSpan="3"
-																					CtxtBNC="{Binding}"/>
+		<specializedCtrls:BncInstanceListCtrl CtxtBNC="{Binding}"/>
 	</DockPanel>
 </Window>

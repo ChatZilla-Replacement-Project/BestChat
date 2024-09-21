@@ -11,6 +11,7 @@ public abstract class AbstractConversation : Platform.DataAndExt.Conversations.A
 	{
 		get => null;
 
+		[ System.Diagnostics.CodeAnalysis.SuppressMessage("ReSharper", "ValueParameterNotUsed") ]
 		set
 		{
 		}

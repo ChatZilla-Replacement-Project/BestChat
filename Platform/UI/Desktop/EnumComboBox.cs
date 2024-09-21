@@ -73,15 +73,20 @@ public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Methods
-		private static void GetEnumDesc(in object objEnumVal, out string strDesc, out string strExtendedDesc)
+	// ReSharper disable once InconsistentNaming
+	// ReSharper disable once InconsistentNaming
+	// ReSharper disable once InconsistentNaming
+	private static void GetEnumDesc(in object objEnumVal, out string strDesc, out string strExtendedDesc)
 		{
+			// ReSharper disable once InconsistentNaming
 			string strEnumValAsStr = objEnumVal.ToString() ?? throw new System.InvalidProgramException("Unexpected "
 				+ "null");
 			System.Reflection.FieldInfo? fieldInfo = objEnumVal.GetType().GetField(strEnumValAsStr) ?? throw new System
-				.InvalidProgramException(
-				$"Can't find field on instance of type {typeof(EnumType).FullName} for {strEnumValAsStr}");
+				.InvalidProgramException($"Can't find field on instance of type {typeof(EnumType).FullName} for {
+					strEnumValAsStr}");
 
-			object[] attribArray = fieldInfo.GetCustomAttributes(typeof(DataAndExt.Attr.LocalizedDescAttribute), false);
+			object[] attribArray = fieldInfo.GetCustomAttributes(typeof(DataAndExt.Attr.LocalizedDescAttribute),
+				false);
 
 			if(attribArray.Length == 0)
 			{

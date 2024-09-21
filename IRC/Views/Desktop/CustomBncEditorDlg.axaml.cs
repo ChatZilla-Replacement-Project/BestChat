@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace BestChat.IRC.Views.Desktop;
 
 using DocumentFormat.OpenXml.Bibliography;
@@ -71,7 +73,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BNC.Editable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt = null;
 	#endregion
 
 	#region Properties
@@ -81,6 +83,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 
 			set
 			{
+				// ReSharper disable once InvertIf
 				if(mode != value)
 				{
 					mode = value;
@@ -91,7 +94,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		public Data.Defs.BNC.Editable? CtxtBNC
+		public Data.Defs.BncEditable? CtxtBNC
 		{
 			get => ebncCtxt;
 
@@ -144,24 +147,18 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 	#endregion
 
 	#region Event Handlers
-		private void OnUserWantsToVisitBncHomePage(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnUserWantsToVisitBncHomePage(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			using(System.Diagnostics.Process process = new System.Diagnostics.Process()
-			{
-				StartInfo = new System.Diagnostics.ProcessStartInfo()
+			using System.Diagnostics.Process process = new System.Diagnostics.Process();
+			process.StartInfo = new System.Diagnostics.ProcessStartInfo()
 				{
 					UseShellExecute = true,
 					FileName = ebncCtxt!.HomePage!.AbsolutePath,
-				}
-			})
-			{
-				process.Start();
-			}
+				};
+			process.Start();
 		}
 
-		private void OnAddAllowedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnAddAllowedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			BncNetworkSelectionDlg dlg = new()
 			{
@@ -174,9 +171,11 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				ebncCtxt!.AddAllowedNetwork(dlg.CurVal);
 		}
 
-		private void OnEditAllowedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditAllowedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbAllowedNets.SelectedItem == null)
+				return;
+
 			BncNetworkSelectionDlg dlg = new()
 			{
 				CtxtBNC = ebncCtxt,
@@ -185,6 +184,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				StartingVal = (string)lbAllowedNets.SelectedItem,
 			};
 
+			// ReSharper disable once InvertIf
 			if(dlg.ShowDialog<bool?>(this).Result == true)
 			{
 				ebncCtxt!.RemoveAllowedNetwork(dlg.StartingVal);
@@ -192,17 +192,21 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnDelAllowedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelAllowedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if(msgboxDelAllowedNetAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
-					.ButtonResult.Yes)
-				foreach(string strCurAllowedNetToRemove in lbAllowedNets.SelectedItems.Cast<string>())
-					ebncCtxt!.RemoveAllowedNetwork(strCurAllowedNetToRemove);
+			if(lbAllowedNets.SelectedItems == null || lbAllowedNets.SelectedItems.Count == 0)
+				return;
+
+			if(msgboxDelAllowedNetAreYouSure.ShowWindowDialogAsync(this)
+					.Result != MsBox.Avalonia.Enums.ButtonResult.Yes)
+				return;
+
+			// ReSharper disable once InconsistentNaming
+			foreach(string strCurAllowedNetToRemove in lbAllowedNets.SelectedItems.Cast<string>())
+				ebncCtxt!.RemoveAllowedNetwork(strCurAllowedNetToRemove);
 		}
 
-		private void OnAddProhibitedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnAddProhibitedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			BncNetworkSelectionDlg dlg = new()
 			{
@@ -217,9 +221,11 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnEditProhibitedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditProhibitedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbProhibitedNets.SelectedItem == null)
+				return;
+
 			BncNetworkSelectionDlg dlg = new()
 			{
 				CtxtBNC = ebncCtxt,
@@ -228,6 +234,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				StartingVal = (string)lbProhibitedNets.SelectedItem,
 			};
 
+			// ReSharper disable once InvertIf
 			if(dlg.ShowDialog<bool?>(this).Result == true && dlg.CurVal != dlg.StartingVal)
 			{
 				ebncCtxt!.RemoveAllowedNetwork(dlg.StartingVal);
@@ -235,27 +242,30 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnDelProbibitedNetClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelProbibitedNetClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbProhibitedNets.SelectedItems == null || lbProhibitedNets.SelectedItems.Count == 0)
+				return;
+
+			// ReSharper disable once InvertIf
 			if(msgboxDelProhibitedNetAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
 					.ButtonResult.Yes)
 				foreach(string strCurProhibitedNetToRemove in lbProhibitedNets.SelectedItems.Cast<string>())
 					ebncCtxt!.RemoveProhibitedNetwork(strCurProhibitedNetToRemove);
 		}
 
-		private void OnAddServerClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnAddServerClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(ebncCtxt == null)
 				return;
 
 			BncServerEditorDlg dlg = new()
 			{
-				CtxtServer = new Data.Defs.BNC.ServerInfo(ebncCtxt).MakeEditable(ebncCtxt),
+				CtxtServer = new Data.Defs.BncServerInfo(ebncCtxt).MakeEditable(ebncCtxt),
 				Mode = BncServerEditorDlg.Modes.create,
 			};
 
+			// ReSharper disable once InvertIf
 			if(dlg.ShowDialog<bool?>(this).Result == true)
 			{
 				dlg.CtxtServer.Save();
@@ -264,13 +274,12 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnEditServerClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditServerClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(ebncCtxt == null)
 				return;
 
-			Data.Defs.BNC.ServerInfo serverToEdit = (Data.Defs.BNC.ServerInfo)dgAllServers.SelectedItem;
+			Data.Defs.BncServerInfo serverToEdit = (Data.Defs.BncServerInfo)dgAllServers.SelectedItem;
 
 			BncServerEditorDlg dlg = new()
 			{
@@ -282,17 +291,18 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				dlg.CtxtServer.Save();
 		}
 
-		private void OnDelServerClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelServerClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if(msgboxDelServerAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult
-					.Yes)
+			// ReSharper disable once InvertIf
+			if(msgboxDelServerAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
+				// ReSharper disable once InconsistentNaming
+			{
 				foreach(string strCurServerToRemove in dgAllServers.SelectedItems.Cast<string>())
 					ebncCtxt!.RemoveServer(strCurServerToRemove);
+			}
 		}
 
-		private async void OnAddUnencryptedPortClicked(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs e)
+		private async void OnAddUnencryptedPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			ushort? usNextAvailablePort = ebncCtxt!.NextAvailablePort;
 
@@ -314,9 +324,11 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				ebncCtxt.AddPort(dlg.CurPort);
 		}
 
-		private void OnEditUnencryptedPortClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditUnencryptedPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbAllUnencryptedPorts.SelectedItem is null)
+				return;
+
 			ushort usExistingPort = (ushort)lbAllUnencryptedPorts.SelectedItem;
 
 			PortEditorDlg dlg = new()
@@ -333,17 +345,19 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnDelUnencryptedPortClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelUnencryptedPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbAllUnencryptedPorts.SelectedItems is null || lbAllUnencryptedPorts.SelectedItems.Count == 0)
+				return;
+
+			// ReSharper disable once InvertIf
 			if(msgboxDelUnencryptedPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
 					.ButtonResult.Yes)
 				foreach(ushort usCurPortToRemove in lbAllUnencryptedPorts.SelectedItems)
 					ebncCtxt!.RemovePort(usCurPortToRemove);
 		}
 
-		private async void OnAddSslPortClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private async void OnAddSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			ushort? usNextAvailablePort = ebncCtxt!.NextAvailablePort;
 
@@ -365,9 +379,11 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 				ebncCtxt.AddSslPort(dlg.CurPort);
 		}
 
-		private void OnEditSslPortClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnEditSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
+			if(lbAllSslPorts.SelectedItem is null)
+				return;
+
 			ushort usExistingPort = (ushort)lbAllSslPorts.SelectedItem;
 
 			PortEditorDlg dlg = new()
@@ -384,13 +400,20 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		private void OnDelSslPortClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnDelSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if(msgboxDelSslPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
-					.ButtonResult.Yes)
+			if(lbAllSslPorts.SelectedItems is null || lbAllSslPorts.SelectedItems.Count == 0)
+				return;
+
+			// ReSharper disable once InvertIf
+			if(msgboxDelSslPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
 				foreach(ushort usCurPortToRemove in lbAllSslPorts.SelectedItems)
 					ebncCtxt!.RemoveSslPort(usCurPortToRemove);
+		}
+
+		private void OnTechSupportChanLinkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+		{
+			// TODO: Find a way to open the link
 		}
 
 		protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs e)
@@ -401,14 +424,16 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			e)
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
+
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
 	#endregion
 }

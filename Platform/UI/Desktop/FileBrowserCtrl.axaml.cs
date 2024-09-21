@@ -17,15 +17,17 @@ public partial class FileBrowserCtrl : Avalonia.Controls.UserControl, System.Com
 
 		public event System.Action<FileBrowserCtrl, System.IO.FileInfo?, System.IO.FileInfo>? evtLocSpecifiedChanged;
 	#endregion
-	
+
 	#region Constants
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification
 			= "Due to naming standards that are inherited")]
+		// ReSharper disable once InconsistentNaming
 		public static readonly Avalonia.DirectProperty<FileBrowserCtrl, string> DlgTitleProperty = Avalonia
 			.AvaloniaProperty.RegisterDirect<FileBrowserCtrl, string>(
 				nameof(DlgTitle),
 				sender
 					=> sender.DlgTitle,
+				// ReSharper disable once InconsistentNaming
 				(sender, strNewDlgTitle)
 					=> sender.DlgTitle = strNewDlgTitle,
 				Rsrcs.strDefFileBrowserTitle
@@ -57,11 +59,10 @@ public partial class FileBrowserCtrl : Avalonia.Controls.UserControl, System.Com
 	#endregion
 
 	#region Event Handlers
-		private async void OnBrowseBtnClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private async void OnBrowseBtnClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Avalonia.Controls.TopLevel? tp = Avalonia.Controls.TopLevel.GetTopLevel(this);
-		
+
 			if(tp != null)
 			{
 				System.Collections.Generic.IReadOnlyList<Avalonia.Platform.Storage.IStorageFile> files = await tp

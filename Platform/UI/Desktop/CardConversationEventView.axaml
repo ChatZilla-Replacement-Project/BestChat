@@ -4,7 +4,6 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:BestChat.Platform.UI.Desktop"
 	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
 	xmlns:sys="using:System"
 	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
@@ -39,7 +38,7 @@
 					Grid.Column="1">
 			<TextBlock
 				x:Name="textDescOfEvent"
-				Text="{ReflectionBinding DescOfEvent}" />
+				Text="{ReflectionBinding DescForEvt}" />
 			<Label
 				Content="{Binding WhenItHappened}"
 				Grid.Row="1"

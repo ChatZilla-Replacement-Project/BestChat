@@ -1,9 +1,9 @@
 ﻿namespace BestChat.IRC.Data.Defs;
 
-public class BncServerInstance : Platform.DataAndExt.Obj<BncServerInstance>
+public class BncInstance : Platform.DataAndExt.Obj<BncInstance>
 {
 	#region Constructors & Deconstructors
-		public BncServerInstance(BncServerInstance instanceCopyThis)
+		public BncInstance(BncInstance instanceCopyThis)
 		{
 			bncOwner = instanceCopyThis.bncOwner;
 
@@ -11,7 +11,7 @@ public class BncServerInstance : Platform.DataAndExt.Obj<BncServerInstance>
 			serverAssigned = instanceCopyThis.AssignedServer;
 		}
 
-		public BncServerInstance(BNC bncOwner, DTO.UserBncDTO.InstanceDTO dinstance)
+		public BncInstance(BNC bncOwner, DTO.UserBncDTO.InstanceDTO dinstance)
 		{
 			this.bncOwner = bncOwner;
 
@@ -83,7 +83,7 @@ public class BncServerInstance : Platform.DataAndExt.Obj<BncServerInstance>
 					throw new System.InvalidOperationException($"Can't find the server {value.Name} on the BNC {
 						bncOwner.Name}");
 
-				BncServerInfo serverOldAssigned = serverAssigned;
+				BncServerInfo? serverOldAssigned = serverAssigned;
 
 				serverAssigned = value;
 
@@ -112,10 +112,10 @@ public class BncServerInstance : Platform.DataAndExt.Obj<BncServerInstance>
 		public DTO.UserBncDTO.InstanceDTO ToDTO()
 			=> new(strName, serverAssigned!.Name);
 
-		public BncServerInstanceEditable MakeEditable()
+		public BncInstanceEditable MakeEditable()
 			=> new(this);
 
-		public void SaveFrom(BncServerInstanceEditable einstance)
+		public void SaveFrom(BncInstanceEditable einstance)
 		{
 			if(einstance.HasErrors)
 				throw new System.InvalidProgramException("We can't save until the errors are resolved");

@@ -4,37 +4,35 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
 				xmlns:group="using:GroupBox.Avalonia.Controls"
-				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:NetServerInfoEditable"
 				mc:Ignorable="d"
 				x:Class="BestChat.IRC.Views.Desktop.ServerDomainEditorDlg"
 				WindowStartupLocation="CenterScreen"
 				SizeToContent="WidthAndHeight"
-				ResizeMode="NoResize"
+				CanResize="False"
 				ShowInTaskbar="False">
-	<Window.Title>
-		<TextBlock></TextBlock>
-	</Window.Title>
 	<DockPanel>
 		<StackPanel DockPanel.Dock="Bottom"
-								HorizontalContentAlignment="Right"
+								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="4">
 			<Button
-				x:Name="btnOK"
-				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				x:Name="btnOk"
+				IsVisible="{Binding WereChangesMade}"
 				ToolTip.Tip="Saves your changes"
 				IsDefault="True"
 				Content="OK"
 				Click="OnOkClicked"/>
 			<Button
 				x:Name="btnCancel"
-				IsVisible="{Binding IsDirty, NotifyOnSourceUpdated}"
+				IsVisible="{Binding WereChangesMade}"
 				ToolTip.Tip="Discards your changes if you've made any.  If you have made changes, you'll be asked if you're sure."
 				IsCancel="True"
 				Content="Cancel"
 				Click="OnCancelClicked"/>
 			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							IsVisible="{calc:Binding '!WereChangesMade'}"
 							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
 							IsCancel="True"
 							Click="OnCloseClicked"/>
@@ -49,25 +47,25 @@
 			<TextBox
 				x:Name="editDomainName"
 				Grid.Column="2"
-				IsVisible="{calc:Binding !ModeIsEdit, ElementName=window}"
+				IsVisible="{calc:Binding '!IsModeEdit', RelativeSource={RelativeSource AncestorType=Window}}"
 				Text="{Binding Domain}" />
 			<Label
 				Grid.Column="2"
 				Grid.Row="2"
-				IsVisible="{Binding ModeIsEdit, ElementName=window}"
+				IsVisible="{Binding IsModeEdit, RelativeSource={RelativeSource AncestorType=Window}}"
 				Content="{Binding Domain}"/>
 			<CheckBox
 				x:Name="chkEnabled"
 				Grid.Row="4"
 				Grid.ColumnSpan="3"
 				Content="Enable this server"
-				IsChecked="{Binding IsEnabled, NotifyOnSourceUpdated=True}" />
+				IsChecked="{Binding IsEnabled}" />
 			<group:GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
 											Header="_Unencrypted Ports">
 				<DockPanel>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Center"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button
@@ -88,7 +86,7 @@
 										 Width="2"/>
 					<ListBox
 						x:Name="lbKnownUnencryptedPorts"
-						ItemsSource="{Binding Ports, NotifyOnSourceUpdated=True}" />
+						ItemsSource="{Binding Ports}" />
 				</DockPanel>
 			</group:GroupBox>
 			<group:GroupBox Grid.Row="6"
@@ -96,7 +94,7 @@
 											Header="SSL Ports">
 				<DockPanel>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Center"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button
@@ -117,7 +115,7 @@
 										 Width="2"/>
 					<ListBox
 						x:Name="lbKnownSslPorts"
-						ItemsSource="{Binding Ports, NotifyOnSourceUpdated=True}" />
+						ItemsSource="{Binding Ports}" />
 				</DockPanel>
 			</group:GroupBox>
 		</Grid>

@@ -3,23 +3,24 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				mc:Ignorable="d"
-				xmlns:Data="using:BestChat.IRC.Data.Defs"
-				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
-				x:DataType="Data:BNC"
-				d:DataContext="{d:DesignInstance Type=Data:BNC}"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:BncInfoEditable"
+				d:DataContext="{d:DesignInstance Type=data:BNC}"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False"
 				CanResize="False"
 				x:Class="BestChat.IRC.Views.Desktop.BncServerEditorDlg">
-	<DockPanel Padding="4">
+	<DockPanel Margin="4">
 		<StackPanel DockPanel.Dock="Bottom"
-								HorizontalContentAlignment="Right"
+								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="4">
-			<Button x:Name="btnOK"
+			<Button x:Name="btnOk"
 							ToolTip.Tip="Saves any changes you made"
 							IsEnabled="{Binding IsValid}"
-							IsVisible="{Binding IsDirty}"
+							IsVisible="{Binding WereChangesMade}"
 							Content="OK"
 							IsDefault="True"
 							Click="OnOkClicked"/>
@@ -30,7 +31,7 @@
 							IsCancel="True"
 							Click="OnCancelClicked"/>
 			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							IsVisible="{calc:Binding !IsDirty}"
 							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
 							IsCancel="True"
 							Click="OnCloseClicked"/>
@@ -39,12 +40,12 @@
 							 TextWrapping="Wrap"
 							 Text="The main thing here is the name and domain both need to be unique.  The domain also needs to look like a domain name."/>
 		<Grid RowDefinitions="Auto,4,Auto">
-			<Grid.ColumnDefintions>
-				<ColumnDefintion Width="Auto"/>
-				<ColumnDefintion Width="4"/>
-				<ColumnDefintion Width="Auto"
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="4"/>
+				<ColumnDefinition Width="Auto"
 												 MinWidth="200"/>
-			</Grid.ColumnDefintions>
+			</Grid.ColumnDefinitions>
 			<Label Content="Name:"/>
 			<TextBox Grid.Column="2"
 							 Text="{Binding Name}"/>

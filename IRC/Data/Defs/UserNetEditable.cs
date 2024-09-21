@@ -1,24 +1,24 @@
 ﻿using System.Linq;
 
-namespace BestChat.IRC.Data.Defs
+namespace BestChat.IRC.Data.Defs;
+
+public class UserNetEditable : UserNet, System.ComponentModel.INotifyDataErrorInfo
 {
-	public class UserNetEditable : UserNet, System.ComponentModel.INotifyDataErrorInfo
-	{
-		#region Constructors & Deconstructors
+	#region Constructors & Deconstructors
 		public UserNetEditable(UserNet unetOriginal) :
 			base(unetOriginal)
 			=> this.unetOriginal = unetOriginal;
-		#endregion
+	#endregion
 
-		#region Events
+	#region Events
 		public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
-		#endregion
+	#endregion
 
-		#region Members
+	#region Members
 		public readonly UserNet unetOriginal;
-		#endregion
+	#endregion
 
-		#region Properties
+	#region Properties
 		public new string Name
 		{
 			get => base.Name;
@@ -45,13 +45,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new NickServOpts? NickServ
 		{
-			get => unetOriginal.NickServ;
+			get => base.NickServ;
 
 			set
 			{
-				if(unetOriginal.NickServ != value)
+				// ReSharper disable once InvertIf
+				if(base.NickServ != value)
 				{
-					unetOriginal.NickServ = value;
+					base.NickServ = value;
 
 					WereChangesMade = true;
 				}
@@ -60,13 +61,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new ChanServOpts? ChanServ
 		{
-			get => unetOriginal.ChanServ;
+			get => base.ChanServ;
 
 			set
 			{
+				// ReSharper disable once InvertIf
 				if(unetOriginal.ChanServ != value)
 				{
-					unetOriginal.ChanServ = value;
+					base.ChanServ = value;
 
 					WereChangesMade = true;
 				}
@@ -75,13 +77,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new AlisOpts AlisStatus
 		{
-			get => unetOriginal.AlisStatus;
+			get => base.AlisStatus;
 
 			set
 			{
-				if(unetOriginal.AlisStatus != value)
+				// ReSharper disable once InvertIf
+				if(base.AlisStatus != value)
 				{
-					unetOriginal.AlisStatus = value;
+					base.AlisStatus = value;
 
 					WereChangesMade = true;
 				}
@@ -90,13 +93,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new QOpts QStatus
 		{
-			get => unetOriginal.QStatus;
+			get => base.QStatus;
 
 			set
 			{
-				if(unetOriginal.QStatus != value)
+				// ReSharper disable once InvertIf
+				if(base.QStatus != value)
 				{
-					unetOriginal.QStatus = value;
+					base.QStatus = value;
 
 					WereChangesMade = true;
 				}
@@ -105,13 +109,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new LogInModes LogInMode
 		{
-			get => unetOriginal.LogInMode;
+			get => base.LogInMode;
 
 			set
 			{
+				// ReSharper disable once InvertIf
 				if(unetOriginal.LogInMode != value)
 				{
-					unetOriginal.LogInMode = value;
+					base.LogInMode = value;
 
 					WereChangesMade = true;
 				}
@@ -120,13 +125,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new string? LogInChallengeUserName
 		{
-			get => unetOriginal.LogInChallengeUserName;
+			get => base.LogInChallengeUserName;
 
 			set
 			{
-				if(unetOriginal.LogInChallengeUserName != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInChallengeUserName != value)
 				{
-					unetOriginal.LogInChallengeUserName = value;
+					base.LogInChallengeUserName = value;
 
 					WereChangesMade = true;
 				}
@@ -135,13 +141,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new string? LogInChallengeBncName
 		{
-			get => unetOriginal.LogInChallengeBncName;
+			get => base.LogInChallengeBncName;
 
 			set
 			{
-				if(unetOriginal.LogInChallengeBncName != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInChallengeBncName != value)
 				{
-					unetOriginal.LogInChallengeBncName = value;
+					base.LogInChallengeBncName = value;
 
 					WereChangesMade = true;
 				}
@@ -150,13 +157,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new string? LogInChallengePwd
 		{
-			get => unetOriginal.LogInChallengePwd;
+			get => base.LogInChallengePwd;
 
 			set
 			{
-				if(unetOriginal.LogInChallengePwd != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInChallengePwd != value)
 				{
-					unetOriginal.LogInChallengePwd = value;
+					base.LogInChallengePwd = value;
 
 					WereChangesMade = true;
 				}
@@ -165,13 +173,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new string? LogInUserName
 		{
-			get => unetOriginal.LogInUserName;
+			get => base.LogInUserName;
 
 			set
 			{
-				if(unetOriginal.LogInUserName != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInUserName != value)
 				{
-					unetOriginal.LogInUserName = value;
+					base.LogInUserName = value;
 
 					WereChangesMade = true;
 				}
@@ -180,13 +189,14 @@ namespace BestChat.IRC.Data.Defs
 
 		public new string? LogInPwd
 		{
-			get => unetOriginal.LogInPwd;
+			get => base.LogInPwd;
 
 			set
 			{
-				if(unetOriginal.LogInPwd != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInPwd != value)
 				{
-					unetOriginal.LogInPwd = value;
+					base.LogInPwd = value;
 
 					WereChangesMade = true;
 				}
@@ -195,21 +205,19 @@ namespace BestChat.IRC.Data.Defs
 
 		public new System.IO.FileInfo? LogInSaslCert
 		{
-			get => unetOriginal.LogInSaslCert;
+			get => base.LogInSaslCert;
 
 			set
 			{
-				if(unetOriginal.LogInSaslCert != value)
+				// ReSharper disable once InvertIf
+				if(base.LogInSaslCert != value)
 				{
-					unetOriginal.LogInSaslCert = value;
+					base.LogInSaslCert = value;
 
 					WereChangesMade = true;
 				}
 			}
 		}
-
-		public override bool IsServerListDefaulted
-			=> unetOriginal.IsServerListDefaulted;
 
 		public bool WereChangesMade
 		{
@@ -219,55 +227,15 @@ namespace BestChat.IRC.Data.Defs
 		}
 
 		public bool HasErrors
-			=> Name == "" || UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] !=
-				unetOriginal;
-		#endregion
+			=> Name == "" || UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] != unetOriginal;
 
-		#region Methods
+		public bool IsValid
+			=> !HasErrors;
+	#endregion
+
+	#region Methods
 		public void Save()
-		{
-			if(IsDirty)
-			{
-				if(unetOriginal.netPredefinedParent == null)
-				{
-					unetOriginal.Name = Name;
-					unetOriginal.HomePage = HomePage;
-				}
-
-				if(AllUnsortedServers.Any((NetServerInfo serverCur)
-																		=> serverCur.IsDirty))
-				{
-					unetOriginal.ClearServerDomainList();
-
-					foreach(NetServerInfo serverCur in AllUnsortedServers)
-						unetOriginal.AddServerDomain(serverCur);
-				}
-
-				unetOriginal.AutoConnect = AutoConnect;
-				unetOriginal.IsHidden = IsHidden;
-				unetOriginal.UseSSL = UseSSL;
-				unetOriginal.PortToUse= usPortToUse;
-				unetOriginal.LogInMode = logInMode;
-				if(IsLogInChallengeTextValid)
-				{
-					unetOriginal.LogInChallengeUserName = strLogInChallengeUserName;
-					unetOriginal.LogInChallengeBncName = strLogInChallengeBncName;
-					unetOriginal.LogInChallengePwd = strLogInChallengePwd;
-				}
-				if(IsLogInUserNameValid)
-					unetOriginal.LogInUserName = strLogInUserName;
-				if(IsLogInPwdValid)
-					unetOriginal.LogInPwd = strLogInPwd;
-				if(IsLogInCustomStepsValid)
-				{
-					unetOriginal.ClearCustomLogInSteps();
-					foreach(string strCurCustomLogInStep in ocLogInCustomSteps)
-						unetOriginal.AddLogInCustomStep(strCurCustomLogInStep);
-				}
-				if(IsLogInSaslCertValid)
-					unetOriginal.LogInSaslCert = fileLogInSaslCert;
-			}
-		}
+			=> unetOriginal.SaveFrom(this);
 
 		public NetServerInfoEditable GetBlankNewServerDomain()
 			=> new NetServerInfo(this).MakeEditableVersion(this);
@@ -309,7 +277,7 @@ namespace BestChat.IRC.Data.Defs
 
 		public new void ResetServerDomainList()
 		{
-			unetOriginal.ResetServerDomainList();
+			base.ResetServerDomainList();
 
 			WereChangesMade = true;
 		}
@@ -358,10 +326,15 @@ namespace BestChat.IRC.Data.Defs
 
 		public System.Collections.IEnumerable GetErrors(string? strPropToGetErrorsFor)
 			=> Name == ""
-				? (new string[]{Rsrcs.strUserNetNameBlank})
-				: UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] != unetOriginal
-					? (new string[]{Rsrcs.strUserNetNameTaken })
-					: (System.Collections.IEnumerable)System.Array.Empty<string>();
-		#endregion
-	}
+				?(new string[]
+					{
+						Rsrcs.strUserNetNameBlank
+					})
+				:UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] != unetOriginal
+					?(new string[]
+						{
+							Rsrcs.strUserNetNameTaken
+						})
+					:(System.Collections.IEnumerable)System.Array.Empty<string>();
+	#endregion
 }

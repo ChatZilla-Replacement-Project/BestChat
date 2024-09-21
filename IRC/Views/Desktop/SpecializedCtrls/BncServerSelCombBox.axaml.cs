@@ -7,17 +7,16 @@ namespace BestChat.IRC.Views.Desktop.SpecializedCtrls;
 public partial class BncServerSelCombBox : Avalonia.Controls.ComboBox
 {
 	#region Constructors & Deconstructors
-	public BncServerSelCombBox()
-		=> InitializeComponet();
+		public BncServerSelCombBox()
+			=> InitializeComponent();
 	#endregion
 
 	#region Constants
 		#pragma warning disable IDE1006 // Naming Styles
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 				Justification = "Due to naming standards that are inherited")]
-			public static readonly Avalonia.DirectProperty<BncServerSelCombBox, Data.Defs.BNC.ServerInfo?>
-					SelServerProperty = Avalonia.AvaloniaProperty.RegisterDirect<BncServerSelCombBox, Data.Defs.BNC
-					.ServerInfo?>(
+			public static readonly Avalonia.DirectProperty<BncServerSelCombBox, Data.Defs.BncServerInfo?>
+					SelServerProperty = Avalonia.AvaloniaProperty.RegisterDirect<BncServerSelCombBox, Data.Defs.BncServerInfo?>(
 				nameof(SelServer),
 				comboSender
 					=> comboSender.SelServer,
@@ -29,30 +28,29 @@ public partial class BncServerSelCombBox : Avalonia.Controls.ComboBox
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 				Justification = "Due to naming standards that are inherited")]
 			public static readonly Avalonia.DirectProperty<BncServerSelCombBox, System.Collections.Generic
-					.IEnumerable<Data.Defs.BNC.ServerInfo>?> AllServersProperty = Avalonia.AvaloniaProperty
-					.RegisterDirect<BncServerSelCombBox, System.Collections.Generic.IEnumerable<Data.Defs.BNC
-					.ServerInfo>?>(
+					.IEnumerable<Data.Defs.BncServerInfo>?> AllServersProperty = Avalonia.AvaloniaProperty
+					.RegisterDirect<BncServerSelCombBox, System.Collections.Generic.IEnumerable<Data.Defs.BncServerInfo>?>(
 				nameof(AllServers),
 				comboSender
 					=> comboSender.AllServers,
-				(comboSender, enumservers)
-						=> comboSender.AllServers = enumservers,
+				(comboSender, eservers)
+						=> comboSender.AllServers = eservers,
 				null
 			);
 		#pragma warning restore IDE1006 // Naming Styles
 	#endregion
 
 	#region Properties
-		public Data.Defs.BNC.ServerInfo? SelServer
+		public Data.Defs.BncServerInfo? SelServer
 		{
-			get => (Data.Defs.BNC.ServerInfo?)SelectedItem;
+			get => (Data.Defs.BncServerInfo?)SelectedItem;
 
 			set => SelectedItem = value;
 		}
 
-		public System.Collections.Generic.IEnumerable<Data.Defs.BNC.ServerInfo>? AllServers
+		public System.Collections.Generic.IEnumerable<Data.Defs.BncServerInfo>? AllServers
 		{
-			get => ItemsSource?.Cast<Data.Defs.BNC.ServerInfo>();
+			get => ItemsSource?.Cast<Data.Defs.BncServerInfo>();
 
 			set => ItemsSource = value;
 		}

@@ -2,10 +2,10 @@
 
 namespace BestChat.IRC.Data.Defs;
 
-public class BncServerInstanceEditable : BncServerInstance, System.ComponentModel.INotifyDataErrorInfo
+public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDataErrorInfo
 {
 	#region Constructors & Deconstructors
-		internal BncServerInstanceEditable(BncServerInstance instanceWhatsBeingEdited) :
+		internal BncInstanceEditable(BncInstance instanceWhatsBeingEdited) :
 			base(instanceWhatsBeingEdited)
 			=> instanceOriginal = instanceWhatsBeingEdited;
 	#endregion
@@ -24,7 +24,7 @@ public class BncServerInstanceEditable : BncServerInstance, System.ComponentMode
 	#endregion
 
 	#region Members
-		public readonly BncServerInstance instanceOriginal;
+		public readonly BncInstance instanceOriginal;
 	#endregion
 
 	#region Properties

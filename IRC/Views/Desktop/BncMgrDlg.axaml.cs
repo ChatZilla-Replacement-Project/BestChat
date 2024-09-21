@@ -1,3 +1,5 @@
+using BestChat.IRC.Data.Defs;
+
 namespace BestChat.IRC.Views.Desktop;
 
 public partial class BncMgrDlg : Avalonia.Controls.Window
@@ -33,27 +35,25 @@ public partial class BncMgrDlg : Avalonia.Controls.Window
 	#endregion
 
 	#region Event Handlers
-		private void OnAddClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnAddClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 		}
 
-		private void OnEditClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnEditClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			Data.Defs.BNC? bncSelected = dg.SelectedItem as Data.Defs.BNC;
+			if(dg.SelectedItem is not BncEditable bncSelected)
+				return;
 
-			if(bncSelected != null)
+			if(bncSelected.IsPredefined)
 			{
-				if(bncSelected.IsPredefined)
+				new PredefinedBncEditorDlg()
 				{
-					new PredefinedBncEditorDlg()
-					{
-						CtxtBNC = bncSelected,
-					}.ShowDialog(this);
-				}
+					CtxtBNC = bncSelected,
+				}.ShowDialog(this);
 			}
 		}
 
-		private void OnDelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnDelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 		}
 	#endregion

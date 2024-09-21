@@ -13,9 +13,9 @@ public class PredefinedNet : Net
 		public PredefinedNet(in DTO.PredefinedNetDTO dpnetworkUs) :
 			base(dpnetworkUs)
 		{
-			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModes)
+			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModeList)
 				mapChanModesByModeChar[dcmCur.Mode] = new(dcmCur);
-			foreach(DTO.UserModeDTO dumCur in dpnetworkUs.UserModes)
+			foreach(DTO.UserModeDTO dumCur in dpnetworkUs.UserModeList)
 				mapUserModesByModeChar[dumCur.Mode] = new(dumCur);
 		}
 	#endregion

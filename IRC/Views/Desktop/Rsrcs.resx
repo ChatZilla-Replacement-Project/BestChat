@@ -1,376 +1,393 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    <!--
+      Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="strAddingBncSslPortDlgTitleFmt" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="strAddingBncSslPortDlgTitleFmt" xml:space="preserve">
     <value>You're adding a new SSL port to the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
   </data>
-  <data name="strAddingBncUnencryptedPortDlgTitleFmt" xml:space="preserve">
+    <data name="strAddingBncUnencryptedPortDlgTitleFmt" xml:space="preserve">
     <value>You're adding a new port to the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
   </data>
-  <data name="strBncAddingAllowedNetDlgTitleFmt" xml:space="preserve">
+    <data name="strBncAddingAllowedNetDlgTitleFmt" xml:space="preserve">
     <value>You’re telling Best Chat a new network is allowed on the bouncer {0}</value>
-    <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncAddingProhibitedNetDlgTitleFmt" xml:space="preserve">
+    <data name="strBncAddingProhibitedNetDlgTitleFmt" xml:space="preserve">
     <value>You’re telling Best Chat a new network is prohibited on the bouncer {0}</value>
-    <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncChangingAllowedNetDlgTitleFmt" xml:space="preserve">
+    <data name="strBncChangingAllowedNetDlgTitleFmt" xml:space="preserve">
     <value>You’re changing a network that is allowed on the bouncer {0}</value>
-    <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncChangingProhibitedNetDlgTitleFmt" xml:space="preserve">
+    <data name="strBncChangingProhibitedNetDlgTitleFmt" xml:space="preserve">
     <value>You’re changing a network that is prohibited on the bouncer {0}</value>
-    <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
   </data>
-  <data name="strBncNetAlreadyAllowed" xml:space="preserve">
+    <data name="strBncNetAlreadyAllowed" xml:space="preserve">
     <value>You already allowed this network.</value>
   </data>
-  <data name="strBncNetAlreadyProhibited" xml:space="preserve">
+    <data name="strBncNetAlreadyProhibited" xml:space="preserve">
     <value>You already prohibited this network.</value>
   </data>
-  <data name="strBncNetNameBlank" xml:space="preserve">
+    <data name="strBncNetNameBlank" xml:space="preserve">
     <value>Please enter the name of the network.</value>
   </data>
-  <data name="strBncOrganizationAllowsTheseNetsFmt" xml:space="preserve">
+    <data name="strBncOrganizationAllowsTheseNetsFmt" xml:space="preserve">
     <value>This bouncer organization is known to allow these networks.  Those networks also allow connections from this bouncer.\r\n\r\n{0}</value>
-    <comment>All instances of "{0}" will replaced by a list of allowed networks.</comment>
+        <comment>All instances of "{0}" will replaced by a list of allowed networks.</comment>
   </data>
-  <data name="strBncOrganizationMayAllowSomeNets" xml:space="preserve">
+    <data name="strBncOrganizationMayAllowSomeNets" xml:space="preserve">
     <value>It's unknown what networks can be connected to using this bouncer.  Both the bouncer must be allowed by the network and the bouncer organization may allow connecting to the network.  Unfortunately, we don't know what those networks are.</value>
   </data>
-  <data name="strCancelChangingBncAllowedNetMsg" xml:space="preserve">
+    <data name="strCancelChangingBncAllowedNetMsg" xml:space="preserve">
     <value>You made changes to which network is allowed in this entry for this bouncer.  Are you sure you want to cancel those changes?</value>
   </data>
-  <data name="strCancelChangingBncAllowedNetTitle" xml:space="preserve">
+    <data name="strCancelChangingBncAllowedNetTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelChangingBncProhibitedNetMsg" xml:space="preserve">
+    <data name="strCancelChangingBncProhibitedNetMsg" xml:space="preserve">
     <value>You were editing a prohibited network and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelChangingBncProhibitedNetTitle" xml:space="preserve">
+    <data name="strCancelChangingBncProhibitedNetTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelChangingPortFmt" xml:space="preserve">
+    <data name="strCancelChangingPortFmt" xml:space="preserve">
     <value>You were changed a port (now {0}) on the server {1} for the network {2}.  Are you sure you want to discard that change?</value>
-    <comment>All instances of "{0}" wil be replaced by the new port number.  All instances of "{1}" will be replaced by the server's domain.  All instances of "{2}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" wil be replaced by the new port number.  All instances of "{1}" will be replaced by the server's domain.  All instances of "{2}" will be replaced by the network name.</comment>
   </data>
-  <data name="strCancelChangingPortTitle" xml:space="preserve">
+    <data name="strCancelChangingPortTitle" xml:space="preserve">
     <value>Cancel changes to this port?</value>
   </data>
-  <data name="strCancelCreatingBncAlllowedNetTitle" xml:space="preserve">
+    <data name="strCancelCreatingBncAlllowedNetTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelCreatingBncAllowedNetMsg" xml:space="preserve">
+    <data name="strCancelCreatingBncAllowedNetMsg" xml:space="preserve">
     <value>You started specifying an allowed network for this bouncer and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelCreatingBncInstanceMsg" xml:space="preserve">
+    <data name="strCancelCreatingBncInstanceMsg" xml:space="preserve">
     <value>Are you sure you want to cancel creating a new instance for this bouncer?  You made changes</value>
   </data>
-  <data name="strCancelCreatingBncInstanceTitle" xml:space="preserve">
+    <data name="strCancelCreatingBncInstanceTitle" xml:space="preserve">
     <value>Cancel creating instance?</value>
   </data>
-  <data name="strCancelCreatingBncMsg" xml:space="preserve">
+    <data name="strCancelCreatingBncMsg" xml:space="preserve">
     <value>You started creating a new bouncer and made changes.  Are you sure you want to cancel its creation and discard those changes?</value>
   </data>
-  <data name="strCancelCreatingBncProhibitedNetMsg" xml:space="preserve">
+    <data name="strCancelCreatingBncProhibitedNetMsg" xml:space="preserve">
     <value>You started specifying a prohibted network and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelCreatingBncProhibitedNetTitle" xml:space="preserve">
+    <data name="strCancelCreatingBncProhibitedNetTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelCreatingBncServerMsg" xml:space="preserve">
+    <data name="strCancelCreatingBncServerMsg" xml:space="preserve">
     <value>You started creating a server for this bouncer and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelCreatingBncServerTitle" xml:space="preserve">
+    <data name="strCancelCreatingBncServerTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelCreatingBncTitle" xml:space="preserve">
+    <data name="strCancelCreatingBncTitle" xml:space="preserve">
     <value>Discard new bouncer?</value>
   </data>
-  <data name="strCancelCreatingNetMsg" xml:space="preserve">
+    <data name="strCancelCreatingNetMsg" xml:space="preserve">
     <value>You started creating a new network.  Are you sure you want to cancel that creation?</value>
   </data>
-  <data name="strCancelCreatingServerFmt" xml:space="preserve">
+    <data name="strCancelCreatingServerFmt" xml:space="preserve">
     <value>You started creating a new server for {0} and have made changes.  Are you sure you want to cancel that server's creation?</value>
-    <comment>All instances of "{0}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the network name.</comment>
   </data>
-  <data name="strCancelCreatingServerTitle" xml:space="preserve">
+    <data name="strCancelCreatingServerTitle" xml:space="preserve">
     <value>Cancel creation of new server?</value>
   </data>
-  <data name="strCancelEditingBncInstanceMsg" xml:space="preserve">
+    <data name="strCancelEditingBncInstanceMsg" xml:space="preserve">
     <value>Are you sure you want to cancel editing this instance for this bouncer?  You made changes.</value>
   </data>
-  <data name="strCancelEditingBncInstanceTitle" xml:space="preserve">
+    <data name="strCancelEditingBncInstanceTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelEditingBncMsg" xml:space="preserve">
+    <data name="strCancelEditingBncMsg" xml:space="preserve">
     <value>You’ve been editing this bouncer and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelEditingBncServerMsg" xml:space="preserve">
+    <data name="strCancelEditingBncServerMsg" xml:space="preserve">
     <value>You’ve been editing an existing server for this bouncer and made changes.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelEditingBncServerTitle" xml:space="preserve">
+    <data name="strCancelEditingBncServerTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelEditingBncTitle" xml:space="preserve">
+    <data name="strCancelEditingBncTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelEditingPredefinedBncMsg" xml:space="preserve">
+    <data name="strCancelEditingPredefinedBncMsg" xml:space="preserve">
     <value>You made changes to the instances for this predefined bouncer.  Are you sure you want to discard those changes?</value>
   </data>
-  <data name="strCancelEditingServerMsgFmt" xml:space="preserve">
+    <data name="strCancelEditingServerMsgFmt" xml:space="preserve">
     <value>You were editing {0} for the network {1} and made changes.  Are you sure you want to discard those changes?</value>
-    <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strCancelEditingServerTitle" xml:space="preserve">
+    <data name="strCancelEditingServerTitle" xml:space="preserve">
     <value>Cancel editing server?</value>
   </data>
-  <data name="strCancelEdtingPredefinedBncTitle" xml:space="preserve">
+    <data name="strCancelEdtingPredefinedBncTitle" xml:space="preserve">
     <value>Discard your changes?</value>
   </data>
-  <data name="strCancelNewPortFmt" xml:space="preserve">
+    <data name="strCancelNewPortFmt" xml:space="preserve">
     <value>You started to specify a new port on the server {0} for the network {1}.  Are you sure you want to cancel that port's specification?</value>
-    <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strCancelNewPortTitle" xml:space="preserve">
+    <data name="strCancelNewPortTitle" xml:space="preserve">
     <value>Cancel new port specification?</value>
   </data>
-  <data name="strChangingPortTitleFmt" xml:space="preserve">
+    <data name="strChangingPortTitleFmt" xml:space="preserve">
     <value>You're editing a port for the server {0} on the network {1}</value>
-    <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strCreatingBncServerTitleFmt" xml:space="preserve">
+    <data name="strCreatingBncServerTitleFmt" xml:space="preserve">
     <value>You’re creating a new server for the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced with the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced with the name of the bouncer</comment>
   </data>
-  <data name="strCreatingBncTitle" xml:space="preserve">
+    <data name="strCreatingBncTitle" xml:space="preserve">
     <value>You're creating a new bouncer</value>
   </data>
-  <data name="strCreatingNetTitleFmt" xml:space="preserve">
+    <data name="strCreatingNetTitleFmt" xml:space="preserve">
     <value>You're creating a new network</value>
   </data>
-  <data name="strCreatingServerTitleFmt" xml:space="preserve">
+    <data name="strCreatingServerTitleFmt" xml:space="preserve">
     <value>You're creating a new server on the network {0}</value>
-    <comment>All instances of "{0}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the network name.</comment>
   </data>
-  <data name="strDefPortToUseForNetworks" xml:space="preserve">
+    <data name="strDefPortToUseForNetworks" xml:space="preserve">
     <value>Let Best Chat Decide</value>
   </data>
-  <data name="strDelBncAllowedNetQueryMsg" xml:space="preserve">
+    <data name="strDelBncAllowedNetQueryMsg" xml:space="preserve">
     <value>Are you sure you want to remove this allowed network?</value>
   </data>
-  <data name="strDelBncAllowedNetQueryTitle" xml:space="preserve">
+    <data name="strDelBncAllowedNetQueryTitle" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
-  <data name="strDelBncProhibitedNetQueryMsg" xml:space="preserve">
+    <data name="strDelBncProhibitedNetQueryMsg" xml:space="preserve">
     <value>Are you sure you want to remove this prohibited network?</value>
   </data>
-  <data name="strDelBncProhibitedNetQueryTitle" xml:space="preserve">
+    <data name="strDelBncProhibitedNetQueryTitle" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
-  <data name="strDelBncServerAreYouSureMsg" xml:space="preserve">
+    <data name="strDelBncServerAreYouSureMsg" xml:space="preserve">
     <value>Are you sure you want to delete the selected bouncer servers?</value>
   </data>
-  <data name="strDelBncServerAreYouSureTitle" xml:space="preserve">
+    <data name="strDelBncServerAreYouSureTitle" xml:space="preserve">
     <value>Delete the selected servers?</value>
   </data>
-  <data name="strDelBncSslPortMsg" xml:space="preserve">
+    <data name="strDelBncSslPortMsg" xml:space="preserve">
     <value>Are you sure you want to delete this SSL port for the bouncer?</value>
   </data>
-  <data name="strDelBncSslPortTitle" xml:space="preserve">
+    <data name="strDelBncSslPortTitle" xml:space="preserve">
     <value>Delete the port from this bouncer?</value>
   </data>
-  <data name="strDelBncUnencryptedPortMsg" xml:space="preserve">
+    <data name="strDelBncUnencryptedPortMsg" xml:space="preserve">
     <value>Are you sure you want to delete this unencrypted port for the bouncer?</value>
   </data>
-  <data name="strDelBncUnencryptedPortTitle" xml:space="preserve">
+    <data name="strDelBncUnencryptedPortTitle" xml:space="preserve">
     <value>Delete the port from this bouncer?</value>
   </data>
-  <data name="strDelNetServerSslPortMsg" xml:space="preserve">
+    <data name="strDelNetServerSslPortMsg" xml:space="preserve">
     <value>Are you sure you want to delete the selected SSL ports from this server on this network?</value>
   </data>
-  <data name="strDelNetServerSslPortTitle" xml:space="preserve">
+    <data name="strDelNetServerSslPortTitle" xml:space="preserve">
     <value>Delete the selected ports?</value>
   </data>
-  <data name="strDelNetServerUnencryptedPortMsg" xml:space="preserve">
+    <data name="strDelNetServerUnencryptedPortMsg" xml:space="preserve">
     <value>Are you sure you want to delete the selected unencrypted ports from this server on this network?</value>
   </data>
-  <data name="strDelNetServerUnencryptedPortTitle" xml:space="preserve">
+    <data name="strDelNetServerUnencryptedPortTitle" xml:space="preserve">
     <value>Delete the selected ports?</value>
   </data>
-  <data name="strDelServerDomainAreYouSure" xml:space="preserve">
+    <data name="strDelServerDomainAreYouSure" xml:space="preserve">
     <value>Are you sure you want to delete this server domain?</value>
   </data>
-  <data name="strDelServerDomainAreYouSureTitle" xml:space="preserve">
+    <data name="strDelServerDomainAreYouSureTitle" xml:space="preserve">
     <value>Delete this server domain?</value>
   </data>
-  <data name="strDelUserNetMsg" xml:space="preserve">
+    <data name="strDelUserNetMsg" xml:space="preserve">
     <value>Are you sure you want to delete the selected custom networks?  You won't be able to undo this unless you have backups of Best Chat’s profile folder.  Any that are predefined will revert to the way our information has them.  They will continue to remain visible.  If you had them hidden, they will reappear in Best Chat’s windows.</value>
   </data>
-  <data name="strDelUserNetTitle" xml:space="preserve">
+    <data name="strDelUserNetTitle" xml:space="preserve">
     <value>Delete the selected networks?</value>
   </data>
-  <data name="strEditingBncServerTitleFmt" xml:space="preserve">
+    <data name="strEditingBncServerTitleFmt" xml:space="preserve">
     <value>You’re editing a server for the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced with the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced with the name of the bouncer</comment>
   </data>
-  <data name="strEditingBncSslPortDlgTitleFmt" xml:space="preserve">
+    <data name="strEditingBncSslPortDlgTitleFmt" xml:space="preserve">
     <value>You're changing a port for the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
   </data>
-  <data name="strEditingBncTitleFmt" xml:space="preserve">
+    <data name="strEditingBncTitleFmt" xml:space="preserve">
     <value>You're editing the bouncer {0}</value>
-    <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
+        <comment>All instances of "{0}" will replaced by the bouncer name.</comment>
   </data>
-  <data name="strEditingBncUnencryptedPortDlgTitleFmt" xml:space="preserve">
+    <data name="strEditingBncUnencryptedPortDlgTitleFmt" xml:space="preserve">
     <value>You're changing a port for the bouncer “{0}”</value>
-    <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
+        <comment>All instances of "{0}" will be replaced by the name of the bouncer</comment>
   </data>
-  <data name="strEditingNetTitleFmt" xml:space="preserve">
+    <data name="strEditingNetTitleFmt" xml:space="preserve">
     <value>You're editing the network {0}</value>
-    <comment>"{0}" will be replaced by the name of the network.</comment>
+        <comment>"{0}" will be replaced by the name of the network.</comment>
   </data>
-  <data name="strEditingServerTitleFmt" xml:space="preserve">
+    <data name="strEditingServerTitleFmt" xml:space="preserve">
     <value>You're editing the server {0} on the network {1}</value>
-    <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strNetworkPortTouseNotListed" xml:space="preserve">
+    <data name="strNetworkPortTouseNotListed" xml:space="preserve">
     <value>Not listed</value>
   </data>
-  <data name="strNewPortTitleFmt" xml:space="preserve">
+    <data name="strNewPortTitleFmt" xml:space="preserve">
     <value>You're specifying a new port for the server {0} on the network {1}</value>
-    <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
+        <comment>All instances of "{0}" will be replaced by the server domain name.  All instances of "{1}" will be replaced by the network name.</comment>
   </data>
-  <data name="strOutOfPortsMsg" xml:space="preserve">
+    <data name="strOutOfPortsMsg" xml:space="preserve">
     <value>This server is out of ports</value>
   </data>
-  <data name="strOutOfPortsTitle" xml:space="preserve">
+    <data name="strOutOfPortsTitle" xml:space="preserve">
     <value>No more ports</value>
   </data>
-  <data name="strPortTaken" xml:space="preserve">
+    <data name="strPortTaken" xml:space="preserve">
     <value>This port is already in use on the same server.</value>
   </data>
-  <data name="strViewingNetTitleFmt" xml:space="preserve">
+    <data name="strViewingNetTitleFmt" xml:space="preserve">
     <value>You're viewing the network {0}</value>
-    <comment>"{0}" will be replaced by the name of the network.</comment>
+        <comment>"{0}" will be replaced by the name of the network.</comment>
   </data>
+    <data name="strCancelCreatingUserNetTitle" xml:space="preserve">
+      <value>Cancel creation of a new custom network?</value>
+    </data>
+    <data name="strCancelCreatingUserNetMsg" xml:space="preserve">
+      <value>You started creating a new network and made changes.  Are you sure you want to discard those?</value>
+    </data>
+    <data name="strCancelEditingUserNetTitle" xml:space="preserve">
+      <value>Cancel editing this network?</value>
+    </data>
+    <data name="strCancelEditingUserNetMsg" xml:space="preserve">
+      <value>You were editing the network and made changes.  Are you sure you want to discard those changes?</value>
+    </data>
 </root>

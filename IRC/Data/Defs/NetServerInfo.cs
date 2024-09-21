@@ -6,412 +6,300 @@ namespace BestChat.IRC.Data.Defs;
 
 public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 {
-	#region Constructors & Deconstructors
-		public NetServerInfo(in Net netParent)
-		{
-			this.netParent = netParent;
-			strDomain = "";
-		}
-
-		public NetServerInfo(in Net netParent, in string strDomain, in System.Collections.Generic.IEnumerable<ushort>
-			eusPorts, in System.Collections.Generic.IEnumerable<ushort> eusSslPorts)
-		{
-			this.netParent = netParent;
-			this.strDomain = strDomain;
-			bEnabled = true;
-
-			ussetPorts.UnionWith(eusPorts);
-			ussetSslPorts.UnionWith(eusSslPorts);
-
-			MakeDirty();
-		}
-
-		protected NetServerInfo(in UserNet.Editable eunetParent, in NetServerInfo serverCopyThis)
-		{
-			if(eunetParent.unetOriginal != serverCopyThis.netParent)
-				throw new System.InvalidProgramException($"Editable ServerInfo instances must be owned by an " +
-					$"Editable created from the parent of the value in {nameof(serverCopyThis)}");
-
-			netParent = eunetParent;
-
-			strDomain = serverCopyThis.strDomain;
-			bEnabled = serverCopyThis.bEnabled;
-
-			ussetPorts.UnionWith (serverCopyThis.Ports);
-			ussetSslPorts.UnionWith(serverCopyThis.SslPorts);
-		}
-
-		public NetServerInfo(in Net netParent, in DTO.NetServerInfoDTO dserverUs)
-		{
-			this.netParent = netParent;
-
-			strDomain = dserverUs.Domain;
-			bEnabled = dserverUs.IsEnabled;
-			ussetPorts.UnionWith(dserverUs.Ports);
-			ussetSslPorts.UnionWith(dserverUs.SslPorts);
-		}
-	#endregion
-
-	#region Delegates
-	#endregion
-
-	#region Events
-		public event DFieldChanged<string>? evtDomainChanged;
-		public event DBoolFieldChanged? evtIsEnabledChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtPortsChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtSslPortsChanged;
-	#endregion
-
 	#region Constants
 		public const string strPortDelimiter = ", ";
 	#endregion
 
 	#region Helper Types
-		public class Editable : NetServerInfo, System.ComponentModel.INotifyDataErrorInfo
-		{
-			public Editable(in UserNet.Editable eunetParent, in NetServerInfo serverOriginal) :
-				base(eunetParent, serverOriginal)
-			{
-				this.serverOriginal = serverOriginal;
-				this.eunetParent = eunetParent;
-			}
 
-			public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+	#endregion
 
-			public readonly NetServerInfo serverOriginal;
+	#region Constructors & Deconstructors
 
-			public readonly UserNet.Editable eunetParent;
+	public NetServerInfo(in Net netParent)
+	{
+		this.Parent = netParent;
+		strDomain = "";
+	}
 
-			public new UserNet.Editable Parent
-				=> eunetParent;
+	public NetServerInfo(
+		in Net netParent,
+		// ReSharper disable once InconsistentNaming
+		in string strDomain,
+		in System.Collections.Generic.IEnumerable<ushort> eusPorts,
+		in System.Collections.Generic.IEnumerable<ushort> eusSslPorts)
+	{
+		this.Parent = netParent;
+		this.strDomain = strDomain;
+		bEnabled = true;
 
-			public bool HasErrors
-				=> Domain != "" && (Ports.Count > 0 || SslPorts.Count > 0);
+		ussetPorts.UnionWith(eusPorts);
+		ussetSslPorts.UnionWith(eusSslPorts);
 
-			public new string Domain
-			{
-				get => base.Domain;
+		MakeDirty();
+	}
 
-				set
-				{
-					base.Domain = value;
+	protected NetServerInfo(in UserNetEditable eunetParent, in NetServerInfo serverCopyThis)
+	{
+		if(eunetParent.unetOriginal != serverCopyThis.Parent)
+			throw new System.InvalidProgramException(
+				$"Editable ServerInfo instances must be owned by an " +
+				$"Editable created from the parent of the value in {nameof(serverCopyThis)}");
 
-					WereChangesMade = true;
-				}
-			}
+		Parent = eunetParent;
 
-			public bool WereChangesMade
-			{
-				get;
+		strDomain = serverCopyThis.strDomain;
+		bEnabled = serverCopyThis.bEnabled;
 
-				private set;
-			}
+		ussetPorts.UnionWith(serverCopyThis.Ports);
+		ussetSslPorts.UnionWith(serverCopyThis.SslPorts);
+	}
 
-			public new void AddPort(in ushort usNewPort)
-			{
-				if(!Ports.Contains(usNewPort))
-				{
-					base.AddPort(usNewPort);
+	public NetServerInfo(in Net netParent, in DTO.NetServerInfoDTO dserverUs)
+	{
+		this.Parent = netParent;
 
-					WereChangesMade = true;
-				}
-			}
+		strDomain = dserverUs.Domain;
+		bEnabled = dserverUs.IsEnabled;
+		ussetPorts.UnionWith(dserverUs.Ports);
+		ussetSslPorts.UnionWith(dserverUs.SslPorts);
+	}
 
-			public new void RemovePort(in ushort usPortToRemove)
-			{
-				if(Ports.Contains(usPortToRemove))
-				{
-					base.RemovePort(usPortToRemove);
+	#endregion
 
-					WereChangesMade = true;
-				}
-			}
+	#region Delegates
 
-			public new void ClearPorts()
-			{
-				if(Ports.Count > 0)
-				{
-					base.ClearPorts();
+	#endregion
 
-					WereChangesMade = true;
-				}
-			}
+	#region Events
 
-			public new void AddSslPort(in ushort usNewSslPort)
-			{
-				if(!SslPorts.Contains(usNewSslPort))
-				{
-					base.AddSslPort(usNewSslPort);
+	public event DFieldChanged<string>? evtDomainChanged;
+	public event DBoolFieldChanged? evtIsEnabledChanged;
+	public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtPortsChanged;
+	public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>? evtSslPortsChanged;
 
-					WereChangesMade = true;
-				}
-			}
-
-			public new void RemoveSslPort(in ushort usSslPortToRemove)
-			{
-				if(SslPorts.Contains(usSslPortToRemove))
-				{
-					base.RemoveSslPort(usSslPortToRemove);
-
-					WereChangesMade = true;
-				}
-			}
-
-			public new void ClearSslPorts()
-			{
-				if(SslPorts.Count > 0)
-				{
-					base.ClearSslPorts();
-
-					WereChangesMade = true;
-				}
-			}
-		
-			public System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
-			{
-				System.Collections.Generic.SortedSet<string> strsetErrors = [];
-
-				System.Collections.Generic.SortedSet<string> strsetProp = strPropNameToGetErrorsFor == null
-					? [nameof(Domain), nameof(Ports), nameof(SslPorts)]
-					: [strPropNameToGetErrorsFor];
-
-				foreach(string strCurPropToGetErrorsFor in strsetProp)
-					switch(strCurPropToGetErrorsFor)
-					{
-						case nameof(Domain):
-							if(Domain == "")
-								strsetErrors.Add(Rsrcs.strServerInvalidWithOutDomain);
-
-							break;
-
-						case nameof(Ports):
-						case nameof(SslPorts):
-							if(Ports.Count == 0 || SslPorts.Count == 0)
-								strsetErrors.Add(Rsrcs.strServerInvalidWithOutAtLeastOnePort);
-
-							break;
-
-						default: // Just ignore values we don't know what to do with
-							break;
-					}
-
-				return strsetErrors;
-			}
-
-			public void Save()
-			{
-				if(WereChangesMade)
-				{
-					serverOriginal.Domain = Domain;
-					serverOriginal.bEnabled = bEnabled;
-
-					if(Ports.SetEquals(serverOriginal.Ports))
-					{
-						serverOriginal.ClearPorts();
-						foreach(ushort usCurPort in Ports)
-							serverOriginal.AddPort(usCurPort);
-					}
-
-					if(SslPorts.SetEquals(serverOriginal.SslPorts))
-					{
-						serverOriginal.ClearSslPorts();
-						foreach(ushort usCurSslPort in SslPorts)
-							serverOriginal.AddSslPort(usCurSslPort);
-					}
-				}
-			}
-		}
 	#endregion
 
 	#region Members
-		private readonly Net netParent;
 
+	private string strDomain;
 
-		private string strDomain;
+	private bool bEnabled;
 
-		private bool bEnabled;
+	private readonly System.Collections.Generic.SortedSet<ushort> ussetPorts = [];
 
-		private readonly System.Collections.Generic.SortedSet<ushort> ussetPorts = [];
+	private readonly System.Collections.Generic.SortedSet<ushort> ussetSslPorts = [];
 
-		private readonly System.Collections.Generic.SortedSet<ushort> ussetSslPorts = [];
 	#endregion
 
 	#region Properties
-		public Net Parent
-			=> netParent;
 
-		public string Domain
+	public Net Parent
+	{
+		get;
+	}
+
+	public string Domain
+	{
+		get => strDomain;
+
+		set
 		{
-			get => strDomain;
+			if(strDomain == value)
+				return;
 
-			set
+			string strOldDomain = strDomain;
+
+			strDomain = value;
+
+			MakeDirty();
+
+			FireDomainChanged(strOldDomain);
+		}
+	}
+
+	public bool IsEnabled
+	{
+		get => bEnabled;
+
+		protected set
+		{
+			if(Parent is not UserNet)
+				throw new System.InvalidProgramException(
+					"ServerInfo instances owned by anything other than a UserNetwork are readonly.");
+
+			if(bEnabled != value)
 			{
-				if(strDomain != value)
-				{
-					string strOldDomain = strDomain;
+				bEnabled = value;
 
-					strDomain = value;
+				MakeDirty();
 
-					MakeDirty();
-
-					FireDomainChanged(strOldDomain);
-				}
+				FireEnabledChanged();
 			}
 		}
+	}
 
-		public bool IsEnabled
+	public System.Collections.Generic.IReadOnlySet<ushort> Ports
+		=> ussetPorts;
+
+	public string PortsAsText
+		=> string.Join(strPortDelimiter, ussetPorts);
+
+	public System.Collections.Generic.IReadOnlySet<ushort> SslPorts
+		=> ussetSslPorts;
+
+	public System.Collections.Generic.IEnumerable<ushort> AllPossiblePorts
+		=> ussetPorts.Union(ussetSslPorts);
+
+	public string SslPortsAsText
+		=> string.Join(strPortDelimiter, ussetSslPorts);
+
+	public ushort? NextAvailablePort
+	{
+		get
 		{
-			get => bEnabled;
+			ushort usNextUnusedPort = 0;
 
-			protected set
-			{
-				if(netParent is not UserNet)
-					throw new System.InvalidProgramException("ServerInfo instances owned by anything other than a UserNetwork are readonly.");
-
-				if(bEnabled != value)
-				{
-					bEnabled = value;
-
-					MakeDirty();
-
-					FireEnabledChanged();
-				}
-			}
-		}
-
-		public System.Collections.Generic.IReadOnlySet<ushort> Ports
-			=> ussetPorts;
-
-		public string PortsAsText
-			=> string.Join(strPortDelimiter, ussetPorts);
-
-		public System.Collections.Generic.IReadOnlySet<ushort> SslPorts
-			=> ussetSslPorts;
-
-		public System.Collections.Generic.IEnumerable<ushort> AllPossiblePorts
-			=> ussetPorts.Union(ussetSslPorts);
-
-		public string SslPortsAsText
-			=> string.Join(strPortDelimiter, ussetSslPorts);
-
-		public ushort? NextAvailablePort
-		{
-			get
-			{
-				ushort usNextUnusedPort = 0;
-
-				while(usNextUnusedPort < ushort.MaxValue && (ussetPorts.Contains(usNextUnusedPort) ||
+			while(usNextUnusedPort < ushort.MaxValue &&
+						(ussetPorts.Contains(usNextUnusedPort) ||
 						ussetSslPorts.Contains(usNextUnusedPort)))
-					usNextUnusedPort++;
+				usNextUnusedPort++;
 
-				return usNextUnusedPort == ushort.MaxValue || ussetPorts.Contains(usNextUnusedPort) ||
+			return usNextUnusedPort == ushort.MaxValue ||
+						ussetPorts.Contains(usNextUnusedPort) ||
 						ussetSslPorts.Contains(usNextUnusedPort)
-					? null
-					: usNextUnusedPort;
-			}
+				? null
+				: usNextUnusedPort;
 		}
+	}
+
 	#endregion
 
 	#region Methods
-		protected void FireDomainChanged(in string strOldDomain)
-		{
-			FirePropChanged(nameof(Domain));
 
-			evtDomainChanged?.Invoke(this, strOldDomain, strDomain);
+	protected void FireDomainChanged(in string strOldDomain)
+	{
+		FirePropChanged(nameof(Domain));
+
+		evtDomainChanged?.Invoke(this, strOldDomain, strDomain);
+	}
+
+	protected void FireEnabledChanged()
+	{
+		FirePropChanged(nameof(IsEnabled));
+
+		evtIsEnabledChanged?.Invoke(this, bEnabled);
+	}
+
+	protected void FirePortsChanged(in CollectionChangeType collectionChangeType)
+	{
+		FirePropChanged(nameof(Ports));
+
+		evtPortsChanged?.Invoke(this, ussetPorts, collectionChangeType);
+	}
+
+	protected void FireSslPortsChanged(in CollectionChangeType collectionChangeType)
+	{
+		FirePropChanged(nameof(SslPorts));
+
+		evtSslPortsChanged?.Invoke(this, SslPorts, collectionChangeType);
+	}
+
+	protected void AddPort(in ushort usNewPort)
+	{
+		if(ussetPorts.Add(usNewPort))
+		{
+			MakeDirty();
+
+			FirePortsChanged(CollectionChangeType.add);
+		}
+	}
+
+	protected void RemovePort(in ushort usPortToRemove)
+	{
+		if(ussetPorts.Remove(usPortToRemove))
+		{
+			MakeDirty();
+
+			FirePortsChanged(CollectionChangeType.removed);
+		}
+	}
+
+	protected void ClearPorts()
+	{
+		if(ussetPorts.Count > 0)
+		{
+			ussetPorts.Clear();
+
+			MakeDirty();
+
+			FirePortsChanged(CollectionChangeType.removed);
+		}
+	}
+
+	protected void AddSslPort(in ushort usNewSslPort)
+	{
+		if(ussetSslPorts.Add(usNewSslPort))
+		{
+			MakeDirty();
+
+			FireSslPortsChanged(CollectionChangeType.add);
+		}
+	}
+
+	protected void RemoveSslPort(in ushort usSslPortToRemove)
+	{
+		if(ussetSslPorts.Remove(usSslPortToRemove))
+		{
+			MakeDirty();
+
+			FireSslPortsChanged(CollectionChangeType.removed);
+		}
+	}
+
+	protected void ClearSslPorts()
+	{
+		if(ussetSslPorts.Count > 0)
+		{
+			ussetSslPorts.Clear();
+
+			MakeDirty();
+
+			FireSslPortsChanged(CollectionChangeType.removed);
+		}
+	}
+
+	public NetServerInfoEditable MakeEditableVersion(in UserNetEditable eunetParent)
+		=> new(eunetParent, this);
+
+	public void SaveFrom(NetServerInfoEditable eserver)
+	{
+		strDomain = eserver.Domain;
+		bEnabled = eserver.IsEnabled;
+
+		if(Ports.SetEquals(eserver.Ports))
+		{
+			ClearPorts();
+			foreach(ushort usCurPort in eserver.Ports)
+				AddPort(usCurPort);
 		}
 
-		protected void FireEnabledChanged()
+		if(SslPorts.SetEquals(eserver.SslPorts))
 		{
-			FirePropChanged(nameof(IsEnabled));
-
-			evtIsEnabledChanged?.Invoke(this, bEnabled);
+			ClearSslPorts();
+			foreach(ushort usCurSslPort in eserver.SslPorts)
+				AddSslPort(usCurSslPort);
 		}
 
-		protected void FirePortsChanged(in CollectionChangeType collectionChangeType)
-		{
-			FirePropChanged(nameof(Ports));
+		MakeDirty();
+	}
 
-			evtPortsChanged?.Invoke(this, ussetPorts, collectionChangeType);
-		}
+	public DTO.NetServerInfoDTO ToDTO()
+		=> new(strDomain, [.. ussetPorts], [.. ussetSslPorts], bEnabled);
 
-		protected void FireSslPortsChanged(in CollectionChangeType collectionChangeType)
-		{
-			FirePropChanged(nameof(SslPorts));
-
-			evtSslPortsChanged?.Invoke(this, SslPorts, collectionChangeType);
-		}
-
-		protected void AddPort(in ushort usNewPort)
-		{
-			if(ussetPorts.Add(usNewPort))
-			{
-				MakeDirty();
-
-				FirePortsChanged(CollectionChangeType.add);
-			}
-		}
-
-		protected void RemovePort(in ushort usPortToRemove)
-		{
-			if(ussetPorts.Remove(usPortToRemove))
-			{
-				MakeDirty();
-
-				FirePortsChanged(CollectionChangeType.removed);
-			}
-		}
-
-		protected void ClearPorts()
-		{
-			if(ussetPorts.Count > 0)
-			{
-				ussetPorts.Clear();
-
-				MakeDirty();
-
-				FirePortsChanged(CollectionChangeType.removed);
-			}
-		}
-
-		protected void AddSslPort(in ushort usNewSslPort)
-		{
-			if(ussetSslPorts.Add(usNewSslPort))
-			{
-				MakeDirty();
-
-				FireSslPortsChanged(CollectionChangeType.add);
-			}
-		}
-
-		protected void RemoveSslPort(in ushort usSslPortToRemove)
-		{
-			if(ussetSslPorts.Remove(usSslPortToRemove))
-			{
-				MakeDirty();
-
-				FireSslPortsChanged(CollectionChangeType.removed);
-			}
-		}
-
-		protected void ClearSslPorts()
-		{
-			if(ussetSslPorts.Count > 0)
-			{
-				ussetSslPorts.Clear();
-
-				MakeDirty();
-
-				FireSslPortsChanged(CollectionChangeType.removed);
-			}
-		}
-
-		public Editable MakeEditableVersion(in UserNet.Editable eunetParent)
-			=> new(eunetParent, this);
-
-		public DTO.NetServerInfoDTO ToDTO()
-			=> new(strDomain, [.. ussetPorts], [.. ussetSslPorts], bEnabled);
 	#endregion
 
 	#region Event Handlers
+
 	#endregion
 }

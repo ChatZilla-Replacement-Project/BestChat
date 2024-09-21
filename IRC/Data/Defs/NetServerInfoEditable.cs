@@ -1,155 +1,138 @@
-﻿namespace BestChat.IRC.Data.Defs
+﻿namespace BestChat.IRC.Data.Defs;
+
+public class NetServerInfoEditable : NetServerInfo, System.ComponentModel.INotifyDataErrorInfo
 {
-	public class NetServerInfoEditable : NetServerInfo, System.ComponentModel.INotifyDataErrorInfo
+	public readonly UserNetEditable eunetParent;
+
+	public readonly NetServerInfo serverOriginal;
+
+	public NetServerInfoEditable(in UserNetEditable eunetParent, in NetServerInfo serverOriginal) :
+		base(eunetParent, serverOriginal)
 	{
-		public readonly UserNet.Editable eunetParent;
+		this.serverOriginal = serverOriginal;
+		this.eunetParent = eunetParent;
+	}
 
-		public readonly NetServerInfo serverOriginal;
+	public new UserNetEditable Parent
+		=> eunetParent;
 
-		public NetServerInfoEditable(in UserNet.Editable eunetParent, in NetServerInfo serverOriginal) :
-			base(eunetParent, serverOriginal)
+	public new string Domain
+	{
+		get => base.Domain;
+
+		set
 		{
-			this.serverOriginal = serverOriginal;
-			this.eunetParent = eunetParent;
+			base.Domain = value;
+
+			WereChangesMade = true;
 		}
+	}
 
-		public new UserNet.Editable Parent
-			=> eunetParent;
+	public bool WereChangesMade
+	{
+		get;
 
-		public new string Domain
-		{
-			get => base.Domain;
+		private set;
+	}
 
-			set
+	public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+
+	public bool HasErrors
+		=> Domain != "" && (Ports.Count > 0 || SslPorts.Count > 0);
+
+	public System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
+	{
+		System.Collections.Generic.SortedSet<string> strsetErrors = [];
+
+		System.Collections.Generic.SortedSet<string> strsetProp = strPropNameToGetErrorsFor == null
+			? [nameof(Domain), nameof(Ports), nameof(SslPorts)]
+			: [strPropNameToGetErrorsFor];
+
+		foreach(string strCurPropToGetErrorsFor in strsetProp)
+			switch(strCurPropToGetErrorsFor)
 			{
-				base.Domain = value;
+				case nameof(Domain):
+					if(Domain == "")
+						strsetErrors.Add(Rsrcs.strServerInvalidWithOutDomain);
 
-				WereChangesMade = true;
+					break;
+
+				case nameof(Ports):
+				case nameof(SslPorts):
+					if(Ports.Count == 0 ||
+						SslPorts.Count == 0)
+						strsetErrors.Add(Rsrcs.strServerInvalidWithOutAtLeastOnePort);
+
+					break;
 			}
-		}
 
-		public bool WereChangesMade
-		{
-			get;
+		return strsetErrors;
+	}
 
-			private set;
-		}
+	public new void AddPort(in ushort usNewPort)
+	{
+		if(Ports.Contains(usNewPort))
+			return;
 
-		public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
+		base.AddPort(usNewPort);
 
-		public bool HasErrors
-			=> Domain != "" && (Ports.Count > 0 || SslPorts.Count > 0);
+		WereChangesMade = true;
+	}
 
-		public System.Collections.IEnumerable GetErrors(string? strPropNameToGetErrorsFor)
-		{
-			System.Collections.Generic.SortedSet<string> strsetErrors = [];
+	public new void RemovePort(in ushort usPortToRemove)
+	{
+		if(!Ports.Contains(usPortToRemove))
+			return;
 
-			System.Collections.Generic.SortedSet<string> strsetProp = strPropNameToGetErrorsFor == null
-				? [nameof(Domain), nameof(Ports), nameof(SslPorts)]
-				: [strPropNameToGetErrorsFor];
+		base.RemovePort(usPortToRemove);
 
-			foreach(string strCurPropToGetErrorsFor in strsetProp)
-				switch(strCurPropToGetErrorsFor)
-				{
-					case nameof(Domain):
-						if(Domain == "")
-							strsetErrors.Add(Rsrcs.strServerInvalidWithOutDomain);
+		WereChangesMade = true;
+	}
 
-						break;
+	public new void ClearPorts()
+	{
+		if(Ports.Count <= 0)
+			return;
 
-					case nameof(Ports):
-					case nameof(SslPorts):
-						if(Ports.Count == 0 ||
-							SslPorts.Count == 0)
-							strsetErrors.Add(Rsrcs.strServerInvalidWithOutAtLeastOnePort);
+		base.ClearPorts();
 
-						break;
-				}
+		WereChangesMade = true;
+	}
 
-			return strsetErrors;
-		}
+	public new void AddSslPort(in ushort usNewSslPort)
+	{
+		if(SslPorts.Contains(usNewSslPort))
+			return;
 
-		public new void AddPort(in ushort usNewPort)
-		{
-			if(!Ports.Contains(usNewPort))
-			{
-				base.AddPort(usNewPort);
+		base.AddSslPort(usNewSslPort);
 
-				WereChangesMade = true;
-			}
-		}
+		WereChangesMade = true;
+	}
 
-		public new void RemovePort(in ushort usPortToRemove)
-		{
-			if(Ports.Contains(usPortToRemove))
-			{
-				base.RemovePort(usPortToRemove);
+	public new void RemoveSslPort(in ushort usSslPortToRemove)
+	{
+		if(!SslPorts.Contains(usSslPortToRemove))
+			return;
 
-				WereChangesMade = true;
-			}
-		}
+		base.RemoveSslPort(usSslPortToRemove);
 
-		public new void ClearPorts()
-		{
-			if(Ports.Count > 0)
-			{
-				base.ClearPorts();
+		WereChangesMade = true;
+	}
 
-				WereChangesMade = true;
-			}
-		}
+	public new void ClearSslPorts()
+	{
+		if(SslPorts.Count <= 0)
+			return;
 
-		public new void AddSslPort(in ushort usNewSslPort)
-		{
-			if(!SslPorts.Contains(usNewSslPort))
-			{
-				base.AddSslPort(usNewSslPort);
+		base.ClearSslPorts();
 
-				WereChangesMade = true;
-			}
-		}
+		WereChangesMade = true;
+	}
 
-		public new void RemoveSslPort(in ushort usSslPortToRemove)
-		{
-			if(SslPorts.Contains(usSslPortToRemove))
-			{
-				base.RemoveSslPort(usSslPortToRemove);
+	public void Save()
+	{
+		if(!WereChangesMade)
+			return;
 
-				WereChangesMade = true;
-			}
-		}
-
-		public new void ClearSslPorts()
-		{
-			if(SslPorts.Count > 0)
-			{
-				base.ClearSslPorts();
-
-				WereChangesMade = true;
-			}
-		}
-
-		public void Save()
-		{
-			if(WereChangesMade)
-			{
-				serverOriginal.Domain = Domain;
-				serverOriginal.bEnabled = bEnabled;
-
-				if(Ports.SetEquals(serverOriginal.Ports))
-				{
-					serverOriginal.ClearPorts();
-					foreach(ushort usCurPort in Ports)
-						serverOriginal.AddPort(usCurPort);
-				}
-
-				if(SslPorts.SetEquals(serverOriginal.SslPorts))
-				{
-					serverOriginal.ClearSslPorts();
-					foreach(ushort usCurSslPort in SslPorts)
-						serverOriginal.AddSslPort(usCurSslPort);
-				}
-			}
-		}
 	}
 }

@@ -13,7 +13,7 @@
 			Name="panelBtnBar"
 			DockPanel.Dock="Bottom"
 			Margin="4,0,4,4"
-			ColumnDefinitions="1*,4,Auto,4,Auto,10"
+			ColumnDefinitions="1*,4,Auto,4,Auto,4,Auto"
 			RowDefinitions="1*">
 			<HyperlinkButton
 				Name="hlinkHomepage"

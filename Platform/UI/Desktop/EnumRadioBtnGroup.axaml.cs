@@ -7,6 +7,7 @@ public partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
 	public EnumRadioBtnGroup()
 		=> InitializeIfNeeded();
 
+	// ReSharper disable once InconsistentNaming
 	public readonly string strGroupName = new System.Guid().ToString();
 
 	public string GroupName
@@ -41,56 +42,19 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 		#endregion
 
 		#region Routed Events
-			public static readonly Avalonia.Interactivity.RoutedEvent evtSelValChangedEvent =
+		// ReSharper disable once InconsistentNaming
+		public static readonly Avalonia.Interactivity.RoutedEvent evtSelValChangedEvent =
 				Avalonia.Interactivity.RoutedEvent.Register<EnumRadioBtnGroup<EnumType>, Avalonia.Controls
-				.SelectionChangedEventArgs>(nameof(evtSelValChanged), Avalonia.Interactivity.RoutingStrategies.Direct);
+				.SelectionChangedEventArgs>(nameof(evtSelValChanged), Avalonia.Interactivity.RoutingStrategies
+				.Direct);
 		#endregion
 	#endregion
 
 	#region Helper Types
-		internal class Wrapper
-		{
-			public Wrapper(in EnumType valRaw)
-			{
-				this.valRaw = valRaw;
-				string strEnumValAsStr = valRaw.ToString() ?? throw new System.InvalidProgramException("Unexpected null");
-				System.Reflection.FieldInfo? fieldInfo = valRaw.GetType().GetField(strEnumValAsStr) ?? throw new System
-					.InvalidProgramException($"Can't find field on instance of type {typeof(EnumType).FullName} for {strEnumValAsStr}");
-
-				object[] attribArray = fieldInfo.GetCustomAttributes(typeof(DataAndExt.Attr.LocalizedDescAttribute), false);
-
-				if(attribArray.Length == 0)
-				{
-					strName = strEnumValAsStr;
-					strToolTipText = "";
-				}
-				else
-				{
-					DataAndExt.Attr.LocalizedDescAttribute attrib = (DataAndExt.Attr.LocalizedDescAttribute)attribArray[0];
-
-					strName = attrib.Description;
-					strToolTipText = attrib.ExtendedDesc;
-				}
-			}
-
-
-			public readonly EnumType valRaw;
-
-			public readonly string strName;
-
-			public readonly string strToolTipText;
-
-
-			public EnumType RawVal => valRaw;
-
-			public string Name => strName;
-
-			public string ToolTipText => strToolTipText;
-		}
 	#endregion
 
 	#region Members
-		private EnumType? valSel = default;
+		private EnumType? valSel;
 	#endregion
 
 	#region Properties
@@ -117,7 +81,7 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 		private void OnInitialized(object? objSender, System.EventArgs e)
 		{
 			foreach(EnumType valCur in typeof(EnumType).GetEnumValues())
-				Items.Add(new Wrapper(valCur));
+				Items.Add(new EnumWrapper<EnumType>(valCur));
 		}
 	#endregion
 
@@ -138,9 +102,7 @@ public class EnumRadioBtnGroup<EnumType> : EnumRadioBtnGroup
 			{
 				rbNew.IsCheckedChanged += OnChildRadioBtnChecked;
 
-				rbNew.IsChecked = rbNew.Tag is Wrapper wrapper
-					? wrapper.RawVal.Equals(valSel)
-					: false;
+				rbNew.IsChecked = rbNew.Tag is EnumWrapper<EnumType> wrapper && wrapper.RawVal.Equals(valSel);
 			}
 		}
 	#endregion

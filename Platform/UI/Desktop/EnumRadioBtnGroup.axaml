@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:BestChat.Platform.UI.Desktop"
 	mc:Ignorable="d">
 	<ItemsControl.ItemsPanel>
 		<ItemsPanelTemplate>
@@ -12,12 +13,12 @@
 		</ItemsPanelTemplate>
 	</ItemsControl.ItemsPanel>
 	<ItemsControl.ItemTemplate>
-		<DataTemplate>
+		<DataTemplate DataType="local:IEnumWrapper">
 			<RadioButton
 				Content="{ReflectionBinding Name}"
 				GroupName="{ReflectionBinding GroupName, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
 				ToolTip.Tip="{ReflectionBinding ToolTipText}"
-				Tag="{ReflectionBinding RawVal}"/>
+				Tag="{ReflectionBinding RawValAsObj}"/>
 		</DataTemplate>
 	</ItemsControl.ItemTemplate>
 </ItemsControl>

@@ -25,14 +25,14 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			bIsPredefined = bncCopyThis.IsPredefined;
 			strName = bncCopyThis.Name;
 			uriHomePage = bncCopyThis.HomePage;
-			strHomeNetwork = bncCopyThis.HomeNet;
+			strHomeNet = bncCopyThis.HomeNet;
 			strHomeChan = bncCopyThis.HomeChan;
 			strOwnBot = bncCopyThis.OwnBot;
 			strsetAllowedNets = [.. bncCopyThis.AllowedNets];
 			strsetProhibitedNets = [.. bncCopyThis.ProhibitedNets];
-			foreach(ServerInfo serverCur in bncCopyThis.AllServersByName.Values)
+			foreach(BncServerInfo serverCur in bncCopyThis.AllServersByName.Values)
 			{
-				ServerInfo serverCopy = new(serverCur);
+				BncServerInfo serverCopy = new(serverCur);
 
 				servermapServersByName[serverCopy.Name] = serverCopy;
 
@@ -48,29 +48,36 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			bIsPredefined = dto is not DTO.UserBncDTO;
 			strName = dto.Name;
 			uriHomePage = dto.HomePage;
-			strHomeNetwork = dto.HomeNet;
+			strHomeNet = dto.HomeNet;
 			strHomeChan = dto.HomeChan;
 			strOwnBot = dto.OwnBot;
 			strsetAllowedNets = [.. dto.AllowedNets];
 			strsetProhibitedNets = [.. dto.ProhibitedNets];
 			foreach(DTO.BncDTO.ServerDTO dserverCur in dto.Servers)
 			{
-				ServerInfo serverCopy = new(this, dserverCur);
+				BncServerInfo serverCopy = new(this, dserverCur);
 
 				servermapServersByName[serverCopy.Name] = serverCopy;
 
 				serverCopy.evtDirtyChanged += OnServerDirtyChanged;
 			}
-			ussetPorts = [.. dto.Ports];
-			ussetSslPorts = [.. dto.SslPorts];
+			ussetPorts = dto.Ports is null
+				? []
+				: [.. dto.Ports];
+			ussetSslPorts = dto.SslPorts is null
+				? []
+				: [.. dto.SslPorts];
 		}
 
 		public BNC(in DTO.UserBncDTO dubnc)
 			: this((DTO.BncDTO)dubnc)
 		{
+			if(dubnc.Instances is null)
+				return;
+
 			foreach(DTO.UserBncDTO.InstanceDTO dinstanceCur in dubnc.Instances)
 			{
-				Instance instanceNew = new(this, dinstanceCur);
+				BncInstance instanceNew = new(this, dinstanceCur);
 
 				instancemapByName[instanceNew.Name] = instanceNew;
 
@@ -95,8 +102,8 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		public event DFieldChanged<string?>? evtHomeChanChanged;
 		public event DFieldChanged<string?>? evtOwnBotChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string,
-			ServerInfo>>? evtServersChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, Instance>>?
+			BncServerInfo>>? evtServersChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, BncInstance>>?
 			evtInstancesChanged;
 		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>?
 			evtPortsChanged;
@@ -109,881 +116,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 	#endregion
 
 	#region Helper Types
-		public partial class ServerInfo : Platform.DataAndExt.Obj<ServerInfo>
-		{
-			#region Constructors & Deconstructors
-				public ServerInfo(in BNC bncParent)
-				{
-					this.bncParent = bncParent;
 
-					strName = "";
-					strDomain = "";
-				}
-
-				public ServerInfo(in ServerInfo serverCopyThis)
-				{
-					bncParent = serverCopyThis.bncParent;
-
-					strName = serverCopyThis.Name;
-					strDomain = serverCopyThis.Domain;
-				}
-
-				protected ServerInfo(in BNC.Editable ebncParent, ServerInfo serverOriginal)
-					: this(serverOriginal)
-					=> bncParent = ebncParent;
-
-				public ServerInfo(in BNC bncParent, in DTO.BncDTO.ServerDTO dto)
-				{
-					this.bncParent = bncParent;
-
-					strName = dto.Name;
-					strDomain = dto.Domain;
-				}
-			#endregion
-
-			#region Delegates
-			#endregion
-
-			#region Events
-				public event DFieldChanged<string>? evtNameChanged;
-
-				public event DFieldChanged<string>? evtDomainChanged;
-			#endregion
-
-			#region Constants
-			#endregion
-
-			#region Helper Types
-				public class Editable : ServerInfo, System.ComponentModel.INotifyDataErrorInfo
-				{
-					#region Constructors & Deconstructors
-						internal Editable(BNC.Editable ebncParent, in ServerInfo serverOriginal)
-							: base(ebncParent, serverOriginal)
-							=> this.serverOriginal = serverOriginal;
-					#endregion
-
-					#region Delegates
-					#endregion
-
-					#region Events
-						public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>?
-							ErrorsChanged;
-					#endregion
-
-					#region Constants
-					#endregion
-
-					#region Helper Types
-					#endregion
-
-					#region Members
-						public readonly ServerInfo serverOriginal;
-					#endregion
-
-					#region Properties
-						public bool DomainIsValid
-						{
-							get
-							{
-								System.Uri uriTestOnDomain;
-
-								try
-								{
-									uriTestOnDomain = new(Domain);
-								}
-								catch(System.UriFormatException)
-								{
-									return false;
-								}
-
-								return true;
-							}
-						}
-
-						public bool DomainIsUnique
-							=> DomainIsValid && (!serverOriginal.bncParent.AllServersByDomain.ContainsKey(Domain) ||
-								serverOriginal.bncParent.AllServersByDomain[Domain] != serverOriginal);
-
-						public bool NameIsUnique
-							=> Name != "" && (!serverOriginal.bncParent.AllServersByName.ContainsKey(Name) ||
-								serverOriginal.bncParent.AllServersByName[Name] != serverOriginal);
-
-						public bool HasErrors
-							=> strName != "" && strDomain != null && !DomainIsUnique && !NameIsUnique;
-
-						public new string Name
-						{
-							get => base.Name;
-
-							set
-							{
-								if(base.Name != value)
-								{
-									base.Name = value;
-
-									WereChangesMade = true;
-								}
-							}
-						}
-
-						public new string Domain
-						{
-							get => base.Domain;
-
-							set
-							{
-								if(base.Domain != value)
-								{
-									base.Domain = value;
-
-									WereChangesMade = true;
-								}
-							}
-						}
-
-						public bool WereChangesMade
-						{
-							get;
-
-							private set;
-						}
-					#endregion
-
-					#region Methods
-						public System.Collections.IEnumerable GetErrors(string? strPropToGetErrorsFor)
-						{
-							System.Collections.Generic.SortedSet<string> strsetErrors = [];
-
-							string[] astrPropListToGetErrorsFor = strPropToGetErrorsFor == null
-								? [nameof(Name), nameof(Domain)]
-								: [strPropToGetErrorsFor];
-
-							foreach(string strCurPropToGetErrorFor in astrPropListToGetErrorsFor)
-								switch(strCurPropToGetErrorFor)
-								{
-									case nameof(Name):
-										if(Name == "")
-											strsetErrors.Add(Rsrcs.strBncNameBlank);
-										else if(!NameIsUnique)
-											strsetErrors.Add(Rsrcs.strBncNameTakenFmt);
-
-										break;
-
-									case nameof(Domain):
-										if(Domain == "")
-											strsetErrors.Add(Rsrcs.strBncServerDomainBlank);
-										else if(!DomainIsValid)
-											strsetErrors.Add(Rsrcs.strBncServerDomainInvalidFmt);
-										else if(!DomainIsUnique)
-											strsetErrors.Add(Rsrcs.strBncServerDomainNotUniqueFmt);
-
-										break;
-
-									default:
-										throw new System.InvalidProgramException("Unknown property during error test");
-								}
-
-							return strsetErrors;
-						}
-
-						public void Save()
-						{
-							serverOriginal.Name = Name;
-							serverOriginal.Domain = Domain;
-						}
-					#endregion
-
-					#region Event Handlers
-					#endregion
-				}
-			#endregion
-
-			#region Members
-				public readonly BNC bncParent;
-
-				private string strName;
-
-				private string strDomain;
-			#endregion
-
-			#region Properties
-				public string Name
-				{
-					get => strName;
-
-					protected set
-					{
-						if(strName != value)
-						{
-							string strOldName = strName;
-
-							strName = value;
-
-							MakeDirty();
-
-							FireNameChanged(strOldName);
-						}
-					}
-				}
-
-				public string Domain
-				{
-					get => strDomain;
-
-					protected set
-					{
-						if(strDomain != value)
-						{
-							string strOldDomain = strDomain;
-
-							strDomain = GetDomainTrimmerRegex().Replace(value, "$1");
-
-							MakeDirty();
-
-							FireDomainChanged(strOldDomain);
-						}
-					}
-				}
-			#endregion
-
-			#region Methods
-				private void FireNameChanged(in string strOldName)
-				{
-					FirePropChanged(nameof(Name));
-
-					evtNameChanged?.Invoke(this, strOldName, strName);
-				}
-
-				private void FireDomainChanged(in string strOldDomain)
-				{
-					FirePropChanged(nameof(Domain));
-
-					evtDomainChanged?.Invoke(this, strOldDomain, strDomain);
-				}
-
-				public DTO.BncDTO.ServerDTO ToDTO()
-					=> new(strName, strDomain);
-
-				public Editable MakeEditable(BNC.Editable ebnc)
-					=> new(ebnc, this);
-
-				[System.Text.RegularExpressions.GeneratedRegex("(.*?)([/#].*)")]
-				private static partial System.Text.RegularExpressions.Regex GetDomainTrimmerRegex();
-			#endregion
-
-			#region Event Handlers
-		#endregion
-		}
-		public class Editable : BNC
-		{
-			#region Constructors & Deconstructors
-				public Editable(in BNC bncOriginal) :
-					base(bncOriginal)
-					=> this.bncOriginal = bncOriginal;
-			#endregion
-
-			#region Delegates
-			#endregion
-
-			#region Events
-			#endregion
-
-			#region Constants
-			#endregion
-
-			#region Helper Types
-			#endregion
-
-			#region Members
-				public readonly BNC bncOriginal;
-			#endregion
-
-			#region Properties
-				public bool WereChangedMade
-				{
-					get;
-
-					private set;
-				}
-
-				public new string Name
-				{
-					get => base.Name;
-
-					set
-					{
-						if (base.Name != value)
-						{
-							base.Name = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-
-				public new System.Uri? HomePage
-				{
-					get => base.HomePage;
-
-					set
-					{
-						if (base.HomePage != value)
-						{
-							base.HomePage = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-
-				public new string? HomeNet
-				{
-					get => base.HomeNet;
-
-					protected set
-					{
-						if(base.HomeNet != value)
-						{
-							base.HomeNet = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-
-				public new string? HomeChan
-				{
-					get => base.HomeChan;
-
-					protected set
-					{
-						if(base.HomeChan != value)
-						{
-							base.HomeChan = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-
-				public new string? OwnBot
-				{
-					get => base.OwnBot;
-
-					set
-					{
-						if(base.OwnBot != value)
-						{
-							base.OwnBot = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-
-				public new System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo> AllServersByName
-					=> bncOriginal.AllServersByName;
-
-				public new uint? MaxNetworksPerBouncerInstance
-				{
-					get => base.MaxNetworksPerBouncerInstance;
-
-					set
-					{
-						if(base.MaxNetworksPerBouncerInstance != value)
-						{
-							base.MaxNetworksPerBouncerInstance = value;
-
-							WereChangedMade = true;
-						}
-					}
-				}
-			#endregion
-
-			#region Methods
-				public new void AddAllowedNetwork(string strNewAllowedNetwork)
-				{
-					base.AddAllowedNetwork(strNewAllowedNetwork);
-
-					WereChangedMade = true;
-				}
-
-				public new void RemoveAllowedNetwork(string strNetworkToRemoveFromAllowedList)
-				{
-					base.RemoveAllowedNetwork(strNetworkToRemoveFromAllowedList);
-
-					WereChangedMade = true;
-				}
-
-				public new void ClearAllowedNetworks()
-				{
-					base.ClearAllowedNetworks();
-
-					WereChangedMade = true;
-				}
-
-				public new void AddProhibitedNetwork(string strNewProhibitedNetwork)
-				{
-					base.AddAllowedNetwork(strNewProhibitedNetwork);
-
-					WereChangedMade = true;
-				}
-
-				public new void RemoveProhibitedNetwork(string strNetworkToRemoveFromProhibitedList)
-				{
-					base.RemoveAllowedNetwork(strNetworkToRemoveFromProhibitedList);
-
-					WereChangedMade = true;
-				}
-
-				public new void ClearProhibitedNetworks()
-				{
-					base.ClearAllowedNetworks();
-
-					WereChangedMade = true;
-				}
-
-				public new void AddServer(ServerInfo serverNew)
-				{
-					if(!AllServersByName.ContainsKey(serverNew.Name))
-					{
-						base.AddServer(serverNew);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemoveServer(string strNameOfServerToRemove)
-				{
-					if(AllServersByName.ContainsKey(strNameOfServerToRemove))
-					{
-						base.RemoveServer(strNameOfServerToRemove);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemoveServer(ServerInfo serverBeingRemoved)
-				{
-					if(AllServersByName.ContainsKey(serverBeingRemoved.Name))
-					{
-						base.RemoveServer(serverBeingRemoved);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void ClearServers()
-				{
-					if(AllServersByName.Count > 0)
-					{
-						base.ClearServers();
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void AddInstance(Instance instanceNew)
-				{
-					if(!AllInstancesByName.ContainsKey(instanceNew.Name))
-					{
-						base.AddInstance(instanceNew);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemoveInstance(string strNameOfInstanceToRemove)
-				{
-					if(AllInstancesByName.ContainsKey(strNameOfInstanceToRemove))
-					{
-						base.RemoveInstance(strNameOfInstanceToRemove);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemoveInstance(Instance instanceToRemove)
-				{
-					if(AllInstancesByName.ContainsKey(instanceToRemove.Name))
-					{
-						base.RemoveInstance(instanceToRemove);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void ClearInstances()
-				{
-					if(AllInstancesByName.Count > 0)
-					{
-						base.ClearInstances();
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void AddPort(ushort usNewPort)
-				{
-					if(!AllPorts.Contains(usNewPort))
-					{
-						bncOriginal.AddPort(usNewPort);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemovePort(ushort usPortToRemove)
-				{
-					if(AllPorts.Contains(usPortToRemove))
-					{
-						bncOriginal.RemovePort(usPortToRemove);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void ClearPorts()
-				{
-					if(AllPorts.Count > 0)
-					{
-						bncOriginal.ClearPorts();
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void AddSslPort(ushort usNewSslPort)
-				{
-					if(!AllSslPorts.Contains(usNewSslPort))
-					{
-						bncOriginal.AddSslPort(usNewSslPort);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void RemoveSslPort(ushort usSslPortToRemove)
-				{
-					if(AllSslPorts.Contains(usSslPortToRemove))
-					{
-						bncOriginal.RemoveSslPort(usSslPortToRemove);
-
-						WereChangedMade = true;
-					}
-				}
-
-				public new void ClearSslPorts()
-				{
-					if(AllSslPorts.Count > 0)
-					{
-						bncOriginal.ClearSslPorts();
-
-						WereChangedMade = true;
-					}
-				}
-
-				public void Save()
-				{
-					bncOriginal.Name = Name;
-					bncOriginal.HomePage = HomePage;
-					bncOriginal.HomeNet = HomeNet;
-					bncOriginal.HomeChan = HomeChan;
-					bncOriginal.OwnBot = OwnBot;
-					bncOriginal.MaxNetworksPerBouncerInstance = MaxNetworksPerBouncerInstance;
-
-					if(!AllowedNets.SetEquals(bncOriginal.AllowedNets))
-					{
-						bncOriginal.ClearAllowedNetworks();
-
-						foreach(string strCurAllowedNetwork in AllowedNets)
-							bncOriginal.AddAllowedNetwork(strCurAllowedNetwork);
-					}
-
-					if(!ProhibitedNets.SetEquals(bncOriginal.ProhibitedNets))
-					{
-						bncOriginal.ClearProhibitedNetworks();
-
-						foreach(string strCurProhibitedNetwork in ProhibitedNets)
-							bncOriginal.AddProhibitedNetwork(strCurProhibitedNetwork);
-					}
-
-					if(!AllServersByName.Values.ToHashSet().SetEquals(bncOriginal.AllServersByName.Values))
-					{
-						bncOriginal.ClearServers();
-
-						foreach(ServerInfo serverCur in AllServersByName.Values)
-							bncOriginal.AddServer(serverCur);
-					}
-
-					if(!AllInstancesByName.Values.ToHashSet().SetEquals(bncOriginal.AllInstancesByName.Values))
-					{
-						bncOriginal.ClearInstances();
-
-						foreach(Instance instanceCur in AllInstancesByName.Values)
-							bncOriginal.AddInstance(instanceCur);
-					}
-
-					if(!AllPorts.SetEquals(bncOriginal.AllPorts))
-					{
-						bncOriginal.ClearPorts();
-
-						foreach(ushort usCurPort in AllPorts)
-							bncOriginal.AddPort(usCurPort);
-					}
-
-					if(!AllSslPorts.SetEquals(bncOriginal.AllSslPorts))
-					{
-						bncOriginal.ClearSslPorts();
-
-						foreach(ushort usCurSslPort in AllSslPorts)
-							bncOriginal.AddSslPort(usCurSslPort);
-					}
-				}
-			#endregion
-
-			#region Event Handlers
-			#endregion
-		}
-
-		public class Instance : Platform.DataAndExt.Obj<Instance>
-		{
-			#region Constructors & Deconstructors
-				public Instance(Instance instanceCopyThis)
-				{
-					bncOwner = instanceCopyThis.bncOwner;
-
-					strName = instanceCopyThis.Name;
-					serverAssigned = instanceCopyThis.AssignedServer;
-				}
-
-				public Instance(BNC bncOwner, DTO.UserBncDTO.InstanceDTO dinstance)
-				{
-					this.bncOwner = bncOwner;
-
-					strName = dinstance.Name;
-					serverAssigned = bncOwner.AllServersByName.ContainsKey(dinstance.AssignedServer)
-						? bncOwner.AllServersByName[dinstance.AssignedServer]
-						: throw new System.InvalidProgramException($"Can't find the assigned BNC server {
-							dinstance.AssignedServer}");
-				}
-			#endregion
-
-			#region Delegates
-			#endregion
-
-			#region Events
-				public event DFieldChanged<string>? evtNameChanged;
-
-				public event DFieldChanged<ServerInfo?>? evtAssignedServerChanged;
-			#endregion
-
-			#region Constants
-			#endregion
-
-			#region Helper Types
-				public class Editable : Instance, System.ComponentModel.INotifyDataErrorInfo
-				{
-					#region Constructors & Deconstructors
-						internal Editable(Instance instanceWhatsBeingEdited) :
-							base(instanceWhatsBeingEdited)
-							=> instanceOriginal = instanceWhatsBeingEdited;
-					#endregion
-
-					#region Delegates
-					#endregion
-
-					#region Events
-						public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>?
-							ErrorsChanged;
-					#endregion
-
-					#region Constants
-					#endregion
-
-					#region Helper Types
-					#endregion
-
-					#region Members
-						public readonly Instance instanceOriginal;
-					#endregion
-
-					#region Properties
-						public bool WereChangedMade
-						{
-							get;
-
-							private set;
-						}
-
-						public new string Name
-						{
-							get => base.Name;
-
-							set
-							{
-								if(base.Name != value)
-								{
-									base.Name = value;
-
-									WereChangedMade = true;
-
-									ErrorsChanged?.Invoke(this, new(nameof(Name)));
-								}
-							}
-						}
-
-						public new ServerInfo? AssignedServer
-						{
-							get => base.AssignedServer;
-
-							set
-							{
-								if(base.AssignedServer != value)
-								{
-									base.AssignedServer = value;
-
-									WereChangedMade = true;
-
-									ErrorsChanged?.Invoke(this, new(nameof(AssignedServer)));
-								}
-							}
-						}
-
-						public bool HasErrors
-							=> Name == "" || instanceOriginal.bncOwner.AllInstancesByName.ContainsKey(Name) &&
-								instanceOriginal.bncOwner.AllInstancesByName[Name] != instanceOriginal || AssignedServer ==
-								null;
-					#endregion
-
-					#region Methods
-						public System.Collections.IEnumerable GetErrors(string? strPropToGetErrorsFor)
-						{
-							System.Collections.Generic.SortedSet<string> strsetErrors = [];
-
-							string[] astrPropsToGetErrorsFor = strPropToGetErrorsFor == null
-								? [nameof(Name), nameof(AssignedServer)]
-								: [strPropToGetErrorsFor];
-
-							foreach(string strCurPropToGetErrorsFor in astrPropsToGetErrorsFor)
-								switch(strCurPropToGetErrorsFor)
-								{
-									case nameof(Name):
-										if(Name == "")
-											strsetErrors.Add(Rsrcs.strBncInstanceNameBlankFmt.Fmt(bncOwner.Name));
-										else if(instanceOriginal.bncOwner.AllInstancesByName.ContainsKey(Name) &&
-												instanceOriginal.bncOwner.AllInstancesByName[Name] != instanceOriginal)
-											strsetErrors.Add(Rsrcs.strBncInstanceNameNotUniqueFmt.Fmt(Name, bncOwner.Name));
-										break;
-
-									case nameof(AssignedServer):
-										if(AssignedServer == null)
-											strsetErrors.Add(Rsrcs.strBncInstanceServerNeededFmt.Fmt(bncOwner.Name));
-										break;
-
-									default:
-										throw new System.InvalidProgramException("Unknown property");
-								}
-
-							return strsetErrors;
-						}
-
-						public void Save()
-						{
-							if(HasErrors)
-								throw new System.InvalidProgramException("We can't save until the errors are " +
-									"resolved");
-
-							instanceOriginal.Name = Name;
-							instanceOriginal.AssignedServer = AssignedServer;
-						}
-					#endregion
-
-					#region Event Handlers
-					#endregion
-				}
-			#endregion
-
-			#region Members
-				public readonly BNC bncOwner;
-
-				private string strName;
-
-				private ServerInfo? serverAssigned;
-			#endregion
-
-			#region Properties
-				public BNC OwnerBNC
-					=> bncOwner;
-
-				public string Name
-				{
-					get => strName;
-
-					set
-					{
-						if(strName != value)
-						{
-							string strOldName = strName;
-
-							strName = value;
-
-							MakeDirty();
-
-							FireNameChanged(strOldName);
-						}
-					}
-				}
-
-				public ServerInfo? AssignedServer
-				{
-					get => serverAssigned;
-
-					protected set
-					{
-						if(serverAssigned != value)
-						{
-							if(!bncOwner.AllServersByName.ContainsKey(value.Name))
-								throw new System.InvalidOperationException($"Can't find the server {value.Name} on the BNC {
-									bncOwner.Name}");
-
-							ServerInfo serverOldAssigned = serverAssigned;
-
-							serverAssigned = value;
-
-							MakeDirty();
-
-							FireAssignedServerChanged(serverOldAssigned);
-						}
-					}
-				}
-			#endregion
-
-			#region Methods
-				private void FireNameChanged(in string strOldName)
-				{
-					FirePropChanged(nameof(Name));
-
-					evtNameChanged?.Invoke(this, strOldName, strName);
-				}
-
-				private void FireAssignedServerChanged(in ServerInfo? serverOldAssignedServer)
-				{
-					FirePropChanged(nameof(AssignedServer));
-
-					evtAssignedServerChanged?.Invoke(this, serverOldAssignedServer, serverAssigned);
-				}
-
-				public DTO.UserBncDTO.InstanceDTO ToDTO()
-					=> new(strName, serverAssigned!.Name);
-
-				public Editable MakeEditable()
-					=> new(this);
-			#endregion
-
-			#region Event Handlers
-			#endregion
-		}
 	#endregion
 
 	#region Members
@@ -997,19 +130,19 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		private readonly System.Collections.Generic.SortedSet<string> strsetProhibitedNets;
 
-		private string? strHomeNetwork = null;
+		private string? strHomeNet = null;
 
 		private string? strHomeChan = null;
 
 		private string? strOwnBot = null;
 
-		private readonly System.Collections.Generic.SortedList<string, ServerInfo> servermapServersByName =
+		private readonly System.Collections.Generic.SortedList<string, BncServerInfo> servermapServersByName =
 			[];
 
-		private readonly System.Collections.Generic.Dictionary<string, ServerInfo> servermapServersByDomain =
+		private readonly System.Collections.Generic.Dictionary<string, BncServerInfo> servermapServersByDomain =
 			[];
 
-		private readonly System.Collections.Generic.SortedList<string, Instance> instancemapByName =
+		private readonly System.Collections.Generic.SortedList<string, BncInstance> instancemapByName =
 			[];
 
 		private readonly System.Collections.Generic.SortedSet<ushort> ussetPorts;
@@ -1075,20 +208,20 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		public string? HomeNet
 		{
-			get => strHomeNetwork;
+			get => strHomeNet;
 
 			protected set
 			{
-				if($"{strHomeNetwork}" != $"{value}")
+				if($"{strHomeNet}" != $"{value}")
 				{
 					if(value != null && strsetProhibitedNets.Contains(value))
 						throw new System.InvalidProgramException($"Can't make “{value}” the homepage for the " +
 							$"bouncer {strName} as it's in the list of prohibited networks for the same " +
 							"bouncer.  It's unlikely they'd be there.");
 
-					string? strOldHomeNetwork = strHomeNetwork;
+					string? strOldHomeNetwork = strHomeNet;
 
-					strHomeNetwork = value == ""
+					strHomeNet = value == ""
 						? null
 						: value;
 
@@ -1120,9 +253,9 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		public string HomeNetAndChannel
+		public string HomeNetAndChan
 			=> HasValidTechSupportChan
-				? $"{strHomeNetwork}/{strHomeChan}"
+				? $"{strHomeNet}/{strHomeChan}"
 				: "";
 
 		public string? OwnBot
@@ -1146,16 +279,16 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo> AllServersByName
+		public System.Collections.Generic.IReadOnlyDictionary<string, BncServerInfo> AllServersByName
 			=> servermapServersByName;
 
 		public string AllServersByNameAsText
 			=> servermapServersByName.Values.Select(serverCur => serverCur.Name).Join(", ");
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, ServerInfo> AllServersByDomain
+		public System.Collections.Generic.IReadOnlyDictionary<string, BncServerInfo> AllServersByDomain
 			=> servermapServersByDomain;
 
-		public System.Collections.Generic.IReadOnlyDictionary<string, Instance> AllInstancesByName
+		public System.Collections.Generic.IReadOnlyDictionary<string, BncInstance> AllInstancesByName
 			=> instancemapByName;
 
 		public string AllInstancesByNameAsText
@@ -1208,7 +341,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			=> !HasErrors;
 
 		public bool HasValidTechSupportChan
-			=> strHomeNetwork != null && strHomeChan != null;
+			=> strHomeNet != null && strHomeChan != null;
 
 		public ushort? NextAvailablePort
 		{
@@ -1261,21 +394,21 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			FirePropChanged(nameof(HomeNet));
 
-			evtHomeNetworkChanged?.Invoke(this, strOldHomeNetwork, strHomeNetwork);
+			evtHomeNetworkChanged?.Invoke(this, strOldHomeNetwork, strHomeNet);
 		}
 
 		protected void FireHomeChanChanged(string? strOldHomeNetwork)
 		{
 			FirePropChanged(nameof(HomeChan));
 
-			evtHomeChanChanged?.Invoke(this, strOldHomeNetwork, strHomeNetwork);
+			evtHomeChanChanged?.Invoke(this, strOldHomeNetwork, strHomeNet);
 		}
 
 		protected void FireOwnBotChanged(string? strOldHomeNetwork)
 		{
 			FirePropChanged(nameof(OwnBot));
 
-			evtOwnBotChanged?.Invoke(this, strOldHomeNetwork, strHomeNetwork);
+			evtOwnBotChanged?.Invoke(this, strOldHomeNetwork, strHomeNet);
 		}
 
 		protected void FireServersChanged(CollectionChangeType collectionChangeType)
@@ -1367,7 +500,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 						$"the list of prohibited networks for the bouncer {strName} as that network is on " +
 						"the list of allowed networks for the same bouncer.  It can't be on both lists.");
 
-				if(strHomeNetwork == strNewProhibitedNetwork)
+				if(strHomeNet == strNewProhibitedNetwork)
 					throw new System.InvalidProgramException($"Can't add “{strNewProhibitedNetwork}” to " +
 						$"the list of prohibited networks for the bouncer {strName} as that happens to be " +
 						"listed as the home network for the same bouncer.  Why would they be there if they don't " +
@@ -1405,7 +538,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		protected void AddServer(ServerInfo serverNew)
+		protected void AddServer(BncServerInfo serverNew)
 		{
 			if(!servermapServersByName.ContainsKey(serverNew.Name))
 			{
@@ -1425,7 +558,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		protected void RemoveServer(string strNameOfServerToRemove)
 		{
-			if(servermapServersByName.TryGetValue(strNameOfServerToRemove, out ServerInfo? serverBeingRemoved))
+			if(servermapServersByName.TryGetValue(strNameOfServerToRemove, out BncServerInfo? serverBeingRemoved))
 			{
 				serverBeingRemoved.evtDirtyChanged -= OnServerDirtyChanged;
 				serverBeingRemoved.evtNameChanged -= OnServerNameChanged;
@@ -1440,7 +573,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		protected void RemoveServer(ServerInfo serverToRemove)
+		protected void RemoveServer(BncServerInfo serverToRemove)
 			=> RemoveServer(serverToRemove.Name);
 
 		protected void ClearServers()
@@ -1455,7 +588,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		protected void AddInstance(Instance instanceNew)
+		protected void AddInstance(BncInstance instanceNew)
 		{
 			if(!instancemapByName.ContainsKey(instanceNew.Name))
 			{
@@ -1469,7 +602,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		internal void AddInstanceInternal(Instance instanceNew)
+		internal void AddInstanceInternal(BncInstance instanceNew)
 			=> AddInstance(instanceNew);
 
 		protected void RemoveInstance(string strNameOfInstanceToRemove)
@@ -1484,7 +617,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		protected void RemoveInstance(Instance instanceToRemove)
+		protected void RemoveInstance(BncInstance instanceToRemove)
 			=> RemoveInstance(instanceToRemove.Name);
 
 		protected void ClearInstances()
@@ -1565,7 +698,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			}
 		}
 
-		public Editable MakeEditableVersion()
+		public BncEditable MakeEditableVersion()
 			=> new(this);
 
 		public DTO.UserBncDTO ToDTO()
@@ -1638,30 +771,98 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 			return strsetErrors;
 		}
+
+		public void SaveFrom(BncEditable ebncSaveFrom)
+		{
+			strName = ebncSaveFrom.Name;
+			uriHomePage = ebncSaveFrom.HomePage;
+			strHomeNet = ebncSaveFrom.HomeNet;
+			strHomeChan = ebncSaveFrom.HomeChan;
+			strOwnBot = ebncSaveFrom.OwnBot;
+			uiMaxNetworksPerBouncerInstance = ebncSaveFrom.MaxNetworksPerBouncerInstance;
+
+			if(!AllowedNets.SetEquals(ebncSaveFrom.AllowedNets))
+			{
+				ClearAllowedNetworks();
+
+				foreach(string strCurAllowedNetwork in ebncSaveFrom.AllowedNets)
+					AddAllowedNetwork(strCurAllowedNetwork);
+			}
+
+			if(!ProhibitedNets.SetEquals(ebncSaveFrom.ProhibitedNets))
+			{
+				ClearProhibitedNetworks();
+
+				// ReSharper disable once InconsistentNaming
+				foreach(string strCurProhibitedNetwork in ProhibitedNets)
+					AddProhibitedNetwork(strCurProhibitedNetwork);
+			}
+
+			if(!AllServersByName
+					.Values
+					.ToHashSet()
+					.SetEquals(ebncSaveFrom.AllServersByName.Values)
+				)
+			{
+				ClearServers();
+
+				foreach(BncServerInfo serverCur in ebncSaveFrom.AllServersByName.Values)
+					AddServer(serverCur);
+			}
+
+			if(!AllInstancesByName
+					.Values
+					.ToHashSet()
+					.SetEquals(ebncSaveFrom.AllInstancesByName.Values))
+			{
+				ClearInstances();
+
+				foreach(BncInstance instanceCur in ebncSaveFrom.AllInstancesByName.Values)
+					AddInstance(instanceCur);
+			}
+
+			if(!AllPorts.SetEquals(ebncSaveFrom.AllPorts))
+			{
+				ClearPorts();
+
+				foreach(ushort usCurPort in ebncSaveFrom.AllPorts)
+					AddPort(usCurPort);
+			}
+
+			// ReSharper disable once InvertIf
+			if(!AllSslPorts.SetEquals(ebncSaveFrom.AllSslPorts))
+			{
+				ClearSslPorts();
+
+				foreach(ushort usCurSslPort in ebncSaveFrom.AllSslPorts)
+					AddSslPort(usCurSslPort);
+			}
+		}
+
 	#endregion
 
 	#region Event Handlers
-		private void OnServerDirtyChanged(in ServerInfo objSender, in bool bIsNowDirty)
+		private void OnServerDirtyChanged(in BncServerInfo objSender, in bool bIsNowDirty)
 		{
 			if(bIsNowDirty)
 				MakeDirty();
 		}
 
-		private void OnServerNameChanged(in ServerInfo serverSender, in string strOldName, in string
+		private void OnServerNameChanged(in BncServerInfo serverSender, in string strOldName, in string
 			strNewName)
 		{
 			servermapServersByName.Remove(strOldName);
 			servermapServersByName[strNewName] = serverSender;
 		}
 
-		private void OnServerDomainChanged(in ServerInfo serverSender, in string strOldDomainName, in string
+		private void OnServerDomainChanged(in BncServerInfo serverSender, in string strOldDomainName, in string
 			strNewDomainName)
 		{
 			servermapServersByDomain.Remove(strOldDomainName);
 			servermapServersByDomain[strNewDomainName] = serverSender;
 		}
 
-		private void OnInstanceDirtyChanged(in Instance objSender, in bool bIsNowDirty)
+		private void OnInstanceDirtyChanged(in BncInstance objSender, in bool bIsNowDirty)
 		{
 			if(bIsNowDirty)
 				MakeDirty();

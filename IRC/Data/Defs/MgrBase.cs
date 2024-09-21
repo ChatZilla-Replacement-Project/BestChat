@@ -209,7 +209,7 @@ public class UserNetMgr : MgrBase<UserNet, Net, DTO.UserNetDTO>
 				System.Text.Json.JsonSerializer.Serialize(
 					stream,
 					AllItemsSortedByName.Select(unetCur
-						=> unetCur.ToDTO()
+						=> unetCur.ToDto()
 					),
 					jsoStandard
 				);
@@ -238,16 +238,14 @@ public class BncMgr : MgrBase<BNC, BNC, DTO.UserBncDTO>
 
 	private static BNC? MakeBncFromDTO(in DTO.UserBncDTO dubnc)
 	{
-		if(mgr.AllItems.TryGetValue(dubnc.Name, out BNC? bncExisting) && dubnc.Instances != null && bncExisting !=
-			null)
-		{
-			foreach(DTO.UserBncDTO.InstanceDTO dinstanceCur in dubnc.Instances)
-				bncExisting.AddInstanceInternal(new(bncExisting, dinstanceCur));
+		if(!mgr.AllItems.TryGetValue(dubnc.Name, out BNC? bncExisting) || dubnc.Instances == null || bncExisting ==
+				null)
+			return new(dubnc);
 
-			return null;
-		}
+		foreach(DTO.UserBncDTO.InstanceDTO dinstanceCur in dubnc.Instances)
+			bncExisting.AddInstanceInternal(new(bncExisting, dinstanceCur));
 
-		return new(dubnc);
+		return null;
 	}
 
 	private readonly System.Threading.Thread threadSave;

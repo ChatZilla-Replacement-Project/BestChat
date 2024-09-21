@@ -22,7 +22,7 @@ public abstract class AbstractConversation : IViewOrConversation, System.Compone
 	#endregion
 
 	#region Events
-		public abstract event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
+		public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 
 		public abstract event System.Action<Dieable.IDieable>? evtDieing;
 	#endregion
@@ -108,7 +108,8 @@ public abstract class AbstractConversation : IViewOrConversation, System.Compone
 	#endregion
 
 	#region Methods
-		protected abstract void FirePropChanged(in string strPropName);
+		protected void FirePropChanged(in string strPropName)
+			=> PropertyChanged?.Invoke(this, new(strPropName));
 
 		protected void RecordEvent(in IEventInfo evti)
 		{

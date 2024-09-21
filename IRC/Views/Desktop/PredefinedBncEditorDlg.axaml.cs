@@ -27,11 +27,11 @@ public partial class PredefinedBncEditorDlg : Avalonia.Controls.Window
 	#endregion
 
 	#region Members
-		private Data.Defs.BNC.Editable? bncCtxt = null;
+		private Data.Defs.BncEditable? bncCtxt = null;
 	#endregion
 
 	#region Properties
-		public Data.Defs.BNC.Editable? CtxtBNC
+		public Data.Defs.BncEditable? CtxtBNC
 		{
 			get => bncCtxt;
 
@@ -55,18 +55,19 @@ public partial class PredefinedBncEditorDlg : Avalonia.Controls.Window
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			e)
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
 
-		private void OnTechSupportChanLinkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
+			=> Close(null);
+
+		private void OnTechSupportChanLinkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			// TODO: Open and select the channel.
 		}

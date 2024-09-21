@@ -1,79 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<WarningLevel>9999</WarningLevel>
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<WarningLevel>9999</WarningLevel>
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
-	</PropertyGroup>
-	<PropertyGroup Label="Avalonia">
-		<AvaloniaNameGeneratorDefaultFieldModifier>Private</AvaloniaNameGeneratorDefaultFieldModifier>
-		<ApplicationIcon>Assets\We Chat.ico</ApplicationIcon>
-		<PackageIcon>We Chat icon 180x180.png</PackageIcon>
-	</PropertyGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Assets\We Chat.ico">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</EmbeddedResource>
-	</ItemGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <WarningLevel>9999</WarningLevel>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <WarningLevel>9999</WarningLevel>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Label="Avalonia">
+        <AvaloniaNameGeneratorDefaultFieldModifier>Private</AvaloniaNameGeneratorDefaultFieldModifier>
+        <ApplicationIcon>Assets\We Chat.ico</ApplicationIcon>
+        <PackageIcon>We Chat icon 180x180.png</PackageIcon>
+    </PropertyGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\We Chat.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="Assets\**" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Content Include="Assets\We Chat.ico" />
-	</ItemGroup>
+    <ItemGroup>
+        <Content Include="Assets\We Chat.ico"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.1.3" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3" />
-		<PackageReference Include="BinToss.GroupBox.Avalonia" Version="1.0.0" />
-		<PackageReference Include="CalcBindingAva" Version="2.5.3" />
-		<PackageReference Include="LucideAvalonia" Version="1.5.0" />
-		<PackageReference Include="MessageBox.Avalonia" Version="3.1.6" />
-		<PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.12" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3"/>
+        <PackageReference Include="BinToss.GroupBox.Avalonia" Version="1.0.0"/>
+        <PackageReference Include="CalcBindingAva" Version="2.5.3"/>
+        <PackageReference Include="LucideAvalonia" Version="1.5.0"/>
+        <PackageReference Include="MessageBox.Avalonia" Version="3.1.6"/>
+        <PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.12"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<Compile Update="Rsrcs.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Rsrcs.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
+    <ItemGroup>
+        <Compile Update="Rsrcs.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Rsrcs.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Update="Rsrcs.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Rsrcs.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <AvaloniaResource Update="We Chat.ico" Link="WeChat.ico" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Update="We Chat.ico" Link="WeChat.ico"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="PrefsViews\" />
-	</ItemGroup>
+    <ItemGroup>
+        <Folder Include="PrefsViews\"/>
+    </ItemGroup>
 </Project>

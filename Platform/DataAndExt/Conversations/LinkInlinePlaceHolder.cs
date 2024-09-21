@@ -71,10 +71,10 @@ public partial class LinkInlinePlaceHolder : IInlinePlaceHolder
 		[System.Text.RegularExpressions.GeneratedRegex("""^\#{1,2}[a-z\d\-_]+?$""")]
 		private static partial System.Text.RegularExpressions.Regex GenChanNameMatcher();
 
-		[System.Text.RegularExpressions.GeneratedRegex("""^(?<ParentPath>/?([a-z\d\-_]+?/)*?)(\#{,2}[a-z\d\-_]+?)$""")]
+		[System.Text.RegularExpressions.GeneratedRegex("""^(?<ParentPath>/?([a-z\d\-_]+?/)*?)(\#{0,2}[a-z\d\-_]+?)$""")]
 		private static partial System.Text.RegularExpressions.Regex GenPathEditor();
 
-		[System.Text.RegularExpressions.GeneratedRegex("""^(/?([a-z\d\-_]+?/)?)/\#{,2}([a-z\d\-_]+?)$""")]
+		[System.Text.RegularExpressions.GeneratedRegex("""^(/?([a-z\d\-_]+?/)?)/\#{0,2}([a-z\d\-_]+?)$""")]
 		private static partial System.Text.RegularExpressions.Regex GetBestChatPathMatcher();
 	#endregion
 

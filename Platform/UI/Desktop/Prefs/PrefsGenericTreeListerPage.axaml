@@ -15,6 +15,6 @@
 			Text="{ReflectionBinding LocalizedName}" />
 		<local:PrefGroupTreeListerCtrl
 			Grid.Row="2"
-			Children="{ReflectionBinding $parent[local:PrefsGenericTreeListerPage].DataContext.Children}" />
+			Children="{Binding Children}" />
 	</Grid>
 </local:VisualPrefsTabCtrl>

@@ -59,11 +59,10 @@ public partial class FolderBrowserCtrl : Avalonia.Controls.UserControl, System.C
 	#endregion
 
 	#region Event Handlers
-		private async void OnBrowseBtnClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity
-			.RoutedEventArgs e)
+		private async void OnBrowseBtnClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Avalonia.Controls.TopLevel? tp = Avalonia.Controls.TopLevel.GetTopLevel(this);
-		
+
 			if(tp != null)
 			{
 				System.Collections.Generic.IReadOnlyList<Avalonia.Platform.Storage.IStorageFolder> folders = await tp

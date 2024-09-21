@@ -9,7 +9,7 @@ public partial class PrefsWnd : Avalonia.Controls.Window
 		{
 			InitializeComponent();
 
-			treeMain.ItemsSource = RootPrefs.Instance.ChildMgrByName;
+			treeMain.ItemsSource = Platform.UI.Desktop.Prefs.RootPrefs.Instance.ChildMgrByName;
 		}
 	#endregion
 

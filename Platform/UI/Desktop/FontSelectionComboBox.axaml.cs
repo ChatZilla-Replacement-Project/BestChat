@@ -27,7 +27,7 @@ public partial class FontSelectionComboBox : Avalonia.Controls.ComboBox
 	#region Constants
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification
 			= "Due to naming standards that are inherited")]
-		public static readonly Avalonia.DirectProperty<FontSelectionComboBox, bool> ListOnlyFixedWidthFontsProperty 
+		public static readonly Avalonia.DirectProperty<FontSelectionComboBox, bool> ListOnlyFixedWidthFontsProperty
 			= Avalonia.AvaloniaProperty.RegisterDirect<FontSelectionComboBox, bool>(
 				nameof(ListOnlyFixedWidthFonts),
 				instance
@@ -72,7 +72,10 @@ public partial class FontSelectionComboBox : Avalonia.Controls.ComboBox
 
 			Items.Clear();
 
-			foreach(SkiaSharp.SKTypeface tfCur in (ListOnlyFixedWidthFonts ? AllFixedWidthFonts : listtfAllSysFonts).OrderBy(tfCur => tfCur.FamilyName))
+			foreach(SkiaSharp.SKTypeface tfCur in (ListOnlyFixedWidthFonts ? AllFixedWidthFonts : listtfAllSysFonts)
+				.OrderBy(tfCur
+					=> tfCur.FamilyName)
+				)
 			{
 				Items.Add(tfCur);
 

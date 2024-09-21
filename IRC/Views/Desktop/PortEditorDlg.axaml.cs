@@ -96,11 +96,14 @@ public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentM
 			}
 		}
 
+		public bool WereChangesMade
+			=> usCurPort != usExistingPort;
+
 		private System.Collections.Generic.IEnumerable<ushort> UnavailablePorts
 			=> ussetUnavailablePorts;
 
 		private bool IsOkToClose
-			=> eserverParentOfPort != null && (mode switch
+			=> (mode switch
 					{
 						Modes.invalid
 							=> throw new System.InvalidProgramException("This dialog should never have been shown with an " +
@@ -120,7 +123,7 @@ public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentM
 		public bool HasErrors
 			=> !ussetUnavailablePorts.Contains(usCurPort);
 
-		public bool IsDataValid
+		public bool IsValid
 			=> !HasErrors;
 	#endregion
 
@@ -154,18 +157,16 @@ public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentM
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			e)
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(true);
 
-		private void OnCloseClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			e)
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 			=> Close(null);
 	#endregion
 }

@@ -21,9 +21,9 @@ public class UserNet : Net, IDataDef<Net>
 			this.netPredefinedParent = netPredefinedParent;
 		}
 
-		public UserNet(in Net netPredefinedParent, in string strName, in System.Uri uriHomepage, params
+		public UserNet(in Net netPredefinedParent, in string name, in System.Uri uriHomepage, params
 				NetServerInfo[] allServers) :
-			base(strName, uriHomepage, allServers)
+			base(name, uriHomepage, allServers)
 		{
 			if(netPredefinedParent != null && netPredefinedParent.GetType() != typeof(PredefinedNet))
 				throw new System.InvalidProgramException($"The parent network for a user network must be predefined" +
@@ -38,7 +38,7 @@ public class UserNet : Net, IDataDef<Net>
 
 			bAutoConnect = unetCopyThis.AutoConnect;
 			bHidden = unetCopyThis.IsHidden;
-			bUseSSL = unetCopyThis.UseSSL;
+			bUseSsl = unetCopyThis.UseSsl;
 			usPortToUse = unetCopyThis.PortToUse;
 			logInMode = unetCopyThis.LogInMode;
 			strLogInChallengeUserName = unetCopyThis.IsLogInChallengeTextValid
@@ -57,8 +57,8 @@ public class UserNet : Net, IDataDef<Net>
 				? unetCopyThis.LogInPwd
 				: null;
 			if(unetCopyThis.IsLogInCustomStepsValid)
-				foreach(string strNewCustomLogInStep in unetCopyThis.LogInCustomSteps)
-					ocLogInCustomSteps.Add(strNewCustomLogInStep);
+				foreach(string newCustomLogInStep in unetCopyThis.LogInCustomSteps)
+					ocLogInCustomSteps.Add(newCustomLogInStep);
 			fileLogInSaslCert = unetCopyThis.IsLogInSaslCertValid
 				? unetCopyThis.LogInSaslCert
 				: null;
@@ -68,7 +68,7 @@ public class UserNet : Net, IDataDef<Net>
 		{
 			bAutoConnect = dunetworkUs.AutoConnect;
 			bHidden = dunetworkUs.Hidden;
-			bUseSSL = dunetworkUs.UseSSL;
+			bUseSsl = dunetworkUs.UseSSL;
 			usPortToUse = dunetworkUs.PortToUse;
 			logInMode = dunetworkUs.LogInMode;
 			strLogInChallengeUserName = dunetworkUs.LogInChallengeUserName;
@@ -77,8 +77,8 @@ public class UserNet : Net, IDataDef<Net>
 			strLogInUserName = dunetworkUs.LogInUserName;
 			strLogInPwd = dunetworkUs.LogInPwd;
 			if(dunetworkUs.LogInCustomSteps != null)
-				foreach(string strCurCustomLogInStep in dunetworkUs.LogInCustomSteps)
-					ocLogInCustomSteps.Add(strCurCustomLogInStep);
+				foreach(string curCustomLogInStep in dunetworkUs.LogInCustomSteps)
+					ocLogInCustomSteps.Add(curCustomLogInStep);
 			fileLogInSaslCert = dunetworkUs.LogInSaslCert;
 		}
 	#endregion
@@ -89,7 +89,7 @@ public class UserNet : Net, IDataDef<Net>
 	#region Events
 		public event DBoolFieldChanged? evtAutoConnectChanged;
 		public event DBoolFieldChanged? evtIsHiddenChanged;
-		public event DBoolFieldChanged? evtUseSSLChanged;
+		public event DBoolFieldChanged? evtUseSslChanged;
 		public event DFieldChanged<ushort?>? evtPortToUseChanged;
 		public event DFieldChanged<LogInModes>? evtLogInModeChanged;
 		public event DFieldChanged<string?>? evtLogInChallengeUserNameChanged;
@@ -106,368 +106,7 @@ public class UserNet : Net, IDataDef<Net>
 	#endregion
 
 	#region Helper Types
-		public class Editable : UserNet, System.ComponentModel.INotifyDataErrorInfo
-		{
-			#region Constructors & Deconstructors
-				public Editable(UserNet unetOriginal) :
-					base(unetOriginal)
-					=> this.unetOriginal = unetOriginal;
-			#endregion
 
-			#region Events
-				public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
-			#endregion
-
-			#region Members
-				public readonly UserNet unetOriginal;
-			#endregion
-
-			#region Properties
-				public new string Name
-				{
-					get => base.Name;
-
-					set
-					{
-						base.Name = value;
-
-						WereChangesMade = true;
-					}
-				}
-
-				public new System.Uri? HomePage
-				{
-					get => base.HomePage;
-
-					set
-					{
-						base.HomePage = value;
-
-						WereChangesMade = true;
-					}
-				}
-
-				public new NickServOpts? NickServ
-				{
-					get => unetOriginal.NickServ;
-
-					set
-					{
-						if(unetOriginal.NickServ != value)
-						{
-							unetOriginal.NickServ = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new ChanServOpts? ChanServ
-				{
-					get => unetOriginal.ChanServ;
-
-					set
-					{
-						if(unetOriginal.ChanServ != value)
-						{
-							unetOriginal.ChanServ = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new AlisOpts AlisStatus
-				{
-					get => unetOriginal.AlisStatus;
-
-					set
-					{
-						if(unetOriginal.AlisStatus != value)
-						{
-							unetOriginal.AlisStatus = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new QOpts QStatus
-				{
-					get => unetOriginal.QStatus;
-
-					set
-					{
-						if(unetOriginal.QStatus != value)
-						{
-							unetOriginal.QStatus = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new LogInModes LogInMode
-				{
-					get => unetOriginal.LogInMode;
-
-					set
-					{
-						if(unetOriginal.LogInMode != value)
-						{
-							unetOriginal.LogInMode = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new string? LogInChallengeUserName
-				{
-					get => unetOriginal.LogInChallengeUserName;
-
-					set
-					{
-						if(unetOriginal.LogInChallengeUserName != value)
-						{
-							unetOriginal.LogInChallengeUserName = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new string? LogInChallengeBncName
-				{
-					get => unetOriginal.LogInChallengeBncName;
-
-					set
-					{
-						if(unetOriginal.LogInChallengeBncName != value)
-						{
-							unetOriginal.LogInChallengeBncName = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new string? LogInChallengePwd
-				{
-					get => unetOriginal.LogInChallengePwd;
-
-					set
-					{
-						if(unetOriginal.LogInChallengePwd != value)
-						{
-							unetOriginal.LogInChallengePwd = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new string? LogInUserName
-				{
-					get => unetOriginal.LogInUserName;
-
-					set
-					{
-						if(unetOriginal.LogInUserName != value)
-						{
-							unetOriginal.LogInUserName = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new string? LogInPwd
-				{
-					get => unetOriginal.LogInPwd;
-
-					set
-					{
-						if(unetOriginal.LogInPwd != value)
-						{
-							unetOriginal.LogInPwd = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public new System.IO.FileInfo? LogInSaslCert
-				{
-					get => unetOriginal.LogInSaslCert;
-
-					set
-					{
-						if(unetOriginal.LogInSaslCert != value)
-						{
-							unetOriginal.LogInSaslCert = value;
-
-							WereChangesMade = true;
-						}
-					}
-				}
-
-				public override bool IsServerListDefaulted
-					=> unetOriginal.IsServerListDefaulted;
-
-				public bool WereChangesMade
-				{
-					get;
-
-					private set;
-				}
-
-				public bool HasErrors
-					=> Name == "" || UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] !=
-						unetOriginal;
-			#endregion
-
-			#region Methods
-				public void Save()
-				{
-					if(IsDirty)
-					{
-						if(unetOriginal.netPredefinedParent == null)
-						{
-							unetOriginal.Name = Name;
-							unetOriginal.HomePage = HomePage;
-						}
-
-						if(AllUnsortedServers.Any((NetServerInfo serverCur)
-							=> serverCur.IsDirty))
-						{
-							unetOriginal.ClearServerDomainList();
-
-							foreach(NetServerInfo serverCur in AllUnsortedServers)
-								unetOriginal.AddServerDomain(serverCur);
-						}
-
-						unetOriginal.AutoConnect = AutoConnect;
-						unetOriginal.IsHidden = IsHidden;
-						unetOriginal.UseSSL = UseSSL;
-						unetOriginal.PortToUse= usPortToUse;
-						unetOriginal.LogInMode = logInMode;
-						if(IsLogInChallengeTextValid)
-						{
-							unetOriginal.LogInChallengeUserName = strLogInChallengeUserName;
-							unetOriginal.LogInChallengeBncName = strLogInChallengeBncName;
-							unetOriginal.LogInChallengePwd = strLogInChallengePwd;
-						}
-						if(IsLogInUserNameValid)
-							unetOriginal.LogInUserName = strLogInUserName;
-						if(IsLogInPwdValid)
-							unetOriginal.LogInPwd = strLogInPwd;
-						if(IsLogInCustomStepsValid)
-						{
-							unetOriginal.ClearCustomLogInSteps();
-							foreach(string strCurCustomLogInStep in ocLogInCustomSteps)
-								unetOriginal.AddLogInCustomStep(strCurCustomLogInStep);
-						}
-						if(IsLogInSaslCertValid)
-							unetOriginal.LogInSaslCert = fileLogInSaslCert;
-					}
-				}
-
-				public NetServerInfo.Editable GetBlankNewServerDomain()
-					=> new NetServerInfo(this).MakeEditableVersion(this);
-
-				public new void AddServerDomain(in NetServerInfo server)
-				{
-					base.AddServerDomain(server);
-
-					WereChangesMade = true;
-				}
-
-				public new void DelServerDomain(in NetServerInfo server)
-				{
-					base.DelServerDomain(server);
-
-					WereChangesMade = true;
-				}
-
-				public new void ClearServerDomainList()
-				{
-					base.ClearServerDomainList();
-
-					WereChangesMade = true;
-				}
-
-				public new void MoveServerDownSearchList(in NetServerInfo server)
-				{
-					base.MoveServerDownSearchList(server);
-
-					WereChangesMade = true;
-				}
-
-				public new void MoveServerUpSearchList(in NetServerInfo server)
-				{
-					base.MoveServerUpSearchList(server);
-
-					WereChangesMade = true;
-				}
-
-				public new void ResetServerDomainList()
-				{
-					unetOriginal.ResetServerDomainList();
-
-					WereChangesMade = true;
-				}
-
-				public new void AddLogInCustomStep(in string strNewLogInCustomStep)
-				{
-					base.AddLogInCustomStep(strNewLogInCustomStep);
-
-					WereChangesMade = true;
-				}
-
-				public new void RemoveLogInStep(in string strLogInStepToRemove)
-				{
-					base.RemoveLogInStep(strLogInStepToRemove);
-
-					WereChangesMade = true;
-				}
-
-				public new void ChangeLogInStep(in string strExistingLogInStep, in string strNewLogInStep)
-				{
-					base.ChangeLogInStep(strExistingLogInStep, strNewLogInStep);
-
-					WereChangesMade = true;
-				}
-
-				public new void MoveCustomLogInStepUp(in string strWhichCustomLogInStep)
-				{
-					base.MoveCustomLogInStepUp(strWhichCustomLogInStep);
-
-					WereChangesMade = true;
-				}
-
-				public new void MoveCustomLogInStepDown(in string strWhichCustomLogInStep)
-				{
-					base.MoveCustomLogInStepDown(strWhichCustomLogInStep);
-
-					WereChangesMade = true;
-				}
-
-				public new void ClearCustomLogInSteps()
-				{
-					base.ClearCustomLogInSteps();
-
-					WereChangesMade = true;
-				}
-
-				public System.Collections.IEnumerable GetErrors(string? strPropToGetErrorsFor)
-					=> Name == ""
-						? (new string[]{Rsrcs.strUserNetNameBlank})
-						: UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] != unetOriginal
-							? (new string[]{Rsrcs.strUserNetNameTaken })
-							: (System.Collections.IEnumerable)System.Array.Empty<string>();
-			#endregion
-		}
 	#endregion
 
 	#region Members
@@ -478,30 +117,33 @@ public class UserNet : Net, IDataDef<Net>
 
 		private bool bHidden;
 
-		private bool bUseSSL;
+		private bool bUseSsl;
 
 		private ushort? usPortToUse;
 
 		private LogInModes logInMode = LogInModes.custom;
 
+		// ReSharper disable once InconsistentNaming
 		private string? strLogInChallengeUserName = null;
 
+		// ReSharper disable once InconsistentNaming
 		private string? strLogInChallengeBncName = null;
 
+		// ReSharper disable once InconsistentNaming
 		private string? strLogInChallengePwd = null;
 
+		// ReSharper disable once InconsistentNaming
 		private string? strLogInUserName = null;
 
+		// ReSharper disable once InconsistentNaming
 		private string? strLogInPwd = null;
 
-		private readonly System.Collections.ObjectModel.ObservableCollection<string> ocLogInCustomSteps =
-			[];
+		private readonly System.Collections.ObjectModel.ObservableCollection<string> ocLogInCustomSteps = [];
 
 		private System.IO.FileInfo? fileLogInSaslCert = null;
 
 
-		private static readonly System.Collections.Generic.SortedDictionary<char, ChanMode> mapDefChanModesByChar =
-			new()
+		private static readonly System.Collections.Generic.SortedDictionary<char, ChanMode> mapDefChanModesByChar = new()
 			{
 				['n'] = new('n', Rsrcs.strDefChanModeNoExternMsgDesc),
 				['t'] = new('t', Rsrcs.strDefChanModeTopicLockDesc),
@@ -567,15 +209,15 @@ public class UserNet : Net, IDataDef<Net>
 			}
 		}
 
-		public bool UseSSL
+		public bool UseSsl
 		{
-			get => bUseSSL;
+			get => bUseSsl;
 
 			set
 			{
-				if(bUseSSL != value)
+				if(bUseSsl != value)
 				{
-					bUseSSL = value;
+					bUseSsl = value;
 
 					MakeDirty();
 
@@ -728,13 +370,13 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(strLogInChallengeUserName != value)
 				{
-					string? strOldLogInChallengeUserName = strLogInChallengeUserName;
+					string? oldLogInChallengeUserName = strLogInChallengeUserName;
 
 					strLogInChallengeUserName = value;
 
 					MakeDirty();
 
-					FireLogInChallengeUserNameChanged(strOldLogInChallengeUserName);
+					FireLogInChallengeUserNameChanged(oldLogInChallengeUserName);
 				}
 			}
 		}
@@ -752,13 +394,13 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(strLogInChallengeBncName != value)
 				{
-					string? strOldLogInBncName = strLogInChallengeBncName;
+					string? oldLogInBncName = strLogInChallengeBncName;
 
 					strLogInChallengeBncName = value;
 
 					MakeDirty();
 
-					FireLogInChallengeBncNameChanged(strOldLogInBncName);
+					FireLogInChallengeBncNameChanged(oldLogInBncName);
 				}
 			}
 		}
@@ -777,13 +419,13 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(strLogInChallengePwd != value)
 				{
-					string? strOldLogInPwd = strLogInChallengePwd;
+					string? oldLogInPwd = strLogInChallengePwd;
 
 					strLogInChallengePwd = value;
 
 					MakeDirty();
 
-					FireLogInChallengePwdChanged(strOldLogInPwd);
+					FireLogInChallengePwdChanged(oldLogInPwd);
 				}
 			}
 		}
@@ -816,13 +458,13 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(strLogInUserName != value)
 				{
-					string? strOldLogInUserName = strLogInUserName;
+					string? oldLogInUserName = strLogInUserName;
 
 					strLogInUserName = value;
 
 					MakeDirty();
 
-					FireLogInUserNameCanged(strOldLogInUserName);
+					FireLogInUserNameCanged(oldLogInUserName);
 				}
 			}
 		}
@@ -844,13 +486,13 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(strLogInPwd != value)
 				{
-					string? strOldLogInPwd = strLogInPwd;
+					string? oldLogInPwd = strLogInPwd;
 
 					strLogInPwd = value;
 
 					MakeDirty();
 
-					FireLogInPwdChanged(strOldLogInPwd);
+					FireLogInPwdChanged(oldLogInPwd);
 				}
 			}
 		}
@@ -937,8 +579,8 @@ public class UserNet : Net, IDataDef<Net>
 		public System.Collections.Generic.IEnumerable<System.Uri> AllEnabledServerUris
 			=>
 				from NetServerInfo serverCur in EnabledServersInSearchOrder
-					from ushort usCurPortOnCurServer in bUseSSL ? serverCur.SslPorts : serverCur.Ports
-						select new System.Uri((bUseSSL ? "ircs://" : "irc://") + $"{serverCur.Domain}:{usCurPortOnCurServer}");
+					from ushort usCurPortOnCurServer in bUseSsl ? serverCur.SslPorts : serverCur.Ports
+						select new System.Uri((bUseSsl ? "ircs://" : "irc://") + $"{serverCur.Domain}:{usCurPortOnCurServer}");
 	#endregion
 
 	#region Methods
@@ -960,7 +602,7 @@ public class UserNet : Net, IDataDef<Net>
 		{
 			FirePropChanged(nameof(UserNet));
 
-			evtUseSSLChanged?.Invoke(this, bUseSSL);
+			evtUseSslChanged?.Invoke(this, bUseSsl);
 		}
 
 		protected void FirePortToUseChanged(ushort? usOldPortToUse)
@@ -982,39 +624,39 @@ public class UserNet : Net, IDataDef<Net>
 			evtLogInModeChanged?.Invoke(this, oldLogInMode, logInMode);
 		}
 
-		protected void FireLogInChallengeUserNameChanged(in string? strOldChallengeUserName)
+		protected void FireLogInChallengeUserNameChanged(in string? oldChallengeUserName)
 		{
 			FirePropChanged(nameof(LogInChallengeUserName));
 
-			evtLogInChallengeUserNameChanged?.Invoke(this, strOldChallengeUserName, strLogInChallengeUserName);
+			evtLogInChallengeUserNameChanged?.Invoke(this, oldChallengeUserName, strLogInChallengeUserName);
 		}
 
-		protected void FireLogInChallengeBncNameChanged(in string? strOldChallengeBncName)
+		protected void FireLogInChallengeBncNameChanged(in string? oldChallengeBncName)
 		{
 			FirePropChanged(nameof(LogInChallengeBncName));
 
-			evtLogInChallengeBncNameChanged?.Invoke(this, strOldChallengeBncName, strLogInChallengeBncName);
+			evtLogInChallengeBncNameChanged?.Invoke(this, oldChallengeBncName, strLogInChallengeBncName);
 		}
 
-		protected void FireLogInChallengePwdChanged(in string? strOldChallengePwd)
+		protected void FireLogInChallengePwdChanged(in string? oldChallengePwd)
 		{
 			FirePropChanged(nameof(LogInChallengePwd));
 
-			evtLogInChallengePwdChanged?.Invoke(this, strOldChallengePwd, strLogInChallengePwd);
+			evtLogInChallengePwdChanged?.Invoke(this, oldChallengePwd, strLogInChallengePwd);
 		}
 
-		protected void FireLogInUserNameCanged(in string? strOldLogInUserName)
+		protected void FireLogInUserNameCanged(in string? oldLogInUserName)
 		{
 			FirePropChanged(nameof(LogInUserName));
 
-			evtLogInUserNameChanged?.Invoke(this, strOldLogInUserName, strLogInUserName);
+			evtLogInUserNameChanged?.Invoke(this, oldLogInUserName, strLogInUserName);
 		}
 
-		protected void FireLogInPwdChanged(in string? strOldPwd)
+		protected void FireLogInPwdChanged(in string? oldPwd)
 		{
 			FirePropChanged(nameof(LogInPwd));
 
-			evtLogInPwdChanged?.Invoke(this, strOldPwd, strLogInPwd);
+			evtLogInPwdChanged?.Invoke(this, oldPwd, strLogInPwd);
 		}
 
 		protected void FireLogInCustomStepsChanged(in CollectionChangeType howTheCollectionChanged)
@@ -1031,79 +673,79 @@ public class UserNet : Net, IDataDef<Net>
 			evtLogInSaslCertChanged?.Invoke(this, fileOldLogInSaslCert, fileLogInSaslCert);
 		}
 
-		protected void AddLogInCustomStep(in string strNewLogInCustomStep)
+		protected void AddLogInCustomStep(in string newLogInCustomStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can add custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps.Add(strNewLogInCustomStep);
+			ocLogInCustomSteps.Add(newLogInCustomStep);
 
 			MakeDirty();
 
 			FireLogInCustomStepsChanged(CollectionChangeType.add);
 		}
 
-		protected void RemoveLogInStep(in string strLogInStepToRemove)
+		protected void RemoveLogInStep(in string logInStepToRemove)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can remove custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps.Remove(strLogInStepToRemove);
+			ocLogInCustomSteps.Remove(logInStepToRemove);
 
 			MakeDirty();
 
 			FireLogInCustomStepsChanged(CollectionChangeType.removed);
 		}
 
-		protected void ChangeLogInStep(in string strExistingLogInStep, in string strNewLogInStep)
+		protected void ChangeLogInStep(in string existingLogInStep, in string newLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can remove custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps[ocLogInCustomSteps.IndexOf(strExistingLogInStep)] = strNewLogInStep;
+			ocLogInCustomSteps[ocLogInCustomSteps.IndexOf(existingLogInStep)] = newLogInStep;
 
 			MakeDirty();
 
 			FireLogInCustomStepsChanged(CollectionChangeType.changed);
 		}
 
-		protected void MoveCustomLogInStepUp(in string strWhichCustomLogInStep)
+		protected void MoveCustomLogInStepUp(in string whichCustomLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can move custom log in steps, you must change" +
 					" the mode.");
 
-			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(strWhichCustomLogInStep);
+			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(whichCustomLogInStep);
 
 			if(iOldIndexOfCustomLogInStepBeingMoved <= 0)
 				return;
 
 			ocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
 
-			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved - 1, strWhichCustomLogInStep);
+			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved - 1, whichCustomLogInStep);
 
 			MakeDirty();
 
 			FireLogInCustomStepsChanged(CollectionChangeType.changed);
 		}
 
-		protected void MoveCustomLogInStepDown(in string strWhichCustomLogInStep)
+		protected void MoveCustomLogInStepDown(in string whichCustomLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can move custom log in steps, you must change" +
 					" the mode.");
 
-			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(strWhichCustomLogInStep);
+			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(whichCustomLogInStep);
 
 			if(iOldIndexOfCustomLogInStepBeingMoved >= ocLogInCustomSteps.Count - 1)
 				return;
 
 			ocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
 
-			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved, strWhichCustomLogInStep);
+			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved, whichCustomLogInStep);
 
 			MakeDirty();
 
@@ -1134,10 +776,10 @@ public class UserNet : Net, IDataDef<Net>
 			}
 		}
 
-		public Editable MakeEditableVersion()
+		public UserNetEditable MakeEditableVersion()
 			=> new(this);
 
-		public DTO.UserNetDTO ToDTO()
+		public DTO.UserNetDTO ToDto()
 			=> new(
 				Name,
 				ServersSortedByName.Select(serverCur
@@ -1150,7 +792,7 @@ public class UserNet : Net, IDataDef<Net>
 				QStatus,
 				bAutoConnect,
 				bHidden,
-				bUseSSL,
+				bUseSsl,
 				usPortToUse,
 				logInMode,
 				strLogInChallengeUserName,
@@ -1160,6 +802,53 @@ public class UserNet : Net, IDataDef<Net>
 				strLogInPwd,
 				[.. ocLogInCustomSteps],
 				fileLogInSaslCert);
+
+		public void SaveFrom(UserNetEditable eunet)
+		{
+			// ReSharper disable once InvertIf
+			if(IsDirty)
+			{
+				Name = eunet.Name;
+				HomePage = eunet.HomePage;
+
+				if(eunet.AllUnsortedServers.Any(
+						(NetServerInfo serverCur)
+							=> serverCur.IsDirty))
+				{
+					ClearServerDomainList();
+
+					foreach(NetServerInfo serverCur in eunet.AllUnsortedServers)
+						AddServerDomain(serverCur);
+				}
+
+				AutoConnect = eunet.AutoConnect;
+				IsHidden = eunet.IsHidden;
+				UseSsl = eunet.UseSsl;
+				PortToUse = eunet.PortToUse;
+				LogInMode = eunet.logInMode;
+				if(eunet.IsLogInChallengeTextValid)
+				{
+					LogInChallengeUserName = eunet.LogInChallengeUserName;
+					LogInChallengeBncName = eunet.LogInChallengeBncName;
+					LogInChallengePwd = eunet.LogInChallengePwd;
+				}
+
+				if(eunet.IsLogInUserNameValid)
+					LogInUserName = eunet.LogInUserName;
+				if(eunet.IsLogInPwdValid)
+					LogInPwd = eunet.LogInPwd;
+				if(eunet.IsLogInCustomStepsValid)
+				{
+					ClearCustomLogInSteps();
+					// ReSharper disable once InconsistentNaming
+					foreach(string strCurCustomLogInStep in eunet.LogInCustomSteps)
+						AddLogInCustomStep(strCurCustomLogInStep);
+				}
+
+				if(eunet.IsLogInSaslCertValid)
+					LogInSaslCert = eunet.LogInSaslCert;
+			}
+		}
 	#endregion
 
 	#region Event Handlers

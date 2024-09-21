@@ -1,1 +1,14 @@
-Declares what Best Chat needs to understand how to communicate with its IRC components.
+Declares
+what
+Best
+Chat
+needs
+to
+understand
+how
+to
+communicate
+with
+its
+IRC
+components.

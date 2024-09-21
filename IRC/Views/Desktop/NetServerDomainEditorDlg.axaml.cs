@@ -1,3 +1,5 @@
+using BestChat.IRC.Data.Defs;
+
 namespace BestChat.IRC.Views.Desktop;
 
 using Platform.DataAndExt.Ext;
@@ -53,7 +55,7 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.NetServerInfo.Editable? eserverCtxt;
+		private NetServerInfoEditable? eserverCtxt;
 	#endregion
 
 	#region Properties
@@ -63,17 +65,22 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 
 			set
 			{
-				if(mode != value)
-				{
-					mode = value;
+				if(mode == value)
+					return;
 
-					if(eserverCtxt != null)
-						UpdateTitle();
-				}
+				mode = value;
+
+				if(eserverCtxt != null)
+					UpdateTitle();
+
+				PropertyChanged?.Invoke(this, new(nameof(IsModeEdit)));
 			}
 		}
 
-		public Data.Defs.NetServerInfo.Editable? ServerCtxt
+		public bool IsModeEdit
+			=> mode == Modes.editingExisting;
+
+		public NetServerInfoEditable? ServerCtxt
 		{
 			get => eserverCtxt;
 
@@ -129,8 +136,7 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 	#endregion
 
 	#region Event Handlers
-		private async void OnAddUnencryptedPortClicked(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private async void OnAddUnencryptedPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
 			ushort? usNextAvailablePort = eserverCtxt!.NextAvailablePort;
 
@@ -152,9 +158,11 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 				eserverCtxt.AddPort(dlg.CurPort);
 		}
 
-		private void OnEditUnencryptedPort(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private void OnEditUnencryptedPort(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
+			if(lbKnownUnencryptedPorts.SelectedItem == null)
+				return;
+
 			ushort usExistingPort = (ushort)lbKnownUnencryptedPorts.SelectedItem;
 
 			PortEditorDlg dlg = new()
@@ -171,17 +179,19 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 			}
 		}
 
-		private void OnDelUnencryptedPort(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private void OnDelUnencryptedPort(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
+			if(lbKnownUnencryptedPorts.SelectedItems == null || lbKnownUnencryptedPorts.SelectedItems.Count <= 0)
+				return;
+
+			// ReSharper disable once InvertIf
 			if(msgboxDelUnencryptedPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
 					.ButtonResult.Yes)
 				foreach(ushort usCurPortToRemove in lbKnownUnencryptedPorts.SelectedItems)
 					eserverCtxt!.RemovePort(usCurPortToRemove);
 		}
 
-		private async void OnAddSslPortClicked(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private async void OnAddSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
 			ushort? usNextAvailablePort = eserverCtxt!.NextAvailablePort;
 
@@ -203,9 +213,11 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 				eserverCtxt.AddPort(dlg.CurPort);
 		}
 
-		private void OnEditSslPort(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private void OnEditSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
+			if(lbKnownSslPorts.SelectedItem == null)
+				return;
+
 			ushort usExistingPort = (ushort)lbKnownSslPorts.SelectedItem;
 
 			PortEditorDlg dlg = new()
@@ -222,11 +234,13 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 			}
 		}
 
-		private void OnDelSslPort(Avalonia.Controls.Button btnSender, Avalonia
-			.Interactivity.RoutedEventArgs args)
+		private void OnDelSslPortClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
-			if(msgboxDelSslPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums
-					.ButtonResult.Yes)
+			if(lbKnownSslPorts.SelectedItems == null || lbKnownSslPorts.SelectedItems.Count <= 0)
+				return;
+
+			// ReSharper disable once InvertIf
+			if(msgboxDelSslPortAreYouSure.ShowWindowDialogAsync(this).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
 				foreach(ushort usCurPortToRemove in lbKnownSslPorts.SelectedItems)
 					eserverCtxt!.RemovePort(usCurPortToRemove);
 		}
@@ -239,18 +253,17 @@ public partial class ServerDomainEditorDlg : Avalonia.Controls.Window, System.Co
 			base.OnClosing(e);
 		}
 
-		private void OnCancelClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
-			args)
+		private void OnCancelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		{
 			if(IsOkToClose)
 				Close(false);
 		}
 
-		private void OnOkClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+		private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs
 			args)
 			=> Close(true);
 
-		private void OnCloseClicked(Avalonia.Controls.Button btnSender, Avalonia.Interactivity.RoutedEventArgs
+		private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs
 			args)
 			=> Close(null);
 	#endregion

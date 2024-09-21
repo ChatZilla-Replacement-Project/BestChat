@@ -4,21 +4,21 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				mc:Ignorable="d"
 				xmlns:group="using:GroupBox.Avalonia.Controls"
-				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
-				xmlns:Data="using:BestChat.IRC.Data.Defs"
-				xmlns:SpecializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
-				x:DataType="Data:BNC"
-				d:DataContext="{d:DesignInstance Type=Data:BNC}"
+				xmlns:calc="using:CalcBinding"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
+				x:DataType="data:BNC"
+				d:DataContext="{d:DesignInstance Type=data:BNC}"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False"
 				CanResize="False"
 				x:Class="BestChat.IRC.Views.Desktop.CustomBncEditorDlg">
-	<DockPanel Padding="4">
+	<DockPanel Margin="4">
 		<StackPanel DockPanel.Dock="Bottom"
-								HorizontalContentAlignment="Right"
+								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="4">
-			<Button x:Name="btnOK"
+			<Button x:Name="btnOk"
 							ToolTip.Tip="Saves any changes you made"
 							IsEnabled="{Binding IsValid}"
 							IsVisible="{Binding IsDirty}"
@@ -32,7 +32,7 @@
 							IsCancel="True"
 							Click="OnCancelClicked"/>
 			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !IsDirty, NotifyOnSourceUpdated}"
+							IsVisible="{calc:Binding !IsDirty}"
 							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
 							IsCancel="True"
 							Click="OnCloseClicked"/>
@@ -41,30 +41,30 @@
 					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
 			<Label Content="Name:"/>
 			<TextBox Grid.Column="2"
-							 Text="{Binding Name}"/>
+							Text="{Binding Name}"/>
 			<Label Grid.Row="2"
-						 Content="HomePage:"/>
-			<Rectangle Grid.Row="2"
-								 Grid.Column="2"
-								 Stroke="Gray"
-								 StrokeThickness="1">
-				<Grid ColumnDefintions="1*,Auto"
-							RowDefintions="Auto">
-					<TextBox Content="{Binding Homepage, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+						Content="HomePage:"/>
+			<Border Grid.Row="2"
+							Grid.Column="2"
+							BorderBrush="Gray"
+							BorderThickness="1">
+				<Grid ColumnDefinitions="1*,Auto"
+							RowDefinitions="Auto">
+					<TextBox Text="{Binding HomePage, Mode=TwoWay}"/>
 					<Button ToolTip.Tip="Clicking will cause Best Chat to open the URL shown in your default browser"
 									Content="🌐"
 									Click="OnUserWantsToVisitBncHomePage"/>
 				</Grid>
-			</Rectangle>
+			</Border>
 			<group:GroupBox Grid.Row="4"
 											Grid.ColumnSpan="3"
 											Header="Allowed Networks">
 				<DockPanel>
 					<TextBlock DockPanel.Dock="Top"
-										 Text="Bouncer organizations tend to allow some netnworks and prohibit others.  Plus, some networks may decide that select bouncer organizations aren’t trust worthy.  List those you know are allowed by this bouncer organization."
-										 TextWrapping="Wrap"/>
+										Text="Bouncer organizations tend to allow some networks and prohibit others.  Plus, some networks may decide that select bouncer organizations aren’t trustworthy.  List those you know are allowed by this bouncer organization."
+										TextWrapping="Wrap"/>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Middle"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button x:Name="btnAddAllowedNet"
@@ -73,85 +73,87 @@
 										Click="OnAddAllowedNetClicked"/>
 						<Button x:Name="btnEditAllowedNet"
 										ToolTip.Tip="Click to edit the selected allowed network"
-										IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbAllowedNets, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=lbAllowedNets}"
 										Content="Edit…"
 										Click="OnEditAllowedNetClicked"/>
 						<Button x:Name="btnDelAllowedNet"
 										ToolTip.Tip="Delete the selected allowed network"
-										IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbAllowedNets, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=lbAllowedNets}"
 										Content="Delete"
 										Click="OnDelAllowedNetClicked"/>
 					</StackPanel>
 					<ListBox x:Name="lbAllowedNets"
-									 ItemsSource="{Binding AllowedNets}"/>
+									ItemsSource="{Binding AllowedNets}"/>
 				</DockPanel>
 			</group:GroupBox>
 			<group:GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
 											Header="Prohibited Networks">
-				<TextBlock DockPanel.Dock="Top"
-									 Text="List those networks you know are allowed by this bouncer organization.  Best Chat won't show this bouncer when you go to specify a bouncer for that network.  However, if it is already the bouncer for that network, Best Chat won't change how you connect to it.  You’ll need to go to the Network Manager and edit that network to change its bouncer."
-									 TextWrapping="Wrap"/>
-				<StackPanel DockPanel.Dock="Right"
-										VerticalContentAlignment="Middle"
-										Orientation="Vertical"
-										Spacing="4">
-					<Button x:Name="btnAddProhibitedNet"
-									ToolTip.Tip="Click to add a new network to this list"
-									Content="Add…"
-									Click="OnAddProhibitedNetClicked"/>
-					<Button x:Name="btnEditProhibitedNet"
-									ToolTip.Tip="Click to edit the selected prohibited network"
-									IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbProhibitedNets, NotifyOnSourceUpdated=True}"
-									Content="Edit…"
-									Click="OnEditProhibitedNetClicked"/>
-					<Button x:Name="btnDelProhibitedNet"
-									ToolTip.Tip="Delete the selected prohibited network"
-									IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbProhibitedNets, NotifyOnSourceUpdated=True}"
-									Content="Delete"
-									Click="OnDelProbibitedNetClicked"/>
-				</StackPanel>
-				<ListBox x:Name="lbProhibitedNets"
-								 ItemsSource="{Binding ProhibitedNets}"/>
+				<DockPanel>
+					<TextBlock DockPanel.Dock="Top"
+										Text="List those networks you know are allowed by this bouncer organization.  Best Chat won't show this bouncer when you go to specify a bouncer for that network.  However, if it is already the bouncer for that network, Best Chat won't change how you connect to it.  You’ll need to go to the Network Manager and edit that network to change its bouncer."
+										TextWrapping="Wrap"/>
+					<StackPanel DockPanel.Dock="Right"
+											VerticalAlignment="Center"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button x:Name="btnAddProhibitedNet"
+										ToolTip.Tip="Click to add a new network to this list"
+										Content="Add…"
+										Click="OnAddProhibitedNetClicked"/>
+						<Button x:Name="btnEditProhibitedNet"
+										ToolTip.Tip="Click to edit the selected prohibited network"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=lbProhibitedNets}"
+										Content="Edit…"
+										Click="OnEditProhibitedNetClicked"/>
+						<Button x:Name="btnDelProhibitedNet"
+										ToolTip.Tip="Delete the selected prohibited network"
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=lbProhibitedNets}"
+										Content="Delete"
+										Click="OnDelProbibitedNetClicked"/>
+					</StackPanel>
+					<ListBox x:Name="lbProhibitedNets"
+									ItemsSource="{Binding ProhibitedNets}"/>
+				</DockPanel>
 			</group:GroupBox>
 			<Label Grid.Row="8"
-						 ToolTip.Tip="This is where the official representatives for this bouncer organization hang out"
-						 Content="Home Network:"/>
+						ToolTip.Tip="This is where the official representatives for this bouncer organization hang out"
+						Content="Home Network:"/>
 			<TextBox Grid.Row="8"
-							 Grid.Column="2"
-							 ToolTip.Tip="Enter the network where you can find the official representatives for this bouncer organization.  Leave this blank if you don’t know it or they aren’t on any IRC network for tech support."
-							 Text="{Binding HomeNet}"/>
-			<Label Gird.Row="10"
-						 ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or the don't provide tech support via IRC."
-						 Content="Tech Support Channel:"/>
+							Grid.Column="2"
+							ToolTip.Tip="Enter the network where you can find the official representatives for this bouncer organization.  Leave this blank if you don’t know it or they aren’t on any IRC network for tech support."
+							Text="{Binding HomeNet}"/>
+			<Label Grid.Row="10"
+						ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or they don't provide tech support via IRC."
+						Content="Tech Support Channel:"/>
 			<TextBox Grid.Row="10"
-							 Grid.Column="2"
-							 ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or the don't provide tech support via IRC."
-							 Text="{Binding HomeChan}"/>
+							Grid.Column="2"
+							ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or they don't provide tech support via IRC."
+							Text="{Binding HomeChan}"/>
 			<Label Grid.Row="12"
-						 ToolTip.Tip="Use this link to join the network if you’ve specified the network and channel above.  Otherwise, the link will be disabled and blank."
-						 Content="Join the tech support channel with this link:"/>
+						ToolTip.Tip="Use this link to join the network if you’ve specified the network and channel above.  Otherwise, the link will be disabled and blank."
+						Content="Join the tech support channel with this link:"/>
 			<HyperlinkButton Grid.Row="12"
-											 Grid.Column="2"
-											 ToolTip.Tip="Clicking will cause Best Chat to open this channel and, if needed, its network.  This is available only if you’ve specified the home network and channel above."
-											 Content="{Binding HomeNetAndChan}"
-											 Click="OnTechSupportChanLinkClicked"/>
+											Grid.Column="2"
+											ToolTip.Tip="Clicking will cause Best Chat to open this channel and, if needed, its network.  This is available only if you’ve specified the home network and channel above."
+											Content="{Binding HomeNetAndChan}"
+											Click="OnTechSupportChanLinkClicked"/>
 			<Label Grid.Row="14"
-						 ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
-						 Content="Own Bot:"/>
+						ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
+						Content="Own Bot:"/>
 			<TextBox Grid.Row="14"
-							 Grid.Column="2"
-							 ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
-							 Text="{Binding OwnBot}"/>
+							Grid.Column="2"
+							ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
+							Text="{Binding OwnBot}"/>
 			<group:GroupBox Grid.Row="16"
 											Grid.ColumnSpan="3"
 											Header="Servers:">
-				<DockPanel Padding="4">
+				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
-										 Text="Specify which servers are listed by this bouncer organization.  You need to list at least one in order to save this bouncer."
-										 TextWrapping="Wrap"/>
+										Text="Specify which servers are listed by this bouncer organization.  You need to list at least one in order to save this bouncer."
+										TextWrapping="Wrap"/>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Middle"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button x:Name="btnAddServer"
@@ -160,18 +162,18 @@
 										Click="OnAddServerClicked"/>
 						<Button x:Name="btnEditServer"
 										ToolTip.Tip="Click to edit the selected prohibited network"
-										IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=dgAllServers, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=dgAllServers}"
 										Content="Edit…"
 										Click="OnEditServerClicked"/>
 						<Button x:Name="btnDelServer"
 										ToolTip.Tip="Delete the selected prohibited network"
-										IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=dgAllServers, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=dgAllServers}"
 										Content="Delete"
 										Click="OnDelServerClicked"/>
 					</StackPanel>
 					<DataGrid x:Name="dgAllServers"
 										IsReadOnly="True"
-										ItemsSource="{Binding AllServersByNameAsText}"
+										ItemsSource="{Binding AllServersByName.Values}"
 										CanUserReorderColumns="False"
 										CanUserResizeColumns="True"
 										CanUserSortColumns="True"
@@ -179,7 +181,6 @@
 										HorizontalScrollBarVisibility="Hidden"
 										SelectionMode="Extended"
 										AutoGenerateColumns="False"
-										SelectionUnit="FullRow"
 										HeadersVisibility="Column">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name"
@@ -197,12 +198,12 @@
 			<group:GroupBox Grid.Row="18"
 											Grid.ColumnSpan="3"
 											Header="Unencrypted Ports:">
-				<DockPanel Padding="4">
+				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
-										 TextWrapping="Wrap"
-										 Text="Enter the list of ports you know are available and unencrypted.  Put SSL ports in the next list."/>
+										TextWrapping="Wrap"
+										Text="Enter the list of ports you know are available and unencrypted.  Put SSL ports in the next list."/>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Middle"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button x:Name="btnAddUnencryptedPort"
@@ -211,19 +212,17 @@
 										Click="OnAddUnencryptedPortClicked"/>
 						<Button x:Name="btnEditUnencryptedPort"
 										ToolTip.Tip="Click to change the selected unencrypted port"
-										IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbAllUnencryptedPorts, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=lbAllUnencryptedPorts}"
 										Content="Edit…"
 										Click="OnEditUnencryptedPortClicked"/>
 						<Button x:Name="btnDelUnencryptedPort"
 										ToolTip.Tip="Delete the selected unencrypted port"
-										IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbAllUnencryptedPorts, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=lbAllUnencryptedPorts}"
 										Content="Delete"
 										Click="OnDelUnencryptedPortClicked"/>
 					</StackPanel>
 					<ListBox x:Name="lbAllUnencryptedPorts"
-									 Grid.Row="18"
-									 Grid.Column="2"
-									 ItemsSource="{Binding AllPorts}">
+									ItemsSource="{Binding AllPorts}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<Label Content="{Binding}"/>
@@ -235,12 +234,12 @@
 			<group:GroupBox Grid.Row="20"
 											Grid.ColumnSpan="3"
 											Header="SSL Ports">
-				<DockPanel Padding="4">
+				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
-										 TextWrapping="Wrap"
-										 Text="Enter the list of ports you know are available and encrypted.  Put unecrypted ports in the list above."/>
+										TextWrapping="Wrap"
+										Text="Enter the list of ports you know are available and encrypted.  Put unencrypted ports in the list above."/>
 					<StackPanel DockPanel.Dock="Right"
-											VerticalContentAlignment="Middle"
+											VerticalAlignment="Center"
 											Orientation="Vertical"
 											Spacing="4">
 						<Button x:Name="btnAddSslPort"
@@ -249,17 +248,17 @@
 										Click="OnAddSslPortClicked"/>
 						<Button x:Name="btnEditSslPort"
 										ToolTip.Tip="Click to change the selected SSL port"
-										IsEnabled="{calc:Binding SelectedItems.Count == 1, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=lbAllSslPorts}"
 										Content="Edit…"
 										Click="OnEditSslPortClicked"/>
 						<Button x:Name="btnDelSslPort"
 										ToolTip.Tip="Delete the selected SSL port"
-										IsEnabled="{calc:Binding SelectedItems.Count &gt; 0, ElementName=lbAllSslPorts, NotifyOnSourceUpdated=True}"
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=lbAllSslPorts}"
 										Content="Delete"
 										Click="OnDelSslPortClicked"/>
 					</StackPanel>
 					<ListBox x:Name="lbAllSslPorts"
-									 ItemsSource="{Binding AllSslPortsAsText}">
+									ItemsSource="{Binding AllSslPortsAsText}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<Label Content="{Binding}"/>
@@ -269,15 +268,13 @@
 				</DockPanel>
 			</group:GroupBox>
 			<Label Grid.Row="22"
-						 Content="Maximum Networks Allowed per Instance"/>
-			<NumberUpDown x:Name="nudMaxNetworksPerBouncerInstance"
+						Content="Maximum Networks Allowed per Instance"/>
+			<NumericUpDown x:Name="nudMaxNetworksPerBouncerInstance"
 										Grid.Row="22"
 										Grid.Column="2"
 										Minimum="1"
 										Value="{Binding MaxNetworksPerBouncerInstance}"/>
 		</Grid>
-		<SpecializedCtrls:BncInstanceListCtrl Grid.Row="24"
-																					Grid.ColumnSpan="3"
-																					CtxtBNC="{Binding}"/>
+		<specializedCtrls:BncInstanceListCtrl CtxtBNC="{Binding}"/>
 	</DockPanel>
 </Window>
