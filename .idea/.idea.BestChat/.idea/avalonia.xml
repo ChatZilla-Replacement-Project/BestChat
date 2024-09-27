@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Desktop/MainWnd.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Desktop/PrefsWnd.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/ConversationDataListView.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/EnumRadioBtnGroup.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/FileBrowserCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/FolderBrowserCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/FontSelectionComboBox.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/FontWeightComboBox.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/PrefGroupTreeListerCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/PrefsGenericTreeListerPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
