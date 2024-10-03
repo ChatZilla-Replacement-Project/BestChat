@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs.DTO
-{
+﻿namespace BestChat.IRC.Data.Prefs.DTO;
+
 public record GlobalDccDTO
 (
 	bool Enabled = false,
@@ -8,4 +8,3 @@ public record GlobalDccDTO
 	int[]? Ports = null,
 	string? KeyOverride = null
 ) : Platform.DataAndExt.Prefs.AbstractMgr.AbstractDTO(KeyOverride ?? "IRC/Global/DCC");
-}

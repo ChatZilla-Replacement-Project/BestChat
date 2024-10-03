@@ -1,27 +1,25 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
-public class GlobalStalkWordsOneStalkWord<GlobalPrefsType, GlobalDtoType> : Platform.DataAndExt.Obj<GlobalStalkWordsOneStalkWord<GlobalPrefsType, GlobalDtoType>>, IReadOnlyOneStalkWord, Prefs<GlobalPrefsType, GlobalDtoType>.NetPrefs
-	.IKeyChanged<GlobalStalkWordsOneStalkWord<GlobalPrefsType, GlobalDtoType>, string>
-	where GlobalPrefsType : GlobalPrefs<GlobalPrefsType, GlobalDtoType>
-	where GlobalDtoType : DTO.IrcDTO<GlobalDtoType>.GlobalDTO
+﻿namespace BestChat.IRC.Data.Prefs;
+
+public class GlobalStalkWordsOneStalkWord : Platform.DataAndExt
+		.Obj<GlobalStalkWordsOneStalkWord>, IReadOnlyOneStalkWord, IKeyChanged<GlobalStalkWordsOneStalkWord, string>
 {
 	#region Constructors & Deconstructors
-	public GlobalStalkWordsOneStalkWord(in string strCtnts, System.Guid guid = default) :
-		base(guid)
-		=> this.strCtnts = strCtnts;
+		public GlobalStalkWordsOneStalkWord(in string strCtnts, System.Guid guid = default) :
+			base(guid)
+			=> this.strCtnts = strCtnts;
 
-	public GlobalStalkWordsOneStalkWord(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO dto) :
-		base(dto.GUID)
-		=> strCtnts = dto.Ctnts;
+		public GlobalStalkWordsOneStalkWord(in DTO.GlobalStalkWordsOneStalkWordDTO dto) :
+			base(dto.GUID)
+			=> strCtnts = dto.Ctnts;
 	#endregion
 
 	#region Delegates
 	#endregion
 
 	#region Events
-	public event DFieldChanged<string>? evtCtntsChanged;
+		public event DFieldChanged<string>? evtCtntsChanged;
 
-	public event Prefs<GlobalPrefsType, GlobalDtoType>.NetPrefs.IKeyChanged<GlobalStalkWordsOneStalkWord<GlobalPrefsType, GlobalDtoType>, string>.DKeyChanged? evtKeyChanged;
+		public event IKeyChanged<GlobalStalkWordsOneStalkWord, string>.DKeyChanged? evtKeyChanged;
 	#endregion
 
 	#region Constants
@@ -31,47 +29,46 @@ public class GlobalStalkWordsOneStalkWord<GlobalPrefsType, GlobalDtoType> : Plat
 	#endregion
 
 	#region Members
-	private string strCtnts;
+		private string strCtnts;
 	#endregion
 
 	#region Properties
-	public string Ctnts
-	{
-		get => strCtnts;
-
-		set
+		public string Ctnts
 		{
-			if(strCtnts != value)
+			get => strCtnts;
+
+			set
 			{
-				string strOldCtnts = strCtnts;
+				if(strCtnts != value)
+				{
+					string strOldCtnts = strCtnts;
 
-				strCtnts = value;
+					strCtnts = value;
 
-				MakeDirty();
+					MakeDirty();
 
-				FireCtntsChanged(strOldCtnts);
+					FireCtntsChanged(strOldCtnts);
+				}
 			}
 		}
-	}
 	#endregion
 
 	#region Methods
-	private void FireCtntsChanged(string strOldCtnts)
-	{
-		FirePropChanged(nameof(Ctnts));
+		private void FireCtntsChanged(string strOldCtnts)
+		{
+			FirePropChanged(nameof(Ctnts));
 
-		evtCtntsChanged?.Invoke(this, strOldCtnts, strCtnts);
-		evtKeyChanged?.Invoke(this, strOldCtnts, strCtnts);
-	}
+			evtCtntsChanged?.Invoke(this, strOldCtnts, strCtnts);
+			evtKeyChanged?.Invoke(this, strOldCtnts, strCtnts);
+		}
 
-	public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneStalkWordDTO ToDTO()
-		=> new(
-			guid,
-			strCtnts
-		);
+		public DTO.GlobalStalkWordsOneStalkWordDTO ToDTO()
+			=> new(
+				guid,
+				strCtnts
+			);
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

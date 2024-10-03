@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
+﻿namespace BestChat.IRC.Data.Prefs;
+
 public interface IReadOnlyOneStalkWord
 {
 	System.Guid GUID
@@ -11,5 +11,4 @@ public interface IReadOnlyOneStalkWord
 	{
 		get;
 	}
-}
 }

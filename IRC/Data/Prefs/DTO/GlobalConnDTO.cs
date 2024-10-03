@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs.DTO
-{
+﻿namespace BestChat.IRC.Data.Prefs.DTO;
+
 public record GlobalConnDTO
 (
 	bool IsIdentEnabled = true,
@@ -11,4 +11,3 @@ public record GlobalConnDTO
 	string? DefQuitMsg = null,
 	string? KeyOverride = null
 ) : Platform.DataAndExt.Prefs.AbstractMgr.AbstractDTO(KeyOverride ?? "IRC/Global/Connection");
-}

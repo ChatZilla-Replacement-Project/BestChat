@@ -4,7 +4,7 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:data="using:BestChat.Platform.DataAndExt.Cmd.ParamTypes"
 					mc:Ignorable="d"
-					x:Class="BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls.CmdParamSelComboBox">
+					x:Class="BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls.CmdParamTypeSelComboBox">
 	<ComboBox.ItemTemplate>
 		<DataTemplate DataType="data:Abstract">
 			<Label Content="{Binding LocalizedName}"

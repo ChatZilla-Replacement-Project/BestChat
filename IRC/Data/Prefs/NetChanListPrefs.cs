@@ -1,27 +1,25 @@
 ﻿using System.Linq;
-using BestChat.IRC.Data.Prefs.DTO;
-using BestChat.Platform.DataAndExt.Ext;
 
-namespace BestChat.IRC.Data.Prefs
-{
+namespace BestChat.IRC.Data.Prefs;
+
+using Platform.DataAndExt.Ext;
+
 public class NetChanListPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-	public NetChanListPrefs(NetPrefsBase mgrParent) :
-		base(mgrParent, "Known Channels", PrefsRsrcs.strNetKnownChanTitle, PrefsRsrcs
-			.strNetKnownChanDesc)
-		=> this.mgrParent = mgrParent;
+		public NetChanListPrefs(NetPrefsBase mgrParent) :
+			base(mgrParent, "Known Channels", PrefsRsrcs.strNetKnownChanTitle, PrefsRsrcs.strNetKnownChanDesc)
+			=> this.mgrParent = mgrParent;
 
-	public NetChanListPrefs(NetPrefsBase mgrParent, ChanDTO[]? dto) :
-		base(mgrParent, "Known Channels", PrefsRsrcs.strNetKnownChanTitle, PrefsRsrcs
-			.strNetKnownChanDesc)
-	{
-		this.mgrParent = mgrParent;
+		public NetChanListPrefs(NetPrefsBase mgrParent, DTO.ChanDTO[]? dto) :
+			base(mgrParent, "Known Channels", PrefsRsrcs.strNetKnownChanTitle, PrefsRsrcs.strNetKnownChanDesc)
+		{
+			this.mgrParent = mgrParent;
 
-		if(dto != null)
-			foreach(ChanDTO dchanCur in dto)
-				RegisterChan(Chan.AllChanByName[dchanCur.OwnerChan]);
-	}
+			if(dto != null)
+				foreach(DTO.ChanDTO dchanCur in dto)
+					RegisterChan(Chan.AllChanByName[dchanCur.OwnerChan]);
+		}
 	#endregion
 
 	#region Delegates
@@ -37,40 +35,41 @@ public class NetChanListPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 	#endregion
 
 	#region Members
-	public new readonly NetPrefsBase mgrParent;
+		public new readonly NetPrefsBase mgrParent;
 
-	public System.Collections.Generic.Dictionary<Chan, ChanPrefs> mapAllChanPrefsByChan = [];
+		private readonly System.Collections.Generic.Dictionary<Chan, ChanPrefs> mapAllChanPrefsByChan = [];
 	#endregion
 
 	#region Properties
+		public System.Collections.Generic.IReadOnlyDictionary<Chan, ChanPrefs> AllChanPrefs
+			=> mapAllChanPrefsByChan;
 	#endregion
 
 	#region Methods
-	public void RegisterChan(in Chan chanToBeRegistered)
-	{
-		ChanPrefs pchanNew = new(this, chanToBeRegistered);
+		public void RegisterChan(in Chan chanToBeRegistered)
+		{
+			ChanPrefs pchanNew = new(this, chanToBeRegistered);
 
-		Add(pchanNew);
+			Add(pchanNew);
 
-		mapAllChanPrefsByChan[chanToBeRegistered] = pchanNew;
-	}
+			mapAllChanPrefsByChan[chanToBeRegistered] = pchanNew;
+		}
 
-	public void RemovePrefsForChan(in Chan chanToRemovePrefsFor)
-	{
-		RemoveChildMgr(mapAllChanPrefsByChan[chanToRemovePrefsFor]);
+		public void RemovePrefsForChan(in Chan chanToRemovePrefsFor)
+		{
+			RemoveChildMgr(mapAllChanPrefsByChan[chanToRemovePrefsFor]);
 
-		mapAllChanPrefsByChan.Remove(chanToRemovePrefsFor);
-	}
+			mapAllChanPrefsByChan.Remove(chanToRemovePrefsFor);
+		}
 
-	public ChanDTO[]? ToDTO()
-		=> mapAllChanPrefsByChan.Values.IsEmpty()
-			? []
-			: mapAllChanPrefsByChan.Values.Select(pchanCur
-				=> pchanCur.ToDTO()
-			).ToArray();
+		public DTO.ChanDTO[]? ToDTO()
+			=> mapAllChanPrefsByChan.Values.IsEmpty()
+				? []
+				: mapAllChanPrefsByChan.Values.Select(pchanCur
+					=> pchanCur.ToDTO()
+				).ToArray();
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

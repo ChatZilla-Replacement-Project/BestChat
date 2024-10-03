@@ -1,9 +1,9 @@
 ﻿namespace BestChat.Platform.DataAndExt.Prefs;
 
-public class GlobalTimeStampPrefs : AbstractChildMgr
+public class GlobalAppearanceTimeStampPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-		public GlobalTimeStampPrefs(in AbstractMgr mgrParent) :
+		public GlobalAppearanceTimeStampPrefs(in AbstractMgr mgrParent) :
 			base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
 				.strGlobalAppearanceTimeStampDesc)
 		{
@@ -17,7 +17,7 @@ public class GlobalTimeStampPrefs : AbstractChildMgr
 				.strGlobalAppearanceTimeStampHowOftenToRepeatDesc, HowOftenToRepeatOpts.everyThirtySeconds);
 		}
 
-		public GlobalTimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO
+		public GlobalAppearanceTimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO
 			.TimeStampDTO dto) :
 			base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
 				.strGlobalAppearanceTimeStampDesc)

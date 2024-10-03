@@ -1,6 +1,7 @@
 ﻿// Ignore Spelling: Ctrl gvc Prefs
 
 using BestChat.IRC.ProtocolMgr.Prefs;
+using BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
 [assembly: BestChat.Platform.DataAndExt.Attr.ProtocolAssemblyInfo("IRC", "ChatZilla Replacement " +
 	"Project", nameof(BestChat.IRC.ProtocolMgr.Rsrcs.strTranslatedProtDesc), "Implements the Internet Relay"
@@ -48,9 +49,24 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 			{
 				miFileIrcNetMgr,
 				miFileIrcBncMgr,
-			}
+			},
 		};
 		miFileIrc.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs.strFileMenuItemToolTip);
+
+		IrcPrefs.InitInstance(Platform.UI.Desktop.Prefs.RootPrefs.Instance);
+
+		Platform.UI.Desktop.Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(
+			typeof(Data.Prefs.GlobalAliasesPrefs),
+			mgrNew => new GlobalAliasesPage()
+			{
+				Ctxt = (Data.Prefs.GlobalAliasesPrefs)mgrNew,
+			});
+		Platform.UI.Desktop.Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(
+			typeof(Data.Prefs.GlobalAliasesPrefs),
+			mgrNew => new GlobalAltNicksPage()
+			{
+				Ctxt = (Data.Prefs.GlobalAltNicksPrefs)mgrNew,
+			});
 	}
 
 	public string Name

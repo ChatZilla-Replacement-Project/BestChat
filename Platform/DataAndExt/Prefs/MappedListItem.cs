@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: evt Prefs
 
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
@@ -11,11 +12,15 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 	#region Constructors & Deconstructors
 		public MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
 				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System.Func<EntryType,
-				KeyType> funcKeyObtainer)
+				KeyType> funcKeyObtainer, in System.Action<EntryType, System.Action<KeyType, EntryType>>
+				actionKeyChangedSubscriber, in System.Action<EntryType, System.Action<KeyType, EntryType>>
+				actionKeyChangedUnsubscriber)
 			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			Def = def;
 			this.funcKeyObtainer = funcKeyObtainer;
+			this.actionKeyChangedSubscriber = actionKeyChangedSubscriber;
+			this.actionKeyChangedUnsubscriber = actionKeyChangedUnsubscriber;
 
 			mapEntriesByMainKey = new System.Collections.Generic.Dictionary<KeyType, EntryType>();
 
@@ -24,26 +29,37 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 
 		public MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
 				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System.Collections.Generic
-				.IEnumerable<EntryType> val, in System.Func<EntryType, KeyType> funcKeyObtainer)
+				.IEnumerable<EntryType> val, in System.Func<EntryType, KeyType> funcKeyObtainer, in System.Action<EntryType,
+				System.Action<KeyType, EntryType>> actionKeyChangedSubscriber, in System.Action<EntryType, System
+				.Action<KeyType, EntryType>> actionKeyChangedUnsubscriber)
 			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			Def = def;
 			this.funcKeyObtainer = funcKeyObtainer;
+			this.actionKeyChangedSubscriber = actionKeyChangedSubscriber;
+			this.actionKeyChangedUnsubscriber = actionKeyChangedUnsubscriber;
 
 			mapEntriesByMainKey = new System.Collections.Generic.Dictionary<KeyType, EntryType>();
 			foreach(EntryType entryCur in val)
+			{
 				Add(entryCur);
+				actionKeyChangedSubscriber(entryCur, OnKeyChanged);
+			}
 
 			DefTester = TestCurValForDef;
 		}
 
 		protected MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
 				strLocalizedLongDesc, in System.Collections.Generic.IEnumerable<EntryType> def, in System.Func<EntryType,
-				KeyType> funcKeyObtainer, in System.Collections.Generic.IDictionary<KeyType, EntryType> mapBackEnd)
+				KeyType> funcKeyObtainer, in System.Collections.Generic.IDictionary<KeyType, EntryType> mapBackEnd, in System.
+				Action<EntryType, System.Action<KeyType, EntryType>> actionKeyChangedSubscriber, in System
+				.Action<EntryType, System.Action<KeyType, EntryType>> actionKeyChangedUnsubscriber)
 			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			Def = def;
 			this.funcKeyObtainer = funcKeyObtainer;
+			this.actionKeyChangedSubscriber = actionKeyChangedSubscriber;
+			this.actionKeyChangedUnsubscriber = actionKeyChangedUnsubscriber;
 
 			mapEntriesByMainKey = mapBackEnd;
 
@@ -53,15 +69,22 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		protected MappedListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
 				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System.Collections.Generic
 				.IEnumerable<EntryType> val, in System.Func<EntryType, KeyType> funcKeyObtainer, in System.Collections
-				.Generic.IDictionary<KeyType, EntryType> mapBackEnd)
+				.Generic.IDictionary<KeyType, EntryType> mapBackEnd, in System.Action<EntryType, System.Action<KeyType,
+				EntryType>> actionKeyChangedSubscriber, in System.Action<EntryType, System.Action<KeyType, EntryType>>
+				actionKeyChangedUnsubscriber)
 			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			Def = def;
 			this.funcKeyObtainer = funcKeyObtainer;
+			this.actionKeyChangedSubscriber = actionKeyChangedSubscriber;
+			this.actionKeyChangedUnsubscriber = actionKeyChangedUnsubscriber;
 
 			mapEntriesByMainKey = mapBackEnd;
 			foreach(EntryType entryCur in val)
+			{
 				Add(entryCur);
+				actionKeyChangedSubscriber(entryCur, OnKeyChanged);
+			}
 
 			DefTester = TestCurValForDef;
 		}
@@ -75,7 +98,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 			Justification = "Name required to implement interface")]
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler? CollectionChanged;
 
-		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<EntryType>>? evtEntriesChanged;
+		public event DMapFieldChanged<System.Collections.Generic.IReadOnlyDictionary<KeyType, EntryType>, KeyType,
+			EntryType>? evtEntriesChanged;
 	#endregion
 
 	#region Constants
@@ -90,6 +114,10 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		private readonly System.Collections.Generic.IDictionary<KeyType, EntryType> mapEntriesByMainKey;
 
 		private readonly System.Func<EntryType, KeyType> funcKeyObtainer;
+
+		private readonly System.Action<EntryType, System.Action<KeyType, EntryType>> actionKeyChangedSubscriber;
+
+		private readonly System.Action<EntryType, System.Action<KeyType, EntryType>> actionKeyChangedUnsubscriber;
 	#endregion
 
 	#region Properties
@@ -97,7 +125,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		{
 			get;
 
-			init;
+			private init;
 		}
 
 		public System.Func<System.Collections.Generic.IEnumerable<EntryType>, bool> DefTester
@@ -111,7 +139,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		{
 			get;
 
-			set;
+			init;
 		} = null;
 
 		public override string ValAsText
@@ -149,7 +177,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 		public EntryType this[KeyType key]
 		{
 			get => mapEntriesByMainKey[key];
-		
+
 			set => throw new System.NotImplementedException();
 		}
 	#endregion
@@ -256,6 +284,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 					.ContainsKey(keyForEntry))
 				return false;
 
+			actionKeyChangedSubscriber(entryNew, OnKeyChanged);
+
 			mapEntriesByMainKey[keyForEntry] = entryNew;
 
 			OnNewEntry(entryNew);
@@ -269,6 +299,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
 			KeyType keyForEntry = funcKeyObtainer(entryRemoveThis);
+
+			actionKeyChangedUnsubscriber(entryRemoveThis, OnKeyChanged);
 
 			if(entryRemoveThis is ObjBase objEntryToRemove && ContainsKey(objEntryToRemove.guid) ||
 					!mapEntriesByMainKey.ContainsKey(keyForEntry))
@@ -314,9 +346,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 
 			MakeDirty();
 
-			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-				.NotifyCollectionChangedAction.Reset));
-			evtEntriesChanged?.Invoke(this, mapEntriesByMainKey.Values, CollectionChangeType.other);
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+				.Reset));
 		}
 
 		internal override void RevertEdits()
@@ -340,5 +371,8 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 	#endregion
 
 	#region Event Handlers
+		private void OnKeyChanged(KeyType keyOld, EntryType entryThatChanged)
+			=> evtEntriesChanged?.Invoke(this, this, eChangedKeys: [new(keyOld,
+				funcKeyObtainer(entryThatChanged), entryThatChanged), ]);
 	#endregion
 }

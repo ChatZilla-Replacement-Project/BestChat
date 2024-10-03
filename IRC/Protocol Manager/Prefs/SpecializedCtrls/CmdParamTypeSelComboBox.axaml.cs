@@ -1,11 +1,11 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls;
 
-public partial class CmdParamSelComboBox : Avalonia.Controls.ComboBox
+public partial class CmdParamTypeSelComboBox : Avalonia.Controls.ComboBox
 {
-	public CmdParamSelComboBox()
+	public CmdParamTypeSelComboBox()
 		=> InitializeComponent();
 
-	public event System.Action<CmdParamSelComboBox, Platform.DataAndExt.Cmd.CmdDef?>? evtSelValChanged;
+	public event System.Action<CmdParamTypeSelComboBox, Platform.DataAndExt.Cmd.ParamTypes.Abstract?>? evtSelValChanged;
 
 	protected override void OnInitialized()
 	{
@@ -17,9 +17,9 @@ public partial class CmdParamSelComboBox : Avalonia.Controls.ComboBox
 		ItemsSource = Platform.DataAndExt.Cmd.CmdDef.AllInstancesByName.Values;
 	}
 
-	public Platform.DataAndExt.Cmd.CmdDef? SelVal
+	public Platform.DataAndExt.Cmd.ParamTypes.Abstract? SelVal
 	{
-		get => (Platform.DataAndExt.Cmd.CmdDef?)SelectedItem;
+		get => (Platform.DataAndExt.Cmd.ParamTypes.Abstract?)SelectedItem;
 
 		set => SelectedItem = value;
 	}

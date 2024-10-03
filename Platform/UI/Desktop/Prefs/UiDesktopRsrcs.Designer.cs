@@ -276,7 +276,7 @@ namespace BestChat.Platform.UI.Desktop.Prefs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The value you chose.
         /// </summary>
         internal static string strGlobalAppearanceFontBlockPairOverriddenValDesc {
             get {
@@ -362,6 +362,240 @@ namespace BestChat.Platform.UI.Desktop.Prefs {
         internal static string strGlobalAppearanceNormalFontFamilyTitle {
             get {
                 return ResourceManager.GetString("strGlobalAppearanceNormalFontFamilyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Places the user list on the left side of the client area..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListLeftDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListLeftDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListLeftTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListLeftTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify if you want the user list on the left or right..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListLocDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListLocDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListLocTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListLocTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Places the user list on the right side of the client area..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListRightDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListRightDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListRightTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListRightTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls how the user list is sorted or leaves it unsorted..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortByModeDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortByModeDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort By Mode.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortByModeTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortByModeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How recently the user did something and then their nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderLocalActivityThenName {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderLocalActivityThenName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorts the user list by how recently they‘ve been active in that channel or room and then by their nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderLocalActivityThenNameToolTip {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderLocalActivityThenNameToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User‘s mode, then how recently the user was active, then by their nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderModeThenLocalActivityThenName {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderModeThenLocalActivityThenName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorts the user list by the user&apos;s mode first, then how recently in this channel or room they were active, then by their nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderModeThenLocalActivityThenNameToolTip {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderModeThenLocalActivityThenNameToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User‘s Mode, then the user&apos;s nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderModeThenName {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderModeThenName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorts the user list by the mode and then the user&apos;s nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderModeThenNameToolTip {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderModeThenNameToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User‘s nick or display name only.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderName {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorts the user list, but only by the user nick or display name.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderNameToolTip {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderNameToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsorted.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderUnsorted {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderUnsorted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevents Best Chat from sorting the user list.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListSortOrderUnsortedToolTip {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListSortOrderUnsortedToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you select this, colored discs will be used to indicate op/half op status and voice..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesColoredDiscsDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesColoredDiscsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Colored Discs.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesColoredDiscsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesColoredDiscsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use these choices to control how Best Chat marks select users as special.  Unless you choose “Hidden”, Best Chat will tell you which users are ops, half ops, or have voice..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select if you don&apos;t need to know who is an op, half-op, or has voice..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesHiddenDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesHiddenDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden (no modes visible).
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesHiddenTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesHiddenTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you select this, Best Chat will show op, half op, and voice with traditional symbols..
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesSymbolsDesc {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesSymbolsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use symbols.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesSymbolsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesSymbolsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How should we show the user modes?.
+        /// </summary>
+        internal static string strGlobalAppearanceUserListWaysToShowModesTitle {
+            get {
+                return ResourceManager.GetString("strGlobalAppearanceUserListWaysToShowModesTitle", resourceCulture);
             }
         }
         
@@ -672,11 +906,20 @@ namespace BestChat.Platform.UI.Desktop.Prefs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to All global preferences can be found in these pages..
         /// </summary>
         internal static string strGlobalDesc {
             get {
                 return ResourceManager.GetString("strGlobalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string strGlobalPrefsPluginExtScriptsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalPrefsPluginExtScriptsTitle", resourceCulture);
             }
         }
         
@@ -699,7 +942,7 @@ namespace BestChat.Platform.UI.Desktop.Prefs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Global.
         /// </summary>
         internal static string strGlobalTitle {
             get {

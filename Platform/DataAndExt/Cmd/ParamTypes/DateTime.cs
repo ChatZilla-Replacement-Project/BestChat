@@ -1,7 +1,16 @@
-﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes
+﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+
+public class DateTime : Abstract
 {
-public class DateTime
-{
-	
-}
+	private DateTime() :
+		base("date and time", Rsrcs.strParamTypeDateTime, Rsrcs.strParamTypeDateTImeDesc, typeof(System.DateOnly))
+	{
+	}
+
+	public static DateTime Instance
+	{
+		get;
+
+		private set;
+	} = new();
 }

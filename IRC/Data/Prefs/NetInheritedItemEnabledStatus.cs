@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
+﻿namespace BestChat.IRC.Data.Prefs;
+
 public class NetInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType> : Platform.DataAndExt
 	.Obj<NetInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>>
 	where InheritedType : IKeyChanged<InheritedType, string>, ReadOnlyInterfaceType
@@ -49,5 +49,4 @@ public class NetInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>
 	public static implicit operator ReadOnlyInterfaceType(NetInheritedItemEnabledStatus<InheritedType,
 		ReadOnlyInterfaceType> val)
 		=> val.InheritedItem;
-}
 }

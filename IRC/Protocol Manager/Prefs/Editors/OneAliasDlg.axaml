@@ -4,41 +4,300 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:calc="using:CalcBinding"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				xmlns:rtfedit="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
+				xmlns:interactivity="using:Avalonia.Xaml.Interactivity"
+				xmlns:dnd="using:Avalonia.Xaml.Interactions.DragAndDrop"
+				xmlns:materialIcons="using:Material.Icons.Avalonia"
+				xmlns:behaviors="using:BestChat.IRC.ProtocolMgr.Prefs.Behaviors.DragAndDrop.AliasCmdParam"
 				x:DataType="data:GlobalAliasesOneAliasEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasEditorDlg">
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasDlg"
+				x:Name="window">
+	<Window.Resources>
+		<behaviors:DropHandler x:Key="DropHandler"/>
+	</Window.Resources>
 	<Window.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
+
+		<Style Selector="DataGrid.DragSrc DataGridRow.BeingDragged">
+			<Setter Property="AdornerLayer.Adorner">
+				<Template>
+					<Border BorderThickness="0,2"
+									BorderBrush="{DynamicResource SystemAccentColor}"/>
+				</Template>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DragAndDrop">
+			<Setter Property="RowHeaderWidth"
+							Value="24"/>
+			<Setter Property="(interactivity:Interaction.Behaviors)">
+				<interactivity:BehaviorCollectionTemplate>
+					<interactivity:BehaviorCollection>
+						<dnd:ContextDropBehavior Handler="{StaticResource DropHandler}"/>
+					</interactivity:BehaviorCollection>
+				</interactivity:BehaviorCollectionTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DropTgt DataGridRow.DropTgtRow">
+			<Setter Property="Background"
+							Value="{StaticResource HighlightBrush}">
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DragSrc DataGridRow">
+			<Setter Property="(interactivity:Interaction.Behaviors)">
+				<interactivity:BehaviorCollectionTemplate>
+					<interactivity:BehaviorCollection>
+						<behaviors:DragBehavior Handler="{StaticResource DropHandler}"
+																		HorizontalDragThreshold="3"
+																		VerticalDragThreshold="3"/>
+					</interactivity:BehaviorCollection>
+				</interactivity:BehaviorCollectionTemplate>
+			</Setter>
+			<Setter Property="Content">
+				<Template>
+					<Image Margin="12,0,12,0"
+								Width="12"
+								Height="12"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center">
+						<Image.Source>
+							<!-- Use your own image here, I used this: https://www.svgrepo.com/svg/347759/grabber -->
+							<DrawingImage Drawing="{materialIcons:MaterialIconExt TableRow}"/>
+						</Image.Source>
+					</Image>
+				</Template>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid DataGridRow[IsRequired='true']">
+			<Setter Property="FontStyle"
+							Value="Italic"/>
+		</Style>
 	</Window.Styles>
 	<DockPanel>
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock">
-			You will need to choose a unique name.  The exception to that is if you’re editing an alias for a network or channel.  In that case, the name must be unique in that network or channel list of aliases.  If you specify a name that’s inherited, Best Chat will disable the inherited alias and use only your new alias.  This isn't an option if you’re editing an alias.<LineBreak/><LineBreak/>Best Chat will assist you in editing the command field.  This helps with all the parameters.  It also helps with selecting a command to run.
+			You will need to choose a unique name.  The exception to that is if you’re editing an alias for a network or channel.  In that case, the name must be unique in that network or channel list of aliases.  If you specify a name that’s inherited, Best Chat will disable the inherited alias and use only your new alias.  This isn't an option if you’re editing an alias.<LineBreak/><LineBreak/>Best Chat will assist you in editing the command field.  This helps with all the parameters.  It also helps with selecting a command to run.  It will also display documentation for each command you run in the alias.  An alias can’t run itself.  This prevents Best Chat from hanging as it tries to obey.
 		</TextBlock>
-		<StackPanel DockPanel.Dock="Bottom"
-								HorizontalAlignment="Right"
-								Orientation="Horizontal"
-								Spacing="4">
-			<Button x:Name="btnOk"
-							IsVisible="{Binding WereChangesMade}"
-							IsEnabled="{Binding IsValid}"
-							Content="OK"
-							Click="OnOkClicked"/>
-			<Button x:Name="btnCancel"
-							IsVisible="{Binding WereChangesMade}"
-							Content="Cancel"
-							Click="OnCancelClicked"/>
-			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !WereChangesMade}"
-							Content="Close"
-							Click="OnCloseClicked"/>
-		</StackPanel>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<Grid DockPanel.Dock="Bottom"
+					ColumnDefinitions="Auto,4,Auto,1*,Auto">
+			<Button x:Name="btnExport" Content="Export this alias to a file" Click="OnExportClicked"></Button>
+			<Button Grid.Column="2" Content="Copy definition to clipboard as JSON" Click="OnCopyToClipboardClicked"></Button>
+			<StackPanel Grid.Column="4"
+									Orientation="Horizontal"
+									Spacing="4">
+				<Button x:Name="btnOk"
+								IsVisible="{Binding WereChangesMade}"
+								IsEnabled="{Binding IsValid}"
+								Content="OK"
+								Click="OnOkClicked"/>
+				<Button x:Name="btnCancel"
+								IsVisible="{Binding WereChangesMade}"
+								Content="Cancel"
+								Click="OnCancelClicked"/>
+				<Button x:Name="btnClose"
+								IsVisible="{calc:Binding !WereChangesMade}"
+								Content="Close"
+								Click="OnCloseClicked"/>
+			</StackPanel>
+		</Grid>
+		<Separator DockPanel.Dock="Bottom"
+							Margin="0,4"/>
 		<Grid ColumnDefinitions="Auto,4,1*"
-					RowDefinitions="Auto,4,Auto">
-			<Label Content="Name of this alias:"/>
-			<TextBox Grid.Column="2"
-							Text="{Binding Name, Mode=TwoWay}"/>
+					RowDefinitions="Auto,4,Auto,4,1*,4,1*,4,1*">
+			<TextBlock Classes="InfoTextBlock"
+								Text="While these parameters have names, those only get used when you need to reference them in the code below.  The caller of this alias will never use these names.  In order to add items to this list, create a new parameter in the list below and use those controls to add it here.  Alternatively, you can drag an parameter into the list.  You can also rearrange this list with drag and drop.  However, regardless, all required parameters must come before any optional parameters.">
+			</TextBlock>
 			<Label Grid.Row="2"
+						HorizontalContentAlignment="Right"
+						Content="Name of this alias:"/>
+			<TextBox Grid.Row="2"
+							Grid.Column="2"
+							Classes="DragSrc DropTgt"
+							Text="{Binding Name, Mode=TwoWay}"/>
+			<group:GroupBox Grid.Row="4"
+											Grid.ColumnSpan="3"
+											Header="Positional Parameters">
+				<DockPanel Margin="4">
+					<StackPanel DockPanel.Dock="Right"
+											VerticalAlignment="Center"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button x:Name="btnRemoveFromPositionedList"
+										ToolTip.Tip="Click to remove the selected parameter from the position list.  The parameter would still exist, but can only be specified by name unless you delete it from below.  Deleting the parameter there will also delete it here.  You don’t need to remove it from this list first.  This is available only if you have at least one parameter selected in the position list.  You’ll be asked if you’ll certain you want to remove the selected parameter or parameters from this list."
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=dgPositionalParams}"
+										Content="Remove from position list"
+										Click="OnRemoveFromPositionalListClicked"/>
+						<Separator Margin="0,4"/>
+						<Button x:Name="btnMoveToTop"
+										ToolTip.Tip="Click to move the currently selected parameter to the top of the list.  This is available only if you have exactly one parameter selected and it can’t be the first entry.  If the selected parameter is optional, it will not be moved past any required parameters."
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0 and SelectedIndex &gt; 0', ElementName=dgPositionalParams}"
+										Click="OnMovePositionalParamToTopClicked">
+							<StackPanel Orientation="Horizontal"
+													Spacing="4">
+								<Label Content="Move To Top"/><Image Classes="MoveToTopImg"/>
+							</StackPanel>
+						</Button>
+						<Button x:Name="btnMoveUp"
+										ToolTip.Tip="Click to move the currently selected parameter up the list.  This is available only if you have one selected parameter which must not be the first parameter in the list.  Furthermore, this button is unavailable if the selected parameter is optional and there are required parameters."
+										IsEnabled="{Binding CanMoveSelectedPositionedParamUp, ElementName=window}"
+										Content="Move Up ▲"
+										Click="OnMovePositionalParamUpClicked"/>
+						<Button x:Name="btnMoveDown"
+										ToolTip.Tip="Click to move the currently selected parameter down the list.  This is available only if you have exactly one selected parameter which must not be the last parameter in the list."
+										IsEnabled="{Binding CanMoveSelectedPositionedParamDown, ElementName=window}"
+										Content="Move Down ▼"
+										Click="OnMovePositionalParamDownClicked"/>
+						<Button x:Name="btnMoveToBottom"
+										ToolTip.Tip="Click to move the selected parameter to the bottom of the list.  This is available only if you have exactly one parameter selected and it can’t be the last entry."
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0 and SelectedIndex &lt; SelectedItems.Count - 1', ElementName=dgPositionalParams}"
+										Click="OnMovePositionalParamToBottomClicked">
+							<StackPanel Orientation="Horizontal"
+													Spacing="4">
+								<Label Content="Move To Bottom"/>
+								<Image Classes="MoveToBottomImg"/>
+							</StackPanel>
+						</Button>
+					</StackPanel>
+					<DataGrid x:Name="dgPositionalParams"
+										CanUserReorderColumns="True"
+										CanUserResizeColumns="True"
+										CanUserSortColumns="True"
+										GridLinesVisibility="Vertical"
+										IsReadOnly="True"
+										ItemsSource="{Binding PositionalParameters}">
+						<DataGrid.Columns>
+							<DataGridTextColumn Binding="{Binding Name}"
+																	CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Name"
+																	Width="Auto"/>
+							<DataGridTextColumn Binding="{Binding NameInCode}"
+																	CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Reference in code below with"
+																	Width="Auto"/>
+							<DataGridTemplateColumn CanUserReorder="True"
+																			CanUserResize="True"
+																			CanUserSort="False"
+																			Header="Type of Parameter">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding SafeParamType.LocalizedName}"
+													ToolTip.Tip="{Binding SafeParamType.LocalizedDesc}">
+										</Label>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridCheckBoxColumn Binding="{Binding IsRequired}"
+																			CanUserReorder="True"
+																			CanUserResize="False"
+																			CanUserSort="False"
+																			Header="Is Required"
+																			IsReadOnly="True"
+																			Width="Auto"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</DockPanel>
+			</group:GroupBox>
+			<group:GroupBox Grid.Row="6"
+											Grid.ColumnSpan="3"
+											Header="Named Parameters">
+				<DockPanel Margin="4">
+					<TextBlock DockPanel.Dock="Top"
+										Classes="InfoTextBlock"
+										Text="These parameters you’ll need to refer to by the name listed below."/>
+					<Separator DockPanel.Dock="Top"
+										Margin="0,4"/>
+					<StackPanel DockPanel.Dock="Right"
+											VerticalAlignment="Center"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button x:Name="btnAddNamedParam"
+										ToolTip.Tip="Click to create a new named parameter"
+										Content="Add…"
+										Click="OnAddNamedParamClicked"/>
+						<Button x:Name="btnEditNamedParam"
+										ToolTip.Tip="Click to edit the named selected parameter.  Only available if you have exactly one selected parameter."
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=dgAllParams}"
+										Content="Edit…"
+										Click="OnEditNamedParamClicked"/>
+						<Button x:Name="btnDelNamedParam"
+										ToolTip.Tip="Click to delete the selected parameter or parameters.  Only available if you have at least one selected parameter.  You’ll be asked if you’re sure you want to delete the selected parameter or parameters."
+										IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=dgAllParams}"
+										Content="Delete"
+										Click="OnDelNamedParamClicked"/>
+					</StackPanel>
+					<DataGrid x:Name="dgAllParams"
+										Classes="DragSrc"
+										CanUserReorderColumns="True"
+										CanUserResizeColumns="True"
+										CanUserSortColumns="True"
+										GridLinesVisibility="Vertical"
+										IsReadOnly="True"
+										ItemsSource="{Binding PositionalParameters}">
+						<DataGrid.Columns>
+							<DataGridTextColumn Binding="{Binding Name}"
+																	CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Name"
+																	Width="Auto"/>
+							<DataGridTextColumn Binding="{Binding NameInCode}"
+																	CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Reference in code below with"
+																	Width="Auto"/>
+							<DataGridTemplateColumn CanUserReorder="True"
+																			CanUserResize="True"
+																			CanUserSort="True"
+																			Header="Type of Parameter">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding SafeParamType.LocalizedName}"
+													ToolTip.Tip="{Binding SafeParamType.LocalizedDesc}">
+										</Label>
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+							<DataGridCheckBoxColumn Binding="{Binding IsRequired}"
+																			CanUserReorder="True"
+																			CanUserResize="False"
+																			CanUserSort="False"
+																			Header="Is Required"
+																			IsReadOnly="True"
+																			Width="Auto"/>
+							<DataGridCheckBoxColumn Binding="{Binding IsPositionOnlyEnabled}"
+																			CanUserReorder="True"
+																			CanUserResize="False"
+																			CanUserSort="False"
+																			Header="Can be Set to by Position"
+																			IsReadOnly="True"
+																			Width="Auto"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</DockPanel>
+			</group:GroupBox>
+			<group:GroupBox Grid.Row="8"
+											Grid.ColumnSpan="3"
+											Header="Documentation">
+				<rtfedit:DocEditorCtrl x:Name="rtfeditDoc"
+															ToolTip.Tip="Best Chat provides a few predefined styles that themes can change.  Use those when possible."
+															Margin="4"
+															Ctnt="{Binding Doc, Mode=TwoWay}">
+				</rtfedit:DocEditorCtrl>
+			</group:GroupBox>
+			<Label Grid.Row="8"
+						HorizontalContentAlignment="Right"
 						Content="What to run"/>
 			<!-- TODO: Find a way to edit the command -->
 		</Grid>

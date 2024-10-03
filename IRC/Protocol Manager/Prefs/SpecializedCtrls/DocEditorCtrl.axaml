@@ -2,7 +2,49 @@
 						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 						xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						xmlns:rtfedit="using:AvRichTextBox"
+						xmlns:materialIcons="using:Material.Icons.Avalonia"
 						mc:Ignorable="d"
 						x:Class="BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls.DocEditorCtrl">
-	
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Top"
+								Orientation="Horizontal">
+			<Button x:Name="btnCopy"
+							ToolTip.Tip="Copies the selected text to the clipboard.  Available only if you have a selection below."
+							Content="{materialIcons:MaterialIcon Kind=ContentCopy}"/>
+			<Button x:Name="btnCut"
+							ToolTip.Tip="Copies the selected text to the clipboard and then deletes it from the text.  Available only if you hava a selection."
+							Content="{materialIcons:MaterialIcon Kind=ContentCut}"/>
+			<Button x:Name="btnPaste"
+							ToolTip.Tip="Attempts to paste whatever you have on the clipboard into the text below at the caret.  If you have a selection, that will be replaced."
+							Content="{materialIcons:MaterialIcon}"/>
+			<Rectangle Margin="4,0"
+								Width="2"
+								Fill="{StaticResource ButtonBackground}"/>
+			<ToggleButton x:Name="tbtnBold"
+										ToolTip.Tip="Turns on or off bold"
+										FontWeight="Bold"
+										Content="B"/>
+			<ToggleButton x:Name="tbtnItalics"
+										ToolTip.Tip="Turns on or off italics"
+										FontStyle="Italic"
+										Content="I"/>
+			<ToggleButton x:Name="tbtnUnderline"
+										ToolTip.Tip="Turns on or off underline">
+				<TextBlock Text="U"
+									TextDecorations="Underline"/>
+			</ToggleButton>
+			<Rectangle Margin="4,0"
+								Width="2"
+								Fill="{StaticResource ButtonBackground}"/>
+			<!-- TODO: Add buttons for styles from the theme. -->
+		</StackPanel>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<rtfedit:RichTextBox x:Name="rtfedit">
+			<rtfedit:FlowDocument>
+				<!-- Figure out how to insert the value -->
+			</rtfedit:FlowDocument>
+		</rtfedit:RichTextBox>
+	</DockPanel>
 </UserControl>

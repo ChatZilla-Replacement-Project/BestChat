@@ -2,138 +2,145 @@
 
 namespace BestChat.Platform.UI.Desktop.Prefs.DTO;
 
+// ReSharper disable once InconsistentNaming
 internal record RootDTO
 (
 	RootDTO.GlobalDTO Global
 ) : DataAndExt.Prefs.DTO.PrefsDTO
 {
-	public new record GlobalDTO : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO
+	// ReSharper disable once InconsistentNaming
+	public new record GlobalDTO
+	(
+		GlobalDTO.AppearanceDTO Appearance,
+		GlobalDTO.PluginsDTO Plugins,
+		GlobalDTO.CompositionDTO Composition
+	) : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO(Plugins)
 	{
-		public GlobalDTO
+		// ReSharper disable once InconsistentNaming
+		public new record AppearanceDTO
 		(
-			in AppearanceDTO appearance,
-			in PluginsDTO plugins,
-			in CompositionDTO composition
-		) :
-			base(plugins)
+			AppearanceDTO.ConfModeDTO ConfMode,
+			AppearanceDTO.TimeStampDTO TimeStamp,
+			AppearanceDTO.UserListDTO UserList,
+			AppearanceDTO.FontDTO Fonts,
+			AppearanceDTO.EmojiDTO Emoji,
+			AppearanceDTO.AnimationDTO Animation,
+			AppearanceDTO.MsgGroupsDTO MsgGroups,
+			bool HyphenateLongWords,
+			bool RecognizeLinks,
+			bool DisplayCtrlChars,
+			bool UseTypographicalQuotes
+		) : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO(ConfMode, TimeStamp, MsgGroups)
 		{
-			Appearance = appearance;
-			Composition = composition;
-		}
-
-		public new record AppearanceDTO : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO
-		{
-			public AppearanceDTO
-			(
-				ConfModeDTO confMode,
-				TimeStampDTO timeStamp,
-				UserListDTO userList,
-				FontDTO fonts,
-				EmojiDTO emoji,
-				AnimationDTO animation,
-				bool bHyphenateLongWords,
-				bool bRecognizeLinks,
-				bool bDisplayCtrlChars,
-				bool bUseTypographicalQuotes,
-				MsgGroupsDTO msgGroups
-			) : base(confMode, timeStamp, userList, msgGroups)
-			{
-				Fonts = fonts;
-				Emoji = emoji;
-				Animation = animation;
-				HyphenateLongWords = bHyphenateLongWords;
-				RecognizeLinks = bRecognizeLinks;
-				DisplayCtrlChars = bDisplayCtrlChars;
-				UseTypographicalQuotes = bUseTypographicalQuotes;
-			}
-
+			// ReSharper disable once InconsistentNaming
 			public record FontDTO
 			(
 				FontDTO.OneFontBlockDTO AppFontData,
 				FontDTO.OneFontBlockDTO ViewFontData
-			)
+			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Fonts")
 			{
+				// ReSharper disable once InconsistentNaming
 				public record OneFontBlockDTO
 				(
 					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontFamily> NormalFamily,
 					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontFamily> FixedFontFamily,
 					OneFontBlockDTO.InfoPairDTO<double> Size,
 					OneFontBlockDTO.InfoPairDTO<Avalonia.Media.FontWeight> Weight
-				) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Fonts")
+				) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Fonts/OneFontBlock")
 				{
+					// ReSharper disable once InconsistentNaming
 					public record InfoPairDTO<FieldType>
 					(
 						bool IsOverridden,
 						FieldType? OverriddenVal
-					);
+					) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Fonts/OneFontBlock/InfoPair");
 				}
 			}
 
+			// ReSharper disable once InconsistentNaming
 			public record EmojiDTO
 			(
-				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.SendingEmojiOpts SendingEmoji,
-				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.SendingEmoticonsOpts SendingEmoticons,
-				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.DisplayingEmojiOpts DisplayingEmoji,
-				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.DisplayingEmoticonsOpts DisplayingEmoticons,
+				GlobalAppearanceEmojiPrefs.SendingEmojiOpts SendingEmoji,
+				GlobalAppearanceEmojiPrefs.SendingEmoticonsOpts SendingEmoticons,
+				GlobalAppearanceEmojiPrefs.DisplayingEmojiOpts DisplayingEmoji,
+				GlobalAppearanceEmojiPrefs.DisplayingEmoticonsOpts DisplayingEmoticons,
 				bool MakeEmojiOnlyPostsBigger,
-				RootPrefs.GlobalPrefs.AppearancePrefs.EmojiPrefs.EmojiAnimationOpts EmojiAnimation
+				GlobalAppearanceEmojiPrefs.EmojiAnimationOpts EmojiAnimation
 			);
 
+			// ReSharper disable once InconsistentNaming
 			public record AnimationDTO
 			(
-				RootPrefs.GlobalPrefs.AppearancePrefs.AnimationPrefs.GifAnimationOpts GIFs,
-				RootPrefs.GlobalPrefs.AppearancePrefs.AnimationPrefs.GifAnimationOpts Avatars,
+				// ReSharper disable once InconsistentNaming
+				GlobalAppearanceAnimationPrefs.GifAnimationOpts GIFs,
+				GlobalAppearanceAnimationPrefs.GifAnimationOpts Avatars,
 				bool ResumeOnMouseOver
-			);
+			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/Animation");
+
+			// ReSharper disable once InconsistentNaming
+			public record UserListDTO
+			(
+				GlobalAppearanceUserListPrefs.UserListPaneLocs Loc = GlobalAppearanceUserListPrefs.UserListPaneLocs.left,
+				GlobalAppearanceUserListPrefs.WaysToShowUserModes HowToShowModes = GlobalAppearanceUserListPrefs
+					.WaysToShowUserModes.symbols,
+				GlobalAppearanceUserListPrefs.SortOrders SortByMode = GlobalAppearanceUserListPrefs.SortOrders.nameOnly
+			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/UserList");
 
 			public FontDTO Fonts
 			{
 				get;
 
 				private init;
-			}
+			} = Fonts;
 
 			public EmojiDTO Emoji
 			{
 				get;
 
 				private init;
-			}
+			} = Emoji;
 
 			public AnimationDTO Animation
 			{
 				get;
 
 				private init;
-			}
+			} = Animation;
+
+			public UserListDTO UserList
+			{
+				get;
+
+				private init;
+			} = UserList;
 
 			public bool HyphenateLongWords
 			{
 				get;
 
 				private init;
-			}
+			} = HyphenateLongWords;
 
 			public bool RecognizeLinks
 			{
 				get;
 
 				private init;
-			}
+			} = RecognizeLinks;
 
 			public bool DisplayCtrlChars
 			{
 				get;
 
 				private init;
-			}
+			} = DisplayCtrlChars;
 
 			public bool UseTypographicalQuotes
 			{
 				get;
 
 				private init;
-			}
+			} = UseTypographicalQuotes;
 		}
 
 		public record CompositionDTO
@@ -145,23 +152,24 @@ internal record RootDTO
 			bool EnableEntityShortCuts
 		);
 
-		public AppearanceDTO Appearance
-		{
-			get;
-
-			init;
-		}
-
 		public CompositionDTO Composition
 		{
 			get;
 
 			private init;
-		}
+		} = Composition;
+
+		public AppearanceDTO Appearance
+		{
+			get;
+
+			private init;
+		} = Appearance;
 
 		public override DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO.AppearanceDTO BaseAppearance
 			=> Appearance;
 	}
 
-	public override DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO BaseGlobal => Global;
+	public override DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO BaseGlobal
+		=> Global;
 }

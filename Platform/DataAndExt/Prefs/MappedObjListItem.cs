@@ -8,22 +8,28 @@ public class MappedObjListItem<KeyType, EntryType> : MappedListItem<KeyType, Ent
 {
 	public MappedObjListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in
 			string strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System
-			.Func<EntryType, KeyType> funcKeyObtainer, bool bSort = false)
+			.Func<EntryType, KeyType> funcKeyObtainer, in System.Action<EntryType, System.Action<KeyType, EntryType>>
+		actionKeyChangedSubscriber, in System.Action<EntryType, System.Action<KeyType, EntryType>>
+		actionKeyChangedUnsubscriber, bool bSort = false)
 		: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc, def, funcKeyObtainer, bSort
-			? new System.Collections.Generic.SortedDictionary<KeyType, EntryType>()
-			: new System.Collections.Generic.Dictionary<KeyType, EntryType>())
+				? new System.Collections.Generic.SortedDictionary<KeyType, EntryType>()
+				: new System.Collections.Generic.Dictionary<KeyType, EntryType>(),
+			actionKeyChangedSubscriber, actionKeyChangedUnsubscriber)
 	{
 	}
 
 	public MappedObjListItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in
 			string strLocalizedLongDesc, System.Collections.Generic.IEnumerable<EntryType> def, in System.Collections
-			.Generic.IEnumerable<EntryType> val, in System.Func<EntryType, KeyType> funcKeyObtainer, bool bSort = false)
+			.Generic.IEnumerable<EntryType> val, in System.Func<EntryType, KeyType> funcKeyObtainer, in System
+			.Action<EntryType, System.Action<KeyType, EntryType>>actionKeyChangedSubscriber, in System.Action<EntryType,
+			System.Action<KeyType, EntryType>> actionKeyChangedUnsubscriber, bool bSort = false)
 		: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc, def, val, funcKeyObtainer, bSort
-			? new System.Collections.Generic.SortedDictionary<KeyType, EntryType>()
-			: new System.Collections.Generic.Dictionary<KeyType, EntryType>())
+				? new System.Collections.Generic.SortedDictionary<KeyType, EntryType>()
+				: new System.Collections.Generic.Dictionary<KeyType, EntryType>(),
+			actionKeyChangedSubscriber, actionKeyChangedUnsubscriber)
 	{
 	}
-	
+
 	private readonly System.Collections.Generic.Dictionary<System.Guid, EntryType> mapGuidToEntry =
 		[];
 

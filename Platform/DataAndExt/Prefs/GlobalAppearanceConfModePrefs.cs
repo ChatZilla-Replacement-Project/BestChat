@@ -1,8 +1,8 @@
-﻿namespace BestChat.Platform.DataAndExt.Prefs
+﻿namespace BestChat.Platform.DataAndExt.Prefs;
+
+public class GlobalAppearanceConfModePrefs : AbstractChildMgr
 {
-	public class GlobalAppearanceConfModePrefs : AbstractChildMgr
-	{
-		#region Constructors & Deconstructors
+	#region Constructors & Deconstructors
 		public GlobalAppearanceConfModePrefs(in AbstractMgr mgrParent) : base(mgrParent, "Conference " +
 			"Mode", Rsrcs.strGlobalAppearanceConfModeTitle, Rsrcs
 				.strGlobalAppearanceConfModeDesc)
@@ -40,21 +40,21 @@
 				.strGlobalAppearanceConfModeCollapseMsgsTitle, Rsrcs
 				.strGlobalAppearanceConfModeCollapseMsgsDesc, false, dto.MsgsCollapsed);
 		}
-		#endregion
+	#endregion
 
-		#region Delegates
-		#endregion
+	#region Delegates
+	#endregion
 
-		#region Events
-		#endregion
+	#region Events
+	#endregion
 
-		#region Constants
-		#endregion
+	#region Constants
+	#endregion
 
-		#region Helper Types
-		#endregion
+	#region Helper Types
+	#endregion
 
-		#region Members
+	#region Members
 		private readonly Item<bool> confModeEnabled;
 
 		private readonly IntItem userLimitBeforeTrigger;
@@ -62,9 +62,9 @@
 		private readonly Item<bool> actionsCollapsed;
 
 		private readonly Item<bool> msgsCollapsed;
-		#endregion
+	#endregion
 
-		#region Properties
+	#region Properties
 		public Item<bool> ConfModeEnabled
 			=> confModeEnabled;
 
@@ -76,15 +76,14 @@
 
 		public Item<bool> MsgsCollapsed
 			=> msgsCollapsed;
-		#endregion
+	#endregion
 
-		#region Methods
+	#region Methods
 		public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.ConfModeDTO ToDTO()
 			=> new(confModeEnabled.CurVal, userLimitBeforeTrigger.CurVal,
 				actionsCollapsed.CurVal, msgsCollapsed.CurVal);
-		#endregion
+	#endregion
 
-		#region Event Handlers
-		#endregion
-	}
+	#region Event Handlers
+	#endregion
 }

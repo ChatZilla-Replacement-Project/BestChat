@@ -1,30 +1,97 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-						xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
-						xmlns:data="using:BestChat.Platform.UI.Desktop.Prefs"
-						x:DataType="data:GlobalAppearanceFontsOneFontBlockPrefs"
-						mc:Ignorable="d"
-						x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceFontsOneFontBlock">
-	<Grid ColumnDefinitions="Auto,4,1*"
-				RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+								xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+								xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+								xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+								xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
+								xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+								x:DataType="base:GlobalAppearanceFontsOneFontBlockPrefs"
+								mc:Ignorable="d"
+								x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceFontsOneFontBlockPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<Grid ColumnDefinitions="Auto,4,Auto,4,Auto,4,1*"
+				RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
 		<TextBlock Classes="InfoTextBlock"
+							Grid.ColumnSpan="7"
 							Text="Normally, Best Chat gets font information from your theme.  However, here you can change the font used."/>
+		<Separator Grid.Row="1"
+							Grid.ColumnSpan="7"
+							VerticalAlignment="Center"
+							Height="2"/>
+		<Button x:Name="btnResetNormalFont"
+						Grid.Row="2"
+						IsEnabled="{Binding NormalFontFamily.IsThemeOverridden.CanReset}"
+						Classes="ResetBtn">
+		</Button>
 		<Label Grid.Row="2"
-					Content="Normal Font Family:"
-					HorizontalContentAlignment="Right"/>
+					Grid.Column="2"
+					HorizontalContentAlignment="Right"
+					Content="Normal Font Family:"/>
+		<CheckBox x:Name="chkNormalFamilyIsOverridden"
+							Grid.Row="2"
+							Grid.Column="4"
+							Content="Override theme?"
+							IsChecked="{Binding NormalFontFamily.IsThemeOverridden, Mode=TwoWay}"/>
 		<ctrls:FontSelectionComboBox Grid.Row="2"
-																Grid.Column="2"
+																Grid.Column="6"
+																IsEnabled="{Binding IsChecked, ElementName=chkNormalFamilyIsOverridden}"
 																ListOnlyFixedWidthFonts="False"
-																SelectedItem="{Binding NormalFontFamily.OverriddenVal}"/>
+																SelectedItem="{Binding NormalFontFamily.OverriddenVal, Mode=TwoWay}"/>
+		<Button x:Name="btnResetFixedWidthFont"
+						Grid.Row="2"
+						IsEnabled="{Binding FixedWidthFontFamily.IsThemeOverridden.CanReset}"
+						Classes="ResetBtn">
+		</Button>
 		<Label Grid.Row="2"
+					Grid.Column="2"
 					HorizontalContentAlignment="Right"
 					Content="Fixed Width Family:"/>
+		<CheckBox x:Name="chkFixedWidthFamilyIsOverridden"
+							Grid.Row="2"
+							Grid.Column="4"
+							Content="Override theme?"
+							IsChecked="{Binding FixedWidthFontFamily.IsThemeOverridden, Mode=TwoWay}"/>
 		<ctrls:FontSelectionComboBox Grid.Row="2"
-																Grid.Column="2"
+																Grid.Column="6"
+																IsEnabled="{Binding IsChecked, ElementName=chkFixedWidthFamilyIsOverridden}"
 																ListOnlyFixedWidthFonts="True"
-																SelectedItem="{Binding FixedWidthFontFamily.OverriddenVal}">
+																SelectedItem="{Binding FixedWidthFontFamily.OverriddenVal, Mode=TwoWay}">
 		</ctrls:FontSelectionComboBox>
+		<Button x:Name="btnResetSize"
+						Grid.Row="8"
+						IsEnabled="{Binding Size.IsThemeOverridden.CanReset}"
+						Classes="ResetBtn">
+		</Button>
+		<Label Grid.Row="8"
+					Grid.Column="2"
+					HorizontalContentAlignment="Right"
+					Content="Size of Fonts:"/>
+		<CheckBox x:Name="chkSizeOverridden"
+							Grid.Row="8"
+							Grid.Column="4"
+							Content="Override theme?"
+							IsChecked="{Binding Size.IsThemeOverridden, Mode=TwoWay}"/>
+		<NumericUpDown Grid.Row="8"
+									Grid.Column="6"
+									IsEnabled="{Binding IsChecked, ElementName=chkSizeOverridden}"
+									Value="{Binding Size.OverriddenVal, Mode=TwoWay}"/>
+		<Button x:Name="btnResetWeight"
+						Grid.Row="8"
+						IsEnabled="{Binding Weight.IsThemeOverridden.CanReset}"
+						Classes="ResetBtn">
+		</Button>
+		<Label Grid.Row="8"
+					Grid.Column="2"
+					HorizontalContentAlignment="Right"
+					Content="Weight:"/>
+		<CheckBox x:Name="chkWeightOverridden"
+							Grid.Row="8"
+							Grid.Column="4"
+							Content="Override theme?"
+							IsChecked="{Binding Weight.IsThemeOverridden, Mode=TwoWay}"/>
+		<ctrls:FontWeightComboBox Grid.Row="8"
+															Grid.Column="6"
+															SelVal="{Binding Weight.OverriddenVal, Mode=TwoWay}"/>
 	</Grid>
-</UserControl>
+</base:VisualPrefsTabCtrl>

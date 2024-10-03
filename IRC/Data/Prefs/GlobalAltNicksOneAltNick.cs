@@ -1,36 +1,42 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
-public class GlobalAltNicksOneAltNick<GlobalPrefsType, GlobalDtoType> : Platform.DataAndExt
-	.Obj<GlobalAltNicksOneAltNick<GlobalPrefsType, GlobalDtoType>>, IReadOnlyOneAltNick, Prefs<GlobalPrefsType,
-		GlobalDtoType>.NetPrefs.IKeyChanged<GlobalAltNicksOneAltNick<GlobalPrefsType, GlobalDtoType>, string>
-	where GlobalPrefsType : GlobalPrefs<GlobalPrefsType, GlobalDtoType>
-	where GlobalDtoType : DTO.IrcDTO<GlobalDtoType>.GlobalDTO
+﻿using BestChat.IRC.Data.Prefs.DTO;
+
+namespace BestChat.IRC.Data.Prefs;
+
+public class GlobalAltNicksOneAltNick : Platform.DataAndExt.Obj<GlobalAltNicksOneAltNick>, IReadOnlyOneAltNick,
+	IKeyChanged<GlobalAltNicksOneAltNick, string>
 {
 	#region Constructors & Deconstructors
-	public GlobalAltNicksOneAltNick(in string strNickToUse, in GlobalAltNicksPrefs<GlobalPrefsType, GlobalDtoType> parent)
-	{
-		this.strNickToUse = strNickToUse;
+		public GlobalAltNicksOneAltNick(in GlobalAltNicksPrefs mgrParent)
+		{
+			strNickToUse = "";
 
-		this.parent = parent;
-	}
+			this.mgrParent = mgrParent;
+		}
 
-	public GlobalAltNicksOneAltNick(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO dto, in
-		GlobalAltNicksPrefs<GlobalPrefsType, GlobalDtoType> parent) :
-		base(dto.GUID)
-	{
-		strNickToUse = dto.NickToUse;
+		public GlobalAltNicksOneAltNick(in string strNickToUse, in GlobalAltNicksPrefs mgrParent)
+		{
+			this.strNickToUse = strNickToUse;
 
-		this.parent = parent;
-	}
+			this.mgrParent = mgrParent;
+		}
+
+		public GlobalAltNicksOneAltNick(in GlobalOneAltNickDTO dto, in
+				GlobalAltNicksPrefs parent) :
+			base(dto.GUID)
+		{
+			strNickToUse = dto.NickToUse;
+
+			this.mgrParent = parent;
+		}
 	#endregion
 
 	#region Delegates
 	#endregion
 
 	#region Events
-	public event DFieldChanged<string>? evtNickToUseChanged;
+		public event DFieldChanged<string>? evtNickToUseChanged;
 
-	public event Prefs<GlobalPrefsType, GlobalDtoType>.NetPrefs.IKeyChanged<GlobalAltNicksOneAltNick, string>.DKeyChanged? evtKeyChanged;
+		public event IKeyChanged<GlobalAltNicksOneAltNick, string>.DKeyChanged? evtKeyChanged;
 	#endregion
 
 	#region Constants
@@ -40,46 +46,51 @@ public class GlobalAltNicksOneAltNick<GlobalPrefsType, GlobalDtoType> : Platform
 	#endregion
 
 	#region Members
-	public readonly GlobalAltNicksPrefs<GlobalPrefsType, GlobalDtoType> parent;
+		public readonly GlobalAltNicksPrefs mgrParent;
 
-	private string strNickToUse;
+		private string strNickToUse;
 	#endregion
 
 	#region Properties
-	public string NickToUse
-	{
-		get => strNickToUse;
-
-		set
+		public string NickToUse
 		{
-			if(strNickToUse != value)
+			get => strNickToUse;
+
+			set
 			{
-				string strOldNickToUse = strNickToUse;
+				if(strNickToUse != value)
+				{
+					string strOldNickToUse = strNickToUse;
 
-				strNickToUse = value;
+					strNickToUse = value;
 
-				MakeDirty();
+					MakeDirty();
 
-				FireCtntsChanged(strOldNickToUse);
+					FireCtntsChanged(strOldNickToUse);
+				}
 			}
 		}
-	}
 	#endregion
 
 	#region Methods
-	private void FireCtntsChanged(string strOldNickToUse)
-	{
-		FirePropChanged(nameof(NickToUse));
+		public GlobalAltNicksOneAltNickEditable MakeEditable()
+			=> new(this);
 
-		evtNickToUseChanged?.Invoke(this, strOldNickToUse, strNickToUse);
-		evtKeyChanged?.Invoke(this, strOldNickToUse, strNickToUse);
-	}
+		private void FireCtntsChanged(string strOldNickToUse)
+		{
+			FirePropChanged(nameof(NickToUse));
 
-	public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.OneAltNickDTO ToDTO()
-		=> new(guid, strNickToUse);
+			evtNickToUseChanged?.Invoke(this, strOldNickToUse, strNickToUse);
+			evtKeyChanged?.Invoke(this, strOldNickToUse, strNickToUse);
+		}
+
+		public void SaveFrom(in GlobalAltNicksOneAltNickEditable enick)
+			=> NickToUse = enick.NickToUse;
+
+		public GlobalOneAltNickDTO ToDTO()
+			=> new(guid, strNickToUse);
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace BestChat.IRC.Views.Desktop.SpecializedCtrls;
 
-public partial class BncServerSelCombBox : Avalonia.Controls.ComboBox
+public partial class BncServerSelComboBox : Avalonia.Controls.ComboBox
 {
 	#region Constructors & Deconstructors
-		public BncServerSelCombBox()
+		public BncServerSelComboBox()
 			=> InitializeComponent();
 	#endregion
 
@@ -15,8 +15,8 @@ public partial class BncServerSelCombBox : Avalonia.Controls.ComboBox
 		#pragma warning disable IDE1006 // Naming Styles
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 				Justification = "Due to naming standards that are inherited")]
-			public static readonly Avalonia.DirectProperty<BncServerSelCombBox, Data.Defs.BncServerInfo?> SelServerProperty =
-				Avalonia.AvaloniaProperty.RegisterDirect<BncServerSelCombBox, Data.Defs.BncServerInfo?>
+			public static readonly Avalonia.DirectProperty<BncServerSelComboBox, Data.Defs.BncServerInfo?> SelServerProperty =
+				Avalonia.AvaloniaProperty.RegisterDirect<BncServerSelComboBox, Data.Defs.BncServerInfo?>
 			(
 				nameof(SelServer),
 				comboSender
@@ -29,9 +29,9 @@ public partial class BncServerSelCombBox : Avalonia.Controls.ComboBox
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
 				Justification = "Due to naming standards that are inherited")]
-			public static readonly Avalonia.DirectProperty<BncServerSelCombBox, System.Collections.Generic
+			public static readonly Avalonia.DirectProperty<BncServerSelComboBox, System.Collections.Generic
 					.IEnumerable<Data.Defs.BncServerInfo>?> AllServersProperty = Avalonia.AvaloniaProperty
-					.RegisterDirect<BncServerSelCombBox, System.Collections.Generic.IEnumerable<Data.Defs.BncServerInfo>?>
+					.RegisterDirect<BncServerSelComboBox, System.Collections.Generic.IEnumerable<Data.Defs.BncServerInfo>?>
 			(
 				nameof(AllServers),
 				comboSender

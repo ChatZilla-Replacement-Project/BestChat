@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs.DTO
-{
+﻿namespace BestChat.IRC.Data.Prefs.DTO;
+
 public record NetDccDTO
 (
 	bool Override,
@@ -8,4 +8,3 @@ public record NetDccDTO
 	System.IO.DirectoryInfo? DownloadsFolder = null,
 	int[]? Ports = null
 ) : GlobalDccDTO(Enabled, GetLocalIpFromServer, DownloadsFolder, Ports, $"IRC/Network/DCC");
-}

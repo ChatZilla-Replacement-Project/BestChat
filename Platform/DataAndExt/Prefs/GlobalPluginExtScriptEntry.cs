@@ -1,31 +1,38 @@
-﻿namespace BestChat.Platform.DataAndExt.Prefs
-{
+﻿namespace BestChat.Platform.DataAndExt.Prefs;
+
 public class GlobalPluginExtScriptEntry : Obj<GlobalPluginExtScriptEntry>
 {
 	#region Constructors & Deconstructors
-	public GlobalPluginExtScriptEntry(in string strFileNameExtOrMask, in System.IO.FileInfo?
-		fileProgramNeeded, in string strParamsToPass, in bool bEnabled)
-	{
-		this.strFileNameExtOrMask = strFileNameExtOrMask;
-		this.fileProgramNeeded = fileProgramNeeded;
-		this.strParamsToPass = strParamsToPass;
-		this.bEnabled = bEnabled;
-	}
+		public GlobalPluginExtScriptEntry(in string strFileNameExtOrMask, in System.IO.FileInfo?
+			fileProgramNeeded, in string strParamsToPass, in bool bEnabled)
+		{
+			this.strFileNameExtOrMask = strFileNameExtOrMask;
+			this.fileProgramNeeded = fileProgramNeeded;
+			this.strParamsToPass = strParamsToPass;
+			this.bEnabled = bEnabled;
+		}
 
-	internal GlobalPluginExtScriptEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO
-		dto)
-	{
-		strFileNameExtOrMask = dto.FileNameExtOrMask;
-		fileProgramNeeded = dto.ProgramNeeded ?? null;
-		strParamsToPass = dto.ParamsToPass;
-		bEnabled = dto.Enabled;
-	}
+		internal GlobalPluginExtScriptEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO
+			dto)
+		{
+			strFileNameExtOrMask = dto.FileNameExtOrMask;
+			fileProgramNeeded = dto.ProgramNeeded ?? null;
+			strParamsToPass = dto.ParamsToPass;
+			bEnabled = dto.Enabled;
+		}
 	#endregion
 
 	#region Delegates
 	#endregion
 
 	#region Events
+		public event DFieldChanged<string>? evtFileNameExtOrMaskChanged;
+
+		public event DFieldChanged<System.IO.FileInfo?>? evtProgramNeeededChanged;
+
+		public event DFieldChanged<string>? evtParamsToPassChanged;
+
+		public event DBoolFieldChanged? evtEnabledChanged;
 	#endregion
 
 	#region Constants
@@ -35,92 +42,129 @@ public class GlobalPluginExtScriptEntry : Obj<GlobalPluginExtScriptEntry>
 	#endregion
 
 	#region Members
-	private string strFileNameExtOrMask;
+		private string strFileNameExtOrMask;
 
-	private System.IO.FileInfo? fileProgramNeeded;
+		private System.IO.FileInfo? fileProgramNeeded;
 
-	private string strParamsToPass;
+		private string strParamsToPass;
 
-	private bool bEnabled;
+		private bool bEnabled;
 	#endregion
 
 	#region Properties
-	public string FileNameExtOrMask
-	{
-		get => strFileNameExtOrMask;
-
-		set
+		public string FileNameExtOrMask
 		{
-			if(strFileNameExtOrMask != value)
+			get => strFileNameExtOrMask;
+
+			set
 			{
-				strFileNameExtOrMask = value;
+				if(strFileNameExtOrMask != value)
+				{
+					string strOldFileNameOrMask = strFileNameExtOrMask;
 
-				FirePropChanged(nameof(FileNameExtOrMask));
+					strFileNameExtOrMask = value;
 
-				MakeDirty();
+					MakeDirty();
+
+					FireFileNameOrMaskChanged(strOldFileNameOrMask);
+				}
 			}
 		}
-	}
 
-	public System.IO.FileInfo? ProgramNeeded
-	{
-		get => fileProgramNeeded;
-
-		set
+		public System.IO.FileInfo? ProgramNeeded
 		{
-			if(fileProgramNeeded != value)
+			get => fileProgramNeeded;
+
+			set
 			{
-				fileProgramNeeded = value;
+				if(fileProgramNeeded != value)
+				{
+					System.IO.FileInfo? fileOldProgramNeeded = fileProgramNeeded;
 
-				FirePropChanged(nameof(ProgramNeeded));
+					fileProgramNeeded = value;
 
-				MakeDirty();
+					MakeDirty();
+
+					FireProgramNeededChanged(fileOldProgramNeeded);
+				}
 			}
 		}
-	}
 
-	public string ParamsToPass
-	{
-		get => strParamsToPass;
-
-		set
+		public string ParamsToPass
 		{
-			if(strParamsToPass != value)
+			get => strParamsToPass;
+
+			set
 			{
-				strParamsToPass = value;
+				if(strParamsToPass != value)
+				{
+					string strOldParamsToPass = strParamsToPass;
 
-				FirePropChanged(nameof(ParamsToPass));
+					strParamsToPass = value;
 
-				MakeDirty();
+					MakeDirty();
+
+					FireParamsToPassChanged(strOldParamsToPass);
+				}
 			}
 		}
-	}
 
-	public bool Enabled
-	{
-		get => bEnabled;
-
-		set
+		public bool Enabled
 		{
-			if(bEnabled != value)
+			get => bEnabled;
+
+			set
 			{
-				bEnabled = value;
+				if(bEnabled != value)
+				{
+					bEnabled = value;
 
-				FirePropChanged(nameof(Enabled));
+					MakeDirty();
 
-				MakeDirty();
+					FireEnabledChanged();
+				}
 			}
 		}
-	}
 	#endregion
 
 	#region Methods
-	public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
-		=> new(strFileNameExtOrMask, fileProgramNeeded, strParamsToPass,
-			bEnabled);
+		private void FireFileNameOrMaskChanged(in string strOldFileNameOrMask)
+		{
+			FirePropChanged(nameof(FileNameExtOrMask));
+
+			evtFileNameExtOrMaskChanged?.Invoke(this, strOldFileNameOrMask, strFileNameExtOrMask);
+		}
+
+		private void FireProgramNeededChanged(in System.IO.FileInfo? fileOldProgramNeeded)
+		{
+			FirePropChanged(nameof(ProgramNeeded));
+
+			evtProgramNeeededChanged?.Invoke(this, fileOldProgramNeeded, fileProgramNeeded);
+		}
+
+		private void FireParamsToPassChanged(in string strOldParamsToPass)
+		{
+			FirePropChanged(nameof(ParamsToPass));
+
+			evtParamsToPassChanged?.Invoke(this, strOldParamsToPass, strOldParamsToPass);
+		}
+
+		private void FireEnabledChanged()
+		{
+			FirePropChanged(nameof(Enabled));
+
+			evtEnabledChanged?.Invoke(this, bEnabled);
+		}
+
+		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
+			=> new(
+				strFileNameExtOrMask,
+				fileProgramNeeded,
+				strParamsToPass,
+				bEnabled
+			);
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

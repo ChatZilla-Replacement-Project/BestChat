@@ -1,9 +1,9 @@
 ﻿namespace BestChat.Platform.DataAndExt.Prefs;
 
-public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
+public class GlobalPluginExtProgramEntry : Obj<GlobalPluginExtProgramEntry>
 {
 	#region Constructors & Deconstructors
-		public GlobalPluginsExtProgramEntry(in string strName, in System.IO.FileInfo fileProgram, in
+		public GlobalPluginExtProgramEntry(in string strName, in System.IO.FileInfo fileProgram, in
 			string strParamsToPass, in bool bEnabled)
 		{
 			this.strName = strName;
@@ -12,7 +12,7 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 			this.bEnabled = bEnabled;
 		}
 
-		internal GlobalPluginsExtProgramEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO
+		internal GlobalPluginExtProgramEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO
 			dto)
 		{
 			strName = dto.Name;
@@ -26,6 +26,13 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 	#endregion
 
 	#region Events
+		public event DFieldChanged<string>? evtNameChanged;
+
+		public event DFieldChanged<System.IO.FileInfo>? evtProgramChanged;
+
+		public event DFieldChanged<string>? evtParamsToPass;
+
+		public event DBoolFieldChanged? evtEnabledChanged;
 	#endregion
 
 	#region Constants
@@ -53,11 +60,13 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 			{
 				if(strName != value)
 				{
+					string strOldName = strName;
+
 					strName = value;
 
-					FirePropChanged(nameof(Name));
-
 					MakeDirty();
+
+					FireNameChanged(strOldName);
 				}
 			}
 		}
@@ -70,11 +79,13 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 			{
 				if(fileProgram != value)
 				{
+					System.IO.FileInfo fileOldProgram = fileProgram;
+
 					fileProgram = value;
 
-					FirePropChanged(nameof(Program));
-
 					MakeDirty();
+
+					FireProgramChanged(fileOldProgram);
 				}
 			}
 		}
@@ -87,11 +98,13 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 			{
 				if(strParamsToPass != value)
 				{
+					string strOldParamsToPass = strParamsToPass;
+
 					strParamsToPass = value;
 
-					FirePropChanged(nameof(ParamsToPass));
-
 					MakeDirty();
+
+					FireParamsToPassChanged(strOldParamsToPass);
 				}
 			}
 		}
@@ -106,15 +119,43 @@ public class GlobalPluginsExtProgramEntry : Obj<GlobalPluginsExtProgramEntry>
 				{
 					bEnabled = value;
 
-					FirePropChanged(nameof(Enabled));
-
 					MakeDirty();
+
+					FireEnabledChanged();
 				}
 			}
 		}
 	#endregion
 
 	#region Methods
+		private void FireNameChanged(in string strOldName)
+		{
+			FirePropChanged(nameof(Name));
+
+			evtNameChanged?.Invoke(this, strOldName, strName);
+		}
+
+		private void FireProgramChanged(in System.IO.FileInfo fileOldProgram)
+		{
+			FirePropChanged(nameof(Program));
+
+			evtProgramChanged?.Invoke(this, fileOldProgram, fileProgram);
+		}
+
+		private void FireParamsToPassChanged(in string strOldParamsToPass)
+		{
+			FirePropChanged(nameof(ParamsToPass));
+
+			evtParamsToPass?.Invoke(this, strOldParamsToPass, strParamsToPass);
+		}
+
+		private void FireEnabledChanged()
+		{
+			FirePropChanged(nameof(Enabled));
+
+			evtEnabledChanged?.Invoke(this, bEnabled);
+		}
+
 		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO ToDTO()
 			=> new(strName, fileProgram, strParamsToPass, bEnabled);
 	#endregion

@@ -33,6 +33,10 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	public System.Guid GUID
 		=> guid;
 
+	public const string strAllJsonFileTypeExt = @".json";
+
+	public const string strAllFileTypesExt = @".*";
+
 	/// <summary>
 	/// Stores a list of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.
 	/// </summary>
@@ -49,7 +53,7 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// <summary>
 	/// Provides a way to implicitly convert from a <see cref="ObjBase"/> of any derivation to its <see cref="System.Guid"/>.
 	/// </summary>
-	/// <param name="obj">The <see cref="ObjBase"/> to convert</param> 
+	/// <param name="obj">The <see cref="ObjBase"/> to convert</param>
 	public static implicit operator System.Guid(in ObjBase obj)
 		=> obj.guid;
 
@@ -67,36 +71,10 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// Causes the hash code associated by <see cref="object"/> to be the hash code for <see cref="guid"/>.
 	/// </summary>
 	/// <returns>The required hash code</returns>
-	public override int GetHashCode() 
+	public override int GetHashCode()
 		=> guid.GetHashCode();
 
 	public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-	/// <summary>
-	/// Indicates how a collection changed.
-	/// </summary>
-	public enum CollectionChangeType
-	{
-		/// <summary>
-		/// A new member was added
-		/// </summary>
-		add,
-
-		/// <summary>
-		/// An existing member was changed
-		/// </summary>
-		changed,
-
-		/// <summary>
-		/// An existing member was removed from the collection
-		/// </summary>
-		removed,
-
-		/// <summary>
-		/// No other value is valid.
-		/// </summary>
-		other,
-	}
 
 	public static readonly System.Text.Json.JsonSerializerOptions jsoStandard = new()
 	{
@@ -123,7 +101,7 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 }
 
 /// <summary>
-/// This is meant to be the base class of all data types in this system.  It provides the ability to be marked dirty as well as some other functions. 
+/// This is meant to be the base class of all data types in this system.  It provides the ability to be marked dirty as well as some other functions.
 ///  (Technically, this is derived from <see cref="ObjBase"/> and <see cref="object"/>.)
 /// </summary>
 /// <typeparam name="TypeOfObj">Any type derived from <see cref="Obj{TypeOfObj}"/></typeparam>
@@ -160,8 +138,7 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <param name="objSender">The sender of this notification</param>
 		/// <param name="oldVal">The old value of the field</param>
 		/// <param name="newVal">The new value of the field</param>
-		public delegate void DFieldChanged<FieldType>(in TypeOfObj objSender, in FieldType oldVal, in FieldType
-			newVal);
+		public delegate void DFieldChanged<FieldType>(in TypeOfObj objSender, in FieldType oldVal, in FieldType newVal);
 
 		/// <summary>
 		/// Like <see cref="DFieldChanged{FieldType}"/>, but for <see cref="bool"/> fields.  This omits the old value as it's always <c>!<paramref
@@ -172,15 +149,52 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		public delegate void DBoolFieldChanged(in TypeOfObj objSender, in bool bNewVal);
 
 		/// <summary>
-		/// Provides a way to notify interested callers that a collection has changed in some way.  Details of how these parameters are used are up to the code
-		/// that implements the event.
+		/// Provides a way to notify interested callers that a collection has changed in some way.  Details of how these
+		/// parameters are used are up to the code that implements the event.  If the collection is a map (or dictionary),
+		/// use DMapFieldChanged instead.
 		/// </summary>
-		/// <typeparam name="CollectionType">The type of the collection.  This can be any collection type</typeparam>
+		/// <typeparam name="CollectionType">The type of the collection.  This can be any collection type, but must be a
+		/// collection of <typeparamref name="ItemType"/>.</typeparam>
+		/// <typeparam name="ItemType">The type of element in the collection.</typeparam>
 		/// <param name="objSender">The sender of this notification</param>
 		/// <param name="collectionThatChanged">Which collection changed</param>
-		/// <param name="howTheCollectionChanged">How it changed</param>
-		public delegate void DCollectionFieldChanged<CollectionType>(in TypeOfObj objSender, in CollectionType
-			collectionThatChanged, CollectionChangeType howTheCollectionChanged);
+		/// <param name="eNewEntries">A collection of entries that were added to the collection or <see landword="null"/>
+		/// if there are no new entries.</param>
+		/// <param name="eRemovedEntries">A collection of entries that were removed from the collection or <see
+		/// langword="null"/> if no entries were removed.</param>
+		/// <param name="eRelocatedItems">A collection of entries that were moved in the collection or <see
+		/// langword="null"/> if no items were moved.  This would typically mean the items received a new index or position
+		/// in a list.</param>
+		public delegate void DCollectionFieldChanged<CollectionType, ItemType>(in TypeOfObj objSender, in CollectionType
+				collectionThatChanged, in System.Collections.Generic.IEnumerable<ItemType>? eNewEntries = null, in System
+				.Collections.Generic.IEnumerable<ItemType>? eRemovedEntries = null, in System.Collections.Generic
+				.IEnumerable<ItemType>? eRelocatedItems = null)
+			where CollectionType : System.Collections.Generic.IReadOnlyCollection<ItemType>;
+
+		/// <summary>
+		/// THis is like <see cref="DCollectionFieldChanged{CollectionType,ItemType}"/> but specific to maps AKA
+		/// dictionaries.  Unlike <see cref="DCollectionFieldChanged{CollectionType,ItemType}"/>, <see
+		/// cref="DMapFieldChanged{MapType,KeyType,ElementType}"/> provides a way to list changes in the key for an entry in
+		/// the map.
+		/// </summary>
+		/// <typeparam name="MapType">The type of map; Must be a
+		/// <c>System.Collections.Generic.IReadOnlyDictionary&lt;KeyType, ElementType&lt;</c></typeparam>
+		/// <typeparam name="KeyType">The key for the map</typeparam>
+		/// <typeparam name="ElementType">The element type for the map</typeparam>
+		/// <param name="objSender">The object firing the event.</param>
+		/// <param name="mapThatChanged">The affected map</param>
+		/// <param name="eNewKeys">A list of new keys that were just added or <see langword="null"/> if no new keys were
+		/// added.</param>
+		/// <param name="eRemovedKeys">A list of keys that were just removed from the map or <see langword="null"/> if none
+		/// were removed.</param>
+		/// <param name="eChangedKeys">A list of tuples containing keys that just changed.  The first two elements in the
+		/// tuple should be, in order, the old key and the new key.  The final element in the tuple should be the element
+		/// that was moved.</param>
+		public delegate void DMapFieldChanged<MapType, KeyType, ElementType>(in TypeOfObj objSender, in MapType
+				mapThatChanged, in System.Collections.Generic.IEnumerable<KeyType>? eNewKeys = null, in System.Collections
+				.Generic.IEnumerable<System.Tuple<KeyType, ElementType>>? eRemovedKeys = null, in System.Collections.Generic
+				.IEnumerable<System.Tuple<KeyType,KeyType, ElementType>>? eChangedKeys = null)
+			where MapType : System.Collections.Generic.IReadOnlyDictionary<KeyType, ElementType>;
 
 		/// <summary>
 		/// Provides a way to notify interested callers that you have a new instance.  This will normally be an event on the owner of the <typeparamref

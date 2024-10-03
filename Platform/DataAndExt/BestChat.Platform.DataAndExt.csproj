@@ -35,6 +35,11 @@
 
     <ItemGroup>
         <Compile Remove="Ext\Coord.cs"/>
+        <Compile Update="Cmd\Rsrcs.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>Rsrcs.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -62,6 +67,10 @@
         <EmbeddedResource Update="Protocol\Rsrcs.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Cmd\Rsrcs.resx">
+          <Generator>ResXFileCodeGenerator</Generator>
+          <LastGenOutput>Rscs.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 

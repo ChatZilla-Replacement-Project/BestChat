@@ -1,10 +1,12 @@
-﻿namespace BestChat.IRC.Data.Prefs.DTO
-{
-public record OneAliasDTO
+﻿namespace BestChat.IRC.Data.Prefs.DTO;
+
+public record GlobalAliasesOneAliasDTO
 (
 	System.Guid GUID,
 	string Name,
-	string Cmd,
+	Platform.DataAndExt.Cmd.AbstractCmdCall? WhatToRun,
+	GlobalAliasesOneAliasOneParamDTO[]? PositionalParams = default,
+	GlobalAliasesOneAliasOneParamDTO[]? NamedParams = default,
+	string? Doc = null,
 	string? KeyOverride = null
 ) : Platform.DataAndExt.Prefs.AbstractMgr.AbstractDTO(KeyOverride ?? "IRC/Global/OneAlias");
-}

@@ -5,16 +5,17 @@
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:specializedPrefsCtrls="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
 				xmlns:calc="using:CalcBinding"
-				x:DataType="data:GlobalAliasesOneAliasOneNamedParamEditable"
+				x:DataType="data:GlobalAliasesOneAliasOneParamEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasOnePositionalParamDlg">
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasOneParamDlg">
 	<Window.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</Window.Styles>
 	<DockPanel Margin="4">
 		<TextBlock DockPanel.Dock="Top"
-							Classes="InfoTextBlock"
-							Text="Each parameter must have a unique name within that alias.  You also need to specify the type of the parameter.  Best Chat makes no assumptions on the type you need."/>
+							Classes="InfoTextBlock">
+			Each parameter must have a unique name within that alias.  You also need to specify the type of the parameter.  Best Chat makes no assumptions on the type you need.  In the “What to Do” field in the alias box, you’ll refer to this parameter as “<Span Classes="FixedWidthHilight">%<Run Text=""/></Span>”.
+		</TextBlock>
 		<Separator Margin="0,4"/>
 		<StackPanel DockPanel.Dock="Bottom"
 								HorizontalAlignment="Right"
@@ -35,6 +36,17 @@
 							Click="OnCloseClicked"/>
 		</StackPanel>
 		<Separator DockPanel.Dock="Bottom"/>
-		<Da
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto,4,Auto">
+			<Label HorizontalContentAlignment="Right"
+						Content="Name of this parameter:"/>
+			<TextBox Grid.Column="2"
+							Text="{Binding Name, Mode=TwoWay}"/>
+			<Label Grid.Row="2"
+						HorizontalContentAlignment="Right"
+						Content="Type of this parameter:"/>
+			<specializedPrefsCtrls:CmdParamTypeSelComboBox x:Name="cbParamType"
+																										SelVal="{Binding ParamType, Mode=TwoWay}"/>
+		</Grid>
 	</DockPanel>
 </Window>

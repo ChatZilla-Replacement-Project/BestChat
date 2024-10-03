@@ -1,7 +1,21 @@
-﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes
+﻿using BestChat.Platform.DataAndExt.Prefs;
+
+namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+
+public class Switch : Abstract
 {
-public class Switch
-{
-	
-}
+	private Switch() :
+		base(@"switch", Rsrcs.strParamTypeSwitch, Rsrcs.strParamTypeSwitchDesc, typeof(bool))
+	{
+	}
+
+	public static Switch Instance
+	{
+		get;
+
+		private set;
+	} = new();
+
+	public override bool InstancesHaveVal
+		=> false;
 }

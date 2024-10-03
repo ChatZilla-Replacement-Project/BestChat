@@ -16,8 +16,8 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 			if(fileUserData.Exists)
 				try
 				{
-					LoadData(System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(fileUserData.OpenText().ReadToEnd())
-						?? [], funcItemMaker);
+					LoadData(System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(fileUserData.OpenText()
+						.ReadToEnd()) ?? [], funcItemMaker);
 				}
 				catch(System.Exception e)
 				{
@@ -55,7 +55,8 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 	#endregion
 
 	#region Events
-		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<ItemType>>? evtListChanged;
+		public event DMapFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, ItemType>, string, ItemType>?
+			evtListChanged;
 	#endregion
 
 	#region Constants
@@ -66,22 +67,6 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 
 	#region Members
 		private static readonly System.Net.Http.HttpClient client;
-
-		private static readonly System.Text.Json.JsonSerializerOptions jso = new()
-		{
-			AllowTrailingCommas = true,
-			Converters =
-			{
-				new System.Text.Json.Serialization.JsonStringEnumConverter(),
-				new Platform.DataAndExt.JSON.FileConverter(),
-				new Platform.DataAndExt.JSON.FileThatMightBeNullConverter(),
-				new Platform.DataAndExt.JSON.FolderConverter(),
-				new Platform.DataAndExt.JSON.FolderThatMightBeNullConverter(),
-			},
-			WriteIndented = true,
-			NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString | System.Text.Json
-				.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-		};
 
 		private readonly System.Collections.Generic.SortedDictionary<string, ItemType> mapAllItemsSortedByName =
 			[];
@@ -121,7 +106,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 
 				@new.evtNameChanged += OnChildNameChanged;
 
-				evtListChanged?.Invoke(this, AllItemsSortedByName, CollectionChangeType.add);
+				evtListChanged?.Invoke(this, mapAllItemsSortedByName, [@new.Name]);
 
 				FirePropChanged(nameof(AllItemsSortedByName));
 
@@ -134,12 +119,15 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 			lock(objLock)
 			{
 				if(!mapAllItemsSortedByName.ContainsKey(strNameOfItemToRemove))
-					throw new System.ArgumentException($"The network manager can't remove the network named {
+					throw new System.ArgumentException($@"The network manager can't remove the network named {
 						strNameOfItemToRemove} as no such network exists.", nameof(strNameOfItemToRemove));
+
+				ItemType removed = mapAllItemsSortedByName[strNameOfItemToRemove];
 
 				mapAllItemsSortedByName.Remove(strNameOfItemToRemove);
 
-				evtListChanged?.Invoke(this, AllItemsSortedByName, CollectionChangeType.removed);
+				evtListChanged?.Invoke(this, mapAllItemsSortedByName, eRemovedKeys: [new System.Tuple<string,
+					ItemType>(strNameOfItemToRemove, removed),]);
 
 				FirePropChanged(nameof(AllItemsSortedByName));
 
@@ -238,8 +226,7 @@ public class BncMgr : MgrBase<BNC, BNC, DTO.UserBncDTO>
 
 	private static BNC? MakeBncFromDTO(in DTO.UserBncDTO dubnc)
 	{
-		if(!mgr.AllItems.TryGetValue(dubnc.Name, out BNC? bncExisting) || dubnc.Instances == null || bncExisting ==
-				null)
+		if(!mgr.AllItems.TryGetValue(dubnc.Name, out BNC? bncExisting) || dubnc.Instances == null)
 			return new(dubnc);
 
 		foreach(DTO.UserBncDTO.InstanceDTO dinstanceCur in dubnc.Instances)

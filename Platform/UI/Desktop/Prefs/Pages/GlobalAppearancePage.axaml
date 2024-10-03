@@ -1,10 +1,258 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-						mc:Ignorable="d"
-						d:DesignWidth="800"
-						d:DesignHeight="450"
-						x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearancePage">
-	Welcome to Avalonia!
-</UserControl>
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.Platform.DataAndExt.Prefs"
+												xmlns:group="using:GroupBox.Avalonia.Controls"
+												xmlns:calc="using:CalcBinding"
+												x:DataType="base:GlobalAppearancePrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearancePage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<StackPanel Margin="4"
+							Orientation="Vertical"
+							Spacing="4">
+		<group:GroupBox DataContext="{Binding  ConfMode}"
+										Header="_Conference Mode">
+			<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+				<TextBlock Grid.ColumnSpan="5"
+									Classes="InfoTextBlock">
+					Conference mode is a way to hide some of the events that aren't messages.  In Best Chat, events include messages, parts, joins, quits, etc.  When Conference Mode is on, the hidden events will be shown as an sincle icon.  If you point to the icon with your mouse, Best Chat will show you what events are hidden.
+				</TextBlock>
+				<Separator Grid.Row="1"
+									Height="2"/>
+				<Button x:Name="btnResetConfModeEnabled"
+								IsEnabled="{Binding ConfModeEnabled.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkConfModeEnabled"
+									Grid.Column="2"
+									Grid.ColumnSpan="3"
+									Content="Use Conference _Mode?"
+									IsChecked="{Binding ConfModeEnabled.CurVal}"/>
+				<Button x:Name="btnResetConfModeUserLimitBeforeTrigger"
+								Grid.Row="4"
+								IsEnabled="{Binding UserLimitBeforeTrigger.CanReset}"
+								Classes="ResetBtn"/>
+				<Label Grid.Row="4"
+							HorizontalContentAlignment="Right"
+							Content="Number of _Users Who Must be Preset Before Conference Mode Activates:"/>
+				<NumericUpDown x:Name="nudUserLimitBeforeTrigger"
+											Minimum="4"
+											Value="{Binding UserLimitBeforeTrigger.CurVal}"/>
+				<Button x:Name="btnResetConfModeCollapseMsgs"
+								Grid.Row="6"
+								IsEnabled="{Binding MsgsCollapsed.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkConfModeCollapseMsgs"
+									Grid.Row="6"
+									Grid.Column="2"
+									Grid.ColumnSpan="3"
+									Content="Collapse M_essages?"
+									IsChecked="{Binding MsgsCollapsed.CurVal}"/>
+				<Button x:Name="btnResetConfModeCollapseActions"
+								Grid.Row="8"
+								IsEnabled="{Binding ActionsCollapsed.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkConfModeCollapseActions"
+									Grid.Row="8"
+									Grid.Column="2"
+									Grid.ColumnSpan="3"
+									Content="Collapse _Actions"
+									IsChecked="{Binding ActionsCollapsed.CurVal}">
+				</CheckBox>
+			</Grid>
+		</group:GroupBox>
+		<group:GroupBox DataContext="{Binding TimeStamp}"
+										Header="Time Stamps">
+			<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+				<TextBlock Classes="InfoTextBlock"
+									Text="You can choose to have time stamps shown for each event or only some events using these options."/>
+				<Separator Grid.Row="1"
+									Height="2"
+									VerticalAlignment="Center"/>
+				<Button Grid.Row="2"
+								IsEnabled="{Binding Show.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkTimeStampShow"
+									Grid.Row="2"
+									Grid.Column="2"
+									Grid.ColumnSpan="3"
+									Content="_Show the time stamps?"
+									IsChecked="{Binding Show.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetTimeStampFmt"
+								Grid.Row="4"
+								IsEnabled="{Binding Fmt.CanReset}"
+								Classes="ResetBtn"/>
+				<Label Grid.Row="4"
+							Grid.Column="2"
+							HorizontalContentAlignment="Right"
+							Content="_Format to use for time stamps:"/>
+				<TextBox x:Name="editTimeStampFmt"
+								Grid.Row="4"
+								Grid.Column="4"
+								Text="{Binding Fmt.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetTimeStampHowOftenToRepeat"
+								Grid.Row="6"
+								IsEnabled="{Binding HowOftenToRepeat.CanReset}"
+								Classes="ResetBtn"/>
+				<Label Grid.Row="6"
+							Grid.Column="2"
+							HorizontalContentAlignment="Right"
+							Content="How Often Should the Time Stamp be _Repeated:"/>
+				<base:TimeStampHowOftenToRepeatOptsComboBox x:Name="cbTimeStampHowOftenToRepeat"
+																										Grid.Row="6"
+																										Grid.Column="4"
+																										SelectedItem="{Binding HowOftenToRepeat.CurVal, Mode=TwoWay}">
+				</base:TimeStampHowOftenToRepeatOptsComboBox>
+			</Grid>
+		</group:GroupBox>
+		<group:GroupBox DataContext="{Binding MsgGroups}"
+										Header="Message Groups">
+			<Grid ColumnDefinitions="Auto,4,Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto">
+				<TextBlock Grid.ColumnSpan="7"
+									Classes="InfoTextBlock"
+									Text="Best Chat can group messages so the sender only appears once.  Some themes will also display common box or otherwise change their appearance for a group."/>
+				<Separator Grid.Row="1"
+									Grid.ColumnSpan="5"/>
+				<Button x:Name="btnResetMsgGroupsEnabled"
+								Grid.Row="2"
+								IsEnabled="{Binding Enabled.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkMsgGroupsEnabled"
+									Grid.Row="2"
+									Grid.Column="2"
+									Grid.ColumnSpan="5"
+									Content="Enable _Grouping of Messages?"
+									IsChecked="{Binding Enabled.CurVal}"/>
+				<Button x:Name="btnResetMsgGroupsHowLongToWaitBeforeStartingNewGroup"
+								Grid.Row="4"
+								IsEnabled="{Binding HowLongToWaitBeforeStartingNewGroup.CanReset}"
+								Classes="ResetBtn"/>
+				<Label Grid.Row="4"
+							Grid.Column="2"
+							HorizontalContentAlignment="Right"
+							Content="How Long to _Wait Before Starting a New Group:"/>
+				<CheckBox x:Name="chkMsgGroupsEnforceWaitTimeForNewGroup"
+									Grid.Row="4"
+									Grid.Column="4"
+									Content="Enable This?"
+									IsChecked="{calc:Binding 'HowLongToWaitBeforeStartingNewGroup.CurVal != null', Mode=TwoWay}"/>
+				<MaskedTextBox x:Name="maskMsgGroupsTimeForNewGroup"
+											Grid.Row="4"
+											Grid.Column="6"
+											IsEnabled="{Binding IsChecked, ElementName=chkMsgGroupsEnforceWaitTimeForNewGroup}"
+											Mask="990:990"
+											Text="{Binding HowLongToWaitBeforeStartingNewGroup.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetMsgGroupsMaxMsgsPerGroup"
+								Grid.Row="6"
+								IsEnabled="{Binding LimitMsgsPerGroup.CanReset}"
+								Classes="ResetBtn"/>
+				<Label Grid.Row="6"
+							Grid.Column="2"
+							HorizontalContentAlignment="Right"
+							Content="Ma_ximum Messages Per Group:"/>
+				<CheckBox x:Name="chkMsgGroupLimitMaxMsgsPerGroup"
+									Grid.Row="6"
+									Grid.Column="4"
+									Content="Enable This?"
+									IsChecked="{Binding LimitMsgsPerGroup.CurVal}"/>
+				<NumericUpDown x:Name="nudMsgGroupsMaxMsgsPerGroup"
+											Grid.Row="6"
+											Grid.Column="6"
+											Minimum="2"
+											Value="{Binding MaxMsgsPerGroup.CurVal}"/>
+			</Grid>
+		</group:GroupBox>
+		<group:GroupBox DataContext="{Binding Animation}"
+										Header="_Other Animation">
+			<Grid ColumnDefinitions="Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto">
+				<TextBlock Grid.ColumnSpan="3"
+									Classes="InfoTextBlock"
+									Text="Animated images can be annoying, especially if they play continuously forever.  Best Chat lets you prevent them from automatically playing.  It can also limit how many times they play."/>
+				<Separator Grid.Row="1"
+									Grid.ColumnSpan="3"/>
+				<!-- ReSharper disable once InconsistentNaming -->
+				<Button x:Name="btnResetAnimationGIFs"
+								Grid.Row="2"
+								IsEnabled="{Binding GIFs.CanReset}"
+								Classes="ResetBtn"/>
+				<group:GroupBox Grid.Row="2"
+												Header="_GIFs">
+					<base:GifAnimationOptsRadioBtnGroup SelVal="{Binding GIFs.CurVal, Mode=TwoWay}"/>
+				</group:GroupBox>
+				<Button x:Name="btnResetAnimationAvatars"
+								Grid.Row="4"
+								IsEnabled="{Binding Avatars.CanReset}"
+								Classes="ResetBtn"/>
+				<group:GroupBox Grid.Row="4"
+												Grid.Column="2"
+												Header="A_vatars">
+					<base:GifAnimationOptsRadioBtnGroup SelVal="{Binding Avatars.CurVal, Mode=TwoWay}"/>
+				</group:GroupBox>
+				<Button x:Name="btnResetAnimationResumeOnMouseOver"
+								Grid.Row="6"
+								IsEnabled="{Binding ResumeOnMouseOver.CanReset}"/>
+				<CheckBox x:Name="chkAnimationResumeOnMouseOver"
+									Grid.Row="6"
+									Grid.Column="2"
+									Content="_Resume Animation on Mouse Over Objects?"
+									IsCancel="{Binding ResumeOnMouseOver.CurVal, Mode=TwoWay}">
+				</CheckBox>
+			</Grid>
+		</group:GroupBox>
+		<group:GroupBox Header="Other Appearance Settings">
+			<Grid ColumnDefinitions="Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+				<TextBlock Grid.ColumnSpan="3"
+									Classes="InfoTextBlock"
+									Text="Lists various settings that have no other home"/>
+				<Separator Grid.Row="1"
+									Grid.ColumnSpan="3"/>
+				<Button x:Name="btnResetHyphenateLongWords"
+								Grid.Row="2"
+								IsEnabled="{Binding HyphenateLongWords.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkResetHyphenateLongWords"
+									Grid.Row="2"
+									Grid.Column="2"
+									Content="_Hyphenate Long Words?"
+									IsCancel="{Binding HyphenateLongWords.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetRecognizeLinks"
+								Grid.Row="4"
+								IsEnabled="{Binding RecognizeLinks.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkRecognizeLinks"
+									Grid.Row="4"
+									Grid.Column="2"
+									Content="Recognize _Links?"
+									IsCancel="{Binding RecognizeLinks.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetDisplayCtrlChars"
+								Grid.Row="6"
+								IsEnabled="{Binding DisplayCtrlChars.CanReset}"/>
+				<CheckBox x:Name="chkDisplayCtrlChars"
+									Grid.Row="6"
+									Grid.Column="2"
+									Content="Display _Control Characters"
+									IsChecked="{Binding DisplayCtrlChars.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetUseTypographicalQuotes"
+								Grid.Row="8"
+								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkUseTypographicalQuotes"
+									Grid.Row="8"
+									Grid.Column="2"
+									Content="Use Typographical _Quotes?"
+									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}"/>
+			</Grid>
+		</group:GroupBox>
+		<Separator Height="2"/>
+		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:VisualPrefsTabCtrl}}"/>
+	</StackPanel>
+</base:VisualPrefsTabCtrl>

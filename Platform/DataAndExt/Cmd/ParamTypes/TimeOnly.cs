@@ -1,7 +1,16 @@
-﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes
+﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+
+public class TimeOnly : Abstract
 {
-public class TimeOnly
-{
-	
-}
+	private TimeOnly() :
+		base(@"time only", Rsrcs.strParamTypeDateOnly, Rsrcs.strParamTypeDateOnlyDesc, typeof(System.TimeOnly))
+	{
+	}
+
+	public static TimeOnly Instance
+	{
+		get;
+
+		private set;
+	} = new();
 }

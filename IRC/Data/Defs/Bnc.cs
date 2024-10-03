@@ -94,21 +94,19 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		public event DFieldChanged<string>? evtNameChanged;
 		public event DFieldChanged<System.Uri?>? evtHomepageChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<string>>?
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<string>, string>?
 			evtAllowedNetworksChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<string>>?
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<string>, string>?
 			evtProhibitedNetworksChanged;
 		public event DFieldChanged<string?>? evtHomeNetworkChanged;
 		public event DFieldChanged<string?>? evtHomeChanChanged;
 		public event DFieldChanged<string?>? evtOwnBotChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string,
-			BncServerInfo>>? evtServersChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, BncInstance>>?
-			evtInstancesChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>?
-			evtPortsChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>>?
-			evtSslPortsChanged;
+		public event DMapFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string,
+			BncServerInfo>, string, BncServerInfo>? evtServersChanged;
+		public event DMapFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, BncInstance>, string,
+			BncInstance>? evtInstancesChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>, ushort>? evtPortsChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<ushort>, ushort>? evtSslPortsChanged;
 		public event DFieldChanged<uint?>? evtMaxNetworksPerBouncerInstanceChanged;
 	#endregion
 
@@ -376,18 +374,22 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			evtHomepageChanged?.Invoke(this, uriOldHomepage, uriHomePage);
 		}
 
-		protected void FireAllowedNetsChanged(CollectionChangeType collectionChangeType)
+		protected void FireAllowedNetsChanged(in System.Collections.Generic.IEnumerable<string>? eNewEntries = null, in
+			System.Collections.Generic.IEnumerable<string>? eRemovedEntries = null, in System.Collections.Generic
+			.IEnumerable<string>? eRelocatedItems = null)
 		{
 			FirePropChanged(nameof(AllowedNets));
 
-			evtAllowedNetworksChanged?.Invoke(this, strsetAllowedNets, collectionChangeType);
+			evtAllowedNetworksChanged?.Invoke(this, strsetAllowedNets, eNewEntries, eRemovedEntries, eRelocatedItems);
 		}
 
-		protected void FireProhibitedNetsChanged(CollectionChangeType collectionChangeType)
+		protected void FireProhibitedNetsChanged(in System.Collections.Generic.IEnumerable<string>? eNewEntries = null, in
+			System.Collections.Generic.IEnumerable<string>? eRemovedEntries = null, in System.Collections.Generic
+			.IEnumerable<string>? eRelocatedItems = null)
 		{
 			FirePropChanged(nameof(ProhibitedNets));
 
-			evtProhibitedNetworksChanged?.Invoke(this, strsetAllowedNets, collectionChangeType);
+			evtProhibitedNetworksChanged?.Invoke(this, strsetAllowedNets, eNewEntries, eRemovedEntries, eRelocatedItems);
 		}
 
 		protected void FireHomeNetChanged(string? strOldHomeNetwork)
@@ -411,106 +413,118 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			evtOwnBotChanged?.Invoke(this, strOldHomeNetwork, strHomeNet);
 		}
 
-		protected void FireServersChanged(CollectionChangeType collectionChangeType)
+		protected void FireServersChanged(in System.Collections.Generic.IEnumerable<string>? eNewKeys = null, in System
+			.Collections.Generic.IEnumerable<System.Tuple<string, BncServerInfo>>? eRemovedKeys = null, in System.Collections
+			.Generic.IEnumerable<System.Tuple<string, string, BncServerInfo>>? eChangedKeys = null)
 		{
 			FirePropChanged(nameof(AllServersByName));
 
-			evtServersChanged?.Invoke(this, servermapServersByName, collectionChangeType);
+			evtServersChanged?.Invoke(this, servermapServersByName, eNewKeys, eRemovedKeys, eChangedKeys);
 		}
 
-		protected void FireInstancesChanged(CollectionChangeType collectionChangeType)
+		protected void FireInstancesChanged(in System.Collections.Generic.IEnumerable<string>? eNewKeys = null, in System
+			.Collections.Generic.IEnumerable<System.Tuple<string, BncInstance>>? eRemovedKeys = null, in System.Collections
+			.Generic.IEnumerable<System.Tuple<string, string, BncInstance>>? eChangedKeys = null)
 		{
 			FirePropChanged(nameof(AllInstancesByGUID));
 			FirePropChanged(nameof(AllInstancesByName));
 			FirePropChanged(nameof(AllInstancesByNameAsText));
 
-			evtInstancesChanged?.Invoke(this, instancemapByName, collectionChangeType);
+			evtInstancesChanged?.Invoke(this, instancemapByName, eNewKeys, eRemovedKeys, eChangedKeys);
 		}
 
-		protected void FirePortsChanged(CollectionChangeType collectionChangeType)
+		protected void FirePortsChanged(in System.Collections.Generic.IEnumerable<ushort>? eNewEntries = null, in System
+			.Collections.Generic.IEnumerable<ushort>? eRemovedEntries = null, in System.Collections.Generic
+			.IEnumerable<ushort>? eRelocatedItems = null)
 		{
 			FirePropChanged(nameof(AllPorts));
 
-			evtPortsChanged?.Invoke(this, AllPorts, collectionChangeType);
+			evtPortsChanged?.Invoke(this, AllPorts, eNewEntries, eRemovedEntries, eRelocatedItems);
 		}
 
-		protected void FireSslPortsChanged(CollectionChangeType collectionChangeType)
+		protected void FireSslPortsChanged(in System.Collections.Generic.IEnumerable<ushort>? eNewEntries = null, in System
+			.Collections.Generic.IEnumerable<ushort>? eRemovedEntries = null, in System.Collections.Generic
+			.IEnumerable<ushort>? eRelocatedItems = null)
 		{
 			FirePropChanged(nameof(AllSslPorts));
 
-			evtSslPortsChanged?.Invoke(this, AllSslPorts, collectionChangeType);
+			evtSslPortsChanged?.Invoke(this, AllSslPorts, eNewEntries, eRemovedEntries, eRelocatedItems);
 		}
 
-		protected void FireMaxNetworksPerBouncerInstanceChanged(uint? uiOldMaxNetworksPerBouncerInstance)
+		protected void FireMaxNetworksPerBouncerInstanceChanged(uint? uiOldMaxNetsPerBouncerInstance)
 		{
 			FirePropChanged(nameof(MaxNetworksPerBouncerInstance));
 
-			evtMaxNetworksPerBouncerInstanceChanged?.Invoke(this, uiOldMaxNetworksPerBouncerInstance,
+			evtMaxNetworksPerBouncerInstanceChanged?.Invoke(this, uiOldMaxNetsPerBouncerInstance,
 				uiMaxNetworksPerBouncerInstance);
 		}
 
-		protected void AddAllowedNetwork(string strNewAllowedNetwork)
+		protected void AddAllowedNetwork(string strNewAllowedNet)
 		{
-			if(!strsetAllowedNets.Contains(strNewAllowedNetwork))
+			if(!strsetAllowedNets.Contains(strNewAllowedNet))
 			{
-				if(strsetProhibitedNets.Contains(strNewAllowedNetwork))
-					throw new System.InvalidProgramException($"Can't add {strNewAllowedNetwork} to the " +
+				if(strsetProhibitedNets.Contains(strNewAllowedNet))
+					throw new System.InvalidProgramException($"Can't add {strNewAllowedNet} to the " +
 						$"list of allowed networks for the bouncer {strName} as that network is in the list " +
 						"of prohibited networks for the same bouncer.  It can't be both allowed and prohibited at " +
 						"the same time.");
 
-				strsetAllowedNets.Add(strNewAllowedNetwork);
+				strsetAllowedNets.Add(strNewAllowedNet);
 
 				MakeDirty();
 
-				FireAllowedNetsChanged(CollectionChangeType.add);
+				FireAllowedNetsChanged([strNewAllowedNet]);
 			}
 		}
 
-		protected void RemoveAllowedNetwork(string strNetworkToRemoveFromAllowedList)
+		protected void RemoveAllowedNetwork(string strNetToRemoveFromAllowedList)
 		{
-			if(strsetAllowedNets.Contains(strNetworkToRemoveFromAllowedList))
-			{
-				strsetAllowedNets.Remove(strNetworkToRemoveFromAllowedList);
+			#pragma warning disable CA1868
+				if(strsetAllowedNets.Contains(strNetToRemoveFromAllowedList))
+				{
+					strsetAllowedNets.Remove(strNetToRemoveFromAllowedList);
 
-				MakeDirty();
+					MakeDirty();
 
-				FireAllowedNetsChanged(CollectionChangeType.removed);
-			}
+					FireAllowedNetsChanged(eRemovedEntries: [strNetToRemoveFromAllowedList]);
+				}
+			#pragma warning restore CA1868
 		}
 
 		protected void ClearAllowedNetworks()
 		{
 			if(strsetAllowedNets.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlySet<string> strsetOldCtnts = strsetAllowedNets;
+
 				strsetAllowedNets.Clear();
 
 				MakeDirty();
 
-				FireAllowedNetsChanged(CollectionChangeType.removed);
+				FireAllowedNetsChanged(eRemovedEntries: strsetOldCtnts);
 			}
 		}
 
-		protected void AddProhibitedNetwork(string strNewProhibitedNetwork)
+		protected void AddProhibitedNetwork(string strNewProhibitedNet)
 		{
-			if(!strsetProhibitedNets.Contains(strNewProhibitedNetwork))
+			if(!strsetProhibitedNets.Contains(strNewProhibitedNet))
 			{
-				if(strsetAllowedNets.Contains(strNewProhibitedNetwork))
-					throw new System.InvalidProgramException($"Can't add “{strNewProhibitedNetwork}” to " +
+				if(strsetAllowedNets.Contains(strNewProhibitedNet))
+					throw new System.InvalidProgramException($"Can't add “{strNewProhibitedNet}” to " +
 						$"the list of prohibited networks for the bouncer {strName} as that network is on " +
 						"the list of allowed networks for the same bouncer.  It can't be on both lists.");
 
-				if(strHomeNet == strNewProhibitedNetwork)
-					throw new System.InvalidProgramException($"Can't add “{strNewProhibitedNetwork}” to " +
+				if(strHomeNet == strNewProhibitedNet)
+					throw new System.InvalidProgramException($"Can't add “{strNewProhibitedNet}” to " +
 						$"the list of prohibited networks for the bouncer {strName} as that happens to be " +
 						"listed as the home network for the same bouncer.  Why would they be there if they don't " +
 						"allow that network?");
 
-				strsetProhibitedNets.Add(strNewProhibitedNetwork);
+				strsetProhibitedNets.Add(strNewProhibitedNet);
 
 				MakeDirty();
 
-				FireProhibitedNetsChanged(CollectionChangeType.add);
+				FireProhibitedNetsChanged([strNewProhibitedNet,]);
 			}
 		}
 
@@ -522,7 +536,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				MakeDirty();
 
-				FireProhibitedNetsChanged(CollectionChangeType.removed);
+				FireProhibitedNetsChanged(eRemovedEntries: [strNetworkToRemoveFromProhibitedList]);
 			}
 		}
 
@@ -530,11 +544,13 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(strsetProhibitedNets.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlySet<string> strsetOldCtnts = strsetProhibitedNets;
+
 				strsetProhibitedNets.Clear();
 
 				MakeDirty();
 
-				FireProhibitedNetsChanged(CollectionChangeType.removed);
+				FireProhibitedNetsChanged(eRemovedEntries: strsetOldCtnts);
 			}
 		}
 
@@ -547,7 +563,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				MakeDirty();
 
-				FireServersChanged(CollectionChangeType.add);
+				FireServersChanged([serverNew.Name]);
 
 				serverNew.evtDirtyChanged += OnServerDirtyChanged;
 
@@ -569,7 +585,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				MakeDirty();
 
-				FireServersChanged(CollectionChangeType.removed);
+				FireServersChanged([strNameOfServerToRemove,]);
 			}
 		}
 
@@ -580,11 +596,16 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(servermapServersByName.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlyCollection<System.Tuple<string, BncServerInfo>>? oldCtnts
+					= [.. servermapServersByName.Select(kbCur
+						=> new System.Tuple<string, BncServerInfo>(kbCur.Key, kbCur.Value)
+					), ];
+
 				servermapServersByName.Clear();
 
 				MakeDirty();
 
-				FireServersChanged(CollectionChangeType.removed);
+				FireServersChanged(eRemovedKeys: oldCtnts);
 			}
 		}
 
@@ -596,7 +617,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				MakeDirty();
 
-				FireInstancesChanged(CollectionChangeType.add);
+				FireInstancesChanged([instanceNew.Name]);
 
 				instanceNew.evtDirtyChanged += OnInstanceDirtyChanged;
 			}
@@ -609,11 +630,14 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(instancemapByName.ContainsKey(strNameOfInstanceToRemove))
 			{
+				BncInstance instanceToRemove = instancemapByName[strNameOfInstanceToRemove];
+
 				instancemapByName.Remove(strNameOfInstanceToRemove);
 
 				MakeDirty();
 
-				FireInstancesChanged(CollectionChangeType.removed);
+				FireInstancesChanged(eRemovedKeys: [new System.Tuple<string, BncInstance>(strNameOfInstanceToRemove,
+					instanceToRemove),]);
 			}
 		}
 
@@ -624,11 +648,17 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(instancemapByName.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlyCollection<System.Tuple<string, BncInstance>> oldCtnts = [..
+					instancemapByName.Select(
+						kvCur
+							=> new System.Tuple<string, BncInstance>(kvCur.Key, kvCur.Value)
+					),];
+
 				instancemapByName.Clear();
 
 				MakeDirty();
 
-				FireInstancesChanged(CollectionChangeType.removed);
+				FireInstancesChanged(eRemovedKeys: oldCtnts);
 			}
 		}
 
@@ -640,7 +670,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 				MakeDirty();
 
-				FirePortsChanged(CollectionChangeType.add);
+				FirePortsChanged([usNewPort]);
 			}
 		}
 
@@ -650,7 +680,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			{
 				MakeDirty();
 
-				FirePortsChanged(CollectionChangeType.removed);
+				FirePortsChanged(eRemovedEntries: [usPortToRemove]);
 			}
 		}
 
@@ -658,11 +688,13 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(ussetPorts.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlyCollection<ushort> uscollOldCtnts = ussetPorts;
+
 				ussetPorts.Clear();
 
 				MakeDirty();
 
-				FirePortsChanged(CollectionChangeType.removed);
+				FirePortsChanged(eRemovedEntries: uscollOldCtnts);
 			}
 		}
 
@@ -672,7 +704,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			{
 				MakeDirty();
 
-				FireSslPortsChanged(CollectionChangeType.add);
+				FireSslPortsChanged([usNewSslPort]);
 			}
 		}
 
@@ -682,7 +714,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 			{
 				MakeDirty();
 
-				FireSslPortsChanged(CollectionChangeType.removed);
+				FireSslPortsChanged(eRemovedEntries: [usSslPortToRemove,]);
 			}
 		}
 
@@ -690,11 +722,13 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 		{
 			if(ussetSslPorts.Count > 0)
 			{
+				System.Collections.Generic.IReadOnlyCollection<ushort> uscollOldCtnts = ussetSslPorts;
+
 				ussetSslPorts.Clear();
 
 				MakeDirty();
 
-				FireSslPortsChanged(CollectionChangeType.removed);
+				FireSslPortsChanged(eRemovedEntries: uscollOldCtnts);
 			}
 		}
 
@@ -838,7 +872,6 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 					AddSslPort(usCurSslPort);
 			}
 		}
-
 	#endregion
 
 	#region Event Handlers
@@ -848,8 +881,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 				MakeDirty();
 		}
 
-		private void OnServerNameChanged(in BncServerInfo serverSender, in string strOldName, in string
-			strNewName)
+		private void OnServerNameChanged(in BncServerInfo serverSender, in string strOldName, in string strNewName)
 		{
 			servermapServersByName.Remove(strOldName);
 			servermapServersByName[strNewName] = serverSender;

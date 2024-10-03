@@ -1,75 +1,96 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
-public class GlobalAutoPerformOneStep<GlobalPrefsType, GlobalDtoType> : Platform.DataAndExt
-	.Obj<GlobalAutoPerformOneStep<GlobalPrefsType, GlobalDtoType>>, IReadOnlyOneStep, Prefs<GlobalPrefsType,
-		GlobalDtoType>.NetPrefs.IKeyChanged<GlobalAutoPerformOneStep<GlobalPrefsType, GlobalDtoType>, string>
-	where GlobalPrefsType : GlobalPrefs<GlobalPrefsType, GlobalDtoType>
-	where GlobalDtoType : DTO.IrcDTO<GlobalDtoType>.GlobalDTO
+﻿namespace BestChat.IRC.Data.Prefs;
+
+public class GlobalAutoPerformOneStep : Platform.DataAndExt.Obj<GlobalAutoPerformOneStep>, IReadOnlyOneStep,
+	IKeyChanged<GlobalAutoPerformOneStep, string>
 {
 	#region Constructors & Deconstructors
-	public GlobalAutoPerformOneStep(in string strWhatToDo, in System.Guid guid = default) :
-		base(guid)
-		=> this.strWhatToDo = strWhatToDo;
+		public GlobalAutoPerformOneStep()
+			=> cmdcWhatToDo = CmdCall.cmdcInvalid;
 
-	public GlobalAutoPerformOneStep(in DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO dto) :
-		base(dto.GUID)
-		=> strWhatToDo = dto.WhatToDo;
+		public GlobalAutoPerformOneStep(in Platform.DataAndExt.Cmd.AbstractCmdCall? cmdcWhatToDo, in System.Guid guid = default) :
+			base(guid)
+			=> this.cmdcWhatToDo = new(cmdcWhatToDo ?? CmdCall.cmdcBlank);
+
+		public GlobalAutoPerformOneStep(in DTO.GlobalAutoPerformOneStepDTO dto) :
+			base(dto.GUID)
+			=> cmdcWhatToDo = new(dto.WhatToDo);
 	#endregion
 
 	#region Delegates
 	#endregion
 
 	#region Events
-	public event DFieldChanged<string>? evtWhatToDoChanged;
+		public event DFieldChanged<CmdCall>? evtWhatToDoChanged;
 
-	public event Prefs<GlobalPrefsType, GlobalDtoType>.NetPrefs.IKeyChanged<GlobalAutoPerformOneStep<GlobalPrefsType, GlobalDtoType>, string>.DKeyChanged? evtKeyChanged;
+		public event IKeyChanged<GlobalAutoPerformOneStep, string>.DKeyChanged? evtKeyChanged;
 	#endregion
 
 	#region Constants
 	#endregion
 
 	#region Helper Types
+		public class CmdCall : Platform.DataAndExt.Cmd.AbstractCmdCall
+		{
+			public CmdCall(in Platform.DataAndExt.Cmd.CmdDef cmd, in string strFullTextOfCmd = "") :
+				base(cmd, strFullTextOfCmd)
+			{
+			}
+
+			public CmdCall(Platform.DataAndExt.Cmd.AbstractCmdCall cmdc) :
+				base(cmdc.CmdDef, cmdc.FullTextAsEntered)
+			{
+			}
+
+			internal static CmdCall cmdcInvalid = new(cmdcBlank);
+		}
 	#endregion
 
 	#region Members
-	private string strWhatToDo;
+		private CmdCall cmdcWhatToDo;
 	#endregion
 
 	#region Properties
-	public string WhatToDo
-	{
-		get => strWhatToDo;
-
-		set
+		public CmdCall WhatToDo
 		{
-			if(strWhatToDo != value)
+			get => cmdcWhatToDo;
+
+			set
 			{
-				string strOldWhatToDo = strWhatToDo;
+				if(cmdcWhatToDo != value)
+				{
+					CmdCall? cmdcOldWhatToDo = cmdcWhatToDo;
 
-				strWhatToDo = value;
+					cmdcWhatToDo = value;
 
-				MakeDirty();
+					MakeDirty();
 
-				FireWhatToDoChanged(strOldWhatToDo);
+					FireWhatToDoChanged(cmdcOldWhatToDo);
+				}
 			}
 		}
-	}
 	#endregion
 
 	#region Methods
-	private void FireWhatToDoChanged(in string strOldWhatToDo)
-	{
-		FirePropChanged(nameof(strWhatToDo));
+		private void FireWhatToDoChanged(in CmdCall cmdcOldWhatToDo)
+		{
+			FirePropChanged(nameof(cmdcWhatToDo));
 
-		evtWhatToDoChanged?.Invoke(this, strOldWhatToDo, strWhatToDo);
-		evtKeyChanged?.Invoke(this, strOldWhatToDo, strWhatToDo);
-	}
+			evtWhatToDoChanged?.Invoke(this, cmdcOldWhatToDo, cmdcWhatToDo);
 
-	public DTO.IrcDTO<GlobalDtoType>.GlobalDTO.AutoPerformDTO.OneStepDTO ToDTO()
-		=> new(guid, strWhatToDo);
+			evtKeyChanged?.Invoke(this, cmdcOldWhatToDo.FullTextAsEntered, cmdcWhatToDo.FullTextAsEntered);
+		}
+
+		public GlobalAutoPerformOneStepEditable MakeEditable()
+			=> new(this);
+
+		public void SaveFrom(GlobalAutoPerformOneStepEditable estep)
+			=> WhatToDo = estep.WhatToDo;
+
+		public DTO.GlobalAutoPerformOneStepDTO ToDTO()
+			=> new(guid, cmdcWhatToDo ?? throw new System.InvalidOperationException(@"Make sure the what to do is set before "
+				+ @"making a DTO"));
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

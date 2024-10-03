@@ -9,7 +9,7 @@
 				x:Class="BestChat.IRC.Views.Desktop.BncInstanceEditorDlg"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False"
-				x:DataType="data:BncEditable">
+				x:DataType="data:BncInstanceEditable">
 	<DockPanel Margin="4">
 		<StackPanel DockPanel.Dock="Bottom"
 								HorizontalAlignment="Right"
@@ -18,12 +18,12 @@
 			<Button x:Name="btnOk"
 							ToolTip.Tip="Saves any changes you made"
 							IsEnabled="{Binding IsValid}"
-							IsVisible="{Binding WereChangedMade}"
+							IsVisible="{Binding WereChangesMade}"
 							Content="OK"
 							IsDefault="True"
 							Click="OnOkClicked"/>
 			<Button x:Name="btnCancel"
-							IsVisible="{Binding WereChangedMade}"
+							IsVisible="{Binding WereChangesMade}"
 							ToolTip.Tip="Discards any changes you made and closes the window.  If you made changes, you'll be asked to confirm that you want to discard them."
 							Content="Cancel"
 							IsCancel="True"

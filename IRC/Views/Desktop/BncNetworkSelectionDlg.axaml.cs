@@ -1,7 +1,6 @@
 // Ignore Spelling: evt Bnc Ctxt
 
 using System.Linq;
-using BestChat.IRC.Data.Defs;
 
 namespace BestChat.IRC.Views.Desktop;
 
@@ -81,7 +80,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 
 		private NetStatuses statusForNet = NetStatuses.invalid;
 
-		private BncEditable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt = null;
 
 		private string strCurVal = "";
 
@@ -121,7 +120,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 			}
 		}
 
-		public BncEditable? CtxtBNC
+		public Data.Defs.BncEditable? CtxtBNC
 		{
 			get => ebncCtxt;
 

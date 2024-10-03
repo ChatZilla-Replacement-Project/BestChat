@@ -3,16 +3,27 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="Desktop/App.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Desktop/MainWnd.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Desktop/PrefsWnd.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Behaviors/Drop/DropStyles.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/ConversationDataListView.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/EnumRadioBtnGroup.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/FileBrowserCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/FolderBrowserCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/FontSelectionComboBox.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/FontWeightComboBox.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/AppearancePage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearanceEmojiPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearanceFonts.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearanceFontsOneFontBlock.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearanceFontsOneFontBlockPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearancePage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalAppearanceUserListPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/Pages/GlobalPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/Prefs/PrefGroupTreeListerCtrl.axaml" value="Desktop/BestChat.Desktop.csproj" />
         <entry key="Platform/UI/Desktop/Prefs/PrefsGenericTreeListerPage.axaml" value="Desktop/BestChat.Desktop.csproj" />
+        <entry key="Platform/UI/Desktop/Prefs/PrefsStyles.axaml" value="Desktop/BestChat.Desktop.csproj" />
       </map>
     </option>
   </component>

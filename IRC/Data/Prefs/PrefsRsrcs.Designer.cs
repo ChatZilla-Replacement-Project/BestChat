@@ -60,11 +60,47 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a name for this parameter.
+        /// </summary>
+        internal static string strAliasParamNameBlank {
+            get {
+                return ResourceManager.GetString("strAliasParamNameBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name you entered, “{0}” is taken.  Please choose another name..
+        /// </summary>
+        internal static string strAliasParamNameNotUnique {
+            get {
+                return ResourceManager.GetString("strAliasParamNameNotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose a type for this alias paramter.
+        /// </summary>
+        internal static string strAliasParamTypeNotSet {
+            get {
+                return ResourceManager.GetString("strAliasParamTypeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to alias.
         /// </summary>
         internal static string strAliasText {
             get {
                 return ResourceManager.GetString("strAliasText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re creating a new auto-perform step..
+        /// </summary>
+        internal static string strCreatingNewAutoPerformStep {
+            get {
+                return ResourceManager.GetString("strCreatingNewAutoPerformStep", resourceCulture);
             }
         }
         
@@ -420,7 +456,7 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Contains all global IRC settings.
         /// </summary>
         internal static string strGlobalDesc {
             get {
@@ -447,11 +483,20 @@ namespace BestChat.IRC.Data.Prefs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Global.
         /// </summary>
         internal static string strGlobalTitle {
             get {
                 return ResourceManager.GetString("strGlobalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing of an alais failed because the string isn’t an alias..
+        /// </summary>
+        internal static string strImportingAliasFailedBecauseTheStringIsNotAnAlias {
+            get {
+                return ResourceManager.GetString("strImportingAliasFailedBecauseTheStringIsNotAnAlias", resourceCulture);
             }
         }
         
@@ -1064,6 +1109,24 @@ namespace BestChat.IRC.Data.Prefs {
         internal static string strNetTitle {
             get {
                 return ResourceManager.GetString("strNetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to one auto-perform text.
+        /// </summary>
+        internal static string strOneStepText {
+            get {
+                return ResourceManager.GetString("strOneStepText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must place all required parameters before any optional parameters in the positioned parameter list..
+        /// </summary>
+        internal static string strRequiredAliasParamsMustComeBeforeOptionalParams {
+            get {
+                return ResourceManager.GetString("strRequiredAliasParamsMustComeBeforeOptionalParams", resourceCulture);
             }
         }
         

@@ -243,8 +243,8 @@
     <value>DCC (Direct Client Chat)</value>
   </data>
     <data name="strGlobalDesc" xml:space="preserve">
-    <value/>
-  </data>
+      <value>Contains all global IRC settings</value>
+    </data>
     <data name="strGlobalStalkWordsDesc" xml:space="preserve">
     <value>Enter any strings you want to trigger a notify besides your nick.  This could be anything you're interested in, "@op", "@room", etc.  Your nick is implied.  If you turned on Agressive Notify in the application's main preferences, Best Chat will try to get your attention</value>
   </data>
@@ -252,8 +252,8 @@
     <value>Stalk Words</value>
   </data>
     <data name="strGlobalTitle" xml:space="preserve">
-    <value/>
-  </data>
+      <value>Global</value>
+    </data>
     <data name="strIrcRootDesc" xml:space="preserve">
     <value>All IRC specific settings are here.</value>
   </data>
@@ -523,4 +523,25 @@
     <data name="strStalkWordsText" xml:space="preserve">
     <value>stalk word</value>
   </data>
+    <data name="strOneStepText" xml:space="preserve">
+      <value>one auto-perform text</value>
+    </data>
+    <data name="strAliasParamNameBlank" xml:space="preserve">
+      <value>Please enter a name for this parameter</value>
+    </data>
+    <data name="strAliasParamNameNotUnique" xml:space="preserve">
+      <value>The name you entered, “{0}” is taken.  Please choose another name.</value><comment>All instances of "{0}" will be replaced with the name of the alias parameter as the user entered it.</comment>
+    </data>
+    <data name="strAliasParamTypeNotSet" xml:space="preserve">
+      <value>Please choose a type for this alias paramter</value>
+    </data>
+    <data name="strImportingAliasFailedBecauseTheStringIsNotAnAlias" xml:space="preserve">
+      <value>Importing of an alais failed because the string isn’t an alias.</value>
+    </data>
+    <data name="strCreatingNewAutoPerformStep" xml:space="preserve">
+      <value>You’re creating a new auto-perform step.</value>
+    </data>
+    <data name="strRequiredAliasParamsMustComeBeforeOptionalParams" xml:space="preserve">
+      <value>You must place all required parameters before any optional parameters in the positioned parameter list.</value>
+    </data>
 </root>

@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs.DTO
-{
+﻿namespace BestChat.IRC.Data.Prefs.DTO;
+
 public record NetConnDTO
 (
 	bool Override,
@@ -12,4 +12,3 @@ public record NetConnDTO
 	string? DefQuitMsg = null
 ) : GlobalConnDTO(IsIdentEnabled, IsAutoReconnectEnabled, IsRejoinAfterKickEnabled, CharEncoding,
 	IsUnlimitedAttemptsOn, MaxAttempts, DefQuitMsg, $"IRC/Network/Conn");
-}

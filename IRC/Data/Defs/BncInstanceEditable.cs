@@ -28,7 +28,7 @@ public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDat
 	#endregion
 
 	#region Properties
-		public bool WereChangedMade
+		public bool WereChangesMade
 		{
 			get;
 
@@ -46,7 +46,7 @@ public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDat
 
 				base.Name = value;
 
-				WereChangedMade = true;
+				WereChangesMade = true;
 
 				ErrorsChanged?.Invoke(this, new(nameof(Name)));
 			}
@@ -63,7 +63,7 @@ public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDat
 
 				base.AssignedServer = value;
 
-				WereChangedMade = true;
+				WereChangesMade = true;
 
 				ErrorsChanged?.Invoke(this, new(nameof(AssignedServer)));
 			}
@@ -73,6 +73,9 @@ public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDat
 			=> Name == "" || instanceOriginal.bncOwner.AllInstancesByName.ContainsKey(Name) &&
 				instanceOriginal.bncOwner.AllInstancesByName[Name] != instanceOriginal || AssignedServer ==
 				null;
+
+		public bool IsValid
+			=> !HasErrors;
 	#endregion
 
 	#region Methods
@@ -111,7 +114,6 @@ public class BncInstanceEditable : BncInstance, System.ComponentModel.INotifyDat
 			=> instanceOriginal.SaveFrom(this);
 		#endregion
 
-		#region Event Handlers
-
-		#endregion
+	#region Event Handlers
+	#endregion
 }

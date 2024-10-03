@@ -1,5 +1,3 @@
-﻿using BestChat.Platform.DataAndExt.Prefs;
+﻿namespace BestChat.Platform.UI.Desktop.Prefs;
 
-namespace BestChat.Platform.UI.Desktop.Prefs;
-
-public class UserListPaneLocsComboBox : EnumRadioBtnGroup<UserListPaneLocs>;
+public class UserListPaneLocsRadioBtnGroup : EnumRadioBtnGroup<GlobalAppearanceUserListPrefs.UserListPaneLocs>;

@@ -1,11 +1,11 @@
 ﻿using BestChat.Platform.DataAndExt.Ext;
 
-namespace BestChat.IRC.Data.Prefs
-{
-public class ChanInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>(InheritedType inheritedItem,
-	bool bStatus, ChanInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>.InheritedFromTypes ifSrc,
-	string strDescOfInheritedType, Defs.Net net) : NetInheritedItemEnabledStatus<InheritedType,
-	ReadOnlyInterfaceType>(inheritedItem, bStatus)
+namespace BestChat.IRC.Data.Prefs;
+
+public class ChanInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>(InheritedType inheritedItem, bool
+		bStatus, ChanInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>.InheritedFromTypes ifSrc, string
+		strDescOfInheritedType, Defs.Net net) : NetInheritedItemEnabledStatus<InheritedType,
+		ReadOnlyInterfaceType>(inheritedItem, bStatus)
 	where InheritedType : ReadOnlyInterfaceType, IKeyChanged<InheritedType, string>
 {
 	public enum InheritedFromTypes : byte
@@ -39,5 +39,4 @@ public class ChanInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType
 				.UnknownOrInvalidEnumException<InheritedFromTypes>(ifSrc, "While returning a textual " +
 					"description of the source of this inherited item"),
 	};
-}
 }

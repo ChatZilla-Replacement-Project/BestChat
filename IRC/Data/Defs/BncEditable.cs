@@ -313,10 +313,8 @@ public class BncEditable : BNC
 
 		public void Save()
 			=> bncOriginal.SaveFrom(this);
+	#endregion
 
-		#endregion
-
-		#region Event Handlers
-
-		#endregion
+	#region Event Handlers
+	#endregion
 }

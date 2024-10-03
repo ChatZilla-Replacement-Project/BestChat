@@ -58,7 +58,7 @@ public class UserNet : Net, IDataDef<Net>
 				: null;
 			if(unetCopyThis.IsLogInCustomStepsValid)
 				foreach(string newCustomLogInStep in unetCopyThis.LogInCustomSteps)
-					ocLogInCustomSteps.Add(newCustomLogInStep);
+					strocLogInCustomSteps.Add(newCustomLogInStep);
 			fileLogInSaslCert = unetCopyThis.IsLogInSaslCertValid
 				? unetCopyThis.LogInSaslCert
 				: null;
@@ -78,7 +78,7 @@ public class UserNet : Net, IDataDef<Net>
 			strLogInPwd = dunetworkUs.LogInPwd;
 			if(dunetworkUs.LogInCustomSteps != null)
 				foreach(string curCustomLogInStep in dunetworkUs.LogInCustomSteps)
-					ocLogInCustomSteps.Add(curCustomLogInStep);
+					strocLogInCustomSteps.Add(curCustomLogInStep);
 			fileLogInSaslCert = dunetworkUs.LogInSaslCert;
 		}
 	#endregion
@@ -97,7 +97,7 @@ public class UserNet : Net, IDataDef<Net>
 		public event DFieldChanged<string?>? evtLogInChallengePwdChanged;
 		public event DFieldChanged<string?>? evtLogInUserNameChanged;
 		public event DFieldChanged<string?>? evtLogInPwdChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyCollection<string>>?
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyCollection<string>, string>?
 			evtLogInCustomStepsChanged;
 		public event DFieldChanged<System.IO.FileInfo?>? evtLogInSaslCertChanged;
 	#endregion
@@ -106,7 +106,6 @@ public class UserNet : Net, IDataDef<Net>
 	#endregion
 
 	#region Helper Types
-
 	#endregion
 
 	#region Members
@@ -138,7 +137,7 @@ public class UserNet : Net, IDataDef<Net>
 		// ReSharper disable once InconsistentNaming
 		private string? strLogInPwd = null;
 
-		private readonly System.Collections.ObjectModel.ObservableCollection<string> ocLogInCustomSteps = [];
+		private readonly System.Collections.ObjectModel.ObservableCollection<string> strocLogInCustomSteps = [];
 
 		private System.IO.FileInfo? fileLogInSaslCert = null;
 
@@ -162,8 +161,7 @@ public class UserNet : Net, IDataDef<Net>
 					Rsrcs.strDefChanModeKeyParamDesc)})
 			};
 
-		private static readonly System.Collections.Generic.SortedDictionary<char, UserMode> mapDefUserModesByChar =
-			new()
+		private static readonly System.Collections.Generic.SortedDictionary<char, UserMode> mapDefUserModesByChar = new()
 			{
 				['o'] = new('o', Rsrcs.strDefUserModeIrcOpDesc),
 				['i'] = new('i', Rsrcs.strDefUserModeInvisibleDesc),
@@ -315,7 +313,10 @@ public class UserNet : Net, IDataDef<Net>
 				LogInModes.custom
 					=> Rsrcs.strLogInModeCustomText,
 
-				_
+				LogInModes.q
+					=> Rsrcs.strLogInModeUseQText,
+
+				var _
 					=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<LogInModes>(logInMode,
 						"While selecting the display text for the current log in mode"),
 			};
@@ -347,7 +348,10 @@ public class UserNet : Net, IDataDef<Net>
 				LogInModes.custom
 					=> Rsrcs.strLogInModeCustomToolTip,
 
-				_
+				LogInModes.q
+					=> Rsrcs.strLogInModeUseQToolTip,
+
+				var _
 					=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<LogInModes>(logInMode,
 						"While selecting the descriptive text for the current log in mode"),
 			};
@@ -531,7 +535,7 @@ public class UserNet : Net, IDataDef<Net>
 
 		public System.Collections.Generic.IReadOnlyCollection<string> LogInCustomSteps
 			=> IsLogInCustomStepsValid
-				? ocLogInCustomSteps
+				? strocLogInCustomSteps
 				: throw new System.InvalidOperationException("In order to access the custom log in steps, change " +
 					"the mode.");
 
@@ -659,11 +663,13 @@ public class UserNet : Net, IDataDef<Net>
 			evtLogInPwdChanged?.Invoke(this, oldPwd, strLogInPwd);
 		}
 
-		protected void FireLogInCustomStepsChanged(in CollectionChangeType howTheCollectionChanged)
+		protected void FireLogInCustomStepsChanged(in System.Collections.Generic.IReadOnlyCollection<string>? eNewSteps =
+			null, in System.Collections.Generic.IReadOnlyCollection<string>? eRemovedSteps = null, in System.Collections
+			.Generic.IReadOnlyCollection<string>? eRelocatedSteps = null)
 		{
 			FirePropChanged(nameof(FireLogInCustomStepsChanged));
 
-			evtLogInCustomStepsChanged?.Invoke(this, ocLogInCustomSteps, howTheCollectionChanged);
+			evtLogInCustomStepsChanged?.Invoke(this, strocLogInCustomSteps, eNewSteps, eRemovedSteps, eRelocatedSteps);
 		}
 
 		protected void FireLogInSaslCertChanged(in System.IO.FileInfo? fileOldLogInSaslCert)
@@ -673,83 +679,83 @@ public class UserNet : Net, IDataDef<Net>
 			evtLogInSaslCertChanged?.Invoke(this, fileOldLogInSaslCert, fileLogInSaslCert);
 		}
 
-		protected void AddLogInCustomStep(in string newLogInCustomStep)
+		protected void AddLogInCustomStep(in string strNewLogInCustomStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can add custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps.Add(newLogInCustomStep);
+			strocLogInCustomSteps.Add(strNewLogInCustomStep);
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.add);
+			FireLogInCustomStepsChanged([strNewLogInCustomStep]);
 		}
 
-		protected void RemoveLogInStep(in string logInStepToRemove)
+		protected void RemoveLogInStep(in string strLogInStepToRemove)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can remove custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps.Remove(logInStepToRemove);
+			strocLogInCustomSteps.Remove(strLogInStepToRemove);
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.removed);
+			FireLogInCustomStepsChanged(eRemovedSteps: [strLogInStepToRemove]);
 		}
 
-		protected void ChangeLogInStep(in string existingLogInStep, in string newLogInStep)
+		protected void ChangeLogInStep(in string strExistingLogInStep, in string strNewLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can remove custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps[ocLogInCustomSteps.IndexOf(existingLogInStep)] = newLogInStep;
+			strocLogInCustomSteps[strocLogInCustomSteps.IndexOf(strExistingLogInStep)] = strNewLogInStep;
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.changed);
+			FireLogInCustomStepsChanged([strNewLogInStep,], [strExistingLogInStep, ]);
 		}
 
-		protected void MoveCustomLogInStepUp(in string whichCustomLogInStep)
+		protected void MoveCustomLogInStepUp(in string strWhichCustomLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can move custom log in steps, you must change" +
 					" the mode.");
 
-			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(whichCustomLogInStep);
+			int iOldIndexOfCustomLogInStepBeingMoved = strocLogInCustomSteps.IndexOf(strWhichCustomLogInStep);
 
 			if(iOldIndexOfCustomLogInStepBeingMoved <= 0)
 				return;
 
-			ocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
+			strocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
 
-			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved - 1, whichCustomLogInStep);
+			strocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved - 1, strWhichCustomLogInStep);
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.changed);
+			FireLogInCustomStepsChanged(eRelocatedSteps: [strWhichCustomLogInStep,]);
 		}
 
-		protected void MoveCustomLogInStepDown(in string whichCustomLogInStep)
+		protected void MoveCustomLogInStepDown(in string strWhichCustomLogInStep)
 		{
 			if(!IsLogInCustomStepsValid)
 				throw new System.InvalidOperationException("Before you can move custom log in steps, you must change" +
 					" the mode.");
 
-			int iOldIndexOfCustomLogInStepBeingMoved = ocLogInCustomSteps.IndexOf(whichCustomLogInStep);
+			int iOldIndexOfCustomLogInStepBeingMoved = strocLogInCustomSteps.IndexOf(strWhichCustomLogInStep);
 
-			if(iOldIndexOfCustomLogInStepBeingMoved >= ocLogInCustomSteps.Count - 1)
+			if(iOldIndexOfCustomLogInStepBeingMoved >= strocLogInCustomSteps.Count - 1)
 				return;
 
-			ocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
+			strocLogInCustomSteps.RemoveAt(iOldIndexOfCustomLogInStepBeingMoved);
 
-			ocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved, whichCustomLogInStep);
+			strocLogInCustomSteps.Insert(iOldIndexOfCustomLogInStepBeingMoved, strWhichCustomLogInStep);
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.changed);
+			FireLogInCustomStepsChanged([strWhichCustomLogInStep,]);
 		}
 
 		protected void ClearCustomLogInSteps()
@@ -758,11 +764,13 @@ public class UserNet : Net, IDataDef<Net>
 				throw new System.InvalidOperationException("Before you can move custom log in steps, you must change" +
 					" the mode.");
 
-			ocLogInCustomSteps.Clear();
+			System.Collections.Generic.IReadOnlyCollection<string> strcollOldSteps = strocLogInCustomSteps;
+
+			strocLogInCustomSteps.Clear();
 
 			MakeDirty();
 
-			FireLogInCustomStepsChanged(CollectionChangeType.removed);
+			FireLogInCustomStepsChanged(eRemovedSteps: strcollOldSteps);
 		}
 
 		protected override void ResetServerDomainList()
@@ -800,7 +808,7 @@ public class UserNet : Net, IDataDef<Net>
 				strLogInChallengePwd,
 				strLogInUserName,
 				strLogInPwd,
-				[.. ocLogInCustomSteps],
+				[.. strocLogInCustomSteps],
 				fileLogInSaslCert);
 
 		public void SaveFrom(UserNetEditable eunet)

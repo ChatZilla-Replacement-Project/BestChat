@@ -5,7 +5,7 @@
 					xmlns:data="using:BestChat.IRC.Data.Defs"
 					x:DataType="data:BncServerInfo"
 					mc:Ignorable="d"
-					x:Class="BestChat.IRC.Views.Desktop.SpecializedCtrls.BncServerSelCombBox">
+					x:Class="BestChat.IRC.Views.Desktop.SpecializedCtrls.BncServerSelComboBox">
 	<ComboBox.ItemTemplate>
 		<DataTemplate DataType="data:BncServerInfo">
 			<Grid>

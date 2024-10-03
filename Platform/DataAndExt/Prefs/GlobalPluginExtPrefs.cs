@@ -1,59 +1,124 @@
-﻿using System.Linq;
-using BestChat.Platform.DataAndExt.Prefs.DTO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
-namespace BestChat.Platform.DataAndExt.Prefs
-{
+namespace BestChat.Platform.DataAndExt.Prefs;
+
 public class GlobalPluginExtPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-	public GlobalPluginExtPrefs(AbstractMgr mgrParent, System.Collections.Generic
-		.IEnumerable<ScriptEntry>? scripts = null, System.Collections.Generic
-		.IEnumerable<ProgramEntry>? programs = null) :
-		base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle,
-			Rsrcs.strGlobalPluginsDesc)
-	{
-		whereToLook = new(this);
-		howToRunScripts = new(this);
-		if(scripts != null)
+		public GlobalPluginExtPrefs(AbstractMgr mgrParent, System.Collections.Generic
+			.IEnumerable<GlobalPluginExtScriptEntry>? scripts = null, System.Collections.Generic
+			.IEnumerable<GlobalPluginExtProgramEntry>? programs = null) :
+			base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs.strGlobalPluginsDesc)
 		{
-			this.scripts.AddRange(scripts);
-			foreach(ScriptEntry curScript in scripts)
-				curScript.evtDirtyChanged += OnScriptDirtyChanged;
+			whereToLook = new(this);
+			globalPluginExtHowToRunScripts = new(this);
+			this.scripts = new(
+				this,
+				"Scripts",
+				Rsrcs.strGlobalPluginExtScriptsTitle,
+				Rsrcs.strGlobalPluginExtScriptsDesc,
+				[],
+				scripts is null
+					? []
+					: [.. scripts,],
+				scriptCur
+					=> scriptCur.FileNameExtOrMask,
+				(scriptEntry, evth)
+					=> scriptEntry.evtFileNameExtOrMaskChanged += mapScriptChangeSubscribers[evth] = (in
+							GlobalPluginExtScriptEntry scriptEntry, in string strOldFileNameExtOrMask, in string _)
+						=> evth(strOldFileNameExtOrMask, scriptEntry),
+				(scriptEntry, evth)
+					=>
+						{
+							scriptEntry.evtFileNameExtOrMaskChanged -= mapScriptChangeSubscribers[evth];
+
+							mapScriptChangeSubscribers.Remove(evth);
+						}
+			);
+			this.programs = new(
+				this,
+				"Programs",
+				Rsrcs.strGlobalPluginExtProgramsTitle,
+				Rsrcs.strGlobalPluginExtProgramsDesc,
+				[],
+				programs is null
+					? []
+					: [.. programs,],
+				programCur
+					=> programCur.Name,
+				(programEntry, evth)
+					=> programEntry.evtNameChanged += mapProgramChangeSubscribers[evth] = (in GlobalPluginExtProgramEntry
+							scriptEntry, in string strOldName, in string _)
+							=> evth(strOldName, scriptEntry),
+				(programEntry, evth)
+					=>
+						{
+							programEntry.evtNameChanged -= mapProgramChangeSubscribers[evth];
+
+							mapProgramChangeSubscribers.Remove(evth);
+						}
+			);
 		}
 
-		if(programs != null)
+		internal GlobalPluginExtPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO dto)
+			: base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs.strGlobalPluginsDesc)
 		{
-			this.programs.AddRange(programs);
-			foreach(ProgramEntry curProgram in programs)
-				curProgram.evtDirtyChanged += OnProgramDirtyChanged;
-		}
-	}
+			whereToLook = new(this, dto.WhereToLook);
+			globalPluginExtHowToRunScripts = new(this);
+			scripts = new(
+				this,
+				"Scripts",
+				Rsrcs.strGlobalPluginExtScriptsTitle,
+				Rsrcs.strGlobalPluginExtScriptsDesc,
+				[],
+				dto.Scripts is null
+					? []
+					: [.. dto.Scripts.Select(dscriptCur
+						=> new GlobalPluginExtScriptEntry(dscriptCur)),],
+				scriptCur
+					=> scriptCur.FileNameExtOrMask,
+				(scriptEntry, evth)
+					=> scriptEntry.evtFileNameExtOrMaskChanged += mapScriptChangeSubscribers[evth] = (in
+						GlobalPluginExtScriptEntry scriptEntry, in string strOldFileNameExtOrMask, in string
+						strNewFileNameExtOrMask)
+							=> evth(strOldFileNameExtOrMask, scriptEntry),
+						(scriptEntry,
+								evth)
+							=>
+								{
+									scriptEntry.evtFileNameExtOrMaskChanged -= mapScriptChangeSubscribers[evth];
 
-	internal GlobalPluginExtPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO dto)
-		: base(mgrParent, "External", Rsrcs.strGlobalPluginsExtTitle, Rsrcs
-			.strGlobalPluginsDesc)
-	{
-		whereToLook = new(this, dto.WhereToLook);
-		howToRunScripts = new(this);
+									mapScriptChangeSubscribers.Remove(evth);
+								}
+			);
+			programs = new(
+				this,
+				"Programs",
+				Rsrcs.strGlobalPluginExtProgramsTitle,
+				Rsrcs.strGlobalPluginExtProgramsDesc,
+				[],
+				dto.Programs is null
+					? []
+					: [.. dto.Programs.Select(programCur
+						=> new GlobalPluginExtProgramEntry(programCur)),],
+				programCur
+					=> programCur.Program.FullName,
+				(programEntry, evth)
+					=> programEntry.evtNameChanged += mapProgramChangeSubscribers[evth] = (in GlobalPluginExtProgramEntry
+						programEntry, in string strOldName, in string strNewName)
+							=> evth(strOldName, programEntry),
+				(programEntry,
+						evth)
+					=>
+						{
+							programEntry.evtNameChanged -= mapProgramChangeSubscribers[evth];
 
-		if(dto.Scripts is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO
-			.PluginsDTO.ExtDTO.ScriptEntryDTO> scripts)
-		{
-			this.scripts.AddRange(scripts.Select<PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO,>(curScript => new
-				ScriptEntry(curScript)));
-			foreach(ScriptEntry curScript in this.scripts)
-				curScript.evtDirtyChanged += OnScriptDirtyChanged;
+							mapProgramChangeSubscribers.Remove(evth);
+						}
+			);
 		}
-
-		if(dto.Programs is System.Collections.Generic.IEnumerable<DTO.PrefsDTO.GlobalDTO
-			.PluginsDTO.ExtDTO.ProgramEntryDTO> programs)
-		{
-			this.programs.AddRange(dto.Programs.Select<PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO,>(curProgram => new
-				ProgramEntry(curProgram)));
-			foreach(ProgramEntry curProgram in this.programs)
-				curProgram.evtDirtyChanged += OnProgramDirtyChanged;
-		}
-	}
 	#endregion
 
 	#region Delegates
@@ -66,483 +131,62 @@ public class GlobalPluginExtPrefs : AbstractChildMgr
 	#endregion
 
 	#region Helper Types
-	public class WhereToLookPrefs : AbstractChildMgr
-	{
-		#region Constructors & Deconstructors
-		public WhereToLookPrefs(AbstractMgr mgrParent) :
-			base(mgrParent, "Where To Look", Rsrcs
-				.strGlobalPluginsExtWhereToLookTitle, Rsrcs
-				.strGlobalPluginsExtWhereToLookDesc)
-		{
-			paths = new(this, "Paths", Rsrcs
-				.strGlobalPluginsExtWhereToLookPathsTitle, Rsrcs
-				.strGlobalPluginsExtWhereToLookPathsDesc, []);
-
-			includeSysPath = new(this, "Include Your System Path " +
-				"Environment Variable in the Search", Rsrcs
-					.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs
-					.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, true);
-		}
-
-		internal WhereToLookPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO
-			.ExtDTO.WhereToLookDTO dto) :
-			base(mgrParent, "Where To Look", Rsrcs
-				.strGlobalPluginsExtWhereToLookTitle,Rsrcs.strGlobalPluginsExtWhereToLookDesc)
-		{
-			paths = new(this, "Paths", Rsrcs
-					.strGlobalPluginsExtWhereToLookPathsTitle, Rsrcs
-					.strGlobalPluginsExtWhereToLookPathsDesc, [], dto.Paths ??
-				[]);
-
-
-			includeSysPath = new(this, "Include Your System Path " +
-				"Environment Variable in the Search", Rsrcs
-					.strGlobalPluginsExtWhereToLookIncludeSysPathTitle, Rsrcs
-					.strGlobalPluginsExtWhereToLookIncludeSysPathDesc, dto.IncludeSysPaths);
-		}
-		#endregion
-
-		#region Delegates
-		#endregion
-
-		#region Events
-		#endregion
-
-		#region Constants
-		#endregion
-
-		#region Helper Types
-		#endregion
-
-		#region Members
-		private readonly ReorderableListItem<System.IO.DirectoryInfo> paths;
-
-		private readonly Item<bool> includeSysPath;
-		#endregion
-
-		#region Properties
-		public ReorderableListItem<System.IO.DirectoryInfo> Paths
-			=> paths;
-
-		public Item<bool> IncludeSysPath
-			=> includeSysPath;
-		#endregion
-
-		#region Methods
-		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.WhereToLookDTO ToDTO()
-			=> new([.. paths], includeSysPath.CurVal);
-		#endregion
-
-		#region Event Handlers
-		#endregion
-	}
-
-	public class HowToRunScriptsPrefs : AbstractChildMgr
-	{
-		#region Constructors & Deconstructors
-		public HowToRunScriptsPrefs(AbstractMgr mgrParent) :
-			base(mgrParent, "How to run them", Rsrcs
-				.strGlobalPluginsHowToRunThemTitle, Rsrcs.strGlobalPluginsHowToRunThemDesc)
-		{
-			groupedByWhatRunsThem = new(this);
-
-			ungrouped = new(this);
-		}
-		#endregion
-
-		#region Delegates
-		#endregion
-
-		#region Events
-		#endregion
-
-		#region Constants
-		#endregion
-
-		#region Helper Types
-		public class GroupedByWhatRunsThemPrefs : AbstractChildMgr
-		{
-			#region Constructors & Deconstructors
-			public GroupedByWhatRunsThemPrefs(AbstractMgr mgrParent) : base(mgrParent, "Grouped by what runs them", Rsrcs
-				.strGlobalPluginsHowToRunThemGroupedByWhatRunsThemTitle, Rsrcs
-				.strGlobalPluginsHowToRunThemGroupedByWhatRunsThemDesc)
-			{
-			}
-			#endregion
-
-			#region Delegates
-			#endregion
-
-			#region Events
-			#endregion
-
-			#region Constants
-			#endregion
-
-			#region Helper Types
-			#endregion
-
-			#region Members
-			#endregion
-
-			#region Properties
-			#endregion
-
-			#region Methods
-			#endregion
-
-			#region Event Handlers
-			#endregion
-		}
-
-		public class UngroupedPrefs : AbstractChildMgr
-		{
-			#region Constructors & Deconstructors
-			public UngroupedPrefs(AbstractMgr mgrParent)
-				: base(mgrParent, "Ungrouped", Rsrcs.strGlobalPluginsHowToRunThemTitle, Rsrcs
-					.strGlobalPluginsHowToRunThemDesc)
-			{
-			}
-			#endregion
-
-			#region Delegates
-			#endregion
-
-			#region Events
-			#endregion
-
-			#region Constants
-			#endregion
-
-			#region Helper Types
-			#endregion
-
-			#region Members
-			#endregion
-
-			#region Properties
-			#endregion
-
-			#region Methods
-			#endregion
-
-			#region Event Handlers
-			#endregion
-		}
-		#endregion
-
-		#region Members
-		private readonly GroupedByWhatRunsThemPrefs groupedByWhatRunsThem;
-
-		private readonly UngroupedPrefs ungrouped;
-		#endregion
-
-		#region Properties
-		public GroupedByWhatRunsThemPrefs GroupedByWhatRunsThem
-			=> groupedByWhatRunsThem;
-
-		public UngroupedPrefs Ungrouped
-			=> ungrouped;
-		#endregion
-
-		#region Methods
-		#endregion
-
-		#region Event Handlers
-		#endregion
-	}
-
-	public class ScriptEntry : Obj<ScriptEntry>
-	{
-		#region Constructors & Deconstructors
-		public ScriptEntry(in string strFileNameExtOrMask, in System.IO.FileInfo?
-			fileProgramNeeded, in string strParamsToPass, in bool bEnabled)
-		{
-			this.strFileNameExtOrMask = strFileNameExtOrMask;
-			this.fileProgramNeeded = fileProgramNeeded;
-			this.strParamsToPass = strParamsToPass;
-			this.bEnabled = bEnabled;
-		}
-
-		internal ScriptEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO
-			dto)
-		{
-			strFileNameExtOrMask = dto.FileNameExtOrMask;
-			fileProgramNeeded = dto.ProgramNeeded ?? null;
-			strParamsToPass = dto.ParamsToPass;
-			bEnabled = dto.Enabled;
-		}
-		#endregion
-
-		#region Delegates
-		#endregion
-
-		#region Events
-		#endregion
-
-		#region Constants
-		#endregion
-
-		#region Helper Types
-		#endregion
-
-		#region Members
-		private string strFileNameExtOrMask;
-
-		private System.IO.FileInfo? fileProgramNeeded;
-
-		private string strParamsToPass;
-
-		private bool bEnabled;
-		#endregion
-
-		#region Properties
-		public string FileNameExtOrMask
-		{
-			get => strFileNameExtOrMask;
-
-			set
-			{
-				if(strFileNameExtOrMask != value)
-				{
-					strFileNameExtOrMask = value;
-
-					FirePropChanged(nameof(FileNameExtOrMask));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public System.IO.FileInfo? ProgramNeeded
-		{
-			get => fileProgramNeeded;
-
-			set
-			{
-				if(fileProgramNeeded != value)
-				{
-					fileProgramNeeded = value;
-
-					FirePropChanged(nameof(ProgramNeeded));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public string ParamsToPass
-		{
-			get => strParamsToPass;
-
-			set
-			{
-				if(strParamsToPass != value)
-				{
-					strParamsToPass = value;
-
-					FirePropChanged(nameof(ParamsToPass));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public bool Enabled
-		{
-			get => bEnabled;
-
-			set
-			{
-				if(bEnabled != value)
-				{
-					bEnabled = value;
-
-					FirePropChanged(nameof(Enabled));
-
-					MakeDirty();
-				}
-			}
-		}
-		#endregion
-
-		#region Methods
-		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO ToDTO()
-			=> new(strFileNameExtOrMask, fileProgramNeeded, strParamsToPass,
-				bEnabled);
-		#endregion
-
-		#region Event Handlers
-		#endregion
-	}
-
-	public class ProgramEntry : Obj<ProgramEntry>
-	{
-		#region Constructors & Deconstructors
-		public ProgramEntry(in string strName, in System.IO.FileInfo fileProgram, in
-			string strParamsToPass, in bool bEnabled)
-		{
-			this.strName = strName;
-			this.fileProgram = fileProgram;
-			this.strParamsToPass = strParamsToPass;
-			this.bEnabled = bEnabled;
-		}
-
-		internal ProgramEntry(in DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO
-			dto)
-		{
-			strName = dto.Name;
-			fileProgram = dto.Program;
-			strParamsToPass = dto.ParamsToPass;
-			bEnabled = dto.Enabled;
-		}
-		#endregion
-
-		#region Delegates
-		#endregion
-
-		#region Events
-		#endregion
-
-		#region Constants
-		#endregion
-
-		#region Helper Types
-		#endregion
-
-		#region Members
-		private string strName;
-
-		private System.IO.FileInfo fileProgram;
-
-		private string strParamsToPass;
-
-		private bool bEnabled;
-		#endregion
-
-		#region Properties
-		public string Name
-		{
-			get => strName;
-
-			set
-			{
-				if(strName != value)
-				{
-					strName = value;
-
-					FirePropChanged(nameof(Name));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public System.IO.FileInfo Program
-		{
-			get => fileProgram;
-
-			set
-			{
-				if(fileProgram != value)
-				{
-					fileProgram = value;
-
-					FirePropChanged(nameof(Program));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public string ParamsToPass
-		{
-			get => strParamsToPass;
-
-			set
-			{
-				if(strParamsToPass != value)
-				{
-					strParamsToPass = value;
-
-					FirePropChanged(nameof(ParamsToPass));
-
-					MakeDirty();
-				}
-			}
-		}
-
-		public bool Enabled
-		{
-			get => bEnabled;
-
-			set
-			{
-				if(bEnabled != value)
-				{
-					bEnabled = value;
-
-					FirePropChanged(nameof(Enabled));
-
-					MakeDirty();
-				}
-			}
-		}
-		#endregion
-
-		#region Methods
-		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO ToDTO()
-			=> new(strName, fileProgram, strParamsToPass, bEnabled);
-		#endregion
-
-		#region Event Handlers
-		#endregion
-	}
 	#endregion
 
 	#region Members
-	private readonly WhereToLookPrefs whereToLook;
+		private readonly GlobalPluginExtWhereToLookPrefs whereToLook;
 
-	private readonly HowToRunScriptsPrefs howToRunScripts;
+		private readonly GlobalPluginExtHowToRunScriptsPrefs globalPluginExtHowToRunScripts;
 
-	private readonly System.Collections.Generic.List<ScriptEntry> scripts =
-		[];
+		private readonly MappedListItem<string, GlobalPluginExtScriptEntry> scripts;
 
-	private readonly System.Collections.Generic.List<ProgramEntry> programs =
-		[];
+		private readonly MappedListItem<string, GlobalPluginExtProgramEntry> programs;
+
+		private readonly System.Collections.Generic.Dictionary<System.Action<string, GlobalPluginExtScriptEntry>,
+			Obj<GlobalPluginExtScriptEntry>.DFieldChanged<string>> mapScriptChangeSubscribers = [];
+
+		private readonly System.Collections.Generic.Dictionary<System.Action<string, GlobalPluginExtProgramEntry>,
+			Obj<GlobalPluginExtProgramEntry>.DFieldChanged<string>> mapProgramChangeSubscribers = [];
 	#endregion
 
 	#region Properties
-	public WhereToLookPrefs WhereToLook
-		=> whereToLook;
+		public GlobalPluginExtWhereToLookPrefs WhereToLook
+			=> whereToLook;
 
-	public HowToRunScriptsPrefs HowToRunThem
-		=> howToRunScripts;
+		public GlobalPluginExtHowToRunScriptsPrefs GlobalPluginExtHowToRunThem
+			=> globalPluginExtHowToRunScripts;
+
+		public MappedListItem<string, GlobalPluginExtScriptEntry> Scripts
+			=> scripts;
+
+		public MappedListItem<string, GlobalPluginExtProgramEntry> Programs
+			=> programs;
 	#endregion
 
 	#region Methods
-	public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO ToDTO()
-		=> new(
-			whereToLook.ToDTO(),
-			scripts.Select<, PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ScriptEntryDTO>(scriptCur
-				=> scriptCur.ToDTO()).ToArray(),
-			programs.Select<, PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO.ProgramEntryDTO>(progCur
-				=> progCur.ToDTO()).ToArray()
-		);
+		public DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO ToDTO()
+			=> new(
+				whereToLook.ToDTO(),
+				scripts.Values.Select(scriptCur
+					=> scriptCur.ToDTO()
+				).ToArray(),
+				programs.Values.Select(progCur
+					=> progCur.ToDTO()
+				).ToArray()
+			);
 	#endregion
 
 	#region Event Handlers
-	private void OnScriptDirtyChanged(in ScriptEntry scriptSender, in bool bIsNowDirty)
-	{
-		if(bIsNowDirty)
-			MakeDirty();
-	}
+		private void OnScriptDirtyChanged(in GlobalPluginExtScriptEntry scriptSender, in bool bIsNowDirty)
+		{
+			if(bIsNowDirty)
+				MakeDirty();
+		}
 
-	private void OnProgramDirtyChanged(in ProgramEntry progSender, in bool bIsNowDirty)
-	{
-		if(bIsNowDirty)
-			MakeDirty();
-	}
+		private void OnProgramDirtyChanged(in GlobalPluginExtProgramEntry progSender, in bool bIsNowDirty)
+		{
+			if(bIsNowDirty)
+				MakeDirty();
+		}
 	#endregion
-}
 }

@@ -77,7 +77,7 @@ public partial class BncInstanceEditorDlg : Avalonia.Controls.Window
 		}
 
 		private bool IsOkToClose
-			=> einstanceCtxt!.WereChangedMade && (mode switch
+			=> einstanceCtxt!.WereChangesMade && (mode switch
 					{
 						Modes.invalid
 							=> throw new System.InvalidProgramException("This dialog should never have been shown with "

@@ -2,16 +2,16 @@
 
 using System.Linq;
 
-public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<GlobalAliasesOneAliasOneNamedParam>
+public class GlobalAliasesOneAliasOneParam : Platform.DataAndExt.Obj<GlobalAliasesOneAliasOneParam>
 {
-	public GlobalAliasesOneAliasOneNamedParam(in GlobalAliasesOneAlias aliasParent)
+	public GlobalAliasesOneAliasOneParam(in GlobalAliasesOneAlias aliasParent)
 	{
 		this.aliasParent = aliasParent;
 
 		strName = "";
 	}
 
-	public GlobalAliasesOneAliasOneNamedParam(in GlobalAliasesOneAlias aliasParent, in string strName, in Platform
+	public GlobalAliasesOneAliasOneParam(in GlobalAliasesOneAlias aliasParent, in string strName, in Platform
 		.DataAndExt.Cmd.ParamTypes.Abstract pt, in string? strDoc = null)
 	{
 		this.aliasParent = aliasParent;
@@ -21,7 +21,7 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		this.strDoc = strDoc;
 	}
 
-	public GlobalAliasesOneAliasOneNamedParam(in GlobalAliasesOneAliasOneNamedParam aparamCopyFrom)
+	public GlobalAliasesOneAliasOneParam(in GlobalAliasesOneAliasOneParam aparamCopyFrom)
 	{
 		aliasParent = aparamCopyFrom.aliasParent;
 
@@ -30,7 +30,7 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		strDoc = aparamCopyFrom.Doc;
 	}
 
-	public GlobalAliasesOneAliasOneNamedParam(in GlobalAliasesOneAlias aliasParent, in Platform
+	public GlobalAliasesOneAliasOneParam(in GlobalAliasesOneAlias aliasParent, in Platform
 		.DataAndExt.Cmd.Param paramCopyFrom)
 	{
 		this.aliasParent = aliasParent;
@@ -40,7 +40,7 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		strDoc = paramCopyFrom.Doc;
 	}
 
-	public GlobalAliasesOneAliasOneNamedParam(in GlobalAliasesOneAlias aliasParent, DTO.GlobalAliasesOneAliasOneNamedParamDTO
+	public GlobalAliasesOneAliasOneParam(in GlobalAliasesOneAlias aliasParent, DTO.GlobalAliasesOneAliasOneParamDTO
 		dto)
 	{
 		this.aliasParent = aliasParent;
@@ -55,9 +55,14 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 
 	public event DFieldChanged<Platform.DataAndExt.Cmd.ParamTypes.Abstract?>? evtParamTypeChanged;
 
+	public event DBoolFieldChanged? evtIsRequiredChanged;
+
 	public event DFieldChanged<string?>? evtDocChanged;
 
-	public event System.Action<GlobalAliasesOneAliasOneNamedParam, Platform.DataAndExt.Cmd.Param?>? evtDeclaredParamChanged;
+	public event System.Action<GlobalAliasesOneAliasOneParam, Platform.DataAndExt.Cmd.Param?>? evtDeclaredParamChanged;
+
+
+
 
 	public readonly GlobalAliasesOneAlias aliasParent;
 
@@ -66,7 +71,10 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 
 	private Platform.DataAndExt.Cmd.ParamTypes.Abstract? pt = null;
 
+	private bool bIsRequired = false;
+
 	private string? strDoc = null;
+
 
 	public string Name
 	{
@@ -89,6 +97,9 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		}
 	}
 
+	public string NameInCode
+		=> $"%{strName}";
+
 	public Platform.DataAndExt.Cmd.ParamTypes.Abstract? ParamType
 	{
 		get => pt;
@@ -109,6 +120,28 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 			}
 		}
 	}
+
+	public bool IsRequired
+	{
+		get => bIsRequired;
+
+		set
+		{
+			if(bIsRequired != value)
+			{
+				bIsRequired = value;
+
+				MakeDirty();
+
+				FireIsRequiredChanged();
+
+				RecreateDeclaredParam();
+			}
+		}
+	}
+
+	public Platform.DataAndExt.Cmd.ParamTypes.Abstract SafeParamType
+		=> pt ?? Platform.DataAndExt.Cmd.ParamTypes.Abstract.Invalid.Instance;
 
 	public string? Doc
 	{
@@ -131,6 +164,9 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		}
 	}
 
+	public bool IsPositionOnlyEnabled
+		=> aliasParent.PositionalParameters.Contains(this);
+
 	public Platform.DataAndExt.Cmd.Param? DeclaredParam
 	{
 		get;
@@ -142,7 +178,7 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 	{
 		if(strName != "" && pt is not null)
 		{
-			DeclaredParam = new(strName, pt, strDoc ?? "");
+			DeclaredParam = new(strName, pt, bIsRequired, strDoc ?? "");
 
 			FireDeclaredParamChanged();
 		}
@@ -162,6 +198,14 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		evtParamTypeChanged?.Invoke(this, ptOld, pt);
 	}
 
+	private void FireIsRequiredChanged()
+	{
+		FirePropChanged(nameof(IsRequired));
+		FirePropChanged(nameof(IsPositionOnlyEnabled));
+
+		evtIsRequiredChanged?.Invoke(this, bIsRequired);
+	}
+
 	private void FireDocChanged(in string? strOldDoc)
 	{
 		FirePropChanged(nameof(Doc));
@@ -176,17 +220,17 @@ public class GlobalAliasesOneAliasOneNamedParam : Platform.DataAndExt.Obj<Global
 		evtDeclaredParamChanged?.Invoke(this, DeclaredParam);
 	}
 
-	public GlobalAliasesOneAliasOneNamedParamEditable MakeEditable()
+	public GlobalAliasesOneAliasOneParamEditable MakeEditable()
 		=> new(this);
 
-	public void SaveFrom(GlobalAliasesOneAliasOneNamedParamEditable eaparam)
+	public void SaveFrom(GlobalAliasesOneAliasOneParamEditable eaparam)
 	{
 		Name = eaparam.Name;
 		ParamType = eaparam.ParamType;
 		Doc = eaparam.Doc;
 	}
 
-	public DTO.GlobalAliasesOneAliasOneNamedParamDTO ToDTO()
+	public DTO.GlobalAliasesOneAliasOneParamDTO ToDTO()
 		=> new(
 			strName,
 			pt?.Name ?? throw new System.InvalidOperationException(@"Can't save this alias parameter as it =has no"

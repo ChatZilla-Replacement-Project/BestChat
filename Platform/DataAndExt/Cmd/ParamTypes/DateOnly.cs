@@ -1,7 +1,16 @@
-﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes
+﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+
+public class DateOnly : Abstract
 {
-public class DateOnly
-{
-	
-}
+	private DateOnly() :
+		base(@"date only", Rsrcs.strParamTypeDateOnly, Rsrcs.strParamTypeDateOnlyDesc, typeof(System.DateOnly))
+	{
+	}
+
+	public static DateOnly instance
+	{
+		get;
+
+		private set;
+	} = new();
 }

@@ -1,5 +1,7 @@
 ﻿// Ignore Spelling: Prefs Ctrls Ctrl Mgrs Mgr
 
+using System.Linq;
+
 namespace BestChat.Platform.UI.Desktop.Prefs;
 
 public abstract class VisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtrl
@@ -10,12 +12,12 @@ public abstract class VisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtr
 			if(Avalonia.Application.Current is not null)
 				throw new System.InvalidProgramException("The default constructors of BestBestChat.Platform.UI.Desktop.Prefs and its derived " +
 					"classes are for designer use only.  They aren't not meant for use at runtime.");
-
-			Initialized += OnInitialized;
 		}
 
-		protected VisualPrefsTabCtrl(in string strLocalizedShortName, in string strLocalizedLongDesc, in DataAndExt.Prefs.AbstractMgr mgrUs) :
-			base(strLocalizedShortName, strLocalizedLongDesc) => this.mgrUs = mgrUs;
+		protected VisualPrefsTabCtrl(in string strLocalizedShortName, in string strLocalizedLongDesc, in DataAndExt.Prefs
+				.AbstractMgr mgrUs) :
+			base(strLocalizedShortName, strLocalizedLongDesc)
+			=> this.mgrUs = mgrUs;
 	#endregion
 
 	#region Delegates
@@ -25,11 +27,6 @@ public abstract class VisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtr
 	#endregion
 
 	#region Constants
-		#region Dependency Properties
-		#endregion
-
-		#region Routed Events
-		#endregion
 	#endregion
 
 	#region Helper Types
@@ -46,10 +43,17 @@ public abstract class VisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtr
 
 		public virtual System.Collections.Generic.IEnumerable<System.Type> HandlesChildMgrsOfType
 			=> [];
+
+		public System.Collections.Generic.IEnumerable<DataAndExt.Prefs.AbstractChildMgr> ChildMgrWithDedicatedEditor
+			=> mgrUs is null
+				? []
+				: from DataAndExt.Prefs.AbstractChildMgr cmgrCur in mgrUs.ChildMgrByName
+					where HandlesChildMgrsOfType.Contains(cmgrCur.GetType())
+					select cmgrCur;
 	#endregion
 
 	#region Methods
-		protected void OnInitialized(object? objSender, System.EventArgs e)
+		protected override void OnInitialized()
 			=> DataContext = mgrUs;
 	#endregion
 

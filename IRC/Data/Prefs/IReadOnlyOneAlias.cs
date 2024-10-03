@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
+﻿namespace BestChat.IRC.Data.Prefs;
+
 public interface IReadOnlyOneAlias
 {
 	string Name
@@ -7,7 +7,7 @@ public interface IReadOnlyOneAlias
 		get;
 	}
 
-	string Cmd
+	Platform.DataAndExt.Cmd.AbstractCmdCall? WhatToRun
 	{
 		get;
 	}
@@ -16,5 +16,6 @@ public interface IReadOnlyOneAlias
 	{
 		get;
 	}
-}
+
+	DTO.GlobalAliasesOneAliasDTO ToDTO();
 }

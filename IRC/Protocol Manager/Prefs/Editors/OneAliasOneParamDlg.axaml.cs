@@ -1,8 +1,8 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
 
-public partial class OneAliasOnePositionalParamDlg : Avalonia.Controls.Window
+public partial class OneAliasOneParamDlg : Avalonia.Controls.Window
 {
-	public OneAliasOnePositionalParamDlg()
+	public OneAliasOneParamDlg()
 		=> InitializeComponent();
 
 	private MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxCancelConfirmCreating = MsBox.Avalonia
@@ -24,7 +24,7 @@ public partial class OneAliasOnePositionalParamDlg : Avalonia.Controls.Window
 
 	private Modes mode;
 
-	private Data.Prefs.GlobalAliasesOneAliasOnePositionalParamEditable? eaparamCtxt;
+	private Data.Prefs.GlobalAliasesOneAliasOneParamEditable? eaparamCtxt;
 
 	public Modes Mode
 	{
@@ -42,7 +42,7 @@ public partial class OneAliasOnePositionalParamDlg : Avalonia.Controls.Window
 		}
 	}
 
-	public Data.Prefs.GlobalAliasesOneAliasOnePositionalParamEditable? CtxtParam
+	public Data.Prefs.GlobalAliasesOneAliasOneParamEditable? CtxtParam
 	{
 		get => eaparamCtxt;
 

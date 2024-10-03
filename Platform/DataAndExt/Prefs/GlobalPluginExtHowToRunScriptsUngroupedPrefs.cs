@@ -1,13 +1,13 @@
-﻿namespace BestChat.Platform.DataAndExt.Prefs
-{
+﻿namespace BestChat.Platform.DataAndExt.Prefs;
+
 public class GlobalPluginExtHowToRunScriptsUngroupedPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-	public GlobalPluginExtHowToRunScriptsUngroupedPrefs(AbstractMgr mgrParent)
-		: base(mgrParent, "Ungrouped", Rsrcs.strGlobalPluginsHowToRunThemTitle, Rsrcs
-			.strGlobalPluginsHowToRunThemDesc)
-	{
-	}
+		public GlobalPluginExtHowToRunScriptsUngroupedPrefs(AbstractMgr mgrParent)
+			: base(mgrParent, "Ungrouped", Rsrcs.strGlobalPluginsHowToRunThemTitle, Rsrcs
+				.strGlobalPluginsHowToRunThemDesc)
+		{
+		}
 	#endregion
 
 	#region Delegates
@@ -26,6 +26,8 @@ public class GlobalPluginExtHowToRunScriptsUngroupedPrefs : AbstractChildMgr
 	#endregion
 
 	#region Properties
+		public MappedListItem<string, GlobalPluginExtScriptEntry> Scripts
+			=> ((GlobalPluginExtHowToRunScriptsPrefs)mgrParent).Scripts;
 	#endregion
 
 	#region Methods
@@ -33,5 +35,4 @@ public class GlobalPluginExtHowToRunScriptsUngroupedPrefs : AbstractChildMgr
 
 	#region Event Handlers
 	#endregion
-}
 }

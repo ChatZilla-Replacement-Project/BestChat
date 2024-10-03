@@ -1,7 +1,3 @@
-﻿namespace BestChat.Platform.UI.Desktop.Prefs
-{
-public class EmojiAnimationOptsComboBox
-{
-	
-}
-}
+﻿namespace BestChat.Platform.UI.Desktop.Prefs;
+
+public class EmojiAnimationComboBox : EnumComboBox<GlobalAppearanceEmojiPrefs.EmojiAnimationOpts>;

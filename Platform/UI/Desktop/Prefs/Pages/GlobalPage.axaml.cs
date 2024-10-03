@@ -1,14 +1,13 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿namespace BestChat.Platform.UI.Desktop.Prefs.Pages;
 
-namespace BestChat.Platform.UI.Desktop.Prefs.Pages
-{
-public partial class GlobalPage : UserControl
+public partial class GlobalPage : VisualPrefsTabCtrl
 {
 	public GlobalPage()
-	{
-		InitializeComponent();
-	}
-}
+		=> InitializeComponent();
+
+	public override System.Collections.Generic.IEnumerable<System.Type> HandlesChildMgrsOfType
+		=>
+			[
+				typeof(GlobalCompositionPrefs),
+			];
 }

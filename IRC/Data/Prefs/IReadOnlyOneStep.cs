@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
+﻿namespace BestChat.IRC.Data.Prefs;
+
 public interface IReadOnlyOneStep
 {
 	System.Guid GUID
@@ -7,9 +7,8 @@ public interface IReadOnlyOneStep
 		get;
 	}
 
-	string WhatToDo
+	GlobalAutoPerformOneStep.CmdCall WhatToDo
 	{
 		get;
 	}
-}
 }

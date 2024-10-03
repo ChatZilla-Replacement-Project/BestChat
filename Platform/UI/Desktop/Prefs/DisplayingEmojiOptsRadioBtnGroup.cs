@@ -1,3 +1,3 @@
 ﻿namespace BestChat.Platform.UI.Desktop.Prefs;
 
-public class DisplayingEmojiOptsRadionBtnGroup : EnumRadioBtnGroup<GlobalAppearanceEmojiPrefs.DisplayingEmojiOpts>;
+public class DisplayingEmojiOptsRadioBtnGroup : EnumRadioBtnGroup<GlobalAppearanceEmojiPrefs.DisplayingEmojiOpts>;

@@ -60,6 +60,213 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best Chat was able to import {0} aliases..
+        /// </summary>
+        internal static string strAliasesImportedSuccessfullyMsgFmt {
+            get {
+                return ResourceManager.GetString("strAliasesImportedSuccessfullyMsgFmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aliases were imported successfully.
+        /// </summary>
+        internal static string strAliasesImportedSuccessfullyTitle {
+            get {
+                return ResourceManager.GetString("strAliasesImportedSuccessfullyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best Chat was unable to import aliases from the clipboard as it seems to be empty.  Did you put something there?.
+        /// </summary>
+        internal static string strAliasImportFromClipboardFailedAsItWasEmptyMsg {
+            get {
+                return ResourceManager.GetString("strAliasImportFromClipboardFailedAsItWasEmptyMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import of aliases from the clipboard failed..
+        /// </summary>
+        internal static string strAliasImportFromClipboardFailedAsItWasEmptyTitle {
+            get {
+                return ResourceManager.GetString("strAliasImportFromClipboardFailedAsItWasEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were creating a new alias and made changes.  Are you sure you want to discard thos changes?.
+        /// </summary>
+        internal static string strCancelCreatingNewAliasMsg {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAliasMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were creating a new parameter for an alias and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelCreatingNewAliasParamMsg {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAliasParamMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelCreatingNewAliasParamTitle {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAliasParamTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelCreatingNewAliasTitle {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAliasTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelCreatingNewAltNickMsg {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAltNickMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were creating a new alternate nick and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelCreatingNewAltNickTitle {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAltNickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were adding a new auto perform step to the list and made changes.   Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelCreatingNewAutoPerformStepMsg {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAutoPerformStepMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelCreatingNewAutoPerformStepTitle {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were creating a parameter for an alias and made changes.  Are you sure you want to discard those changes?  The alias won’t itself be affected unless you chose to save the parameter..
+        /// </summary>
+        internal static string strCancelEditingAliasPaaramMsg {
+            get {
+                return ResourceManager.GetString("strCancelEditingAliasPaaramMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were editing a parameter for an alias and made changes.  Are you sure you want to discard those changes?  The alias itself won&apos;t be affected unless you save the parameter..
+        /// </summary>
+        internal static string strCancelEditingAliasParamMsg {
+            get {
+                return ResourceManager.GetString("strCancelEditingAliasParamMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelEditingAliasParamTitle {
+            get {
+                return ResourceManager.GetString("strCancelEditingAliasParamTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were editing a auto-perform step and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelEditingAutoPerformStepMsg {
+            get {
+                return ResourceManager.GetString("strCancelEditingAutoPerformStepMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelEditingAutoPerformStepTitle {
+            get {
+                return ResourceManager.GetString("strCancelEditingAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clipboard.
+        /// </summary>
+        internal static string strClipboardName {
+            get {
+                return ResourceManager.GetString("strClipboardName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re creating a new auto-perform step.
+        /// </summary>
+        internal static string strCreatingNewAutoPerformStepTitle {
+            get {
+                return ResourceManager.GetString("strCreatingNewAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected aliases?.
+        /// </summary>
+        internal static string strDelSelectedAliasesMsg {
+            get {
+                return ResourceManager.GetString("strDelSelectedAliasesMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strDelSelectedAliasesTitle {
+            get {
+                return ResourceManager.GetString("strDelSelectedAliasesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strEditingAutoPerformStepTitle {
+            get {
+                return ResourceManager.GetString("strEditingAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Where do you want to save this alias or aliases to?.
+        /// </summary>
+        internal static string strExportAliasDlgTitle {
+            get {
+                return ResourceManager.GetString("strExportAliasDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _BNC Manager.
         /// </summary>
         internal static string strFileBncMgrMenuItemTitle {
@@ -114,6 +321,42 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Alias Array Files.
+        /// </summary>
+        internal static string strFileTypeFilterNameAllAliasArrayFiles {
+            get {
+                return ResourceManager.GetString("strFileTypeFilterNameAllAliasArrayFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Alias Files.
+        /// </summary>
+        internal static string strFileTypeFilterNameAllAliasFiles {
+            get {
+                return ResourceManager.GetString("strFileTypeFilterNameAllAliasFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        internal static string strFileTypeFilterNameAllFiles {
+            get {
+                return ResourceManager.GetString("strFileTypeFilterNameAllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All JSON files.
+        /// </summary>
+        internal static string strFileTypeFilterNameAllJsonFiles {
+            get {
+                return ResourceManager.GetString("strFileTypeFilterNameAllJsonFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MIRC.
         /// </summary>
         internal static string strFmtMarkerTypeMIRC {
@@ -146,6 +389,69 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strFmtMarkerTypeTraditonalToolTip {
             get {
                 return ResourceManager.GetString("strFmtMarkerTypeTraditonalToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What alias or aliases would you like to import from?.
+        /// </summary>
+        internal static string strImportAliasDlgTitle {
+            get {
+                return ResourceManager.GetString("strImportAliasDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No aliases were found during the import..
+        /// </summary>
+        internal static string strNoAliasesFoundDuringImport {
+            get {
+                return ResourceManager.GetString("strNoAliasesFoundDuringImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The clipboard doesn’t seem to be available..
+        /// </summary>
+        internal static string strNoClipboardAvailable {
+            get {
+                return ResourceManager.GetString("strNoClipboardAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re creating a new alias.
+        /// </summary>
+        internal static string strOneAliasEditorCreatingTitle {
+            get {
+                return ResourceManager.GetString("strOneAliasEditorCreatingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re editing the alias “{0}”.
+        /// </summary>
+        internal static string strOneAliasEditorEditingTitle {
+            get {
+                return ResourceManager.GetString("strOneAliasEditorEditingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re creating a new alternal nick.
+        /// </summary>
+        internal static string strOneAltNickEditorCreatingTitle {
+            get {
+                return ResourceManager.GetString("strOneAltNickEditorCreatingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re editing the alternate nick “{0}”.
+        /// </summary>
+        internal static string strOneAltNickEditorEditingTitle {
+            get {
+                return ResourceManager.GetString("strOneAltNickEditorEditingTitle", resourceCulture);
             }
         }
         
@@ -290,6 +596,33 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strPrefsGlobalFmtUnderlineTitle {
             get {
                 return ResourceManager.GetString("strPrefsGlobalFmtUnderlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All required alias positioned paramters must come before any optional any optional positioned parameters..
+        /// </summary>
+        internal static string strRequiredAliasesMustComeBeforeOptionalAliases {
+            get {
+                return ResourceManager.GetString("strRequiredAliasesMustComeBeforeOptionalAliases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all global aliases?  This will also affect your network and channel aliases if they’re inherited..
+        /// </summary>
+        internal static string strResetGlobalAliasesMsg {
+            get {
+                return ResourceManager.GetString("strResetGlobalAliasesMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strResetGlobalAliasesTitle {
+            get {
+                return ResourceManager.GetString("strResetGlobalAliasesTitle", resourceCulture);
             }
         }
         

@@ -10,18 +10,17 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 	.Collections.Generic.IReadOnlySet<TypeOfElement>
 {
 	#region Constructors & Deconstructors
-		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string
-				strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic
-				.IEnumerable<TypeOfElement> def) :
+		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
+				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def) :
 			base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			this.def = def;
-			hsEntries = new(def);
+			hsEntries = [.. def,];
 		}
 
-		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string
-				strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic
-				.IEnumerable<TypeOfElement> def, System.Collections.Generic.IEnumerable<TypeOfElement> val)
+		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
+				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def, System.Collections.Generic
+				.IEnumerable<TypeOfElement> val)
 			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			this.def = def;
@@ -30,10 +29,9 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 	#endregion
 
 	#region Events
-		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler?
-			CollectionChanged;
+		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler? CollectionChanged;
 
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<TypeOfElement>>?
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlySet<TypeOfElement>, TypeOfElement>?
 			evtEntriesChanged;
 	#endregion
 
@@ -80,9 +78,8 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(!hsEntries.Add(itemNew))
 				return false;
 
-			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
+			evtEntriesChanged?.Invoke(this, this, [itemNew]);
 
 			return true;
 		}
@@ -100,9 +97,9 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 
 			MakeDirty();
 
-			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-				.NotifyCollectionChangedAction.Remove));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+				.Remove));
+			evtEntriesChanged?.Invoke(this, this, eRemovedEntries: [itemToBeRemoved,]);
 
 			return true;
 		}
@@ -115,15 +112,15 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(!IsReadyToEdit)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			System.Collections.Generic.HashSet<TypeOfElement> hsOld = hsEntries;
+			System.Collections.Generic.IReadOnlySet<TypeOfElement> hsOld = hsEntries;
 
 			hsEntries.ExceptWith(other);
 
 			if(!hsOld.SetEquals(hsEntries))
 			{
-				CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-					.NotifyCollectionChangedAction.Remove));
-				evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+				CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+					.Remove));
+				evtEntriesChanged?.Invoke(this, this, hsOld.Except(hsEntries));
 			}
 		}
 
@@ -132,7 +129,7 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(!IsReadyToEdit)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			System.Collections.Generic.HashSet<TypeOfElement> hsOld = hsEntries;
+			System.Collections.Generic.IReadOnlySet<TypeOfElement> hsOld = hsEntries;
 
 			hsEntries.IntersectWith(other);
 
@@ -140,7 +137,7 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			{
 				CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 					.NotifyCollectionChangedAction.Remove));
-				evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+				evtEntriesChanged?.Invoke(this, this, hsOld.Except(hsEntries));
 			}
 		}
 
@@ -167,15 +164,15 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(!IsReadyToEdit)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			System.Collections.Generic.HashSet<TypeOfElement> hsOld = hsEntries;
+			System.Collections.Generic.IReadOnlySet<TypeOfElement> hsOld = hsEntries;
 
 			hsEntries.SymmetricExceptWith(other);
 
 			if(!hsOld.SetEquals(hsEntries))
 			{
-				CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-					.NotifyCollectionChangedAction.Remove));
-				evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+				CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+					.Remove));
+				evtEntriesChanged?.Invoke(this, this, eRemovedEntries: hsOld.Except(hsEntries));
 			}
 		}
 
@@ -184,15 +181,15 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(!IsReadyToEdit)
 				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-			System.Collections.Generic.HashSet<TypeOfElement> hsOld = hsEntries;
+			System.Collections.Generic.IReadOnlySet<TypeOfElement> hsOld = hsEntries;
 
 			hsEntries.UnionWith(other);
 
 			if(!hsOld.SetEquals(hsEntries))
 			{
-				CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-					.NotifyCollectionChangedAction.Remove));
-				evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+				CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+					.Remove));
+				evtEntriesChanged?.Invoke(this, this, eRemovedEntries: hsOld.Except(hsEntries));
 			}
 		}
 
@@ -207,11 +204,13 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 			if(hsEntries.Count == 0)
 				return;
 
+			System.Collections.Generic.IReadOnlySet<TypeOfElement> hsOldCtnts = hsEntries;
+
 			hsEntries.Clear();
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Remove));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
+			evtEntriesChanged?.Invoke(this, this, eRemovedEntries: hsOldCtnts);
 		}
 
 		public bool Contains(TypeOfElement item)
@@ -243,7 +242,7 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 
 		internal override void SaveEdits()
 		{
-			
+
 			bool bChangesWereMade = backedUpVal != null && hsEntries.SetEquals(backedUpVal);
 			if(!bChangesWereMade)
 				return;
@@ -252,9 +251,8 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 
 			MakeDirty();
 
-			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-				.NotifyCollectionChangedAction.Reset));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.other);
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction
+				.Reset));
 		}
 
 		internal override void RevertEdits()

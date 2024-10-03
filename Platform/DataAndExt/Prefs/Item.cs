@@ -80,6 +80,9 @@ public abstract class ItemBase : Obj<ItemBase>
 			get;
 		}
 
+		public bool CanReset
+			=> !IsDefaulted;
+
 		public abstract bool IsReadyToEdit
 		{
 			get;

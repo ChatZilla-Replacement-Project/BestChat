@@ -1,9 +1,9 @@
 ﻿namespace BestChat.Platform.DataAndExt.Prefs;
 
-public class GlobalPluginExtHowToRunScriptsPrefsGroupedByWhatRunsThemPrefs : AbstractChildMgr
+public class GlobalPluginExtHowToRunScriptsGroupedByWhatRunsThemPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-		public GlobalPluginExtHowToRunScriptsPrefsGroupedByWhatRunsThemPrefs(AbstractMgr mgrParent)
+		public GlobalPluginExtHowToRunScriptsGroupedByWhatRunsThemPrefs(AbstractMgr mgrParent)
 			: base(mgrParent, "Grouped by what runs them", Rsrcs.strGlobalPluginsHowToRunThemGroupedByWhatRunsThemTitle, Rsrcs
 				.strGlobalPluginsHowToRunThemGroupedByWhatRunsThemDesc)
 		{
@@ -26,6 +26,7 @@ public class GlobalPluginExtHowToRunScriptsPrefsGroupedByWhatRunsThemPrefs : Abs
 	#endregion
 
 	#region Properties
+
 	#endregion
 
 	#region Methods

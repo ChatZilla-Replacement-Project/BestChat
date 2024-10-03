@@ -1,7 +1,5 @@
 ﻿// Ignore Spelling: Ctrl gvc Prefs cmgr Defs Loc iprot Prot
 
-using BestChat.Platform.UI.Desktop.Prefs;
-
 namespace BestChat.Platform.UI.Desktop;
 
 public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IProtocolGuiDef>
@@ -28,7 +26,7 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 		public interface IProtocolGuiDef : DataAndExt.Protocol.IProtocolDef
 		{
 			System.Collections.Generic.IReadOnlyDictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-				VisualPrefsTabCtrl>> PrefCtrlMap
+				Prefs.VisualPrefsTabCtrl>> PrefCtrlMap
 			{
 				get;
 			}
@@ -81,11 +79,11 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 			DataAndExt.Prefs.AbstractChildMgr? cmgrOfPrefs = iprotNew.LoadAllPrefsData(stream, Prefs.RootPrefs
 				.Instance);
 
-			if(cmgrOfPrefs != null && RootPrefs.IsReady)
-				RootPrefs.Instance.RegisterNewProtMgr(cmgrOfPrefs);
+			if(cmgrOfPrefs != null && Prefs.RootPrefs.IsReady)
+				Prefs.RootPrefs.Instance.RegisterNewProtMgr(cmgrOfPrefs);
 
 			foreach(System.Collections.Generic.KeyValuePair<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-					VisualPrefsTabCtrl>> kvCurEntry in iprotNew.PrefCtrlMap)
+					Prefs.VisualPrefsTabCtrl>> kvCurEntry in iprotNew.PrefCtrlMap)
 				Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(kvCurEntry.Key, kvCurEntry.Value);
 		}
 	#endregion

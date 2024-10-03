@@ -2,16 +2,16 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class GlobalAliasesOneAliasOneNamedParamEditable : GlobalAliasesOneAliasOneNamedParam, System.ComponentModel.INotifyDataErrorInfo
+public class GlobalAliasesOneAliasOneParamEditable : GlobalAliasesOneAliasOneParam, System.ComponentModel.INotifyDataErrorInfo
 {
-	internal GlobalAliasesOneAliasOneNamedParamEditable(GlobalAliasesOneAliasOneNamedParam aparamOriginal) :
+	internal GlobalAliasesOneAliasOneParamEditable(GlobalAliasesOneAliasOneParam aparamOriginal) :
 		base(aparamOriginal.aliasParent, aparamOriginal.Name, aparamOriginal?.ParamType ?? throw new System
 			.InvalidOperationException(@"How did an existing parameter get a null type?"), aparamOriginal.Doc)
 		=> this.aparamOriginal = aparamOriginal;
 
 	public event System.EventHandler<System.ComponentModel.DataErrorsChangedEventArgs>? ErrorsChanged;
 
-	public readonly GlobalAliasesOneAliasOneNamedParam aparamOriginal;
+	public readonly GlobalAliasesOneAliasOneParam aparamOriginal;
 
 	public new string Name
 	{
@@ -72,8 +72,8 @@ public class GlobalAliasesOneAliasOneNamedParamEditable : GlobalAliasesOneAliasO
 	}
 
 	public bool IsNameValid
-		=> base.Name != "" && !aparamOriginal.aliasParent.NamedParametersByName.TryGetValue(base.Name, out
-			GlobalAliasesOneAliasOneNamedParam? aparamFoundThis) && aparamFoundThis != aparamOriginal;
+		=> base.Name != "" && !aparamOriginal.aliasParent.AllParametersByName.TryGetValue(base.Name, out
+			GlobalAliasesOneAliasOneParam? aparamFoundThis) && aparamFoundThis != aparamOriginal;
 
 	public bool HasErrors
 		=> base.ParamType == null || !IsNameValid;
@@ -116,4 +116,7 @@ public class GlobalAliasesOneAliasOneNamedParamEditable : GlobalAliasesOneAliasO
 
 		return llistErrors;
 	}
+
+	public void Save()
+		=> aparamOriginal.SaveFrom(this);
 }

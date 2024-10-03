@@ -1,21 +1,21 @@
-﻿namespace BestChat.IRC.Data.Prefs
-{
+﻿namespace BestChat.IRC.Data.Prefs;
+
 public class NetAltNicksOneAltNick : Platform.DataAndExt.Obj<NetAltNicksOneAltNick>, IReadOnlyOneAltNick
 {
 	#region Constructors & Deconstructors
-	public NetAltNicksOneAltNick(in string strNickToUse)
-		=> this.strNickToUse = strNickToUse;
+		public NetAltNicksOneAltNick(in string strNickToUse)
+			=> this.strNickToUse = strNickToUse;
 
-	public NetAltNicksOneAltNick(in DTO.GlobalOneAltNickDTO dto) :
-		base(dto.GUID)
-		=> strNickToUse = dto.NickToUse;
+		public NetAltNicksOneAltNick(in DTO.GlobalOneAltNickDTO dto) :
+			base(dto.GUID)
+			=> strNickToUse = dto.NickToUse;
 	#endregion
 
 	#region Delegates
 	#endregion
 
 	#region Events
-	public event DFieldChanged<string>? evtNickToUseChanged;
+		public event DFieldChanged<string>? evtNickToUseChanged;
 	#endregion
 
 	#region Constants
@@ -25,43 +25,42 @@ public class NetAltNicksOneAltNick : Platform.DataAndExt.Obj<NetAltNicksOneAltNi
 	#endregion
 
 	#region Members
-	private string strNickToUse;
+		private string strNickToUse;
 	#endregion
 
 	#region Properties
-	public string NickToUse
-	{
-		get => strNickToUse;
-
-		protected set
+		public string NickToUse
 		{
-			if(strNickToUse != value)
+			get => strNickToUse;
+
+			protected set
 			{
-				string strOldNickToUse = strNickToUse;
+				if(strNickToUse != value)
+				{
+					string strOldNickToUse = strNickToUse;
 
-				strNickToUse = value;
+					strNickToUse = value;
 
-				FireNickToUseChanged(strOldNickToUse);
+					FireNickToUseChanged(strOldNickToUse);
 
-				MakeDirty();
+					MakeDirty();
+				}
 			}
 		}
-	}
 	#endregion
 
 	#region Methods
-	private void FireNickToUseChanged(in string strOldName)
-	{
-		FirePropChanged(nameof(NickToUse));
+		private void FireNickToUseChanged(in string strOldName)
+		{
+			FirePropChanged(nameof(NickToUse));
 
-		evtNickToUseChanged?.Invoke(this, strOldName, strNickToUse);
-	}
+			evtNickToUseChanged?.Invoke(this, strOldName, strNickToUse);
+		}
 
-	public DTO.GlobalOneAltNickDTO ToDTO()
-		=> new(guid, strNickToUse);
+		public DTO.GlobalOneAltNickDTO ToDTO()
+			=> new(guid, strNickToUse);
 	#endregion
 
 	#region Event Handlers
 	#endregion
-}
 }

@@ -12,18 +12,12 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 		public VisualPrefsTreeData(DataAndExt.Prefs.AbstractMgr mgr)
 		{
 			if(!mapDataMgrToCtrlType.ContainsKey(typeof(DataAndExt.Prefs.AbstractMgr)))
-				throw new System.ArgumentException("Unable to construct the prefs manager to control relationship as no control type was " +
-					"specified.", nameof(mgr));
+				throw new System.ArgumentException(@"Unable to construct the prefs manager to control relationship as no " +
+					@"control type was specified.", nameof(mgr));
 
 			Mgr = mgr;
 
-			System.Func<DataAndExt.Prefs.AbstractMgr, VisualPrefsTabCtrl> funcCtrlMaker = mapDataMgrToCtrlType[mgr.GetType()];
-			if(funcCtrlMaker != null)
-				UI = funcCtrlMaker(mgr);
-			UI ??= new PrefsGenericTreeListerPage()
-			{
-				Children = Children,
-			};
+			funcCtrlMaker = mapDataMgrToCtrlType[mgr.GetType()];
 
 			foreach(DataAndExt.Prefs.AbstractChildMgr cmgrCur in mgr.ChildMgrByName.Where(cmgrCur => !UI.HandlesChildMgrsOfType
 					.Contains(cmgrCur.GetType())))
@@ -45,10 +39,15 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 	#region Members
 		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs
-			.AbstractMgr, VisualPrefsTabCtrl>> mapDataMgrToCtrlType = [];
+			.AbstractMgr, VisualPrefsTabCtrl>?> mapDataMgrToCtrlType = [];
 
 		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren =
 			[];
+
+		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, VisualPrefsTabCtrl>
+			mapExistingCreatedPages = [];
+
+		private readonly System.Func<DataAndExt.Prefs.AbstractMgr, VisualPrefsTabCtrl>? funcCtrlMaker;
 	#endregion
 
 	#region Properties
@@ -61,17 +60,24 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 		public VisualPrefsTabCtrl UI
 		{
-			get;
+			get
+			{
+				if(funcCtrlMaker is null)
+					return new PrefsGenericTreeListerPage();
 
-			private init;
+				if(mapExistingCreatedPages.TryGetValue(Mgr, out VisualPrefsTabCtrl? value))
+					return value;
+
+				return mapExistingCreatedPages[Mgr] = funcCtrlMaker(Mgr);
+			}
 		}
 
 		public System.Collections.Generic.IReadOnlyList<VisualPrefsTreeData> Children => ocChildren;
 	#endregion
 
 	#region Methods
-		public static void RegisterDataEditorCtrlType(in System.Type typeOfMgr, in System.Func<DataAndExt.Prefs
-			.AbstractMgr, VisualPrefsTabCtrl> funcCtrlMaker)
+		public static void RegisterDataEditorCtrlType(in System.Type typeOfMgr, in System.Func<DataAndExt.Prefs.AbstractMgr,
+			VisualPrefsTabCtrl> funcCtrlMaker)
 		{
 			if(!typeOfMgr.IsDerivedFrom(typeof(DataAndExt.Prefs.AbstractMgr)))
 				throw new System.ArgumentException("When calling BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType, the" +

@@ -9,7 +9,10 @@ public partial class PrefsWnd : Avalonia.Controls.Window
 		{
 			InitializeComponent();
 
-			treeMain.ItemsSource = Platform.UI.Desktop.Prefs.RootPrefs.Instance.ChildMgrByName;
+			treeMain.ItemsSource = new System.Collections.Generic.List<Platform.UI.Desktop.Prefs.VisualPrefsTreeData>()
+				{
+					new(Platform.UI.Desktop.Prefs.RootPrefs.Instance),
+				};
 		}
 	#endregion
 

@@ -1,8 +1,8 @@
-﻿namespace BestChat.Platform.DataAndExt.Prefs
+﻿namespace BestChat.Platform.DataAndExt.Prefs;
+
+public class GlobalAppearanceMsgGroupsPrefs : Prefs.AbstractChildMgr
 {
-	public class GlobalAppearanceMsgGroupsPrefs : Prefs.AbstractChildMgr
-	{
-		#region Constructors & Deconstructors
+	#region Constructors & Deconstructors
 		public GlobalAppearanceMsgGroupsPrefs(GlobalAppearancePrefsBase mgrParent) :
 			base(mgrParent, "Message Groups", Rsrcs.strGlobalAppearanceMsgGroupsTitle, Rsrcs
 				.strGlobalAppearanceMsgGroupsDesc)
@@ -43,21 +43,21 @@
 					.strGlobalAppearanceMsgGroupsMaxMsgsPerGroupDesc, 20, dto.MaxMsgsPerGroup,
 				iMinVal: 2);
 		}
-		#endregion
+	#endregion
 
-		#region Delegates
-		#endregion
+	#region Delegates
+	#endregion
 
-		#region Events
-		#endregion
+	#region Events
+	#endregion
 
-		#region Constants
-		#endregion
+	#region Constants
+	#endregion
 
-		#region Helper Types
-		#endregion
+	#region Helper Types
+	#endregion
 
-		#region Members
+	#region Members
 		private readonly Item<bool> enabled;
 
 		private readonly Item<System.TimeSpan?> howLongToWaitBeforeStartingNewGroup;
@@ -65,9 +65,9 @@
 		private readonly Item<bool> limitMsgsPerGroup;
 
 		private readonly IntItem maxMsgsPerGroup;
-		#endregion
+	#endregion
 
-		#region Properties
+	#region Properties
 		public Item<bool> Enabled
 			=> enabled;
 
@@ -79,9 +79,9 @@
 
 		public IntItem MaxMsgsPerGroup
 			=> maxMsgsPerGroup;
-		#endregion
+	#endregion
 
-		#region Methods
+	#region Methods
 		public DTO.PrefsDTO.GlobalDTO.AppearanceDTO.MsgGroupsDTO ToDTO()
 			=> new(
 				enabled.CurVal,
@@ -89,9 +89,8 @@
 				maxMsgsPerGroup.CurVal,
 				howLongToWaitBeforeStartingNewGroup.CurVal
 			);
-		#endregion
+	#endregion
 
-		#region Event Handlers
-		#endregion
-	}
+	#region Event Handlers
+	#endregion
 }

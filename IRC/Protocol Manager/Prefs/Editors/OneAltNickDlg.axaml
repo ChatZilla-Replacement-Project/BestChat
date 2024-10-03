@@ -2,6 +2,43 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Prefs"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:GlobalAltNicksOneAltNickEditable"
 				mc:Ignorable="d"
-        x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAltNickEdtorDlg">
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAltNickDlg">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel>
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Here you can specify a series of alternate nicks to use if your preferred choice is unavailable.  You don’t need to list your default nick.  In fact, that’s invalid in this list.  Please note, the order is important.  Best Chat tries the alternates in the order listed.  This list might also be overridden in the various networks you’ve connected to in the past."/>
+		<Separator DockPanel.Dock="Top"/>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							IsVisible="{Binding WereChangesMade}"
+							IsEnabled="{Binding IsValid}"
+							Content="OK"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding WereChangesMade}"
+							Content="Cancel"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !WereChangesMade}"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"/>
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto">
+			<Label HorizontalContentAlignment="Right"
+						Content="Nick to Use:"/>
+			<TextBlock Grid.Column="2" Text="{Binding NickToUse, Mode=TwoWay}"></TextBlock>
+		</Grid>
+	</DockPanel>
 </Window>

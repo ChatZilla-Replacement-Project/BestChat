@@ -9,22 +9,30 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 	System.Collections.Generic.IReadOnlyCollection<TypeOfElement>
 {
 	#region Constructors & Deconstructors
-		public ReorderableListItem(in AbstractMgr mgrParent, in string strItemName, in string
-				strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic
-				.IEnumerable<TypeOfElement> def) :
+	/* ReSharper disable once InconsistentNaming */
+	public ReorderableListItem(in AbstractMgr mgrParent, /* ReSharper disable once InconsistentNaming */ in string
+		strItemName, in string strLocalizedName,  /* ReSharper disable once InconsistentNaming */ in string
+		strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def) :
 			base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
-			this.def = def;
+			Def = def;
 			rlistEntries = new(def);
+
+			rlistEntries.evtCtntsChanged += OnCtntsOfInnerListChanged;
+
+			DefTester = TestCurValForDef;
 		}
 
-		public ReorderableListItem(in AbstractMgr mgrParent, in string strItemName, in string
-				strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic
-				.IEnumerable<TypeOfElement> def, System.Collections.Generic.IEnumerable<TypeOfElement> val)
-			: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
+		public ReorderableListItem(in AbstractMgr mgrParent, /* ReSharper disable once InconsistentNaming */ in string
+				strItemName, in string strLocalizedName, /* ReSharper disable once InconsistentNaming */ in string
+				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def, System.Collections.Generic
+				.IEnumerable<TypeOfElement> val) :
+			base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
-			this.def = def;
+			Def = def;
 			rlistEntries = new(val);
+
+			DefTester = TestCurValForDef;
 		}
 	#endregion
 
@@ -35,8 +43,8 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler?
 			CollectionChanged;
 
-		public event DCollectionFieldChanged<System.Collections.Generic
-			.IReadOnlyCollection<TypeOfElement>>? evtEntriesChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyCollection<TypeOfElement>, TypeOfElement>?
+			evtEntriesChanged;
 	#endregion
 
 	#region Constants
@@ -46,14 +54,33 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 	#endregion
 
 	#region Members
-		public readonly System.Collections.Generic.IEnumerable<TypeOfElement> def;
-
 		private readonly Collections.ReorderableList<TypeOfElement> rlistEntries;
 
 		private TypeOfElement[]? backedUpVal = null;
 	#endregion
 
 	#region Properties
+		public System.Collections.Generic.IEnumerable<TypeOfElement> Def
+		{
+			get;
+
+			private init;
+		}
+
+		public System.Func<System.Collections.Generic.IEnumerable<TypeOfElement>, bool> DefTester
+		{
+			get;
+
+			set;
+		}
+
+		public System.Action? ResetToDefMethod
+		{
+			get;
+
+			init;
+		} = null;
+
 		public override string ValAsText
 			=> string.Join(',', rlistEntries);
 
@@ -67,10 +94,13 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 			=> false;
 
 		public override bool IsDefaulted
-			=> rlistEntries.SequenceEqual(def);
+			=> rlistEntries.SequenceEqual(Def);
 
 		public override bool IsReadyToEdit
-			=> backedUpVal != null && backedUpVal.Length > 0;
+			=> backedUpVal is
+				{
+					Length: > 0,
+				};
 	#endregion
 
 	#region Methods
@@ -88,11 +118,67 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
+			evtEntriesChanged?.Invoke(this, this, [itemNew, ]);
+		}
+
+		public void Prepend(TypeOfElement itemNew)
+		{
+			if(!IsReadyToEdit)
+				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
+
+			if(rlistEntries.Contains(itemNew))
+				return;
+
+			rlistEntries.AddFirst(itemNew);
+
+			OnNewEntry(itemNew);
+
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
+				.NotifyCollectionChangedAction.Add));
+			evtEntriesChanged?.Invoke(this, this, [itemNew, ]);
+
 		}
 
 		public void Add(TypeOfElement itemNew)
 			=> Append(itemNew);
+
+		public void AddBefore(TypeOfElement itemExisting, TypeOfElement itemNew)
+		{
+			if(!IsReadyToEdit)
+				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
+
+			if(rlistEntries.Contains(itemNew))
+				return;
+
+			System.Collections.Generic.LinkedListNode<TypeOfElement> llnitemExisting = rlistEntries.Find(itemExisting) ??
+				throw new System.InvalidProgramException("Can't find the item specified in this list.");
+
+			rlistEntries.AddBefore(llnitemExisting, itemNew);
+
+			OnNewEntry(itemNew);
+
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
+			evtEntriesChanged?.Invoke(this, this, [itemNew,]);
+		}
+
+		public void AddAfter(TypeOfElement itemExisting, TypeOfElement itemNew)
+		{
+			if(!IsReadyToEdit)
+				throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
+
+			if(rlistEntries.Contains(itemNew))
+				return;
+
+			System.Collections.Generic.LinkedListNode<TypeOfElement> llnitemExisting = rlistEntries.Find(itemExisting) ??
+				throw new System.InvalidProgramException("Can't find the item specified in this list.");
+
+			rlistEntries.AddAfter(llnitemExisting, itemNew);
+
+			OnNewEntry(itemNew);
+
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
+			evtEntriesChanged?.Invoke(this, this, [itemNew,]);
+		}
 
 		public void MoveEntryUp(TypeOfElement entryToMove)
 		{
@@ -102,9 +188,7 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 			if(!rlistEntries.MoveEntryUp(entryToMove))
 				return;
 
-			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
-				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
+			CollectionChanged?.Invoke(this, new(System.Collections.Specialized.NotifyCollectionChangedAction.Add));
 		}
 
 		public void MoveEntryDown(TypeOfElement entryToMove)
@@ -117,7 +201,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
 		}
 
 		public void MoveEntryToTop(TypeOfElement entryToMove)
@@ -130,7 +213,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
 		}
 
 		public void MoveEntryToBottom(TypeOfElement entryToMove)
@@ -143,7 +225,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Add));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.add);
 		}
 
 		public void Clear()
@@ -161,7 +242,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Remove));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
 		}
 
 		public bool Contains(TypeOfElement itemToLookFor)
@@ -182,7 +262,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Remove));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.removed);
 
 			return true;
 		}
@@ -225,7 +304,6 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			CollectionChanged?.Invoke(this, new(System.Collections.Specialized
 				.NotifyCollectionChangedAction.Reset));
-			evtEntriesChanged?.Invoke(this, this, CollectionChangeType.other);
 		}
 
 		internal override void RevertEdits()
@@ -242,8 +320,41 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 
 			backedUpVal = null;
 		}
+
+		private bool TestCurValForDef(System.Collections.Generic.IEnumerable<TypeOfElement> entries)
+			=> entries.SequenceEqual(Def);
+
+		public void ResetValToDef()
+		{
+			if(ResetToDefMethod == null)
+			{
+				foreach(TypeOfElement entryCur in rlistEntries)
+					OnEntryRemoved(entryCur);
+
+				rlistEntries.Clear();
+
+				foreach(TypeOfElement entryCur in Def)
+					Add(entryCur);
+			}
+			else
+				ResetToDefMethod();
+		}
 	#endregion
 
 	#region Event Handlers
-	#endregion
+		private void OnCtntsOfInnerListChanged(in Collections.ReorderableList<TypeOfElement> sender, in System.Collections
+				.Generic.IReadOnlyCollection<TypeOfElement>? newEntries, in System.Collections.Generic
+				.IReadOnlyCollection<System.Tuple<int, TypeOfElement>>? removedEntries, in System.Collections.Generic
+				.IReadOnlyCollection<System.Tuple<int, int, TypeOfElement>>? changedEntries)
+			=> evtEntriesChanged?.Invoke
+			(
+				this,
+				rlistEntries,
+				newEntries,
+				removedEntries?.Select(tupleCur
+					=> tupleCur.Item2),
+				changedEntries?.Select(tupleCur
+					=> tupleCur.Item3)
+			);
+		#endregion
 }

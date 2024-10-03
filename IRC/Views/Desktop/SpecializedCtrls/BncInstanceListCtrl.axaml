@@ -6,7 +6,7 @@
 								xmlns:data="using:BestChat.IRC.Data.Defs"
 								x:DataType="data:BncEditable"
 								mc:Ignorable="d"
-								x:Class="BestChat.IRC.Views.Desktop.BncInstanceListCtrl">
+								x:Class="BestChat.IRC.Views.Desktop.SpecializedCtrls.BncInstanceListCtrl">
 	<DockPanel>
 		<Label DockPanel.Dock="Top"
 					 Content="Instances are the specific bouncer that you access.  You'll need at least one"/>

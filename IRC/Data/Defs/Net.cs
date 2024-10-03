@@ -67,9 +67,9 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 	#region Events
 		public event DFieldChanged<string>? evtNameChanged;
 		public event DFieldChanged<System.Uri?>? evtHomepageChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, NetServerInfo>>?
-			evtServersSortedByNameChanged;
-		public event DCollectionFieldChanged<System.Collections.Generic.IEnumerable<string>>?
+		public event DMapFieldChanged<System.Collections.Generic.IReadOnlyDictionary<string, NetServerInfo>, string,
+			NetServerInfo>? evtServersSortedByNameChanged;
+		public event DCollectionFieldChanged<System.Collections.Generic.IReadOnlyCollection<string>, string>?
 			evtEnabledServerDomainsInSearchOrder;
 		public event DFieldChanged<NickServOpts?>? evtNickServChanged;
 		public event DFieldChanged<ChanServOpts?>? evtChanServChanged;
@@ -166,17 +166,17 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 				orderby curServer.Domain
 				select curServer;
 
-		public System.Collections.Generic.IEnumerable<string> EnabledServerDomainsInSearchOrder
-			=> 
-				from NetServerInfo curServer in mapServers.Values
-				where curServer.IsEnabled
-				select curServer.Domain;
-
-		public System.Collections.Generic.IEnumerable<NetServerInfo> EnabledServersInSearchOrder
+		public System.Collections.Generic.IReadOnlyCollection<string> EnabledServerDomainsInSearchOrder
 			=>
-				from NetServerInfo curServer in mapServers.Values
+				[.. (from NetServerInfo curServer in mapServers.Values
 				where curServer.IsEnabled
-				select curServer;
+				select curServer.Domain),];
+
+		public System.Collections.Generic.IReadOnlyCollection<NetServerInfo> EnabledServersInSearchOrder
+			=>
+				[.. (from NetServerInfo curServer in mapServers.Values
+				where curServer.IsEnabled
+				select curServer),];
 
 		public System.Collections.Generic.IReadOnlyCollection<NetServerInfo> AllUnsortedServers
 			=> mapServers.Values;
@@ -422,18 +422,23 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 			evtHomepageChanged?.Invoke(this, uriOldHomepage, uriHomepage);
 		}
 
-		protected void FireServersSortedByNameChanged(in CollectionChangeType howTheCollectionChanged)
+		protected void FireServersSortedByNameChanged(in System.Collections.Generic.IEnumerable<string>? eNewKeys = null, in
+			System.Collections.Generic.IEnumerable<System.Tuple<string, NetServerInfo>>? eRemovedKeys = null, in System.Collections.Generic
+			.IEnumerable<System.Tuple<string, string, NetServerInfo>>? eChangedKeys = null)
 		{
 			FirePropChanged(nameof(ServersSortedByName));
 
-			evtServersSortedByNameChanged?.Invoke(this, mapServers, howTheCollectionChanged);
+			evtServersSortedByNameChanged?.Invoke(this, mapServers, eNewKeys, eRemovedKeys, eChangedKeys);
 		}
 
-		protected void FireEnabledServerDomainsInSearchOrderChanged(in CollectionChangeType howThCollectionChanged)
+		protected void FireEnabledServerDomainsInSearchOrderChanged(in System.Collections.Generic.IEnumerable<string>?
+			eNewKeys = null, in System.Collections.Generic.IEnumerable<string>? eRemovedKeys = null, in System.Collections
+			.Generic.IEnumerable<string>? eRelocatedItems = null)
 		{
 			FirePropChanged(nameof(EnabledServerDomainsInSearchOrder));
 
-			evtEnabledServerDomainsInSearchOrder?.Invoke(this, EnabledServerDomainsInSearchOrder, howThCollectionChanged);
+			evtEnabledServerDomainsInSearchOrder?.Invoke(this, EnabledServerDomainsInSearchOrder, eNewKeys, eRemovedKeys,
+				eRelocatedItems);
 		}
 
 		protected void FireNickServChanged(in NickServOpts? oldNickServ)
@@ -471,10 +476,10 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 
 			mapServers[server.Domain] = server;
 
-			FireServersSortedByNameChanged(CollectionChangeType.add);
+			FireServersSortedByNameChanged([server.Domain,]);
 
 			server.evtIsEnabledChanged += OnServerEnabledStateChanged;
-			FireEnabledServerDomainsInSearchOrderChanged(CollectionChangeType.changed);
+			FireEnabledServerDomainsInSearchOrderChanged(eRelocatedItems: []);
 
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
@@ -486,19 +491,21 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 
 			mapServers.Remove(server.Domain);
 
-			FireServersSortedByNameChanged(CollectionChangeType.removed);
-			FireEnabledServerDomainsInSearchOrderChanged(CollectionChangeType.changed);
+			FireServersSortedByNameChanged([server.Domain,]);
+			FireEnabledServerDomainsInSearchOrderChanged(eRelocatedItems: []);
 
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
 
 		protected void ClearServerDomainList()
 		{
+			System.Collections.Generic.IReadOnlyDictionary<string, NetServerInfo> servermapsOldCtnts = mapServers;
+
 			mapServers.Clear();
 
 			MakeDirty();
 
-			FireEnabledServerDomainsInSearchOrderChanged(CollectionChangeType.changed);
+			FireEnabledServerDomainsInSearchOrderChanged(eRemovedKeys: servermapsOldCtnts.Keys);
 
 			FirePropChanged(nameof(IsServerListDefaulted));
 		}
@@ -560,6 +567,6 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 
 	#region Event Handlers
 		private void OnServerEnabledStateChanged(in NetServerInfo objSender, in bool bNewVal)
-			=> FireEnabledServerDomainsInSearchOrderChanged(CollectionChangeType.changed);
+			=> FireEnabledServerDomainsInSearchOrderChanged(eRelocatedItems: [objSender.Domain, ]);
 	#endregion
 }

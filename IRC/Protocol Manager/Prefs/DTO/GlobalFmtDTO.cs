@@ -1,5 +1,5 @@
-﻿namespace BestChat.IRC.ProtocolMgr.Prefs.DTO
-{
+﻿namespace BestChat.IRC.ProtocolMgr.Prefs.DTO;
+
 public record GlobalFmtDTO
 (
 	bool Bold,
@@ -8,6 +8,5 @@ public record GlobalFmtDTO
 	bool StrikeThrough,
 	bool TeleType,
 	bool MircColors,
-	GlobalPrefs.FmtPrefs.MarkerTypes MarkerType
+	GlobalFmtPrefs.MarkerTypes MarkerType
 );
-}

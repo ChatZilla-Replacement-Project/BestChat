@@ -15,7 +15,6 @@ public abstract record PrefsDTO
 		(
 			AppearanceDTO.ConfModeDTO ConfMode,
 			AppearanceDTO.TimeStampDTO TimeStamp,
-			AppearanceDTO.UserListDTO UserList,
 			AppearanceDTO.MsgGroupsDTO MsgGroups
 		) : AbstractMgr.AbstractDTO("Global/Appearance")
 		{
@@ -32,24 +31,18 @@ public abstract record PrefsDTO
 				bool Show = true,
 				string Fmt = "G",
 				string? KeyOverride = null,
-				PrefsBase.GlobalPrefs.TimeStampPrefs.HowOftenToRepeatOpts HowOftenToRepeat = PrefsBase.GlobalPrefs
-					.TimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds
+				GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts HowOftenToRepeat =
+					GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds
 			) : AbstractMgr.AbstractDTO(KeyOverride ?? "Global/Appearance/TimeStamp");
 
-			public record UserListDTO
-			(
-				PaneLocations Loc = PaneLocations.left,
-				WaysToShowUserModes HowToShowModes = WaysToShowUserModes.symbols,
-				bool SortByMode = true
-			) : AbstractMgr.AbstractDTO("Global/Appearance/UserList");
-
+			// ReSharper disable once InconsistentNaming
 			public record MsgGroupsDTO
 			(
 				bool Enabled,
 				bool LimitMsgsPerGroup,
 				int MaxMsgsPerGroup,
 				System.TimeSpan? HowLongToWaitBeforeStartingNewGroup = null
-			);
+			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/MsgGroups");
 		}
 
 		public abstract AppearanceDTO BaseAppearance
@@ -62,21 +55,34 @@ public abstract record PrefsDTO
 			PluginsDTO.ExtDTO Ext
 		) : AbstractMgr.AbstractDTO("Global/Plugins")
 		{
-			public record ExtDTO 
+			public record ExtDTO
 			(
 				ExtDTO.WhereToLookDTO WhereToLook,
 				ExtDTO.ScriptEntryDTO[]? Scripts = null,
 				ExtDTO.ProgramEntryDTO[]? Programs = null
 			) : AbstractMgr.AbstractDTO("Global/Plugins/Ext")
 			{
-				public record WhereToLookDTO(System.IO.DirectoryInfo[]? Paths = null, bool IncludeSysPaths =
-					true);
+				public record WhereToLookDTO
+				(
+					System.IO.DirectoryInfo[]? Paths = null,
+					bool IncludeSysPaths = true
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/WhereToLook");
 
-				public record ScriptEntryDTO(string FileNameExtOrMask, System.IO.FileInfo? ProgramNeeded,
-					string ParamsToPass, bool Enabled);
+				public record ScriptEntryDTO
+				(
+					string FileNameExtOrMask,
+					System.IO.FileInfo? ProgramNeeded,
+					string ParamsToPass,
+					bool Enabled
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/Script");
 
-				public record ProgramEntryDTO(string Name, System.IO.FileInfo Program, string ParamsToPass,
-					bool Enabled);
+				public record ProgramEntryDTO
+				(
+					string Name,
+					System.IO.FileInfo Program,
+					string ParamsToPass,
+					bool Enabled
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/Program");
 			}
 		}
 	}
