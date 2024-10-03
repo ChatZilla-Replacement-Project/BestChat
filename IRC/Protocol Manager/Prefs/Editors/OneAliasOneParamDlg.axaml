@@ -1,0 +1,40 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Prefs"
+				xmlns:specializedPrefsCtrls="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:GlobalAliasesOneAliasOneNamedParamEditable"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasOnePositionalParamDlg">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Each parameter must have a unique name within that alias.  You also need to specify the type of the parameter.  Best Chat makes no assumptions on the type you need."/>
+		<Separator Margin="0,4"/>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							IsVisible="{Binding WereChangesMade}"
+							IsEnabled="{Binding IsValid}"
+							Content="OK"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding WereChangesMade}"
+							Content="Cancel"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !WereChangesMade}"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"/>
+		<Da
+	</DockPanel>
+</Window>

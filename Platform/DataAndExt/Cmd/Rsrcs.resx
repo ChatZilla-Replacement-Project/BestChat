@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="strParamTypeBool" xml:space="preserve">
+    <value>boolean</value>
+  </data>
+  <data name="strParamTypeBoolDesc" xml:space="preserve">
+    <value>This reperesents a value that can be either true or false.  No other values are allowed.  Use this instead of swtich f you intend to pass a property as the value.</value>
+  </data>
+  <data name="strParamTypeDateOnly" xml:space="preserve">
+    <value>date only</value>
+  </data>
+  <data name="strParamTypeDateOnlyDesc" xml:space="preserve">
+    <value>Allows for a date to be entered.  Values are parsed if not already a .NET DateOnly value.</value>
+  </data>
+  <data name="strParamTypeDateTime" xml:space="preserve">
+    <value>date and time</value>
+  </data>
+  <data name="strParamTypeDateTImeDesc" xml:space="preserve">
+    <value>This combines a date with a time.  Values not already a .NET DateTime value will be parsed.</value>
+  </data>
+  <data name="strParamTypeDecimal" xml:space="preserve">
+    <value>decimal</value>
+  </data>
+  <data name="strParamTypeDecimalDesc" xml:space="preserve">
+    <value>This is like a floating point number, but allows for more precision as decimal values don't suffer precision errors.  Most of this time, it won't matter if a command uses decimal or floating point, but it might sometimes.  Decimal values are backed by .NET's decimal type.</value>
+  </data>
+  <data name="strParamTypeFloatingPoint" xml:space="preserve">
+    <value>floating point</value>
+  </data>
+  <data name="strParamTypeFloatingPointDesc" xml:space="preserve">
+    <value>Similar to a decimal value, but backed by .NET's double type.  For most uses, it won't matter which a command uses.  However, a floating point value might be slightly faster.</value>
+  </data>
+  <data name="strParamTypeInt" xml:space="preserve">
+    <value>integer</value>
+  </data>
+  <data name="strParamTypeIntDesc" xml:space="preserve">
+    <value>All intenger values are limited to digits with the option of a leading plus or minus sign.  Commands using this type can limit the range.</value>
+  </data>
+  <data name="strParamTypeStr" xml:space="preserve">
+    <value>string</value>
+  </data>
+  <data name="strParamTypeStrDesc" xml:space="preserve">
+    <value>Strings contain text and include the rest of the line.  However, if you see a string parameter represented by a box, the value will end at the end of the box.  This allows for a command to have multiple string parameters.</value>
+  </data>
+  <data name="strParamTypeSwitch" xml:space="preserve">
+    <value>switch</value>
+  </data>
+  <data name="strParamTypeSwitchDesc" xml:space="preserve">
+    <value>Unlike boolean parameters, switches are either present or not present.  The code implementing the command can treat a switch as a boolean, but otherwise, they behave differently.  Switches aren't available in aliases as there's no way to evalaute the value.</value>
+  </data>
+  <data name="strParamTypeTimeOnly" xml:space="preserve">
+    <value>time only</value>
+  </data>
+  <data name="strParamTypeTimeOnlyDesc" xml:space="preserve">
+    <value>Similar to how date only parameters allow the date to be passed ignoring the time, time only parameters let you pass only a time.  Values not already in .NET's TimeOnly type will be parsed.</value>
+  </data>
+  <data name="strParamTypeTimeSpan" xml:space="preserve">
+    <value>time span</value>
+  </data>
+  <data name="strParamTypeTimeSpanDesc" xml:space="preserve">
+    <value>Represents an amount of time.  Values not already in .NET's TimeSpan type will be parsed.</value>
+  </data>
+  <data name="strParamTypeWord" xml:space="preserve">
+    <value>word</value>
+  </data>
+  <data name="strParamTypeWordDesc" xml:space="preserve">
+    <value>A word is like the string, but ends with the first white space.  Unlike the English version of the term "word", here, a word can include non-whitespace.</value>
+  </data>
+</root>

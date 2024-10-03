@@ -1,0 +1,46 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Prefs"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:GlobalAliasesOneAliasEditable"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasEditorDlg">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel>
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock">
+			You will need to choose a unique name.  The exception to that is if you’re editing an alias for a network or channel.  In that case, the name must be unique in that network or channel list of aliases.  If you specify a name that’s inherited, Best Chat will disable the inherited alias and use only your new alias.  This isn't an option if you’re editing an alias.<LineBreak/><LineBreak/>Best Chat will assist you in editing the command field.  This helps with all the parameters.  It also helps with selecting a command to run.
+		</TextBlock>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							IsVisible="{Binding WereChangesMade}"
+							IsEnabled="{Binding IsValid}"
+							Content="OK"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding WereChangesMade}"
+							Content="Cancel"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !WereChangesMade}"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto,4,Auto">
+			<Label Content="Name of this alias:"/>
+			<TextBox Grid.Column="2"
+							Text="{Binding Name, Mode=TwoWay}"/>
+			<Label Grid.Row="2"
+						Content="What to run"/>
+			<!-- TODO: Find a way to edit the command -->
+		</Grid>
+	</DockPanel>
+</Window>
