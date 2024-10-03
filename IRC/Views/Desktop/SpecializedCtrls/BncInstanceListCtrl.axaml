@@ -1,0 +1,63 @@
+<group:GroupBox xmlns="https://github.com/avaloniaui"
+								xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+								xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+								xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+								xmlns:group="using:GroupBox.Avalonia.Controls"
+								xmlns:data="using:BestChat.IRC.Data.Defs"
+								x:DataType="data:BncEditable"
+								mc:Ignorable="d"
+								x:Class="BestChat.IRC.Views.Desktop.SpecializedCtrls.BncInstanceListCtrl">
+	<DockPanel>
+		<Label DockPanel.Dock="Top"
+					 Content="Instances are the specific bouncer that you access.  You'll need at least one"/>
+		<StackPanel DockPanel.Dock="Right"
+								VerticalAlignment="Center"
+								Orientation="Vertical"
+								Spacing="4">
+			<Button x:Name="btnAdd"
+							Content="Add…"
+							Click="OnAddInstanceClicked"/>
+			<Button x:Name="btnEdit"
+							Content="Edit…"
+							Click="OnEditInstanceClicked"/>
+			<Button x:Name="btnDelClicked"
+							Content="Delete"
+							Click="OnDelInstanceClicked"/>
+		</StackPanel>
+		<DataGrid x:Name="dg"
+							ItemsSource="{Binding AllInstancesByName.Values}"
+							CanUserReorderColumns="False"
+							CanUserResizeColumns="True"
+							CanUserSortColumns="True"
+							GridLinesVisibility="Horizontal"
+							HorizontalScrollBarVisibility="Hidden"
+							IsReadOnly="True"
+							SelectionMode="Extended"
+							AutoGenerateColumns="False"
+							HeadersVisibility="Column">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Name"
+														IsReadOnly="True"
+														Binding="{Binding Name}"
+														CanUserResize="True"
+														CanUserSort="True"/>
+				<DataGridTextColumn Header="Assigned Server"
+														IsReadOnly="True"
+														Binding="{Binding AssignedServer.Name, FallbackValue=''}"
+														CanUserResize="True"
+														CanUserSort="True"/>
+				<DataGridTemplateColumn Header="Associated Networks"
+																IsReadOnly="True"
+																CanUserResize="True"
+																CanUserSort="True">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"
+												 TextTrimming="CharacterEllipsis"
+												 ToolTip.Tip="{Binding}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>	</DockPanel>
+</group:GroupBox>

@@ -1,0 +1,49 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:local="using:BestChat.IRC.ProtocolMgr"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="local:AliasImportFailureDlg"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.AliasImportFailureDlg">
+	<DockPanel Margin="4">
+		<Button x:Name="btnClose"
+						DockPanel.Dock="Bottom"
+						ToolTip.Tip="Click to acknowledge and close this window."
+						HorizontalAlignment="Center"
+						Content="Close"
+						IsDefault="True"
+						Click="OnCloseClicked"/>
+		<Separator DockPanel.Dock="Bottom"
+							Margin="0,4"/>
+		<TextBlock DockPanel.Dock="Top"
+							IsVisible="{calc:Binding 'AliasesSuccessfullyImported &gt; 0'}"
+							TextAlignment="Justify"
+							TextWrapping="Wrap">
+			Some errors, as listed below, were encountered.  However,
+			<Span>
+				<Run Text="{Binding AliasesSuccessfullyImported}"/>
+			</Span>
+			aliases were successfully imported.
+		</TextBlock>
+		<TextBlock DockPanel.Dock="Top"
+							IsVisible="{calc:Binding 'AliasesSuccessfullyImported == 0'}"
+							TextWrapping="Wrap"
+							TextAlignment="Justify"
+							Text="Best Chat was unable to import any aliases due to the errors below."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<ItemsRepeater ItemsSource="{Binding Errors}">
+			<ItemsRepeater.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Vertical">
+						<Label Content="{Binding Key}"/>
+						<ItemsRepeater Margin="10,0,0,4"
+													ItemsSource="{Binding Value}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ItemsRepeater.ItemTemplate>
+		</ItemsRepeater>
+	</DockPanel>
+</Window>

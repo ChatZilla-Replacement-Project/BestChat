@@ -1,0 +1,125 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				x:DataType="data:PredefinedNet"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.Views.Desktop.PredefinedNetViewerDlg"
+				SizeToContent="WidthAndHeight"
+				WindowStartupLocation="CenterOwner"
+				Focusable="True"
+				ShowActivated="True">
+	<DockPanel>
+			<Button DockPanel.Dock="Bottom"
+							HorizontalAlignment="Right"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		<Separator
+			DockPanel.Dock="Bottom"
+			VerticalAlignment="Center"
+			Margin="0,8" />
+		<Grid DockPanel.Dock="Left"
+					ColumnDefinitions="Auto,4,Auto"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+			<Label
+				Content="Name: "
+				HorizontalContentAlignment="Right" />
+			<Label
+				Content="{Binding Name}"
+				Grid.Column="2" />
+			<Label
+				Content="Homepage: "
+				Grid.Row="2"
+				HorizontalContentAlignment="Right" />
+			<Button
+				x:Name="btnHomepageLink"
+				Grid.Row="2"
+				Grid.Column="2"
+				BorderThickness="0"
+				Background="Transparent"
+				ToolTip.Tip="Click to visit this page."
+				Click="OnVisitHomepageClicked"
+				Cursor="Hand"
+				Padding="4"
+				HorizontalAlignment="Left">
+				<HyperlinkButton
+					NavigateUri="{Binding HomePage}"
+					IsEnabled="True"
+					Foreground="Blue"
+					Focusable="True">
+					<TextBlock
+						Text="{Binding HomePage}" />
+				</HyperlinkButton>
+			</Button>
+			<Label
+				Content="NickServ availability: "
+				Grid.Row="4"
+				HorizontalContentAlignment="Right" />
+			<Label
+				Content="{Binding NickServAsText}"
+				Grid.Row="4"
+				Grid.Column="2"
+				ToolTip.Tip="{Binding NickServToolTip}" />
+			<Label
+				Content="ChanServ availability: "
+				Grid.Row="6"
+				HorizontalContentAlignment="Right" />
+			<Label
+				Content="{Binding ChanServAsText}"
+				Grid.Row="6"
+				Grid.Column="2"
+				ToolTip.Tip="{Binding ChanServToolTip}" />
+			<Label
+				Content="Has ALIS: "
+				Grid.Row="8"
+				HorizontalContentAlignment="Right" />
+			<Label
+				Content="{Binding HasAlisAsText}"
+				Grid.Row="8"
+				Grid.Column="2"
+				ToolTip.Tip="{Binding HasAlisToolTip}" />
+			<Label
+				Content="Has Q: "
+				Grid.Row="10"
+				HorizontalContentAlignment="Right" />
+			<Label
+				Content="{Binding QStatusAsText}"
+				Grid.Row="10"
+				Grid.Column="2"
+				ToolTip.Tip="{Binding QStatusToolTip}" />
+		</Grid>
+		<Rectangle DockPanel.Dock="Left"
+							 Fill="Gray"
+							 Width="2"
+							 Margin="0,4"/>
+		<Label
+			DockPanel.Dock="Top"
+			HorizontalAlignment="Center"
+			Content="Known Servers:" />
+		<DataGrid
+			CanUserReorderColumns="False"
+			CanUserResizeColumns="False"
+			CanUserSortColumns="False"
+			GridLinesVisibility="Vertical"
+			ItemsSource="{Binding AllUnsortedServers}">
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Header="Domain Name"
+					IsReadOnly="True"
+					CanUserSort="True"
+					Binding="{Binding Domain}" />
+				<DataGridTextColumn
+					Header="Ports"
+					IsReadOnly="True"
+					CanUserSort="True"
+					Binding="{Binding PortsAsText}" />
+				<DataGridTextColumn
+					Header="SSL Ports"
+					IsReadOnly="True"
+					CanUserSort="True"
+					Binding="{Binding SslPortsAsText}" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>
+</Window>

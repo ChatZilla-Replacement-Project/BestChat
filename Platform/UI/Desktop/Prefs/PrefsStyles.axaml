@@ -1,0 +1,113 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<!-- Add Controls for Previewer Here -->
+		</Border>
+	</Design.PreviewWith>
+
+	<Style Selector="Span.FixedWidthHilight">
+		<Setter Property="Background"
+						Value="Gray"/>
+		<Setter Property="FontFamily"
+						Value="Courier New"/>
+	</Style>
+
+	<Style Selector="TextBlock.InfoTextBlock">
+		<Setter Property="Foreground"
+						Value="Green"/>
+		<Setter Property="Background"
+						Value="LightYellow"/>
+		<Setter Property="Padding"
+						Value="4"/>
+		<Setter Property="TextWrapping"
+						Value="Wrap"/>
+		<Setter Property="TextTrimming"
+						Value="CharacterEllipsis"/>
+		<Setter Property="TextAlignment"
+						Value="Justify"/>
+	</Style>
+
+	<Style Selector="Button.ResetBtn">
+		<Setter Property="Content">
+			<Setter.Value>
+				<Image>
+					<Image.Source>
+						<DrawingImage>
+							<DrawingImage.Drawing>
+								<DrawingGroup>
+									<DrawingGroup.ClipGeometry>
+										<RectangleGeometry Rect="0.0,0.0,26.546875,11.990984"/>
+									</DrawingGroup.ClipGeometry>
+									<DrawingGroup Transform="1.0,0.0,0.0,1.0,-2.7265625,-27.604719">
+										<DrawingGroup>
+											<GeometryDrawing Brush="#ff000000">
+												<GeometryDrawing.Geometry>
+													<PathGeometry Figures="M 17.6406 27.6289 C 12.397 27.3178 6.86244 30.0003 4.48438 36.1055 l 0.931641 0.363281 c 2.22482 -5.7117 7.29825 -8.1306 12.166 -7.8418 c 4.86777 0.288804 9.46129 3.29336 10.7188 8.56055 l 0.972656 -0.232422 c -1.36559 -5.72013 -6.38921 -9.01507 -11.6328 -9.32617 z"/>
+												</GeometryDrawing.Geometry>
+											</GeometryDrawing>
+											<DrawingGroup>
+												<DrawingGroup>
+													<GeometryDrawing Brush="#ff000000">
+														<GeometryDrawing.Geometry>
+															<PathGeometry Figures="M 3.90392 38.975 L 3.14419 34.0375 L 7.80322 35.8523 Z"/>
+														</GeometryDrawing.Geometry>
+													</GeometryDrawing>
+													<GeometryDrawing Brush="#ff000000">
+														<GeometryDrawing.Geometry>
+															<PathGeometry Figures="m 2.72656 33.5176 l 0.935547 6.07812 l 4.80078 -3.84375 z m 0.835938 1.03906 l 3.58203 1.39648 l -3 2.40234 z"/>
+														</GeometryDrawing.Geometry>
+													</GeometryDrawing>
+												</DrawingGroup>
+											</DrawingGroup>
+										</DrawingGroup>
+									</DrawingGroup>
+								</DrawingGroup>
+							</DrawingImage.Drawing>
+						</DrawingImage>
+					</Image.Source>
+				</Image>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="Image.MoveToTopImg">
+		<Setter Property="Source">
+			<Setter.Value>
+				<DrawingImage>
+					<DrawingImage.Drawing>
+						<DrawingGroup>
+							<DrawingGroup.ClipGeometry>
+								<RectangleGeometry Rect="0.0,0.0,22.669917,17.32504"/>
+							</DrawingGroup.ClipGeometry>
+							<DrawingGroup Transform="1.0,0.0,0.0,1.0,-96.592033,-148.42199">
+								<GeometryDrawing Brush="#fc000000">
+									<GeometryDrawing.Geometry>
+										<PathGeometry Figures="m 119.256 165.747 l -22.6637 -0.14418 l 0.0036 -0.70538 l 22.6663 0.14469 z m -12.2365 -1.68155 l -7.82743 -15.6435 h 15.6549 z"
+																	FillRule="Nonzero"/>
+									</GeometryDrawing.Geometry>
+								</GeometryDrawing>
+							</DrawingGroup>
+						</DrawingGroup>
+					</DrawingImage.Drawing>
+				</DrawingImage>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="Image.MoveToBottomImg">
+		<Setter Property="Source"><Setter.Value><DrawingImage><DrawingImage.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<RectangleGeometry Rect="0.0,0.0,22.669933,17.32504"/>
+				</DrawingGroup.ClipGeometry>
+				<DrawingGroup Transform="1.0,0.0,0.0,1.0,-96.592033,-148.42199">
+					<GeometryDrawing Brush="#fc000000">
+						<GeometryDrawing.Geometry>
+							<PathGeometry Figures="m 119.256 148.422 l -22.6637 0.14418 l 0.0036 0.70538 l 22.6663 -0.14469 z m -12.2365 1.68155 l -7.82743 15.6435 h 15.6549 z"
+														FillRule="Nonzero"/>
+						</GeometryDrawing.Geometry>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing></DrawingImage></Setter.Value></Setter>
+	</Style>
+</Styles>

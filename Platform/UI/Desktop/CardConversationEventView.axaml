@@ -1,0 +1,48 @@
+﻿<UserControl
+	x:Class="BestChat.Platform.UI.Desktop.CardConversationEventView"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:conversations="clr-namespace:BestChat.Platform.DataAndExt.Conversations;assembly=BestChat.Platform.DataAndExt"
+	xmlns:sys="using:System"
+	d:DataContext="{d:DesignInstance Type=conversations:IMsgEventInfo, IsDesignTimeCreatable=False}"
+	x:DataType="conversations:IMsgEventInfo"
+	mc:Ignorable="d"
+	SizeChanged="OnSizeChanged">
+	<Grid ColumnDefinitions="Auto,Auto"
+				RowDefinitions="Auto,1*">
+		<ContentControl
+			Content="{Binding SenderIcon}">
+			<ContentControl.DataTemplates>
+				<DataTemplates>
+					<DataTemplate
+						x:DataType="sys:Char">
+						<Label
+							Content="{Binding}" />
+					</DataTemplate>
+					<DataTemplate
+						x:DataType="IImage">
+						<Image
+							Source="{Binding}" />
+					</DataTemplate>
+				</DataTemplates>
+			</ContentControl.DataTemplates>
+		</ContentControl>
+		<Label
+			Grid.Column="1"
+			Content="{Binding Sender}" />
+		<Grid ColumnDefinitions="1*,Auto"
+					RowDefinitions="1*,Auto"
+					Grid.Row="1"
+					Grid.Column="1">
+			<TextBlock
+				x:Name="textDescOfEvent"
+				Text="{ReflectionBinding DescForEvt}" />
+			<Label
+				Content="{Binding WhenItHappened}"
+				Grid.Row="1"
+				Grid.Column="1" />
+		</Grid>
+	</Grid>
+</UserControl>

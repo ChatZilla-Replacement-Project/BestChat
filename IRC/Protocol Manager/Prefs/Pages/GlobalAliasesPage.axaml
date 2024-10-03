@@ -1,0 +1,120 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.IRC.Data.Prefs"
+												xmlns:calc="using:CalcBinding"
+												xmlns:materialIcons="using:Material.Icons.Avalonia"
+												x:DataType="data:GlobalAliasesPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalAliasesPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<DockPanel>
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock">
+			Provides a way for you to change IRC-specific settings.  Some of those override the global Best Chat settings.  Others are unique to IRC.  Most of this functionality is also available via the <Span Classes="FixedWidthHilight">/alias</Span> command.
+		</TextBlock>
+		<Button x:Name="btnResetAllAliases"
+						DockPanel.Dock="Left"
+						Classes="ResetBtn"
+						VerticalAlignment="Center"
+						Click="OnResetAllAliasesClicked"/>
+		<StackPanel DockPanel.Dock="Right"
+								VerticalAlignment="Center"
+								Orientation="Vertical"
+								Spacing="4">
+			<Button x:Name="btnAdd"
+							ToolTip.Tip="Click to create a new alias."
+							Content="Add…"
+							Click="OnAddClicked"/>
+			<Button x:Name="btnEdit"
+							ToolTip.Tip="Click to edit the selected alias.  Available only if you have a single alias selected."
+							IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=dgData}"
+							Content="Edit…"
+							Click="OnEditClicked"/>
+			<Button x:Name="btnDel"
+							ToolTip.Tip="Click to delete the selected alias or aliases.  Available only if you have at least one alias selected.  You’ll be asked if you’re sure you want to delete the alias or aliases."
+							IsEnabled="{calc:Binding 'SelectedItems.Count &lt; 0', ElementName=dgData}"
+							Content="Delete"
+							Click="OnDelClicked"/>
+			<Separator Margin="0,4"/>
+			<DropDownButton ToolTip.Tip="Click to export the selected alias or aliases to either a file or the clipboard.  Available only if you have at least one alias selected."
+											IsEnabled="{calc:Binding 'SelectedItems.Count &gt; 0', ElementName=dgData}">
+				<StackPanel Orientation="Horizontal"
+										Spacing="4">
+					<Label Content="Export"/>
+					<materialIcons:MaterialIcon Kind="Export"/>
+				</StackPanel>
+				<DropDownButton.ContextMenu>
+					<ContextMenu>
+						<MenuItem x:Name="miExportToFile"
+											ToolTip.Tip="Click to export the selected alias or aliases to a file.  The structure of the file and the default name would depend on how many aliases you select.  If you select just one alias, the file structure will be simpler and the default extension will be “.alias.json” with the rest of the file name being the name of the alias.  If you have more than one alias, the JSON will contain an array and the default file extension will be “.aliases.json” with you choosing the rest of the name."
+											Header="Export to a file…"
+											Click="OnExportToFileClicked"/>
+						<MenuItem x:Name="miExportToClipboard"
+											ToolTip.Tip="Click to export the selected alias or aliases to a clipboard.  The structure of the file and the default name would depend on how many aliases you select.  If you select just one alias, the file structure will be simpler.  If you have more than one alias, the JSON will contain an array."
+											Header="Export to the clipboard"
+											Click="OnExportToClipboardClicked"/>
+					</ContextMenu>
+				</DropDownButton.ContextMenu>
+			</DropDownButton>
+			<DropDownButton ToolTip.Tip="Click to import one or more aliases from either one or more files or the clipboard.  Some alias files contain more than one alias.  If you import those, Best Chat will try to import all of them.">
+				<StackPanel Orientation="Horizontal"
+										Spacing="4">
+					<Label Content="Import"/>
+					<materialIcons:MaterialIcon Kind="Import"/>
+				</StackPanel>
+				<DropDownButton.ContextMenu>
+					<ContextMenu>
+						<MenuItem x:Name="miImportFromFile"
+											ToolTip.Tip="Click to import from a file."
+											Header="Import from a file…"
+											Click="OnImportFromFileClicked"/>
+						<MenuItem x:Name="miImportFromClipboard"
+											ToolTip.Tip="Click to import from a file."
+											Header="Import from a file…"
+											Click="OnImportFromClipboardClicked"/>
+					</ContextMenu>
+				</DropDownButton.ContextMenu>
+			</DropDownButton>
+		</StackPanel>
+		<DataGrid x:Name="dgData"
+							DragDrop.AllowDrop="True"
+							CanUserReorderColumns="True"
+							CanUserResizeColumns="True"
+							CanUserSortColumns="True"
+							GridLinesVisibility="Vertical"
+							ItemsSource="{Binding Entries.Values}"
+							SelectionMode="Extended"
+							HorizontalScrollBarVisibility="Hidden"
+							LoadingRow="OnLoadingRowInGrid"
+							UnloadingRow="OnUnloadingRowInGrid">
+			<DataGrid.Columns>
+				<DataGridTextColumn CanUserReorder="True"
+														CanUserResize="True"
+														CanUserSort="True"
+														Header="Name"
+														Binding="{Binding Name}"/>
+				<DataGridTemplateColumn CanUserReorder="True"
+																CanUserResize="True"
+																CanUserSort="True"
+																Header="What happens">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate DataType="data:GlobalAliasesOneAlias">
+							<TextBlock TextTrimming="CharacterEllipsis"
+												Text="{Binding WhatToRun}">
+								<ToolTip.Tip>
+									<TextBlock TextWrapping="WrapWithOverflow"
+														Text="{Binding WhatToRun}"/>
+								</ToolTip.Tip>
+							</TextBlock>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>
+</base:VisualPrefsTabCtrl>

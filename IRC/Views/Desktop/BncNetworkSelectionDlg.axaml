@@ -1,0 +1,164 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBindingAva"
+				xmlns:data="using:BestChat.IRC.Data.Defs"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.Views.Desktop.BncNetworkSelectionDlg"
+				WindowStartupLocation="CenterOwner"
+				ShowInTaskbar="False"
+				x:DataType="data:Net">
+	<DockPanel Margin="4">
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							ToolTip.Tip="Saves any changes you made"
+							IsEnabled="{Binding IsValid, RelativeSource={RelativeSource AncestorType=Window}}"
+							IsVisible="{Binding IsDirty}"
+							Content="OK"
+							IsDefault="True"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding WereChangesMade, RelativeSource={RelativeSource AncestorType=Window}}"
+							ToolTip.Tip="Discards any changes you made and closes the window.  If you made changes, you'll be asked to confirm that you want to discard them."
+							Content="Cancel"
+							IsCancel="True"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !WereChangesMade, RelativeSource={RelativeSource AncestorType=Window}}"
+							ToolTip.Tip="Closes this window.  Once you make changes, this will disappear."
+							IsCancel="True"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"/>
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="Auto,Auto">
+			<Label Content="Name of the Network:"/>
+			<AutoCompleteBox x:Name="acbNameOfNet"
+											Grid.Column="2"
+											ItemsSource="{Binding AllKnownNets, RelativeSource={RelativeSource AncestorType=Window}}"
+											FilterMode="Contains"
+											Text="{Binding CurVal, RelativeSource={RelativeSource AncestorType=Window}}"
+											TextChanged="OnNameOfNetChanged"/>
+			<TextBlock Grid.Row="1"
+								Grid.ColumnSpan="3"
+								Margin="0,4,0,0"
+								IsVisible="{Binding IsCurNetUnknown, RelativeSource={RelativeSource AncestorType=Window}}"
+								Text="This network isn’t in the network manager.  Create in there before trying to use this bouncer."/>
+			<Grid Grid.Row="1"
+						Grid.ColumnSpan="3"
+						IsVisible="{Binding IsCurNetKnown, RelativeSource={RelativeSource AncestorType=Window}}"
+						DataContext="{Binding SpecifiedNet, RelativeSource={RelativeSource AncestorType=Window}}"
+						ColumnDefinitions="Auto,4,Auto"
+						RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+				<Label Content="Homepage:"/>
+				<HyperlinkButton Grid.Column="2"
+												NavigateUri="{Binding HomePage}"
+												Content="{Binding HomePage}"/>
+				<Label Grid.Row="2"
+							Content="Servers:"/>
+				<DataGrid Grid.Row="2"
+									Grid.Column="2"
+									CanUserReorderColumns="False"
+									CanUserResizeColumns="True"
+									CanUserSortColumns="True"
+									GridLinesVisibility="Horizontal"
+									HorizontalScrollBarVisibility="Hidden"
+									IsReadOnly="True"
+									SelectionMode="Extended"
+									AutoGenerateColumns="False"
+									HeadersVisibility="Column"
+									ItemsSource="{Binding AllUnsortedServers}">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Domain"
+																IsReadOnly="True"
+																Binding="{Binding Domain}"
+																CanUserResize="True"
+																CanUserSort="True"/>
+						<DataGridTextColumn Header="Ports"
+																IsReadOnly="True"
+																Binding="{Binding PortsAsText}"
+																CanUserResize="True"
+																CanUserSort="True"/>
+						<DataGridTextColumn Header="SSL Ports"
+																IsReadOnly="True"
+																Binding="{Binding SslPortsAsText}"
+																CanUserResize="True"
+																CanUserSort="True"/>
+						<DataGridCheckBoxColumn Header="Enabled"
+																		IsReadOnly="True"
+																		Binding="{Binding IsEnabled}"
+																		CanUserResize="False"
+																		CanUserSort="True"/>
+					</DataGrid.Columns>
+				</DataGrid>
+				<Label Grid.Row="4"
+							Content="NickServ Status:"/>
+				<Label Grid.Row="4"
+							Grid.Column="2"
+							Content="{Binding NickServAsText}"/>
+				<Label Grid.Row="6"
+							Content="ChanServ Status:"/>
+				<Label Grid.Row="6"
+							Grid.Column="2"
+							Content="{Binding ChanServAsText}"/>
+				<Label Grid.Row="8"
+							Content="ALIS Status:"/>
+				<Label Grid.Row="8"
+							Grid.Column="2"
+							Content="{Binding HasAlisAsText}"/>
+				<Label Grid.Row="10"
+							Content="Q Status:"/>
+				<Label Grid.Row="10"
+							Grid.Column="2"
+							Content="{Binding QStatusAsText}"/>
+				<CheckBox Grid.Row="12"
+									Grid.ColumnSpan="3"
+									IsEnabled="False"
+									IsVisible="{Binding IsCustomized}"
+									Content="Auto-Connect"
+									x:DataType="data:UserNet"
+									IsChecked="{Binding AutoConnect}"/>
+				<CheckBox Grid.Row="14"
+									Grid.ColumnSpan="3"
+									IsEnabled="False"
+									IsVisible="{Binding IsCustomized}"
+									Content="Hidden"
+									x:DataType="data:UserNet"
+									IsChecked="{Binding IsHidden}"/>
+				<CheckBox Grid.Row="16"
+									Grid.ColumnSpan="3"
+									IsEnabled="False"
+									IsVisible="{Binding IsCustomized}"
+									Content="Use SSL"
+										x:DataType="data:UserNet"
+								IsChecked="{Binding UseSsl}"/>
+				<Label Grid.Row="18"
+							IsVisible="{Binding IsCustomized}"
+							Content="Port to Use:"/>
+				<Label Grid.Row="18"
+							Grid.Column="2"
+							IsVisible="{Binding IsCustomized}"
+									x:DataType="data:UserNet"
+							Content="{Binding PortToUse}"/>
+				<CheckBox Grid.Row="20"
+									Grid.ColumnSpan="3"
+									IsVisible="{Binding IsCustomized}"
+									Content="Is Best Chat Choosing Which Port to Use?"
+									x:DataType="data:UserNet"
+									IsChecked="{Binding IsBestChatChoosingPortToUse}"/>
+				<Label Grid.Row="22"
+							IsVisible="{Binding IsCustomized}"
+							Content="Login Mode:"/>
+				<Label Grid.Row="22"
+							Grid.Column="2"
+							IsVisible="{Binding IsCustomized}"
+									x:DataType="data:UserNet"
+							Content="{Binding LogInModeAsText}"/>
+			</Grid>
+		</Grid>
+	</DockPanel>
+</Window>

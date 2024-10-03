@@ -1,11 +1,12 @@
-﻿// Ignore Spelling: Prefs
+﻿// Ignore Spelling: Prefs emgr
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
 public abstract class AbstractChildMgr : AbstractMgr
 {
 	#region Constructors & Deconstructors
-		protected AbstractChildMgr(in AbstractMgr mgrParent, in string strName, in string strLocalizedName, in string strLocalizedLongDesc)
+		protected AbstractChildMgr(in AbstractMgr mgrParent, in string strName, in string
+			strLocalizedName, in string strLocalizedLongDesc)
 		{
 			this.mgrParent = mgrParent;
 			this.strName = strName;
@@ -39,13 +40,20 @@ public abstract class AbstractChildMgr : AbstractMgr
 	#endregion
 
 	#region Properties
-		public AbstractMgr Parent => mgrParent;
+		public AbstractMgr Parent
+			=> mgrParent;
 
-		public string Name => strName;
+		public string Name
+			=> strName;
 
-		public string LocalizedName => strLocalizedName;
+		public string LocalizedName
+			=> strLocalizedName;
 
-		public string LocalizedLongDesc => strLocalizedLongDesc;
+		public string LocalizedLongDesc
+			=> strLocalizedLongDesc;
+
+		public virtual bool CanBeRemoved
+			=> false;
 	#endregion
 
 	#region Methods

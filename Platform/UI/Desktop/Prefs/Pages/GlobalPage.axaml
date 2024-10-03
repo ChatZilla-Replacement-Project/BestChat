@@ -1,0 +1,78 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:group="using:GroupBox.Avalonia.Controls"
+												x:DataType="base:GlobalPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<StackPanel Orientation="Vertical"
+							Spacing="4">
+		<group:GroupBox DataContext="{Binding Composition}"
+										Header="Composition of New Posts">
+			<Grid ColumnDefinitions="Auto,4,1*"
+						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+				<TextBlock Grid.ColumnSpan="3"
+									Classes="InfoTextBlock">
+					These settings affect various aspects about what Best Chat does in response to your typing.  Note: Parts of
+					<InlineUIContainer>
+						<HyperlinkButton x:Name="hbtnGoToAppearance"
+														Content="Global/Appearance"/>
+					</InlineUIContainer>
+					has various settings that seem similar, those affect only what you see.  These take affect as you type.  They have no effect only what ever comes from the servers you‘re on.
+				</TextBlock>
+				<Separator Grid.Row="1"
+									Grid.ColumnSpan="3"/>
+				<Button x:Name="btnResetCompositionUseTypographicalQuotes"
+								Grid.Row="2"
+								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"/>
+				<CheckBox x:Name="chkCompositionUseTypographicalQoutes"
+									Grid.Row="2"
+									Grid.Column="2"
+									Content="Use _Typographical Quotes"
+									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetCompositionTreatDblDashAsMDash"
+								Grid.Row="4"
+								IsEnabled="{Binding TreatDblDashAsMDash.CanReset}"/>
+				<CheckBox x:Name="chkCompositionTreatDblDashAsMDash"
+									Grid.Row="4"
+									Grid.Column="2"
+									IsChecked="{Binding TreatDblDashAsMDash.CurVal, Mode=TwoWay}">
+					<CheckBox.Content>
+						<TextBlock>Treat Double Dashes (“<Span Classes="FixedWidthHilight">--</Span>”) as an mdash (“<Span Classes="FixedWidthHilight">—</Span>”)?</TextBlock>
+					</CheckBox.Content>
+				</CheckBox>
+				<Button x:Name="btnResetCompositionTreatThreePeriodsAsEllipsis"
+								Grid.Row="6"
+								IsEnabled="{Binding TreatThreePeriodsAsEllipsis.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkCompositionTreatThreePeriodsAsEllipsis"
+									Grid.Row="6"
+									IsEnabled="{Binding TreatThreePeriodsAsEllipsis.CanReset}"
+									Classes="ResetBtn"/>
+				<Button x:Name="btnCompositionEnableEmojiShortCuts"
+								Grid.Row="8"
+								IsEnabled="{Binding EnableEmojiShortCuts.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkCompositionEnableEmojiShortCuts"
+									Grid.Row="8"
+									IsEnabled="{Binding EnableEmojiShortCuts.CanReset}"
+									Classes="ResetBtn"/>
+				<Button x:Name="btnResetCompositionEnableEntityShortCuts"
+								Grid.Row="10"
+								IsEnabled="{Binding EnableEntityShortCuts.CanReset}"
+								Classes="ResetBtn"/>
+				<CheckBox x:Name="chkCompositionEnableEntityShortCuts"
+									Grid.Row="10"
+									Content="Enable Entity Short Cuts?"
+									IsChecked="{Binding EnableEntityShortCuts.CurVal,Mode=TwoWay}">
+				</CheckBox>
+			</Grid>
+		</group:GroupBox>
+		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:VisualPrefsTabCtrl}}"/>
+	</StackPanel>
+</base:VisualPrefsTabCtrl>

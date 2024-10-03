@@ -1,0 +1,57 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:group="using:GroupBox.Avalonia.Controls"
+												x:DataType="base:GlobalAppearanceUserListPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceUserListPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<Grid ColumnDefinitions="Auto,4,1*"
+				RowDefinitions="Auto,6,Auto,4,Auto,4,Auto">
+		<TextBlock Grid.ColumnSpan="3"
+							Classes="InfoTextBlock"
+							Text="Here you can control the appearance and location of the user list in the main window."/>
+		<Separator Grid.Row="1"
+							Grid.ColumnSpan="3"/>
+		<Button x:Name="btnResetLoc"
+						Grid.Row="2"
+						IsEnabled="{Binding Loc.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="2"
+										Grid.Column="2"
+										Header="Location">
+			<base:UserListPaneLocsRadioBtnGroup x:Name="rbgLoc"
+																					SelVal="{Binding Loc.CurVal, Mode=TwoWay}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetHowToShowModes"
+						Grid.Row="4"
+						IsEnabled="{Binding HowToShowModes.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="4"
+										Grid.Column="2"
+										Header="How to Show User Modes">
+			<base:WaysToShowUserModesRadioBtnGroup x:Name="rbgHowToShowUserModes"
+																						SelVal="{Binding HowToShowModes.CurVal}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetSortOrder"
+						Grid.Row="6"
+						IsEnabled="{Binding SortByMode.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="6"
+										Grid.Column="2"
+										Header="Sort Order for Users">
+			<StackPanel Margin="4"
+									Orientation="Vertical"
+									Spacing="4">
+				<TextBlock Classes="InfoTextBlock"
+									Text="When it comes to how the user list is sorted, if you include how recently users were active, only the current view (room or channel) will be considered.  Users could be active in other views, but if they‘re inactive in the current view, they‘ll be listed lower if the local activity is taken into account."/>
+				<base:UserListSortModeRadioBtnGroup x:Name="rtgSortOrder"
+																						SelVal="{Binding SortByMode.CurVal, Mode=TwoWay}"/>
+			</StackPanel>
+		</group:GroupBox>
+	</Grid>
+</base:VisualPrefsTabCtrl>

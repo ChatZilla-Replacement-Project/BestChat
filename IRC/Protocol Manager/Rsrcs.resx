@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!--
+      Microsoft ResX Schema
+
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="strFileBncMgrMenuItemTitle" xml:space="preserve">
+    <value>_BNC Manager</value>
+  </data>
+    <data name="strFileBncMgrMenuItemToolTip" xml:space="preserve">
+    <value>Displays the BNC Manager.  From here, you can customize how Best Chat handles bouncers.</value>
+  </data>
+    <data name="strFileMenuItemTitle" xml:space="preserve">
+    <value>I_RC</value>
+  </data>
+    <data name="strFileMenuItemToolTip" xml:space="preserve">
+    <value>Holds all menu items for the IRC system in Best Chat</value>
+  </data>
+    <data name="strFileNetworkMgrMenuItemTitle" xml:space="preserve">
+    <value>_Network Manager</value>
+  </data>
+    <data name="strFileNetworkMgrMenuItemToolTip" xml:space="preserve">
+    <value>Displays the Network Manager.  From here, you can add, remove, or customize IRC networks available through out the rest of Best Chat.</value>
+  </data>
+    <data name="strFmtMarkerTypeMIRC" xml:space="preserve">
+    <value>MIRC</value>
+  </data>
+    <data name="strFmtMarkerTypeMircToolTip" xml:space="preserve">
+    <value>When you use the UI to select formatting other than color, Best Chat will insert into the text control characters you won't be able to see.  Some clients will see these and trigger the formatting.</value>
+  </data>
+    <data name="strFmtMarkerTypeTraditional" xml:space="preserve">
+    <value>Traditional</value>
+  </data>
+    <data name="strFmtMarkerTypeTraditonalToolTip" xml:space="preserve">
+    <value>When you use the UI to select formatting other than color, Best Chat will insert into the text ASCII formatting marks.  So if you want "text" in bold and use the UI rather than typing, you'll get "*text*".</value>
+  </data>
+    <data name="strPrefsGlobalFmtBoldDesc" xml:space="preserve">
+    <value>If you check this, Best Chat will respond to formatting marks for bold.  This applies to both types of bold marks.  Best Chat might receive bold marks in just ASCII (you'll see asterisks in the text) or hidden control characters.  You wouldn't see anything.</value>
+  </data>
+    <data name="strPrefsGlobalFmtBoldTitle" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+    <data name="strPrefsGlobalFmtDesc" xml:space="preserve">
+    <value>Lets you specify how things should be formatted.</value>
+  </data>
+    <data name="strPrefsGlobalFmtItalicsDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for italics.  This applies to both types of italics marks.  Best Chat might receive italic marks in just ASCII (you'll see slashes in the text or as MIRC control characters in which case you'd see nothing.</value>
+  </data>
+    <data name="strPrefsGlobalFmtItalicsTitle" xml:space="preserve">
+    <value>Italics</value>
+  </data>
+    <data name="strPrefsGlobalFmtMarkerTypeDesc" xml:space="preserve">
+    <value>Controls how Best Chat sends formatting other than colors when you rely on the UI to specify that formatting instead of typing it directly.</value>
+  </data>
+    <data name="strPrefsGlobalFmtMarkerTypeTitle" xml:space="preserve">
+    <value>Outgoing Marker Type</value>
+  </data>
+    <data name="strPrefsGlobalFmtMircColorsDesc" xml:space="preserve">
+    <value>If checked, Best Chat responds to color codes hidden in the text.  This cooressponds to the color button on the formatting toolbar.  You can also change the color with % values by typing a % followed by a number.  Use one of the following formats: "%foreground", "%,background", or "%foreground,background".  The comma is needed to specify a background color.  Best Chat will show these codes in the editor, but not the channel.  Note: Some channels don't like colors and either refuse the message or strip out the colors.  See the modes on those channels for details.  Some users also tell their clients to ignore these codes.  The system started with the MIRC client, hence the name of this setting.</value>
+  </data>
+    <data name="strPrefsGlobalFmtMircColorsTitle" xml:space="preserve">
+    <value>MIRC Colors</value>
+  </data>
+    <data name="strPrefsGlobalFmtStrikeThroughDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for strike through.  There's no IRC convention for this, so Best Chat treats text surrounded by tildes as strike through.  So you'd see "~text~".  The default for this preference is false as support may be limited.</value>
+  </data>
+    <data name="strPrefsGlobalFmtStrikeThroughTitle" xml:space="preserve">
+    <value>Strike Through</value>
+  </data>
+    <data name="strPrefsGlobalFmtTeleTypeDesc" xml:space="preserve">
+    <value>If checked, Best Chat switches to a fixed width font selected by your theme or the global preferences if you override it there.  Normally, it might use a variable pitch (width) font.</value>
+  </data>
+    <data name="strPrefsGlobalFmtTeleTypeTitle" xml:space="preserve">
+    <value>Teletype</value>
+  </data>
+    <data name="strPrefsGlobalFmtTitle" xml:space="preserve">
+    <value>Format</value>
+  </data>
+    <data name="strPrefsGlobalFmtUnderlineDesc" xml:space="preserve">
+    <value>If you check this, Best Chat wil respond to formatting marks for underline.  This applies to both types of underline marks.  Best Chat might receive underline marks in just ASCII (you'll see underlines in the text or as MIRC control characters in which case you'd see nothing.</value>
+  </data>
+    <data name="strPrefsGlobalFmtUnderlineTitle" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+    <data name="strTranslatedProtDesc" xml:space="preserve">
+    <value>Implements the Internet Relay Chat protocol for Best Chat.  Without this module, Best Chat doesn't support IRC.</value>
+  </data>
+    <data name="strTranslatedProtName" xml:space="preserve">
+    <value>Internet Relay Chat (IRC)</value>
+  </data>
+    <data name="strOneAliasEditorCreatingTitle" xml:space="preserve">
+        <value>You’re creating a new alias</value>
+    </data>
+    <data name="strOneAliasEditorEditingTitle" xml:space="preserve">
+        <value>You’re editing the alias “{0}”</value><comment>All instances of "{0}" will be replaced by the name of the alias.</comment>
+    </data>
+    <data name="strDelSelectedAliasesMsg" xml:space="preserve">
+        <value>Are you sure you want to delete the selected aliases?</value>
+    </data>
+    <data name="strDelSelectedAliasesTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strResetGlobalAliasesTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strResetGlobalAliasesMsg" xml:space="preserve">
+        <value>Are you sure you want to delete all global aliases?  This will also affect your network and channel aliases if they’re inherited.</value>
+    </data>
+    <data name="strCancelCreatingNewAliasTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelCreatingNewAliasMsg" xml:space="preserve">
+        <value>You were creating a new alias and made changes.  Are you sure you want to discard thos changes?</value>
+    </data>
+    <data name="strCancelCreatingNewAltNickMsg" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelCreatingNewAltNickTitle" xml:space="preserve">
+        <value>You were creating a new alternate nick and made changes.  Are you sure you want to discard those changes?</value>
+    </data>
+    <data name="strOneAltNickEditorCreatingTitle" xml:space="preserve">
+        <value>You’re creating a new alternal nick</value>
+    </data>
+    <data name="strOneAltNickEditorEditingTitle" xml:space="preserve">
+        <value>You’re editing the alternate nick “{0}”</value><comment>All instances of "{0}" will be replaced by the name of the alias.</comment>
+    </data>
+    <data name="strCancelCreatingNewAutoPerformStepTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelCreatingNewAutoPerformStepMsg" xml:space="preserve">
+        <value>You were adding a new auto perform step to the list and made changes.   Are you sure you want to discard those changes?</value>
+    </data>
+    <data name="strCancelEditingAutoPerformStepTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelEditingAutoPerformStepMsg" xml:space="preserve">
+        <value>You were editing a auto-perform step and made changes.  Are you sure you want to discard those changes?</value>
+    </data>
+    <data name="strCreatingNewAutoPerformStepTitle" xml:space="preserve">
+        <value>You’re creating a new auto-perform step</value>
+    </data>
+    <data name="strEditingAutoPerformStepTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelCreatingNewAliasParamTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelCreatingNewAliasParamMsg" xml:space="preserve">
+        <value>You were creating a new parameter for an alias and made changes.  Are you sure you want to discard those changes?</value>
+    </data>
+    <data name="strCancelEditingAliasParamTitle" xml:space="preserve">
+        <value>Are you sure?</value>
+    </data>
+    <data name="strCancelEditingAliasPaaramMsg" xml:space="preserve">
+        <value>You were creating a parameter for an alias and made changes.  Are you sure you want to discard those changes?  The alias won’t itself be affected unless you chose to save the parameter.</value>
+    </data>
+    <data name="strCancelEditingAliasParamMsg" xml:space="preserve">
+        <value>You were editing a parameter for an alias and made changes.  Are you sure you want to discard those changes?  The alias itself won't be affected unless you save the parameter.</value>
+    </data>
+    <data name="strRequiredAliasesMustComeBeforeOptionalAliases" xml:space="preserve">
+        <value>All required alias positioned paramters must come before any optional any optional positioned parameters.</value>
+    </data>
+    <data name="strFileTypeFilterNameAllAliasFiles" xml:space="preserve">
+        <value>All Alias Files</value>
+    </data>
+    <data name="strFileTypeFilterNameAllJsonFiles" xml:space="preserve">
+        <value>All JSON files</value>
+    </data>
+    <data name="strFileTypeFilterNameAllFiles" xml:space="preserve">
+        <value>All files</value>
+    </data>
+    <data name="strExportAliasDlgTitle" xml:space="preserve">
+        <value>Where do you want to save this alias or aliases to?</value>
+    </data>
+    <data name="strFileTypeFilterNameAllAliasArrayFiles" xml:space="preserve">
+        <value>All Alias Array Files</value>
+    </data>
+    <data name="strNoClipboardAvailable" xml:space="preserve">
+        <value>The clipboard doesn’t seem to be available.</value>
+    </data>
+    <data name="strImportAliasDlgTitle" xml:space="preserve">
+        <value>What alias or aliases would you like to import from?</value>
+    </data>
+    <data name="strNoAliasesFoundDuringImport" xml:space="preserve">
+        <value>No aliases were found during the import.</value>
+    </data>
+    <data name="strAliasesImportedSuccessfullyTitle" xml:space="preserve">
+        <value>Aliases were imported successfully</value>
+    </data>
+    <data name="strAliasesImportedSuccessfullyMsgFmt" xml:space="preserve">
+        <value>Best Chat was able to import {0} aliases.</value><comment>All instances of "{0}" wil lbe replaced by the number of successfully imported aliases.</comment>
+    </data>
+    <data name="strAliasImportFromClipboardFailedAsItWasEmptyMsg" xml:space="preserve">
+        <value>Best Chat was unable to import aliases from the clipboard as it seems to be empty.  Did you put something there?</value>
+    </data>
+    <data name="strAliasImportFromClipboardFailedAsItWasEmptyTitle" xml:space="preserve">
+        <value>Import of aliases from the clipboard failed.</value>
+    </data>
+    <data name="strClipboardName" xml:space="preserve">
+        <value>Clipboard</value>
+    </data>
+</root>

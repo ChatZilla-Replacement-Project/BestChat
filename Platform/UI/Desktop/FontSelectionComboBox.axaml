@@ -1,0 +1,25 @@
+﻿<ComboBox x:Class="BestChat.Platform.UI.Desktop.FontSelectionComboBox"
+					xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:skia="using:SkiaSharp"
+					mc:Ignorable="d">
+	<ComboBox.ItemTemplate>
+		<DataTemplate DataType="skia:SKTypeface">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"
+														SharedSizeGroup="Name"/>
+					<ColumnDefinition Width="4"/>
+					<ColumnDefinition Width="Auto"
+														SharedSizeGroup="Sample"/>
+				</Grid.ColumnDefinitions>
+				<Label Content="{Binding FamilyName}"/>
+				<Label Grid.Column="2"
+							Content="The quick brown fox ran."
+							FontFamily="{Binding FamilyName}"/>
+			</Grid>
+		</DataTemplate>
+	</ComboBox.ItemTemplate>
+</ComboBox>

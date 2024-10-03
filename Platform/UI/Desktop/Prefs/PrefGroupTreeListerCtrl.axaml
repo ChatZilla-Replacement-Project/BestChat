@@ -1,0 +1,28 @@
+﻿<ItemsControl x:Class="BestChat.Platform.UI.Desktop.Prefs.PrefGroupTreeListerCtrl"
+							xmlns="https://github.com/avaloniaui"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:data="clr-namespace:BestChat.Platform.DataAndExt.Prefs;assembly=BestChat.Platform.DataAndExt"
+							xmlns:local="clr-namespace:BestChat.Platform.UI.Desktop.Prefs"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							x:DataType="local:VisualPrefsTreeData"
+							mc:Ignorable="d">
+	<ItemsControl.ItemTemplate>
+		<DataTemplate DataType="data:AbstractMgr">
+			<Grid ColumnDefinitions="20,Auto,1*"
+						RowDefinitions="Auto,Auto">
+				<TextBlock Grid.ColumnSpan="2"
+									ToolTip.Tip="{ReflectionBinding LocalizedLongDesc}">
+					<InlineUIContainer>
+						<HyperlinkButton>
+							<Label Content="{ReflectionBinding LocalizedName}"/>
+						</HyperlinkButton>
+					</InlineUIContainer>
+				</TextBlock>
+				<local:PrefGroupTreeListerCtrl Grid.Row="1"
+																			Grid.Column="1"
+																			ItemsSource="{Binding Children, RelativeSource={RelativeSource AncestorType=local:PrefGroupTreeListerCtrl}}"/>
+			</Grid>
+		</DataTemplate>
+	</ItemsControl.ItemTemplate>
+</ItemsControl>

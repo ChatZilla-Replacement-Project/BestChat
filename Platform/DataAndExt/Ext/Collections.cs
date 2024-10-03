@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Util
+﻿// Ignore Spelling: Util Sep
 
 namespace BestChat.Platform.DataAndExt.Ext;
 
@@ -25,4 +25,7 @@ public static class Collections
 
 	public static bool IsEmpty<SetEntryType>(this System.Collections.Generic.ISet<SetEntryType> set)
 		=> set == null || set.Count == 0;
+
+	public static string Join(this System.Collections.IEnumerable objects, string strSep)
+		=> string.Join(strSep, objects);
 }

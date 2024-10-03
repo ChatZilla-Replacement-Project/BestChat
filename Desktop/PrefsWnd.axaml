@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				x:Class="BestChat.Desktop.PrefsWnd"
+				mc:Ignorable="d"
+				MinWidth="800"
+				MinHeight="450"
+				Padding="4"
+				Title="Best Chat Preferences">
+	<DockPanel>
+		<Grid
+			Name="panelBtnBar"
+			DockPanel.Dock="Bottom"
+			Margin="4,0,4,4"
+			ColumnDefinitions="1*,4,Auto,4,Auto,4,Auto"
+			RowDefinitions="1*">
+			<HyperlinkButton
+				Name="hlinkHomepage"
+				Content="Open the Best Chat homepage"
+				ToolTip.Tip="Will open https://github.com/ChatZilla-Replacement-Project in your browser as specified in Best Chat"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"/>
+			<Button
+				Content="OK"
+				Grid.Column="2"
+				IsDefault="True" />
+			<Button
+				Content="_Apply"
+				Grid.Column="4" />
+			<Button
+				Content="Cancel"
+				Grid.Column="6"
+				IsCancel="True" />
+		</Grid>
+		<Grid DockPanel.Dock="Top"
+					ColumnDefinitions="Auto,4,1*,4,Auto"
+					RowDefinitions="Auto,4">
+			<Label Content="Search for preferences"
+						 VerticalContentAlignment="Center"/>
+			<TextBox Name="editPrefSearch"
+							 Grid.Column="2"
+							 VerticalContentAlignment="Center" />
+			<Button Name="btnClearPrefsSearch"
+							Grid.Column="4"
+							Content="Clear"
+							VerticalContentAlignment="Center"/>
+		</Grid>
+		<SplitView IsPaneOpen="True"
+							 OpenPaneLength="200"
+							 PanePlacement="Left">
+			<SplitView.Pane>
+				<DockPanel>
+					<Button Name="btnRemoveItemFromPrefs"
+									Content="Remove Item…"
+									DockPanel.Dock="Bottom"/>
+					<TreeView Name="treeMain"
+										SelectionMode="Single"
+										ToolTip.Tip="Use this to select a view whose properties will be shown to the right.  &quot;Global&quot; properties aren't really for a view, but rather for the entire app.  You can remove all non-global properties from the list using the &quot;Remove&quot; button below.  That will reset all those controls to their default.">
+					</TreeView>
+				</DockPanel>
+			</SplitView.Pane>
+			<ContentControl Name="ccCurPane"/>
+		</SplitView>
+	</DockPanel>
+</Window>

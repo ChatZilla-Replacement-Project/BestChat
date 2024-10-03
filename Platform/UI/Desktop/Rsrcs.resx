@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!--
+      Microsoft ResX Schema
+
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="strDefFileBrowserTitle" xml:space="preserve">
+    <value>Please locate the file</value>
+  </data>
+    <data name="strDefFolderBrowserTitle" xml:space="preserve">
+    <value>Please locate the folder</value>
+  </data>
+    <data name="strEmojiAnimateEndlessly" xml:space="preserve">
+    <value>Animate All Emoji</value>
+  </data>
+    <data name="strEmojiAnimateEndlesslyToolTip" xml:space="preserve">
+    <value>Causes all emoji to be animated endlessly.  Your theme will choose the animation.</value>
+  </data>
+    <data name="strEmojiAnimateLimit" xml:space="preserve">
+    <value>Limit Emoji Animation</value>
+  </data>
+    <data name="strEmojiAnimateLimitToolTip" xml:space="preserve">
+    <value>This is a cross between the other two.  The emoji will animate, but stop after a couple loops through the animation.  Your theme selects the animation.</value>
+  </data>
+    <data name="strEmojiAnimateNever" xml:space="preserve">
+    <value>Never Animate Emoji</value>
+  </data>
+    <data name="strEmojiAnimateNeverToolTip" xml:space="preserve">
+    <value>Selecting this will prevent animated emoji.  Some people find them distracting.</value>
+  </data>
+    <data name="strEmojiDisplayingAsEmoticons" xml:space="preserve">
+    <value>Display as plain text emoticons</value>
+  </data>
+    <data name="strEmojiDisplayingAsEmoticonsToolTiop" xml:space="preserve">
+    <value>If you select this, Best Chat will display any emoji you receive as though you received plain text emoji.  Regardless, you'll be about to hover your mouse over the emoticon shown and see what actually arrived and how to send that emoji back.</value>
+  </data>
+    <data name="strEmojiDisplayingLeaveAlone" xml:space="preserve">
+    <value>Leave Alone</value>
+  </data>
+    <data name="strEmojiDisplayingLeaveAloneToolTip" xml:space="preserve">
+    <value>If you select this, Best Chat will display any emoji as received.  Regardless, you'll be able to move your mouse over the emoji to see what was actually received and what you can enter to get the same emoji.</value>
+  </data>
+    <data name="strEmojiSendingConvertToEmoticons" xml:space="preserve">
+    <value>Convert to emotions</value>
+  </data>
+    <data name="strEmojiSendingConvertToEmoticonsToolTip" xml:space="preserve">
+    <value>Best Chat will convert emoji you enter into emoticons.  This is safer as not all clients can correctly handle emoji.</value>
+  </data>
+    <data name="strEmojiSendingLeaveAlone" xml:space="preserve">
+    <value>Leave Alone</value>
+  </data>
+    <data name="strEmojiSendingLeaveAloneToolTip" xml:space="preserve">
+    <value>Best Chat will send any emoji you enter as is.  Emoji might not be handled correctly by some clients.</value>
+  </data>
+    <data name="strEmoticonDisplayingAsEmojiToolTip" xml:space="preserve">
+    <value>Causes Best Chat to act as though an emoji were sent instead of an emoticon.  Hover your mouse over the emoji to see what was actually sent and how to sent that emoji back.  The emoji dipslay option can allow that emoji to be animated in which case your theme chooses the animation.</value>
+  </data>
+    <data name="strEmoticonDisplayingDisplayAsEmoji" xml:space="preserve">
+    <value>Display as Emoji</value>
+  </data>
+    <data name="strEmoticonDisplayingLeaveAlone" xml:space="preserve">
+    <value>Leave Alone</value>
+  </data>
+    <data name="strEmoticonDisplayingLeaveAloneToolTip" xml:space="preserve">
+    <value>If you select this, Best Chat will never convert emoticons into emoji for you.  However, if you hover over the emoticon, you'll see a graphical depiction of it.  Depending on the emoji display option below, your theme will select an animation to play.</value>
+  </data>
+    <data name="strEmoticonSendingConvertToEmoji" xml:space="preserve">
+    <value>Convert to Emoji</value>
+  </data>
+    <data name="strEmoticonSendingConvertToEmojiToolTip" xml:space="preserve">
+    <value>Causes Best Chat to send out the emoticons you type as emoji.</value>
+  </data>
+    <data name="strEmoticonSendingLeaveAlone" xml:space="preserve">
+    <value>Leave Alone</value>
+  </data>
+    <data name="strEmoticonSendingLeaveAloneToolTip" xml:space="preserve">
+    <value>Not all clients handle emoji correctly.  This option ensure emoticons go out as plain ASCII which they should be able to handle just fine.</value>
+  </data>
+    <data name="strFontWeightBold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+    <data name="strFontWeightDemiBold" xml:space="preserve">
+    <value>Demi Bold</value>
+  </data>
+    <data name="strFontWeightExtraBlack" xml:space="preserve">
+    <value>Extra Black</value>
+  </data>
+    <data name="strFontWeightExtraBold" xml:space="preserve">
+    <value>Extra Bold</value>
+  </data>
+    <data name="strFontWeightExtraLight" xml:space="preserve">
+    <value>Extra Light</value>
+  </data>
+    <data name="strFontWeightHeavy" xml:space="preserve">
+    <value>Heavy</value>
+  </data>
+    <data name="strFontWeightLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+    <data name="strFontWeightMedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+    <data name="strFontWeightNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+    <data name="strFontWeightThin" xml:space="preserve">
+    <value>Thin</value>
+  </data>
+    <data name="strGifAnimationContinuously" xml:space="preserve">
+    <value>Continuously</value>
+  </data>
+    <data name="strGifAnimationContinuouslyToolTip" xml:space="preserve">
+    <value>Plays the GIF animation endlessly.</value>
+  </data>
+    <data name="strGifAnimationNever" xml:space="preserve">
+    <value>Never</value>
+  </data>
+    <data name="strGifAnimationNeverToolTip" xml:space="preserve">
+    <value>Prevents GIFs from being animated.  This has no effect on any other animations.  However, an option below starts the animation if you mouse over the object.</value>
+  </data>
+    <data name="strGifAnimationOnce" xml:space="preserve">
+    <value>Once</value>
+  </data>
+    <data name="strGifAnimationOnceToolTip" xml:space="preserve">
+    <value>Plays the GIF animation once, but only once.</value>
+  </data>
+    <data name="strGifAnimationTwice" xml:space="preserve">
+    <value>Twice</value>
+  </data>
+    <data name="strGifAnimationTwiceToolTip" xml:space="preserve">
+    <value>Plays the GIF animation twice and then stops the animation.</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationAvatarsDesc" xml:space="preserve">
+    <value>Since many protocols have avatars that can be in GIF format and hence animated, Best Chat makes this a separate preference.  If you choose an option that allows limited animation (once or twice), only the latest posts should animate their avatar.</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationAvatarsTitle" xml:space="preserve">
+    <value>Avatars (can be GIFs)</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationDesc" xml:space="preserve">
+    <value>Global location for how to control animations.  Use this to tell protocols that can tranfer images how animated images should be handled.  Not supported by all protocols.  There's a second option below to control if the animation starts or resumes when you mouse over the image or video.</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationGifDesc" xml:space="preserve">
+    <value>GIF is a format dating to the 1990s created by CompuServe that allows animation.  It's limited to 256 colors, but still popular for animations.  In some protocols, they can be rather distracting, but important part of memes.</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationGifTitle" xml:space="preserve">
+    <value>GIF (Graphical Interchange Format)</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationResumeOnMouseOverDesc" xml:space="preserve">
+    <value>If checked, animation will resume, or start, when you mouse over an object that can be animated.  Otherwise, you'd have to press a play button.  (The play button isn't shown for avatars.)</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationResumeOnMouseOverTitle" xml:space="preserve">
+    <value>Resume on Mouse Over</value>
+  </data>
+    <data name="strGlobalAppearanceAnimationTitle" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+    <data name="strGlobalAppearanceDisplayCtrlCharsDesc" xml:space="preserve">
+    <value>If checked, Best Chat will display control characters.</value>
+  </data>
+    <data name="strGlobalAppearanceDisplayCtrlCharsTitle" xml:space="preserve">
+    <value>Display Control Characters</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiAnimationDesc" xml:space="preserve">
+    <value>Use to enable or disable animation of emoji.  This is regardless of they arrive as emoji or emoticons.  Emoji or emoticons you send are also included.  Your theme selects the actual animation used if you enable it.</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiAnimationTitle" xml:space="preserve">
+    <value>Allow or Disable Animation of Emoji?</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiDesc" xml:space="preserve">
+    <value>This is where you configure how Best Chat handles emoji and emoticons.</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiDisplayingDesc" xml:space="preserve">
+    <value>When Best Chat displays an emoji, it can leave it as is or show the equivalent emoticon instead.</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiDisplayingTitle" xml:space="preserve">
+    <value>What to do when displaying emoji</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiSendingDesc" xml:space="preserve">
+    <value>These choices affect what to do when you enter an emoji.  Do you want to send it as is?  If you pasted it from somewhere or used an emoji character, you might actually prefer plain ASCII emoticons..  Note: Many emoji can't be represented in ASCII.  Those emoji will still be sent as emoji.</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiSendingTitle" xml:space="preserve">
+    <value>What to do when sending emoji?</value>
+  </data>
+    <data name="strGlobalAppearanceEmojiTitle" xml:space="preserve">
+    <value>Emoji</value>
+  </data>
+    <data name="strGlobalAppearanceEmoticonsDisplayDesc" xml:space="preserve">
+    <value>When Best Chat displays an emoticon, it can display the raw emoticon or show the equivilant emoji instead.  In the latter case, the display option below affects if the emoji is animated.  Such animations are selected by your theme.</value>
+  </data>
+    <data name="strGlobalAppearanceEmoticonsDisplayTitle" xml:space="preserve">
+    <value>What to do when displaying emoticons</value>
+  </data>
+    <data name="strGlobalAppearanceEmoticonsSendingDesc" xml:space="preserve">
+    <value>Same as above, but for when you enter emoticons.  You can have Best Chat replace those with emoji.  Sometimes, the emoticons, especially the older ones, are fater to type</value>
+  </data>
+    <data name="strGlobalAppearanceEmoticonsSendingTitle" xml:space="preserve">
+    <value>What to do when sending emoticons?</value>
+  </data>
+    <data name="strGlobalAppearanceHyphenateLongWordsDesc" xml:space="preserve">
+    <value>If checked, Best Chat will break up long words on syllable boundaries with hyphens.  Otherwise, it will require a space.  Turning this off can cause lines to be rather short if really long words are present.</value>
+  </data>
+    <data name="strGlobalAppearanceHyphenateLongWordsTitle" xml:space="preserve">
+    <value>Hyphenate Long Words</value>
+  </data>
+    <data name="strGlobalAppearanceMakeEmojiOnlyPostsBiggerDesc" xml:space="preserve">
+    <value>If checked, posts or messages that contain only emoji as displayed are shown with a bigger font.  This also affects animated emoji and includes what arrived as emoticons, but are being shown as emoji.  It has no effect on anything displayed as an emoji.</value>
+  </data>
+    <data name="strGlobalAppearanceMakeEmojiOnlyPostsBiggerTitle" xml:space="preserve">
+    <value>Make Posts With Only Emoji Bigger</value>
+  </data>
+    <data name="strGlobalAppearanceRecognizeLinksDesc" xml:space="preserve">
+    <value>If checked, Best Chat will recognize links in plain text including to channels, rooms, servers/networks, web pages, and email addresses.  It will then display those links as something you can click on.  If unchecked, that won't happen.  Note: Some protocols mark links.  This setting has no effect on them.</value>
+  </data>
+    <data name="strGlobalAppearanceRecognizeLinksTitle" xml:space="preserve">
+    <value>Recognize links</value>
+  </data>
+    <data name="strGlobalAppearanceUseTypographicalQuotesDesc" xml:space="preserve">
+    <value>If checked, Best Chat will convert conventional quote characters into typographical quotes.  Protocols shouldn't apply this to preformatted blocks.  Typographical quotes can make the text easier to read.  This affects only what's shown.  What you send is handled in the Composition page.</value>
+  </data>
+    <data name="strGlobalAppearanceUseTypographicalQuotesTitle" xml:space="preserve">
+    <value>Use Typographical Quotes</value>
+  </data>
+    <data name="strGlobalCompositionDesc" xml:space="preserve">
+    <value>Contains various settings that control how Best Chat interprets what you type.</value>
+  </data>
+    <data name="strGlobalCompositionEnableEmojiShortCutsDesc" xml:space="preserve">
+    <value>If checked, you'll be able to type a string beginning with with a backslash ("\") to open a menu for emoji.  This picker may be easier than the one that comes with your OS and cooresponds to what clients for Discord and Matrix include.  The menu that appears will filter out those that don't match what you type.</value>
+  </data>
+    <data name="strGlobalCompositionEnableEmojiShortCutsTitle" xml:space="preserve">
+    <value>Enable Emoji Short Cuts</value>
+  </data>
+    <data name="strGlobalCompositionEnableEntityShortCutsDesc" xml:space="preserve">
+    <value>If checked, you can enter any HTML entity including the ampersand ("&amp;") to send that character.  If you know those entities, you may find using this easier than using your OS's character picker.  Typing the ampersand will, if this option is enabled, open a menu listing the best match.</value>
+  </data>
+    <data name="strGlobalCompositionEnableEntityShortCutsTitle" xml:space="preserve">
+    <value>Enable Entity Short Cuts</value>
+  </data>
+    <data name="strGlobalCompositionTitle" xml:space="preserve">
+    <value>Composition</value>
+  </data>
+    <data name="strGlobalCompositionTreatDblDashAsMDashDesc" xml:space="preserve">
+    <value>If checked, you'll be able to send a MDash ("—") by typing two consecutive dashes.  So use "--".  If you uncheck this, you'll need your file picker.</value>
+  </data>
+    <data name="strGlobalCompositionTreatDblDashAsMDashTitle" xml:space="preserve">
+    <value>Treat a double dash as an MDash ("—")</value>
+  </data>
+    <data name="strGlobalCompositionTreatThreePeriodsAsEllipsisDesc" xml:space="preserve">
+    <value>If checked, you'll be able to type three periods ("...") but get an ellipsis ("…").</value>
+  </data>
+    <data name="strGlobalCompositionTreatThreePeriodsAsEllipsisTitle" xml:space="preserve">
+    <value>Treat three periods as an ellipsis ("…")</value>
+  </data>
+    <data name="strGlobalCompositionUseTypographicalQuotesDesc" xml:space="preserve">
+    <value>If checked, when you type quotes that aren't in preformatted blocks, Best Chat will replace those with typographical quotes.  So "he's" gets replaced with "he’s".  Depending on the language, this might not work properly.</value>
+  </data>
+    <data name="strGlobalCompositionUseTypographicalQuotesTitle" xml:space="preserve">
+    <value>Use Typographical Quotes</value>
+  </data>
+</root>

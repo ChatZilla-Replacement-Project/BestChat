@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <Version>0.0.0.1</Version>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <WarningLevel>9999</WarningLevel>
+        <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <WarningLevel>9999</WarningLevel>
+        <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS8618;CA2021;CS8524;CS8509;CS0108;CS0114;CS8604;CS8603</WarningsAsErrors>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Avalonia">
+        <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3"/>
+        <PackageReference Include="BinToss.GroupBox.Avalonia" Version="1.0.0"/>
+        <PackageReference Include="CalcBindingAva" Version="2.5.3"/>
+        <PackageReference Include="LucideAvalonia" Version="1.5.0"/>
+        <PackageReference Include="MessageBox.Avalonia" Version="3.1.6"/>
+        <PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.12"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Platform\DataAndExt\BestChat.Platform.DataAndExt.csproj"/>
+        <ProjectReference Include="..\..\..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj"/>
+        <ProjectReference Include="..\..\Data\BestChat.IRC.Data.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="BncMgrDlg.axaml.cs">
+            <DependentUpon>BncMgrDlg.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="UserNetEditorDlg.axaml.cs">
+            <DependentUpon>UserNetEditorDlg.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="NetMgrDlg.axaml.cs">
+            <DependentUpon>NetMgrDlg.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="PredefinedBncEditorDlg.axaml.cs">
+            <DependentUpon>PredefinedBncEditorDlg.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="PredefinedNetViewerDlg.axaml.cs">
+            <DependentUpon>PredefinedNetViewerDlg.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="Rsrcs.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Rsrcs.resx</DependentUpon>
+        </Compile>
+        <Compile Update="NetServerDomainEditorDlg.axaml.cs">
+            <DependentUpon>NetServerDomainEditorDlg.axaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Rsrcs.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+</Project>

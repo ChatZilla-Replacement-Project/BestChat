@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -261,48 +261,6 @@
   <data name="strGlobalAppearanceTimeStampFmtDesc" xml:space="preserve">
     <value>If you want to use a custom time stamp format, specify it here.  Read the notes above on how to specify it.  Certain characters in the value will be treated special.</value>
   </data>
-  <data name="strGlobalAppearanceUserListLeftTitle" xml:space="preserve">
-    <value>Left</value>
-  </data>
-  <data name="strGlobalAppearanceUserListLeftDesc" xml:space="preserve">
-    <value>Places the user list on the left side of the client area.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListRightTitle" xml:space="preserve">
-    <value>Right </value>
-  </data>
-  <data name="strGlobalAppearanceUserListRightDesc" xml:space="preserve">
-    <value>Places the user list on the right side of the client area.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListLocDesc" xml:space="preserve">
-    <value>Specify if you want the user list on the left or right.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListLocTitle" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="strGlobalAppearanceUserListSortByModeDesc" xml:space="preserve">
-    <value>Check if you'd like the user list to be sorted by name and mode.  That will highlight ops by placing them at the top of the list.  Uncheck it if you prefer the users to be sorted only by name.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListSortByModeTitle" xml:space="preserve">
-    <value>Sort by Mode</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesColoredDiscsDesc" xml:space="preserve">
-    <value>If you select this, colored discs will be used to indicate op/half op status and voice.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesColoredDiscsTitle" xml:space="preserve">
-    <value>Colored Discs</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesDesc" xml:space="preserve">
-    <value>Use these choices to control how Best Chat marks select users as special.  Unless you choose “Hidden”, Best Chat will tell you which users are ops, half ops, or have voice.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesSymbolsDesc" xml:space="preserve">
-    <value>If you select this, Best Chat will show op, half op, and voice with traditional symbols.</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesSymbolsTitle" xml:space="preserve">
-    <value>Use symbols</value>
-  </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesTitle" xml:space="preserve">
-    <value>How should we show the user modes?</value>
-  </data>
   <data name="strGlobalPluginsDesc" xml:space="preserve">
     <value>Best Chat supports two forms of plug-ins: External and Internal.  External plug-ins re those that it needs an external program or the OS to run.  Internal ones are those that rely on an API exported by Best Chat.  Click a link below to configure each type.</value>
   </data>
@@ -333,7 +291,7 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
     <value>Plugins</value>
   </data>
   <data name="strGlobalPluginsExtWhereToLookIncludeSysPathDesc" xml:space="preserve">
-    <value>Check this to automatically search all directories in your OS's system path environment variable.  This is normally called PATH.</value>
+    <value>Check this to automatically search all directories in your OS's system path environment variable.  This is normally called PATH.  This is checked after those explicitly listed here.</value>
   </data>
   <data name="strGlobalPluginsExtWhereToLookIncludeSysPathTitle" xml:space="preserve">
     <value>Include Your System Path Environment Variable in the Search</value>
@@ -344,10 +302,100 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
   <data name="strGlobalPluginsHowToRunThemGroupedByWhatRunsThemTitle" xml:space="preserve">
     <value>Grouped by what runs them</value>
   </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesHiddenDesc" xml:space="preserve">
-    <value>Select if you don't need to know who is an op, half-op, or has voice.</value>
+  <data name="strGlobalPluginsExtWhereToLookPathsDesc" xml:space="preserve">
+    <value>Specify where to look for files.  This should be a list of folders AKA directories.  The order is important.  Best Chat starts with the first entry in the list and continues from there.  System paths, if enabled, are checked AFTER the entries here.</value>
   </data>
-  <data name="strGlobalAppearanceUserListWaysToShowModesHiddenTitle" xml:space="preserve">
-    <value>Hidden (no modes visible)</value>
+  <data name="strGlobalAppearanceMsgGroupsDesc" xml:space="preserve">
+    <value>Best Chat can group messages so messages from the same sender are grouped.  These messages must have nothing other than other messages from the same sender in between.  Any of the following can cause Best Chat to start a new group: Messages from other senders (including you), someone joins or leaves, etc.  How groups look will depend on your theme.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsEnableDesc" xml:space="preserve">
+    <value>Do you want to enable message grouping?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsEnableTitle" xml:space="preserve">
+    <value>Enable Message Grouping</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupDesc" xml:space="preserve">
+    <value>This controls how long Best Chat considers a group active in a view where nothing is happeneing.  Any activity by the sender of the current group will restart the clock keeping the group active.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsHowLongToWaitBeforeStartingNewGroupTitle" xml:space="preserve">
+    <value>How Long Can Best Chat Wait Before It Starts a New Group?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsLimitMsgsPerGroupDesc" xml:space="preserve">
+    <value>Some users may prefer to limit how long a group can get.  If so, turn this setting on.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsLimitMsgsPerGroupTitle" xml:space="preserve">
+    <value>Do you wish to limit how many messages can be in a group?</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsMaxMsgsPerGroupDesc" xml:space="preserve">
+    <value>Please specify how long a group can get before Best Chat starts a new one.</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsMaxMsgsPerGroupTitle" xml:space="preserve">
+    <value>Maximum Messages Per Group</value>
+  </data>
+  <data name="strGlobalAppearanceMsgGroupsTitle" xml:space="preserve">
+    <value>Message Grouping</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampHowOftenToRepeatDesc" xml:space="preserve">
+    <value>How often would you like Best Chat to show a new time stamp?  Regardless of this value, as long as you're showing some time stamps, you'll be able to mouse over the time stamp area to see when events happened even if no time stamp is visible for the event in question.</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampHowOftenToRepeatTitle" xml:space="preserve">
+    <value>How Often to Repeat</value>
+  </data>
+  <data name="strTimeStampRepeatEveryEvt" xml:space="preserve">
+    <value>Every Event</value>
+  </data>
+  <data name="strTimeStampRepeatEveryEvtToolTip" xml:space="preserve">
+    <value>Best Chat will display a new time stamp for every event.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryFiveEvts" xml:space="preserve">
+    <value>Every 5 Events</value>
+  </data>
+  <data name="strTimeStampRepeatEveryFiveEvtsToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every five (5) events.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryMinute" xml:space="preserve">
+    <value>Every Minute</value>
+  </data>
+  <data name="strTimeStampRepeatEveryMinuteToolTip" xml:space="preserve">
+    <value>Best Chat will wait 1 minute to display a new time stamp.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryOtherEvt" xml:space="preserve">
+    <value>Every Other Event</value>
+  </data>
+  <data name="strTimeStampRepeatEveryOtherEvtToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only for every other event.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTenMinutes" xml:space="preserve">
+    <value>Every 10 Minutes</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTenMinutesToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every ten (10) minutes.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryThirtySecs" xml:space="preserve">
+    <value>Every 30 seconds</value>
+  </data>
+  <data name="strTimeStampRepeatEveryThirtySecsToolTip" xml:space="preserve">
+    <value>Best Chat will wait 30 seconds to display a new time stamp.</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTwentyEvts" xml:space="preserve">
+    <value>Every 20 Events</value>
+  </data>
+  <data name="strTimeStampRepeatEveryTwentyEvtsToolTip" xml:space="preserve">
+    <value>Best Chat will display time stamps only every twenty (20) events</value>
+  </data>
+  <data name="strGlobalPluginExtScriptsTitle" xml:space="preserve">
+    <value>Scripts</value>
+  </data>
+  <data name="strGlobalPluginExtScriptsDesc" xml:space="preserve">
+    <value>Scripts are external files that Best Chat has to call an external program to run.  On the other hand, programs can run themselves and Best Chat needs nothing more than to locate it.</value>
+  </data>
+  <data name="strGlobalPluginExtProgramsTitle" xml:space="preserve">
+    <value>Programs</value>
+  </data>
+  <data name="strGlobalPluginExtProgramsDesc" xml:space="preserve">
+    <value>Best Chat considers anything it can run without help a program.  On the other hand, a script requires Best Chat to locate a program to run the script.</value>
+  </data>
+  <data name="strExportAliasDlgTitle" xml:space="preserve">
+    <value>Where would you like this alias exported to?</value>
   </data>
 </root>

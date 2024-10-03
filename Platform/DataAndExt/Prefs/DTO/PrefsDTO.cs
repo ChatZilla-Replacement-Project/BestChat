@@ -2,51 +2,92 @@
 
 namespace BestChat.Platform.DataAndExt.Prefs.DTO;
 
-public abstract record PrefsDTO(PrefsDTO.GlobalDTO Global)
+public abstract record PrefsDTO
+(
+) : AbstractMgr.AbstractDTO("IRC")
 {
-	public abstract record GlobalDTO(GlobalDTO.GeneralDTO General, GlobalDTO.AppearanceDTO Appearance, GlobalDTO.PluginsDTO Plugins)
+	public abstract record GlobalDTO
+	(
+		GlobalDTO.PluginsDTO Plugins
+	) : AbstractMgr.AbstractDTO("Global")
 	{
-		public abstract record AppearanceDTO(AppearanceDTO.ConfModeDTO ConfMode, AppearanceDTO.TimeStampDTO TimeStamp,
-			AppearanceDTO.UserListDTO UserList)
+		public abstract record AppearanceDTO
+		(
+			AppearanceDTO.ConfModeDTO ConfMode,
+			AppearanceDTO.TimeStampDTO TimeStamp,
+			AppearanceDTO.MsgGroupsDTO MsgGroups
+		) : AbstractMgr.AbstractDTO("Global/Appearance")
 		{
-			public record ConfModeDTO(bool ConfModeEnabled = false, int UserLimitBeforeTrigger = 150, bool ActionsCollapsed = false, bool
-				MsgsCollapsed = false);
+			public record ConfModeDTO
+			(
+				bool ConfModeEnabled = false,
+				int UserLimitBeforeTrigger = 150,
+				bool ActionsCollapsed = false,
+				bool MsgsCollapsed = false
+			) : AbstractMgr.AbstractDTO("Global/Appearance/ConfMode");
 
-			public record TimeStampDTO(bool Show = true, string Fmt = "G");
+			public record TimeStampDTO
+			(
+				bool Show = true,
+				string Fmt = "G",
+				string? KeyOverride = null,
+				GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts HowOftenToRepeat =
+					GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds
+			) : AbstractMgr.AbstractDTO(KeyOverride ?? "Global/Appearance/TimeStamp");
 
-			public record UserListDTO(PaneLocations Loc = PaneLocations.left, WaysToShowUserModes HowToShowModes = WaysToShowUserModes.symbols,
-				bool SortByMode = true);
+			// ReSharper disable once InconsistentNaming
+			public record MsgGroupsDTO
+			(
+				bool Enabled,
+				bool LimitMsgsPerGroup,
+				int MaxMsgsPerGroup,
+				System.TimeSpan? HowLongToWaitBeforeStartingNewGroup = null
+			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/MsgGroups");
 		}
 
-		public abstract AppearanceDTO Appearance
+		public abstract AppearanceDTO BaseAppearance
 		{
 			get;
 		}
 
-		public record PluginsDTO(PluginsDTO.ExtDTO Ext)
+		public record PluginsDTO
+		(
+			PluginsDTO.ExtDTO Ext
+		) : AbstractMgr.AbstractDTO("Global/Plugins")
 		{
-			public record ExtDTO(ExtDTO.WhereToLookDTO WhereToLook, ExtDTO.ScriptEntryDTO[]? Scripts = null, ExtDTO.ProgramEntryDTO[]? Programs
-				= null)
+			public record ExtDTO
+			(
+				ExtDTO.WhereToLookDTO WhereToLook,
+				ExtDTO.ScriptEntryDTO[]? Scripts = null,
+				ExtDTO.ProgramEntryDTO[]? Programs = null
+			) : AbstractMgr.AbstractDTO("Global/Plugins/Ext")
 			{
-				public record WhereToLookDTO(string[]? Paths = null, bool IncludeSysPaths = true);
+				public record WhereToLookDTO
+				(
+					System.IO.DirectoryInfo[]? Paths = null,
+					bool IncludeSysPaths = true
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/WhereToLook");
 
-				public record ScriptEntryDTO(string FileNameExtOrMask, string? ProgramNeeded, string ParamsToPass, bool Enabled);
+				public record ScriptEntryDTO
+				(
+					string FileNameExtOrMask,
+					System.IO.FileInfo? ProgramNeeded,
+					string ParamsToPass,
+					bool Enabled
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/Script");
 
-				public record ProgramEntryDTO(string Name, string Program, string ParamsToPass, bool Enabled);
-			}
-		}
-
-		public record GeneralDTO(GeneralDTO.ConnDTO Conn)
-		{
-			public record ConnDTO(bool IsIndentEnabled = true, bool IsAutoReconnectEnabled = true, bool
-				IsRejoinAfterKickEnabled = true, string CharEncoding = "UTF-8", bool IsUnlimitedAttemptsOn =
-				true, int MaxAttempts = 1, string? DefQuitMsg = null)
-			{
+				public record ProgramEntryDTO
+				(
+					string Name,
+					System.IO.FileInfo Program,
+					string ParamsToPass,
+					bool Enabled
+				) : AbstractMgr.AbstractDTO("Global/Plugins/Ext/Program");
 			}
 		}
 	}
 
-	public abstract GlobalDTO Global
+	public abstract GlobalDTO BaseGlobal
 	{
 		get;
 	}

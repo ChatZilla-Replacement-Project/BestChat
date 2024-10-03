@@ -1,0 +1,41 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Prefs"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:GlobalAutoPerformOneStepEditable"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.AutoPerformOneStepDlg">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Here you can edit or create the step.  Best Chat will provide suggestions as you type based on what you type.  It help help with parameters for the commands and display documentation for those commands."/>
+		<Separator Margin="0,4"/>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							IsVisible="{Binding WereChangesMade}"
+							IsEnabled="{Binding IsValid}"
+							Content="OK"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							IsVisible="{Binding WereChangesMade}"
+							Content="Cancel"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							IsVisible="{calc:Binding !WereChangesMade}"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"
+							Margin="0,4"/>
+		<!-- TODO: Display the documentation -->
+		<!-- TODO: Let the user edit the command -->
+	</DockPanel>
+</Window>

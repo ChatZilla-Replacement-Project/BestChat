@@ -6,15 +6,18 @@ namespace BestChat.Platform.DataAndExt;
 /// Provides a means to access some aspects of <see cref="Obj{TypeOfObj}"/> even if you don't know the type parameters.
 /// </summary>
 [System.Text.Json.Serialization.JsonSourceGenerationOptions(GenerationMode = System.Text.Json.Serialization
-	.JsonSourceGenerationMode.Metadata | System.Text.Json.Serialization.JsonSourceGenerationMode.Serialization,
-	IgnoreReadOnlyFields = true, IgnoreReadOnlyProperties = true, WriteIndented = true)]
+	.JsonSourceGenerationMode.Metadata | System.Text.Json.Serialization.JsonSourceGenerationMode
+	.Serialization, IgnoreReadOnlyFields = true, IgnoreReadOnlyProperties = true, WriteIndented = true)]
 public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 {
 	/// <summary>
 	/// Constructs a new <see cref="ObjBase"/> instance.
 	/// </summary>
-	protected ObjBase()
-		=> mapAllInstances[guid] = this;
+	protected ObjBase(System.Guid guid = default)
+	{
+		this.guid = guid;
+		mapAllInstances[guid] = this;
+	}
 
 	/// <summary>
 	/// Removes this instance from the list of all instances.
@@ -27,10 +30,18 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// </summary>
 	public readonly System.Guid guid;
 
+	public System.Guid GUID
+		=> guid;
+
+	public const string strAllJsonFileTypeExt = @".json";
+
+	public const string strAllFileTypesExt = @".*";
+
 	/// <summary>
 	/// Stores a list of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.
 	/// </summary>
-	private static readonly System.Collections.Generic.SortedDictionary<System.Guid, ObjBase> mapAllInstances = [];
+	private static readonly System.Collections.Generic.SortedDictionary<System.Guid, ObjBase> mapAllInstances
+		= [];
 
 	/// <summary>
 	/// Returns a readonly dictionary of all <see cref="ObjBase"/> instances indexed by their <see cref="System.Guid"/>.  Derived classes should provide their
@@ -42,7 +53,7 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// <summary>
 	/// Provides a way to implicitly convert from a <see cref="ObjBase"/> of any derivation to its <see cref="System.Guid"/>.
 	/// </summary>
-	/// <param name="obj">The <see cref="ObjBase"/> to convert</param> 
+	/// <param name="obj">The <see cref="ObjBase"/> to convert</param>
 	public static implicit operator System.Guid(in ObjBase obj)
 		=> obj.guid;
 
@@ -60,36 +71,10 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 	/// Causes the hash code associated by <see cref="object"/> to be the hash code for <see cref="guid"/>.
 	/// </summary>
 	/// <returns>The required hash code</returns>
-	public override int GetHashCode() 
+	public override int GetHashCode()
 		=> guid.GetHashCode();
 
-	public abstract event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
-
-	/// <summary>
-	/// Indicates how a collection changed.
-	/// </summary>
-	public enum CollectionChangeType
-	{
-		/// <summary>
-		/// A new member was added
-		/// </summary>
-		add,
-
-		/// <summary>
-		/// An existing member was changed
-		/// </summary>
-		changed,
-
-		/// <summary>
-		/// An existing member was removed from the collection
-		/// </summary>
-		removed,
-
-		/// <summary>
-		/// No other value is valid.
-		/// </summary>
-		other,
-	}
+	public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
 
 	public static readonly System.Text.Json.JsonSerializerOptions jsoStandard = new()
 	{
@@ -97,6 +82,10 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 		Converters =
 		{
 			new System.Text.Json.Serialization.JsonStringEnumConverter(),
+			new JSON.FileConverter(),
+			new JSON.FileThatMightBeNullConverter(),
+			new JSON.FolderConverter(),
+			new JSON.FolderThatMightBeNullConverter(),
 		},
 		IgnoreReadOnlyFields = true,
 		IgnoreReadOnlyProperties = true,
@@ -106,10 +95,13 @@ public abstract class ObjBase : System.ComponentModel.INotifyPropertyChanged
 		ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip,
 		WriteIndented = true,
 	};
+
+	protected void FirePropChanged(in string strWhichPropChanged)
+		=> PropertyChanged?.Invoke(this, new(strWhichPropChanged));
 }
 
 /// <summary>
-/// This is meant to be the base class of all data types in this system.  It provides the ability to be marked dirty as well as some other functions. 
+/// This is meant to be the base class of all data types in this system.  It provides the ability to be marked dirty as well as some other functions.
 ///  (Technically, this is derived from <see cref="ObjBase"/> and <see cref="object"/>.)
 /// </summary>
 /// <typeparam name="TypeOfObj">Any type derived from <see cref="Obj{TypeOfObj}"/></typeparam>
@@ -120,7 +112,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Constructs a new <see cref="Obj{TypeOfObj}"/> by adding this to the list of all instances.
 		/// </summary>
-		protected Obj()
+		protected Obj(System.Guid guid = default) :
+			base(guid)
 			=> mapAllInstances[guid] = this;
 
 		/// <summary>
@@ -156,15 +149,52 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		public delegate void DBoolFieldChanged(in TypeOfObj objSender, in bool bNewVal);
 
 		/// <summary>
-		/// Provides a way to notify interested callers that a collection has changed in some way.  Details of how these parameters are used are up to the code
-		/// that implements the event.
+		/// Provides a way to notify interested callers that a collection has changed in some way.  Details of how these
+		/// parameters are used are up to the code that implements the event.  If the collection is a map (or dictionary),
+		/// use DMapFieldChanged instead.
 		/// </summary>
-		/// <typeparam name="CollectionType">The type of the collection.  This can be any collection type</typeparam>
+		/// <typeparam name="CollectionType">The type of the collection.  This can be any collection type, but must be a
+		/// collection of <typeparamref name="ItemType"/>.</typeparam>
+		/// <typeparam name="ItemType">The type of element in the collection.</typeparam>
 		/// <param name="objSender">The sender of this notification</param>
 		/// <param name="collectionThatChanged">Which collection changed</param>
-		/// <param name="howTheCollectionChanged">How it changed</param>
-		public delegate void DCollectionFieldChanged<CollectionType>(in TypeOfObj objSender, in CollectionType collectionThatChanged,
-			CollectionChangeType howTheCollectionChanged);
+		/// <param name="eNewEntries">A collection of entries that were added to the collection or <see landword="null"/>
+		/// if there are no new entries.</param>
+		/// <param name="eRemovedEntries">A collection of entries that were removed from the collection or <see
+		/// langword="null"/> if no entries were removed.</param>
+		/// <param name="eRelocatedItems">A collection of entries that were moved in the collection or <see
+		/// langword="null"/> if no items were moved.  This would typically mean the items received a new index or position
+		/// in a list.</param>
+		public delegate void DCollectionFieldChanged<CollectionType, ItemType>(in TypeOfObj objSender, in CollectionType
+				collectionThatChanged, in System.Collections.Generic.IEnumerable<ItemType>? eNewEntries = null, in System
+				.Collections.Generic.IEnumerable<ItemType>? eRemovedEntries = null, in System.Collections.Generic
+				.IEnumerable<ItemType>? eRelocatedItems = null)
+			where CollectionType : System.Collections.Generic.IReadOnlyCollection<ItemType>;
+
+		/// <summary>
+		/// THis is like <see cref="DCollectionFieldChanged{CollectionType,ItemType}"/> but specific to maps AKA
+		/// dictionaries.  Unlike <see cref="DCollectionFieldChanged{CollectionType,ItemType}"/>, <see
+		/// cref="DMapFieldChanged{MapType,KeyType,ElementType}"/> provides a way to list changes in the key for an entry in
+		/// the map.
+		/// </summary>
+		/// <typeparam name="MapType">The type of map; Must be a
+		/// <c>System.Collections.Generic.IReadOnlyDictionary&lt;KeyType, ElementType&lt;</c></typeparam>
+		/// <typeparam name="KeyType">The key for the map</typeparam>
+		/// <typeparam name="ElementType">The element type for the map</typeparam>
+		/// <param name="objSender">The object firing the event.</param>
+		/// <param name="mapThatChanged">The affected map</param>
+		/// <param name="eNewKeys">A list of new keys that were just added or <see langword="null"/> if no new keys were
+		/// added.</param>
+		/// <param name="eRemovedKeys">A list of keys that were just removed from the map or <see langword="null"/> if none
+		/// were removed.</param>
+		/// <param name="eChangedKeys">A list of tuples containing keys that just changed.  The first two elements in the
+		/// tuple should be, in order, the old key and the new key.  The final element in the tuple should be the element
+		/// that was moved.</param>
+		public delegate void DMapFieldChanged<MapType, KeyType, ElementType>(in TypeOfObj objSender, in MapType
+				mapThatChanged, in System.Collections.Generic.IEnumerable<KeyType>? eNewKeys = null, in System.Collections
+				.Generic.IEnumerable<System.Tuple<KeyType, ElementType>>? eRemovedKeys = null, in System.Collections.Generic
+				.IEnumerable<System.Tuple<KeyType,KeyType, ElementType>>? eChangedKeys = null)
+			where MapType : System.Collections.Generic.IReadOnlyDictionary<KeyType, ElementType>;
 
 		/// <summary>
 		/// Provides a way to notify interested callers that you have a new instance.  This will normally be an event on the owner of the <typeparamref
@@ -201,8 +231,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Stores a dictionary of all instances of <see cref="Obj{TypeOfObj}"/> indexed by their <see cref="System.Guid"/>
 		/// </summary>
-		private static readonly System.Collections.Generic.SortedDictionary<System.Guid, Obj<TypeOfObj>> mapAllInstances =
-			[];
+		private static readonly System.Collections.Generic.SortedDictionary<System.Guid, Obj<TypeOfObj>>
+			mapAllInstances = [];
 	#endregion
 
 	#region Properties
@@ -221,7 +251,8 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Returns a readonly dictionary of all <see cref="Obj{TypeOfObj}"/> instances indexed by their <see cref="System.Guid"/>
 		/// </summary>
-		public static new System.Collections.Generic.IReadOnlyDictionary<System.Guid, Obj<TypeOfObj>> AllInstancesByGUID
+		public static new System.Collections.Generic.IReadOnlyDictionary<System.Guid, Obj<TypeOfObj>>
+			AllInstancesByGUID
 			=> mapAllInstances;
 	#endregion
 

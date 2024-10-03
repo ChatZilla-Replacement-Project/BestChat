@@ -1,0 +1,21 @@
+﻿<UserControl
+	x:Class="BestChat.Platform.UI.Desktop.FolderBrowserCtrl"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:BestChat.Platform.UI.Desktop"
+	mc:Ignorable="d"
+	FontFamily="Times New Roman">
+	<Grid ColumnDefinitions="1*,Auto"
+				RowDefinitions="Auto">
+		<TextBlock
+			x:Name="textCtnts"
+			Text="{Binding LocSpecified, RelativeSource={RelativeSource AncestorType=local:FolderBrowserCtrl}}"/>
+		<Button
+			x:Name="btnBrowse"
+			Grid.Column="1"
+			Content="…"
+			Click="OnBrowseBtnClicked"/>
+	</Grid>
+</UserControl>

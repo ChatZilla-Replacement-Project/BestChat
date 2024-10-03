@@ -5,7 +5,8 @@ namespace BestChat.Platform.DataAndExt.Exceptions
 	public class UnknownOrInvalidEnumException<EnumType> : System.Exception
 	{
 		#region Constructors & Destructors
-			public UnknownOrInvalidEnumException(in EnumType objFoundThis, in string strActionDesc)
+			public UnknownOrInvalidEnumException(in EnumType objFoundThis, in string strActionDesc, System
+				.Exception? eInner = null) : base(null, eInner)
 			{
 				System.Diagnostics.Debug.Assert(strActionDesc != null && strActionDesc.Length > 0);
 

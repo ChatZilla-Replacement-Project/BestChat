@@ -1,0 +1,14 @@
+BestChat.Platform.Ctrls.Desktop
+provides
+a
+series
+of
+Avalonia
+based
+controls
+specific
+to
+displaying
+its
+chat
+data.

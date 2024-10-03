@@ -1,0 +1,75 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:group="using:GroupBox.Avalonia.Controls"
+												x:DataType="base:GlobalAppearanceEmojiPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceEmojiPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<Grid ColumnDefinitions="Auto,4,1*"
+				RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+		<TextBlock Grid.ColumnSpan="5"
+							Classes="InfoTextBlock">
+			Best Chat has a lot of options for how to deal with emoji and emoticons.  For reference, emoji are single graphical character “<Span Classes="FixedWidthHilight">😀</Span>” while emoticons are plain ASCII strings such as “<Span Classes="FixedWidthHilight">:)</Span>”.  Best Chat can receive one and act as though the other were received.  Plus, you can use what ever method is convenient for you to enter them (either emoji or emoticons) and Best Chat will actually send your preferred type.  Regardless, if you hover over it, you'll see a tooltip telling you what was actually sent or received and the various ways you can manually select that character using just plain text.
+		</TextBlock>
+		<Separator Grid.Row="1"
+							Grid.ColumnSpan="5"/>
+		<Button x:Name="btnResetSendingEmoji"
+						Grid.Row="2"
+						IsEnabled="{Binding SendingEmoji.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="2"
+										Grid.Column="2"
+										Header="Sending Emoji">
+			<base:SendingEmojiOptsRadioBtnGroup SelVal="{Binding SendingEmoji.CurVal, Mode=TwoWay}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetSendingEmoticons"
+						Grid.Row="4"
+						IsEnabled="{Binding SendingEmoticons.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="4"
+										Grid.Column="2"
+										Header="Sending Emoticons">
+			<base:SendingEmoticonsOptsRadioBtnGroup SelVal="{Binding SendingEmoticons.CurVal, Mode=TwoWay}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetDisplayingEmoji"
+						Grid.Row="6"
+						IsEnabled="{Binding DisplayingEmoji.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="6"
+										Grid.Column="2"
+										Header="Displaying Emoji">
+			<base:DisplayingEmojiOptsRadioBtnGroup SelVal="{Binding DisplayingEmoji.CurVal, Mode=TwoWay}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetDisplayingEmoticons"
+						Grid.Row="8"
+						IsEnabled="{Binding DisplayingEmoticons.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="8"
+										Grid.Column="2"
+										Header="Displaying Emoticons:">
+			<base:DisplayingEmoticonsOptsRadioBtnGroup SelVal="{Binding DisplayingEmoticons.CurVal, Mode=TwoWay}"/>
+		</group:GroupBox>
+		<Button x:Name="btnResetMakeEmojiOnlyPostsBigger"
+						Grid.Row="10"
+						IsEnabled="{Binding MakeEmojiOnlyPostsBigger.CanReset}"
+						Classes="ResetBtn"/>
+		<CheckBox Grid.Row="10"
+							Grid.Column="2"
+							Content="Make Emoji-only Posts Use a Bigger Font?"
+							IsChecked="{Binding MakeEmojiOnlyPostsBigger.CurVal, Mode=TwoWay}"/>
+		<Button x:Name="btnResetEmojiAnimation"
+						Grid.Row="12"
+						IsEnabled="{Binding EmojiAnimation.CanReset}"
+						Classes="ResetBtn"/>
+		<group:GroupBox Grid.Row="12"
+										Grid.Column="2"
+										Header="Animation of Emoji:">
+			<base:EmojiAnimationComboBox SelVal="{Binding EmojiAnimation.CurVal}"/>
+		</group:GroupBox>
+	</Grid>
+</base:VisualPrefsTabCtrl>

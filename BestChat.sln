@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Desktop", "Desktop\BestChat.Desktop\BestChat.Desktop.csproj", "{24CAF4A9-2C4F-4E31-AE08-1698ACDA0F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Desktop", "Desktop\BestChat.Desktop.csproj", "{24CAF4A9-2C4F-4E31-AE08-1698ACDA0F21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{B57058BC-21A0-4849-A8F9-633452CDD746}"
 EndProject
@@ -13,6 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Platform.DataAndEx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88A6656D-C041-4FDA-8D2E-A72BA70767C4}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 		LICENSE = LICENSE
 		LICENSE.txt = LICENSE.txt
 		Logo for We Chat.png = Logo for We Chat.png
@@ -26,9 +29,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		We Chat.ico = We Chat.ico
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ctrls", "Ctrls", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{75A7407D-6085-4579-9AEC-4C9682F51FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestChat.Platform.Ctrls.Desktop", "Platform\Ctrls\BestChat.Platform.Ctrls.Desktop\BestChat.Platform.Ctrls.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.Platform.UI.Desktop", "Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj", "{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRC", "IRC", "{5C216607-6917-431A-AC70-71EBAD760378}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.Data", "IRC\Data\BestChat.IRC.Data.csproj", "{54223CA6-BB79-4972-9F77-943B9E922AD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestChat.IRC.ProtocolMgr", "IRC\Protocol Manager\BestChat.IRC.ProtocolMgr.csproj", "{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestChat.IRC.Views.Desktop", "IRC\Views\Desktop\BestChat.IRC.Views.Desktop.csproj", "{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +59,18 @@ Global
 		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54223CA6-BB79-4972-9F77-943B9E922AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,7 +78,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{24CAF4A9-2C4F-4E31-AE08-1698ACDA0F21} = {B57058BC-21A0-4849-A8F9-633452CDD746}
 		{055264F7-10FF-4DA5-B0A0-51AFAE7F8C2D} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
-		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
+		{75A7407D-6085-4579-9AEC-4C9682F51FE7} = {230A12AD-976D-4BE6-9427-E5CCBAAAE61E}
+		{8D1F6D63-7C77-473D-A45B-E28861C0CFAD} = {75A7407D-6085-4579-9AEC-4C9682F51FE7}
+		{54223CA6-BB79-4972-9F77-943B9E922AD9} = {5C216607-6917-431A-AC70-71EBAD760378}
+		{7B2B8774-76C0-4800-99DE-24ECBEC1B49E} = {5C216607-6917-431A-AC70-71EBAD760378}
+		{E9D1020C-0DA5-43E8-9894-0E8DF1DEAC07} = {5C216607-6917-431A-AC70-71EBAD760378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1645BBD-D74E-4AE2-AD39-CFEA6F8875B0}
