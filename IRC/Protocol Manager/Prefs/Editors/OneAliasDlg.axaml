@@ -13,7 +13,13 @@
 				x:DataType="data:GlobalAliasesOneAliasEditable"
 				mc:Ignorable="d"
 				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasDlg"
-				x:Name="window">
+				x:Name="window"
+				BorderThickness="3"
+				CanResize="False"
+				ShowActivated="True"
+				ShowInTaskbar="False"
+				SizeToContent="WidthAndHeight"
+				WindowStartupLocation="CenterOwner">
 	<Window.Resources>
 		<behaviors:DropHandler x:Key="DropHandler"/>
 	</Window.Resources>
@@ -293,8 +299,7 @@
 				<rtfedit:DocEditorCtrl x:Name="rtfeditDoc"
 															ToolTip.Tip="Best Chat provides a few predefined styles that themes can change.  Use those when possible."
 															Margin="4"
-															Ctnt="{Binding Doc, Mode=TwoWay}">
-				</rtfedit:DocEditorCtrl>
+															Ctnt="{Binding Doc, Mode=TwoWay}"/>
 			</group:GroupBox>
 			<Label Grid.Row="8"
 						HorizontalContentAlignment="Right"

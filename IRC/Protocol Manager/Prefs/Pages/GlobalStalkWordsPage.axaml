@@ -1,0 +1,62 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.IRC.Data.Prefs"
+												xmlns:calc="using:CalcBinding"
+												x:DataType="data:GlobalStalkWordsPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalStalkWordsPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock">
+			Here, you can specify a series of words that will cause Best Chat to alert you that they were seen.  Your current nick is implicitly in this list and doesn't need to be listed.  How this notification appears depends on the settings in
+			<InlineUIContainer>
+				<HyperlinkButton x:Name="hlinkGlobalAppearance"
+												Content="Global/Appearance"
+												Click="OnVisitGlobalAppearancePrefsClicked"/>
+			</InlineUIContainer>
+			.
+		</TextBlock>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<StackPanel DockPanel.Dock="Right"
+								VerticalAlignment="Center"
+								Orientation="Vertical"
+								Spacing="4">
+			<Button x:Name="btnAdd"
+							ToolTip.Tip="Use to add a new word to the list."
+							Content="Add…"
+							Click="OnAddClicked"/>
+			<Button x:Name="btnEdit"
+							ToolTip.Tip="Use to edit the currently selected word.  Available only if you have exactly one word selected."
+							IsEnabled="{Binding 'SelectedItems.Count == 1', ElementName=lbData}"
+							Content="Edit…"
+							Click="OnEditClicked"/>
+			<Button x:Name="btnDel"
+							ToolTip.Tip="Use to delete the currently selected word or words. Available only if you have at least one word selected."
+							IsEnabled="{Binding 'SelectedItems.Count &gt; 0', ElementName=lbData}"
+							Content="Delete"
+							Click="OnDelCLicked"/>
+		</StackPanel>
+		<Rectangle DockPanel.Dock="Right"
+							Width="2"
+							Margin="4,0"
+							Fill="{StaticResource ButtonBackground}"/>
+		<Button x:Name="btnResetList" DockPanel.Dock="Left" ToolTip.Tip="Click to reset the list of stalk words to the Best Chat default." VerticalAlignment="Center" Classes="ResetBtn" Click="OnResetListClicked"></Button>
+		<ListBox x:Name="lbData"
+						AutoScrollToSelectedItem="True"
+						ItemsSource="{Binding Entries.Values}"
+						SelectionMode="Multiple">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Label Content="{Binding Ctnts}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</DockPanel>
+</base:VisualPrefsTabCtrl>

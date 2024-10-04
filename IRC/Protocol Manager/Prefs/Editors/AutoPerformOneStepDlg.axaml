@@ -6,7 +6,13 @@
 				xmlns:calc="using:CalcBinding"
 				x:DataType="data:GlobalAutoPerformOneStepEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.AutoPerformOneStepDlg">
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.AutoPerformOneStepDlg"
+				BorderThickness="3"
+				CanResize="False"
+				ShowActivated="True"
+				ShowInTaskbar="False"
+				SizeToContent="WidthAndHeight"
+				WindowStartupLocation="CenterOwner">
 	<Window.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</Window.Styles>

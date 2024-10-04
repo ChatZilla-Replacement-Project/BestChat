@@ -1,547 +1,556 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <!--
-      Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-      Version 2.0
-
-      The primary goals of this format is to allow a simple XML format
-      that is mostly human readable. The generation and parsing of the
-      various data types are done through the TypeConverter classes
-      associated with the data types.
-
-      Example:
-
-      ... ado.net/XML headers & schema ...
-      <resheader name="resmimetype">text/microsoft-resx</resheader>
-      <resheader name="version">2.0</resheader>
-      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-          <value>[base64 mime encoded serialized .NET Framework object]</value>
-      </data>
-      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-          <comment>This is a comment</comment>
-      </data>
-
-      There are any number of "resheader" rows that contain simple
-      name/value pairs.
-
-      Each data row contains a name, and value. The row also contains a
-      type or mimetype. Type corresponds to a .NET class that support
-      text/value conversion through the TypeConverter architecture.
-      Classes that don't support this are serialized and stored with the
-      mimetype set.
-
-      The mimetype is used for serialized objects, and tells the
-      ResXResourceReader how to depersist the object. This is currently not
-      extensible. For a given mimetype the value must be set accordingly:
-
-      Note - application/x-microsoft.net.object.binary.base64 is the format
-      that the ResXResourceWriter will generate, however the reader can
-      read any of the formats listed below.
-
-      mimetype: application/x-microsoft.net.object.binary.base64
-      value   : The object must be serialized with
-              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-              : and then encoded with base64 encoding.
-
-      mimetype: application/x-microsoft.net.object.soap.base64
-      value   : The object must be serialized with
-              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-              : and then encoded with base64 encoding.
-
-      mimetype: application/x-microsoft.net.object.bytearray.base64
-      value   : The object must be serialized into a byte array
-              : using a System.ComponentModel.TypeConverter
-              : and then encoded with base64 encoding.
-      -->
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
-                xmlns="">
-        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
-        <xsd:element name="root" msdata:IsDataSet="true">
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
             <xsd:complexType>
-                <xsd:choice maxOccurs="unbounded">
-                    <xsd:element name="metadata">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
-                            </xsd:sequence>
-                            <xsd:attribute name="name" use="required" type="xsd:string"/>
-                            <xsd:attribute name="type" type="xsd:string"/>
-                            <xsd:attribute name="mimetype" type="xsd:string"/>
-                            <xsd:attribute ref="xml:space"/>
-                        </xsd:complexType>
-                    </xsd:element>
-                    <xsd:element name="assembly">
-                        <xsd:complexType>
-                            <xsd:attribute name="alias" type="xsd:string"/>
-                            <xsd:attribute name="name" type="xsd:string"/>
-                        </xsd:complexType>
-                    </xsd:element>
-                    <xsd:element name="data">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
-                            </xsd:sequence>
-                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-                            <xsd:attribute ref="xml:space"/>
-                        </xsd:complexType>
-                    </xsd:element>
-                    <xsd:element name="resheader">
-                        <xsd:complexType>
-                            <xsd:sequence>
-                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                            </xsd:sequence>
-                            <xsd:attribute name="name" type="xsd:string" use="required"/>
-                        </xsd:complexType>
-                    </xsd:element>
-                </xsd:choice>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
-        </xsd:element>
-    </xsd:schema>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>2.0</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
-            PublicKeyToken=b77a5c561934e089
-        </value>
-    </resheader>
-    <data name="strAliasText" xml:space="preserve">
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="strAliasText" xml:space="preserve">
     <value>alias</value>
   </data>
-    <data name="strDefQuitMsg" xml:space="preserve">
+  <data name="strDefQuitMsg" xml:space="preserve">
     <value>Best Chat has exited.</value>
   </data>
-    <data name="strGlobalAliasesDesc" xml:space="preserve">
+  <data name="strGlobalAliasesDesc" xml:space="preserve">
     <value>Lists custom command sets you can run as one.</value>
   </data>
-    <data name="strGlobalAliasesTitle" xml:space="preserve">
+  <data name="strGlobalAliasesTitle" xml:space="preserve">
     <value>Aliases</value>
   </data>
-    <data name="strGlobalAltNicksDesc" xml:space="preserve">
+  <data name="strGlobalAltNicksDesc" xml:space="preserve">
     <value>Enter any alternate nicks that Best Chat should use if your normal nick isn't available.  You don't need to include your default nick.</value>
   </data>
-    <data name="strGlobalAltNicksTitle" xml:space="preserve">
+  <data name="strGlobalAltNicksTitle" xml:space="preserve">
     <value>Alterate Nicks</value>
   </data>
-    <data name="strGlobalAutoPerformDesc" xml:space="preserve">
+  <data name="strGlobalAutoPerformDesc" xml:space="preserve">
     <value>Groups tasks that Best Chat runs at select events.  These are all commands you were otherwise enter from the input box and can include those from plugins and aliases.</value>
   </data>
-    <data name="strGlobalAutoPerformTitle" xml:space="preserve">
+  <data name="strGlobalAutoPerformTitle" xml:space="preserve">
     <value>Auto-perform</value>
   </data>
-    <data name="strGlobalAutoPerformWhenJoiningChanDesc" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenJoiningChanDesc" xml:space="preserve">
     <value>Enter commands to run when joining a channel on any network.  This might be overridden by the settings for each network and further by individual channels.</value>
   </data>
-    <data name="strGlobalAutoPerformWhenJoiningChanTitle" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenJoiningChanTitle" xml:space="preserve">
     <value>When joining a channel on any network</value>
   </data>
-    <data name="strGlobalAutoPerformWhenJoiningNetDesc" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenJoiningNetDesc" xml:space="preserve">
     <value>Enter any commands to run when you join any network.  Thise can include commands from plugins and aliases.</value>
   </data>
-    <data name="strGlobalAutoPerformWhenJoiningNetTitle" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenJoiningNetTitle" xml:space="preserve">
     <value>When joining a network</value>
   </data>
-    <data name="strGlobalAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
     <value>Enter commands to run when opening a user chat on any network.  This might be overridden by the settings for each network.</value>
   </data>
-    <data name="strGlobalAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
     <value>When opening a user chat on any network</value>
   </data>
-    <data name="strGlobalAutoPerformWhenStartingBestChatDesc" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenStartingBestChatDesc" xml:space="preserve">
     <value>Enter any commands to run when Best Chat starts.  This can include plugins and aliases.</value>
   </data>
-    <data name="strGlobalAutoPerformWhenStartingBestChatTitle" xml:space="preserve">
+  <data name="strGlobalAutoPerformWhenStartingBestChatTitle" xml:space="preserve">
     <value>When Starting Best Chat</value>
   </data>
-    <data name="strGlobalConnAutoReconnectDesc" xml:space="preserve">
+  <data name="strGlobalConnAutoReconnectDesc" xml:space="preserve">
     <value>When your connection is lost unexpectedly, Best Chat can automatically reconnect to the server for you.</value>
   </data>
-    <data name="strGlobalConnAutoReconnectTitle" xml:space="preserve">
+  <data name="strGlobalConnAutoReconnectTitle" xml:space="preserve">
     <value>Reconnect when disconnected unexpectedly</value>
   </data>
-    <data name="strGlobalConnCharEncodingDesc" xml:space="preserve">
+  <data name="strGlobalConnCharEncodingDesc" xml:space="preserve">
     <value>For multiple clients to correctly read messages with non-ASCII characters on IRC, they need to use the same character encoding.</value>
   </data>
-    <data name="strGlobalConnCharEncodingTitle" xml:space="preserve">
+  <data name="strGlobalConnCharEncodingTitle" xml:space="preserve">
     <value>C_haracter Encoding</value>
   </data>
-    <data name="strGlobalConnDefQuitMsgDesc" xml:space="preserve">
+  <data name="strGlobalConnDefQuitMsgDesc" xml:space="preserve">
     <value>Specifies a default quit message to use when on is not explicitly specified for a network or via the /quit command.</value>
   </data>
-    <data name="strGlobalConnDefQuitMsgTitle" xml:space="preserve">
+  <data name="strGlobalConnDefQuitMsgTitle" xml:space="preserve">
     <value>Default Quit _Message</value>
   </data>
-    <data name="strGlobalConnDesc" xml:space="preserve">
+  <data name="strGlobalConnDesc" xml:space="preserve">
     <value>These preferences affect how Best Chat connects to the Internet.</value>
   </data>
-    <data name="strGlobalConnEnableIdentDesc" xml:space="preserve">
+  <data name="strGlobalConnEnableIdentDesc" xml:space="preserve">
     <value>Allows Best Chat to connect to servers that require an ident response</value>
   </data>
-    <data name="strGlobalConnEnableIdentTitle" xml:space="preserve">
+  <data name="strGlobalConnEnableIdentTitle" xml:space="preserve">
     <value>Enable _Identification Server during connection process</value>
   </data>
-    <data name="strGlobalConnMaxAttemptsDesc" xml:space="preserve">
+  <data name="strGlobalConnMaxAttemptsDesc" xml:space="preserve">
     <value>This is number of times Best Chat attempts to connect to a server or network.  A value of 1 means Best Chat will never attempt to reconnect to the server.</value>
   </data>
-    <data name="strGlobalConnMaxAttemptsTitle" xml:space="preserve">
+  <data name="strGlobalConnMaxAttemptsTitle" xml:space="preserve">
     <value>Maximum Connection _Attempts:</value>
   </data>
-    <data name="strGlobalConnRejoinAfterKickDesc" xml:space="preserve">
+  <data name="strGlobalConnRejoinAfterKickDesc" xml:space="preserve">
     <value>If this is turned on, Best Chat will try (only once) to rejoin a channel you got kicked from.  Note: Some channels dislike auto-rejoin and will ban you.  So be careful.</value>
   </data>
-    <data name="strGlobalConnRejoinAfterKickTitle" xml:space="preserve">
+  <data name="strGlobalConnRejoinAfterKickTitle" xml:space="preserve">
     <value>R_ejoin when kicked</value>
   </data>
-    <data name="strGlobalConnTitle" xml:space="preserve">
+  <data name="strGlobalConnTitle" xml:space="preserve">
     <value>_Connection</value>
   </data>
-    <data name="strGlobalConnUnlimitedAttemptsDesc" xml:space="preserve">
+  <data name="strGlobalConnUnlimitedAttemptsDesc" xml:space="preserve">
     <value>If checked, Best Chat will attempt to reconnect to any server forever.  If unchecked, the limit will be to the right.</value>
   </data>
-    <data name="strGlobalConnUnlimitedAttemptsTitle" xml:space="preserve">
+  <data name="strGlobalConnUnlimitedAttemptsTitle" xml:space="preserve">
     <value>Unlimited Attempts?</value>
   </data>
-    <data name="strGlobalDccDesc" xml:space="preserve">
+  <data name="strGlobalDccDesc" xml:space="preserve">
     <value>DCC lets you bypass a server once you connected in order to talk to a specific user, send them files, or receive files from them.  Use this tab to control those settings.</value>
   </data>
-    <data name="strGlobalDccDownloadsFolderDesc" xml:space="preserve">
+  <data name="strGlobalDccDownloadsFolderDesc" xml:space="preserve">
     <value>Specifies where to save all files received via DCC</value>
   </data>
-    <data name="strGlobalDccDownloadsFolderTitle" xml:space="preserve">
+  <data name="strGlobalDccDownloadsFolderTitle" xml:space="preserve">
     <value>Downloads Folder</value>
   </data>
-    <data name="strGlobalDccEnabledDesc" xml:space="preserve">
+  <data name="strGlobalDccEnabledDesc" xml:space="preserve">
     <value>You must check this to allow Best Chat to use DCC.  Otherwise, all DCC chats will be blocked and DCC won't appear in the menus.</value>
   </data>
-    <data name="strGlobalDccEnabledTitle" xml:space="preserve">
+  <data name="strGlobalDccEnabledTitle" xml:space="preserve">
     <value>Enabled</value>
   </data>
-    <data name="strGlobalDccGetIpFromServerDesc" xml:space="preserve">
+  <data name="strGlobalDccGetIpFromServerDesc" xml:space="preserve">
     <value>If checked, Best Chat will ask the server for the IP address to use.</value>
   </data>
-    <data name="strGlobalDccGetIpFromServerTitle" xml:space="preserve">
+  <data name="strGlobalDccGetIpFromServerTitle" xml:space="preserve">
     <value>Get the local IP from the server</value>
   </data>
-    <data name="strGlobalDccTitle" xml:space="preserve">
+  <data name="strGlobalDccTitle" xml:space="preserve">
     <value>DCC (Direct Client Chat)</value>
   </data>
-    <data name="strGlobalDesc" xml:space="preserve">
-      <value>Contains all global IRC settings</value>
-    </data>
-    <data name="strGlobalStalkWordsDesc" xml:space="preserve">
+  <data name="strGlobalDesc" xml:space="preserve">
+    <value>Contains all global IRC settings</value>
+  </data>
+  <data name="strGlobalStalkWordsDesc" xml:space="preserve">
     <value>Enter any strings you want to trigger a notify besides your nick.  This could be anything you're interested in, "@op", "@room", etc.  Your nick is implied.  If you turned on Agressive Notify in the application's main preferences, Best Chat will try to get your attention</value>
   </data>
-    <data name="strGlobalStalkWordsTitle" xml:space="preserve">
+  <data name="strGlobalStalkWordsTitle" xml:space="preserve">
     <value>Stalk Words</value>
   </data>
-    <data name="strGlobalTitle" xml:space="preserve">
-      <value>Global</value>
-    </data>
-    <data name="strIrcRootDesc" xml:space="preserve">
+  <data name="strGlobalTitle" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="strIrcRootDesc" xml:space="preserve">
     <value>All IRC specific settings are here.</value>
   </data>
-    <data name="strIrcRootTitle" xml:space="preserve">
+  <data name="strIrcRootTitle" xml:space="preserve">
     <value>IRC</value>
   </data>
-    <data name="strNetAliasDesc" xml:space="preserve">
+  <data name="strNetAliasDesc" xml:space="preserve">
     <value>Use if you want {0} to have a different set of aliases from what are available by default in Best Chat IRC.  This can be overridden again for each channel once you join.  Note: Having aliases that exist in some views but not others can be confusing.</value>
   </data>
-    <data name="strNetAliasesAdditionalDesc" xml:space="preserve">
+  <data name="strNetAliasesAdditionalDesc" xml:space="preserve">
     <value>If you need more aliases than what {0} inherits from the global IRC settings, list them here.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAliasesAdditionalTitle" xml:space="preserve">
+  <data name="strNetAliasesAdditionalTitle" xml:space="preserve">
     <value>List any extra aliases you want defined for use in views associated with {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAliasesInheritedDesc" xml:space="preserve">
+  <data name="strNetAliasesInheritedDesc" xml:space="preserve">
     <value>{0} inherits a list of aliases from the global IRC settings.  You can disable any or all of them here.  You can override this for individual channels once you visit them.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAliasesInheritedTitle" xml:space="preserve">
+  <data name="strNetAliasesInheritedTitle" xml:space="preserve">
     <value>Which Inherited Aliases are Enabled for {0}?</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAliasTitle" xml:space="preserve">
+  <data name="strNetAliasTitle" xml:space="preserve">
     <value>Aliases that exist only for {0}</value>
   </data>
-    <data name="strNetAltNicksAdditionalDesc" xml:space="preserve">
+  <data name="strNetAltNicksAdditionalDesc" xml:space="preserve">
     <value>Use to specify additional nicks you want to be available for {0}.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAltNicksAdditionalTitle" xml:space="preserve">
+  <data name="strNetAltNicksAdditionalTitle" xml:space="preserve">
     <value>Lists more alternate nicks specific to {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAltNicksDesc" xml:space="preserve">
+  <data name="strNetAltNicksDesc" xml:space="preserve">
     <value>If you prefer {0} to use different alternate nicks than what you use for the rest of Best Chat IRC, this tab lets you do that.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAltNicksInheritedDesc" xml:space="preserve">
+  <data name="strNetAltNicksInheritedDesc" xml:space="preserve">
     <value>{0} inherits a list of alternate nicks from the global IRC settings.  You can diable any or all of them.  The entries that are enabled are tried before any entries below and in the order shown.  If you need another order, disable entries as needed and recreate them below.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAltNicksInheritedTitle" xml:space="preserve">
+  <data name="strNetAltNicksInheritedTitle" xml:space="preserve">
     <value>{0} has these alternate nicks enabled.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAltNicksTitle" xml:space="preserve">
+  <data name="strNetAltNicksTitle" xml:space="preserve">
     <value>Alternate nicks specific to {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformDesc" xml:space="preserve">
+  <data name="strNetAutoPerformDesc" xml:space="preserve">
     <value>Use to override the global auto-perform settings for {0}.  You can disable specific entries and add new ones.  Furthermore, you can override it further for each channel once you join it.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformOnEvtDisabledStepsDesc" xml:space="preserve">
+  <data name="strNetAutoPerformOnEvtDisabledStepsDesc" xml:space="preserve">
     <value>Each entry here is inherited from the global IRC preferences.  Uncheck an item to prevent that command from running when the event happens for {0}.  Leave it checked to enable it to run.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformOnEvtDisabledStepsTitle" xml:space="preserve">
+  <data name="strNetAutoPerformOnEvtDisabledStepsTitle" xml:space="preserve">
     <value>Disable some steps for {0}?</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformTitle" xml:space="preserve">
+  <data name="strNetAutoPerformTitle" xml:space="preserve">
     <value>{0} auto-perform options</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformWhenJoiningChanDesc" xml:space="preserve">
+  <data name="strNetAutoPerformWhenJoiningChanDesc" xml:space="preserve">
     <value>Use if you want a different set of commands to be run when joining any channel on {0} other than what was specified in the global IRC settings.  This list can be overriden again for individual channels once you join them.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetAutoPerformWhenJoiningChanTitle" xml:space="preserve">
+  <data name="strNetAutoPerformWhenJoiningChanTitle" xml:space="preserve">
     <value>Commands to run when joining any channel on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetAutoPerformWhenJoiningNetDesc" xml:space="preserve">
+  <data name="strNetAutoPerformWhenJoiningNetDesc" xml:space="preserve">
     <value>Use if you want to customize the list of commands you want to run each time you connect to {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformWhenJoiningNetTitle" xml:space="preserve">
+  <data name="strNetAutoPerformWhenJoiningNetTitle" xml:space="preserve">
     <value>Commands to run when joining {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
+  <data name="strNetAutoPerformWhenOpeningUserChatDesc" xml:space="preserve">
     <value>Use if you want a different set of commands to be run when you open a chat with any other user on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
+  <data name="strNetAutoPerformWhenOpeningUserChatTitle" xml:space="preserve">
     <value>Commands to run when you open a chat window with another user</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetChanAliasesAdditionalDesc" xml:space="preserve">
+  <data name="strNetChanAliasesAdditionalDesc" xml:space="preserve">
     <value>Enter any additonal aliases you'd like to be enabled when {1} on {0} is the active view.  You can't use any name if an alias with that name was inherited unless you disable it.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAliasesAdditionalTitle" xml:space="preserve">
+  <data name="strNetChanAliasesAdditionalTitle" xml:space="preserve">
     <value>Additional Aliases for {1} in the network {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAliasInheritedDesc" xml:space="preserve">
+  <data name="strNetChanAliasInheritedDesc" xml:space="preserve">
     <value>The checked aliases are active in {1}.  Some were inherited from {0} while others came from your global IRC settings.  Uncheck any you don't want for {1}.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAliasInheritedTitle" xml:space="preserve">
+  <data name="strNetChanAliasInheritedTitle" xml:space="preserve">
     <value>Aliases inherited from {0} or global settings to {1}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformAddedDesc" xml:space="preserve">
+  <data name="strNetChanAutoPerformAddedDesc" xml:space="preserve">
     <value>These steps will be performed after the entries above that are enabled in the order shown any time you join {1} on {1}.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformAddedTitle" xml:space="preserve">
+  <data name="strNetChanAutoPerformAddedTitle" xml:space="preserve">
     <value>Additional steps to run when joining {1} on the network {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformDesc" xml:space="preserve">
+  <data name="strNetChanAutoPerformDesc" xml:space="preserve">
     <value>Go here to change what steps are run when you join {1} on {0}.  These override what you specified for the network (when joining any channel).</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformInheritedDesc" xml:space="preserve">
+  <data name="strNetChanAutoPerformInheritedDesc" xml:space="preserve">
     <value>These steps will be performed, if enabled, any time you join {1} on {0}.  Disable entries as needed.  If you want to change the order, disable entries and then create them below in the new order.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformInheritedTitle" xml:space="preserve">
+  <data name="strNetChanAutoPerformInheritedTitle" xml:space="preserve">
     <value>Inherited steps to take when joining {1} on the network {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanAutoPerformTitle" xml:space="preserve">
+  <data name="strNetChanAutoPerformTitle" xml:space="preserve">
     <value>Override what happens when you join {1} on the network {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanDesc" xml:space="preserve">
+  <data name="strNetChanDesc" xml:space="preserve">
     <value>These tabs let you override settings for {0} for {1}.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanInheritedFromGlobalDesc" xml:space="preserve">
+  <data name="strNetChanInheritedFromGlobalDesc" xml:space="preserve">
     <value>This inherited {0} came from your global IRC preferences.</value>
-        <comment>"{0}" will be replaced with the type name of the object being inherited.  So if the object is a stalk word, something like "stalk word" would appear there.</comment>
+    <comment>"{0}" will be replaced with the type name of the object being inherited.  So if the object is a stalk word, something like "stalk word" would appear there.</comment>
   </data>
-    <data name="strNetChanInheritedFromGlobalText" xml:space="preserve">
+  <data name="strNetChanInheritedFromGlobalText" xml:space="preserve">
     <value>Global Settings</value>
   </data>
-    <data name="strNetChanInheritedFromNetDesc" xml:space="preserve">
+  <data name="strNetChanInheritedFromNetDesc" xml:space="preserve">
     <value>This inherited {0} came from the network preferences for {1}.</value>
-        <comment>"{0}" will be replaced with the type name of the object being inherited and "{1}" will be replaced with the network name.</comment>
+    <comment>"{0}" will be replaced with the type name of the object being inherited and "{1}" will be replaced with the network name.</comment>
   </data>
-    <data name="strNetChanInheritedFromNetText" xml:space="preserve">
+  <data name="strNetChanInheritedFromNetText" xml:space="preserve">
     <value>Network</value>
   </data>
-    <data name="strNetChanStalkWordsAddedDesc" xml:space="preserve">
+  <data name="strNetChanStalkWordsAddedDesc" xml:space="preserve">
     <value>These words, when they appear in {1} on {0}, will trigger alerts.  These are in addition to those specified above.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanStalkWordsAddedTitle" xml:space="preserve">
+  <data name="strNetChanStalkWordsAddedTitle" xml:space="preserve">
     <value>More words to alert you when they appear in {1} on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanStalkWordsInheritedDesc" xml:space="preserve">
+  <data name="strNetChanStalkWordsInheritedDesc" xml:space="preserve">
     <value>These words, when they appear in {1} on {0}, will trigger alerts.  Those you specified in the global IRC settings as well as those from the network will be listed here.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanStalkWordsInheritedTitle" xml:space="preserve">
+  <data name="strNetChanStalkWordsInheritedTitle" xml:space="preserve">
     <value>Stalk words inherited from {0} for {1}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanTimeStampDesc" xml:space="preserve">
+  <data name="strNetChanTimeStampDesc" xml:space="preserve">
     <value>Go here if you want {1} to use different time stamp settings than used by other {0} channels.</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanTimeStampTitle" xml:space="preserve">
+  <data name="strNetChanTimeStampTitle" xml:space="preserve">
     <value>{1} time stamp overrides on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetChanTitle" xml:space="preserve">
+  <data name="strNetChanTitle" xml:space="preserve">
     <value>{1} channel preferences on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
+    <comment>"{0}" will be replaced with the name of the network.  "{1}" will be replaced with the name of the channel.</comment>
   </data>
-    <data name="strNetConnDesc" xml:space="preserve">
+  <data name="strNetConnDesc" xml:space="preserve">
     <value>Use to override the connection settings for {0}.  This can be useful if a network needs different settings.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetConnOverrideDesc" xml:space="preserve">
+  <data name="strNetConnOverrideDesc" xml:space="preserve">
     <value>Check to customize the connection settings to be more specific to {0}.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetConnOverrideTitle" xml:space="preserve">
+  <data name="strNetConnOverrideTitle" xml:space="preserve">
     <value>Override the global connection settings for {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetConnTitle" xml:space="preserve">
+  <data name="strNetConnTitle" xml:space="preserve">
     <value>Connection settings specific to {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetDccOverrideDesc" xml:space="preserve">
+  <data name="strNetDccOverrideDesc" xml:space="preserve">
     <value>Check to override any of the global settings within the settings for {0}.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetDccOverrideTitle" xml:space="preserve">
+  <data name="strNetDccOverrideTitle" xml:space="preserve">
     <value>Override the global DCC settings for {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetDesc" xml:space="preserve">
+  <data name="strNetDesc" xml:space="preserve">
     <value>Lists preferences specific to the network {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetKnownChanDesc" xml:space="preserve">
+  <data name="strNetKnownChanDesc" xml:space="preserve">
     <value>This is a list of known channels on {0}.  You've previously joined each of these channels.  Each channel has preferences associated with it.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetKnownChanTitle" xml:space="preserve">
+  <data name="strNetKnownChanTitle" xml:space="preserve">
     <value>Known channels on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetNotifyDesc" xml:space="preserve">
+  <data name="strNetNotifyDesc" xml:space="preserve">
     <value>If you want to know when other specific users come and go on {0}, add their nick here.  You can manually do this from the command line with /notify</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetNotifyTitle" xml:space="preserve">
+  <data name="strNetNotifyTitle" xml:space="preserve">
     <value>Nicks of remote users you want to know when they are on {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetNotifyWhenOnlineDesc" xml:space="preserve">
+  <data name="strNetNotifyWhenOnlineDesc" xml:space="preserve">
     <value>If any of these users leave the network {0}, join it, become away on {0}, or not away on {0}; Best Chat will notify you.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetNotifyWhenOnlineTitle" xml:space="preserve">
+  <data name="strNetNotifyWhenOnlineTitle" xml:space="preserve">
     <value>Notify for {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsAdditionalDesc" xml:space="preserve">
+  <data name="strNetStalkWordsAdditionalDesc" xml:space="preserve">
     <value>Use to specify additonal words you want to be alerted about when they happen in any view associated with {0}.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsAdditionalTitle" xml:space="preserve">
+  <data name="strNetStalkWordsAdditionalTitle" xml:space="preserve">
     <value>Lists more stalk words specific to {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsDesc" xml:space="preserve">
+  <data name="strNetStalkWordsDesc" xml:space="preserve">
     <value>This tab lets you override the stalk words for {0} from the default IRC global stalk words.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsInheritedDesc" xml:space="preserve">
+  <data name="strNetStalkWordsInheritedDesc" xml:space="preserve">
     <value>more, once you join a channel, you can again override them.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsInheritedTitle" xml:space="preserve">
+  <data name="strNetStalkWordsInheritedTitle" xml:space="preserve">
     <value>{0} has these stalk words from global IRC settings enabled</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetStalkWordsTitle" xml:space="preserve">
+  <data name="strNetStalkWordsTitle" xml:space="preserve">
     <value>Override the stalk words for {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetTimeStampOverrideNetDesc" xml:space="preserve">
+  <data name="strNetTimeStampOverrideNetDesc" xml:space="preserve">
     <value>Check to override any of the global settings within the settings for {0}.</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetTimeStampOverrideNetTitle" xml:space="preserve">
+  <data name="strNetTimeStampOverrideNetTitle" xml:space="preserve">
     <value>Override the global time stamp settings for {0}</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strNetTitle" xml:space="preserve">
+  <data name="strNetTitle" xml:space="preserve">
     <value>{0} network preferences</value>
-        <comment>"{0}" will be replaced with the name of the network.</comment>
+    <comment>"{0}" will be replaced with the name of the network.</comment>
   </data>
-    <data name="strStalkWordsText" xml:space="preserve">
+  <data name="strStalkWordsText" xml:space="preserve">
     <value>stalk word</value>
   </data>
-    <data name="strOneStepText" xml:space="preserve">
-      <value>one auto-perform text</value>
-    </data>
-    <data name="strAliasParamNameBlank" xml:space="preserve">
-      <value>Please enter a name for this parameter</value>
-    </data>
-    <data name="strAliasParamNameNotUnique" xml:space="preserve">
-      <value>The name you entered, “{0}” is taken.  Please choose another name.</value><comment>All instances of "{0}" will be replaced with the name of the alias parameter as the user entered it.</comment>
-    </data>
-    <data name="strAliasParamTypeNotSet" xml:space="preserve">
-      <value>Please choose a type for this alias paramter</value>
-    </data>
-    <data name="strImportingAliasFailedBecauseTheStringIsNotAnAlias" xml:space="preserve">
-      <value>Importing of an alais failed because the string isn’t an alias.</value>
-    </data>
-    <data name="strCreatingNewAutoPerformStep" xml:space="preserve">
-      <value>You’re creating a new auto-perform step.</value>
-    </data>
-    <data name="strRequiredAliasParamsMustComeBeforeOptionalParams" xml:space="preserve">
-      <value>You must place all required parameters before any optional parameters in the positioned parameter list.</value>
-    </data>
+  <data name="strOneStepText" xml:space="preserve">
+    <value>one auto-perform text</value>
+  </data>
+  <data name="strAliasParamNameBlank" xml:space="preserve">
+    <value>Please enter a name for this parameter</value>
+  </data>
+  <data name="strAliasParamNameNotUnique" xml:space="preserve">
+    <value>The name you entered, “{0}” is taken.  Please choose another name.</value>
+    <comment>All instances of "{0}" will be replaced with the name of the alias parameter as the user entered it.</comment>
+  </data>
+  <data name="strAliasParamTypeNotSet" xml:space="preserve">
+    <value>Please choose a type for this alias paramter</value>
+  </data>
+  <data name="strImportingAliasFailedBecauseTheStringIsNotAnAlias" xml:space="preserve">
+    <value>Importing of an alais failed because the string isn’t an alias.</value>
+  </data>
+  <data name="strRequiredAliasParamsMustComeBeforeOptionalParams" xml:space="preserve">
+    <value>You must place all required parameters before any optional parameters in the positioned parameter list.</value>
+  </data>
+  <data name="strGlobalDccPortsTitle" xml:space="preserve">
+    <value>Allowed Ports</value>
+  </data>
+  <data name="strGlobalDccPortsDesc" xml:space="preserve">
+    <value>Best Chat will allow DCC connections only through these ports.  Note: You may need to open them on your router and forward them to the desired computer.</value>
+  </data>
+  <data name="strPortEditorCancelNewPortTitle" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="strStalkWordBlank" xml:space="preserve">
+    <value>Please specify the stalk word you want Best Chat to look for.</value>
+  </data>
+  <data name="strStalkWordDuplicate" xml:space="preserve">
+    <value>The stalk word you entered, “{0}”, is already in the list.  Try adding another or cancelling the change.</value>
+    <comment>All instances of "{0}" will be replaced by the text the user entered.</comment>
+  </data>
 </root>

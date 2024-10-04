@@ -64,6 +64,10 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Rsrcs.resx</DependentUpon>
         </Compile>
+        <Compile Update="Prefs\Pages\GlobalStalkWordsPage.axaml.cs">
+          <DependentUpon>GlobalStalkWordsPage.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

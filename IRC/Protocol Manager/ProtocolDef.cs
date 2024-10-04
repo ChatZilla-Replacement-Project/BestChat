@@ -106,11 +106,35 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 			=> new System.Collections.Generic.Dictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
 				.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>()
 			{
-				// TODO: Add the entries
+				[typeof(Data.Prefs.GlobalAliasesPrefs)] = (cmgrToCreatePageFor)
+					=> new GlobalAliasesPage()
+					{
+						Ctxt = (Data.Prefs.GlobalAliasesPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.GlobalAltNicksPrefs)] = (cmgrToCreatePageFor)
+					=> new GlobalAltNicksPage()
+					{
+						Ctxt = (Data.Prefs.GlobalAltNicksPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.ChanAutoPerformPrefs)] = (cmgrToCreatePageFor)
+					=> new GlobalAutoPerformOnEvtPage()
+					{
+						Ctxt = (Data.Prefs.GlobalAutoPerformOnEvtPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.GlobalConnPrefs)] = (cmgrToCreatePageFor)
+					=> new GlobalConnPage()
+					{
+						Ctxt = (Data.Prefs.GlobalConnPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.GlobalDccPrefs)] = (cmgrToCreatePageFor)
+				=> new GlobalDccPage()
+					{
+						Ctxt = (Data.Prefs.GlobalDccPrefs)cmgrToCreatePageFor,
+					},
 			};
 
-	public Platform.DataAndExt.Prefs.AbstractChildMgr? LoadAllPrefsData(in System.IO.StreamReader stream, in
-		Platform.DataAndExt.Prefs.AbstractMgr mgrYourParent)
+	public Platform.DataAndExt.Prefs.AbstractChildMgr? LoadAllPrefsData(in System.IO.StreamReader sr, in Platform
+		.DataAndExt.Prefs.AbstractMgr mgrYourParent)
 	{
 		// TODO: Load the data
 		return IrcPrefs.InitInstance(mgrYourParent);

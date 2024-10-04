@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAutoPerformOnEvtPrefs
 {
 	#region Constructors & Deconstructors
 		public ChanAutoPerformPrefs(ChanPrefs mgrParent, NetAutoPerformPrefs inheritedSettings) :
@@ -118,7 +118,7 @@ public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			addedSteps = new(this, "Additional Steps to run when joining this channel", PrefsRsrcs
 				.strNetChanAutoPerformAddedTitle, PrefsRsrcs.strNetChanAutoPerformAddedDesc, [], dto.AddedSteps?
 				.Select(dstepCur
-					=> new GlobalAutoPerformOneStep(dstepCur)
+					=> new GlobalAutoPerformOneStep(dstepCur, this)
 				) ?? []);
 		}
 	#endregion
@@ -159,6 +159,9 @@ public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				=> mapAllInheritanceOverrides;
 
 		public Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep> AddedSteps
+			=> addedSteps;
+
+		public Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep> Steps
 			=> addedSteps;
 	#endregion
 

@@ -1,0 +1,61 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:local="using:BestChat.IRC.ProtocolMgr.Prefs.Editors"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="local:PortEditorDlg"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.PortEditorDlg"
+				BorderThickness="3"
+				CanResize="False"
+				ShowActivated="True"
+				ShowInTaskbar="False"
+				SizeToContent="WidthAndHeight"
+				WindowStartupLocation="CenterOwner">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Specify a port.  You can list each port only once.  Best Chat will prevent you from saving if you choose a port that’s already listed."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							ToolTip.Tip="If you’re satisfied with the port you selected, click OK to save it."
+							IsEnabled="{Binding IsDataValid}"
+							IsVisible="{Binding WereChangesMade}"
+							Content="OK"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							ToolTip.Tip="If you decide you don’t want to make changes, click Cancel.  You'll be asked if you’re certain you want to discard those changes."
+							IsVisible="{Binding WereChangesMade}"
+							Content="Cancel"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							ToolTip.Tip="Closes this window.  This button disappears once you make a change and is available only if you’re editing a port."
+							IsVisible="{calc:Binding '!WereChangesMade'}"
+							Content="Close"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+					RowDefinitions="Auto,4,Auto">
+			<Label Content="The port to enable:"/>
+			<NumericUpDown x:Name="nudPortToEnable"
+										Minimum="0"
+										Maximum="65535"
+										Value="{Binding SelPort}" ValueChanged="OnPortChanged"/>
+			<ItemsRepeater ItemsSource="{Binding PortsAlreadyListed}">
+				<ItemsRepeater.Layout>
+					<WrapLayout HorizontalSpacing="4"
+											Orientation="Horizontal"/>
+				</ItemsRepeater.Layout>
+			</ItemsRepeater>
+		</Grid>
+	</DockPanel>
+</Window>

@@ -4,17 +4,30 @@ public class GlobalAutoPerformOneStep : Platform.DataAndExt.Obj<GlobalAutoPerfor
 	IKeyChanged<GlobalAutoPerformOneStep, string>
 {
 	#region Constructors & Deconstructors
-		public GlobalAutoPerformOneStep()
-			=> cmdcWhatToDo = CmdCall.cmdcInvalid;
+		public GlobalAutoPerformOneStep(in IAutoPerformOnEvtPrefs cmgrParent)
+		{
+			this.cmgrParent  = cmgrParent;
 
-		public GlobalAutoPerformOneStep(in Platform.DataAndExt.Cmd.AbstractCmdCall? cmdcWhatToDo, in System.Guid guid = default) :
+			cmdcWhatToDo = CmdCall.cmdcInvalid;
+		}
+
+		public GlobalAutoPerformOneStep(in Platform.DataAndExt.Cmd.AbstractCmdCall? cmdcWhatToDo, in IAutoPerformOnEvtPrefs
+				cmgrParent, in System.Guid guid = default) :
 			base(guid)
-			=> this.cmdcWhatToDo = new(cmdcWhatToDo ?? CmdCall.cmdcBlank);
+		{
+			this.cmgrParent  = cmgrParent;
 
-		public GlobalAutoPerformOneStep(in DTO.GlobalAutoPerformOneStepDTO dto) :
+			this.cmdcWhatToDo = new(cmdcWhatToDo ?? CmdCall.cmdcBlank);
+		}
+
+		public GlobalAutoPerformOneStep(in DTO.GlobalAutoPerformOneStepDTO dto, in IAutoPerformOnEvtPrefs cmgrParent) :
 			base(dto.GUID)
-			=> cmdcWhatToDo = new(dto.WhatToDo);
-	#endregion
+		{
+			this.cmgrParent  = cmgrParent;
+
+			cmdcWhatToDo = new(dto.WhatToDo);
+		}
+		#endregion
 
 	#region Delegates
 	#endregion
@@ -46,10 +59,15 @@ public class GlobalAutoPerformOneStep : Platform.DataAndExt.Obj<GlobalAutoPerfor
 	#endregion
 
 	#region Members
+		public readonly IAutoPerformOnEvtPrefs cmgrParent;
+
 		private CmdCall cmdcWhatToDo;
 	#endregion
 
 	#region Properties
+		public IAutoPerformOnEvtPrefs Parent
+			=> cmgrParent;
+
 		public CmdCall WhatToDo
 		{
 			get => cmdcWhatToDo;

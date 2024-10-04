@@ -4,17 +4,14 @@ namespace BestChat.IRC.Data.Prefs;
 
 public class GlobalAutoPerformOneStepEditable : GlobalAutoPerformOneStep
 {
-	internal GlobalAutoPerformOneStepEditable(GlobalAutoPerformOneStep stepOriginal) :
-		base(stepOriginal.WhatToDo)
+	internal GlobalAutoPerformOneStepEditable(in GlobalAutoPerformOneStep stepOriginal) :
+		base(stepOriginal.WhatToDo, stepOriginal.Parent)
 		=> this.stepOriginal  = stepOriginal;
 
 	public readonly GlobalAutoPerformOneStep stepOriginal;
 
 	public GlobalAutoPerformOneStep OriginalStep
 		=> stepOriginal;
-
-	public void Save()
-		=> stepOriginal.SaveFrom(this);
 
 	public bool WereChangesMade
 	{
@@ -45,4 +42,7 @@ public class GlobalAutoPerformOneStepEditable : GlobalAutoPerformOneStep
 
 	public bool IsValid
 		=> !HasErrors;
+
+	public void Save()
+		=> stepOriginal.SaveFrom(this);
 }

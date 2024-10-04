@@ -7,7 +7,7 @@
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Title>Best Chat Platform, but data types only without any UI stuff</Title>
         <Authors>Best Chat Authors</Authors>
-        <Company/>
+        <Company />
         <NeutralLanguage>en-US</NeutralLanguage>
         <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -34,7 +34,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Ext\Coord.cs"/>
+        <Compile Remove="Ext\Coord.cs" />
         <Compile Update="Cmd\Rsrcs.Designer.cs">
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
@@ -43,7 +43,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -70,7 +70,7 @@
         </EmbeddedResource>
         <EmbeddedResource Update="Cmd\Rsrcs.resx">
           <Generator>ResXFileCodeGenerator</Generator>
-          <LastGenOutput>Rscs.Designer.cs</LastGenOutput>
+          <LastGenOutput>Rsrcs.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 

@@ -51,7 +51,7 @@ public partial class FolderBrowserCtrl : Avalonia.Controls.UserControl, System.C
 			set;
 		} = Rsrcs.strDefFileBrowserTitle;
 
-		private System.IO.DirectoryInfo? LocSpecified
+		public System.IO.DirectoryInfo? LocSpecified
 		{
 			get;
 			set;

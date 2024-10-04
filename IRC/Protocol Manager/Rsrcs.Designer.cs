@@ -168,6 +168,24 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You were entering a new stalk word and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelCreatingNewStalkWordMsg {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewStalkWordMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelCreatingNewStalkWordTitle {
+            get {
+                return ResourceManager.GetString("strCancelCreatingNewStalkWordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You were creating a parameter for an alias and made changes.  Are you sure you want to discard those changes?  The alias won’t itself be affected unless you chose to save the parameter..
         /// </summary>
         internal static string strCancelEditingAliasPaaramMsg {
@@ -195,6 +213,24 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You were editing an alternate nick and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelEditingAltNickMsg {
+            get {
+                return ResourceManager.GetString("strCancelEditingAltNickMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelEditingAltNickTitle {
+            get {
+                return ResourceManager.GetString("strCancelEditingAltNickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You were editing a auto-perform step and made changes.  Are you sure you want to discard those changes?.
         /// </summary>
         internal static string strCancelEditingAutoPerformStepMsg {
@@ -213,6 +249,24 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You were editing a stalk word and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strCancelEditingStalkWordMsg {
+            get {
+                return ResourceManager.GetString("strCancelEditingStalkWordMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelEditingStalkWordTitle {
+            get {
+                return ResourceManager.GetString("strCancelEditingStalkWordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard.
         /// </summary>
         internal static string strClipboardName {
@@ -222,11 +276,47 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You’re creating a new auto-perform step..
+        /// </summary>
+        internal static string strCreatingNewAutoPerformStep {
+            get {
+                return ResourceManager.GetString("strCreatingNewAutoPerformStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You’re creating a new auto-perform step.
         /// </summary>
         internal static string strCreatingNewAutoPerformStepTitle {
             get {
                 return ResourceManager.GetString("strCreatingNewAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re entering a new stalk word.
+        /// </summary>
+        internal static string strCreatingNewStalkWordDlgTitle {
+            get {
+                return ResourceManager.GetString("strCreatingNewStalkWordDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this port from the list?.
+        /// </summary>
+        internal static string strDelPortConfirmMsg {
+            get {
+                return ResourceManager.GetString("strDelPortConfirmMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strDelPortConfirmTitle {
+            get {
+                return ResourceManager.GetString("strDelPortConfirmTitle", resourceCulture);
             }
         }
         
@@ -249,11 +339,38 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected stalk word or words?.
+        /// </summary>
+        internal static string strDelStalkWordMsg {
+            get {
+                return ResourceManager.GetString("strDelStalkWordMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strDelStalkWordTitle {
+            get {
+                return ResourceManager.GetString("strDelStalkWordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string strEditingAutoPerformStepTitle {
             get {
                 return ResourceManager.GetString("strEditingAutoPerformStepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re changing the stalk word “{0}”.
+        /// </summary>
+        internal static string strEditingStalkWordDlgTitle {
+            get {
+                return ResourceManager.GetString("strEditingStalkWordDlgTitle", resourceCulture);
             }
         }
         
@@ -456,6 +573,42 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You were adding a new port to the list and made changes.  Are you sure you want to discard those changes?.
+        /// </summary>
+        internal static string strPortEditorCancelNewPortMsg {
+            get {
+                return ResourceManager.GetString("strPortEditorCancelNewPortMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strPortEditorCancelNewPortTitle {
+            get {
+                return ResourceManager.GetString("strPortEditorCancelNewPortTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were changing a port and made changes.  Are you sure you want to discard those chnages?.
+        /// </summary>
+        internal static string strPortEditorCancelPortEditMsg {
+            get {
+                return ResourceManager.GetString("strPortEditorCancelPortEditMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strPortEditorCancelPortEditTitle {
+            get {
+                return ResourceManager.GetString("strPortEditorCancelPortEditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you check this, Best Chat will respond to formatting marks for bold.  This applies to both types of bold marks.  Best Chat might receive bold marks in just ASCII (you&apos;ll see asterisks in the text) or hidden control characters.  You wouldn&apos;t see anything..
         /// </summary>
         internal static string strPrefsGlobalFmtBoldDesc {
@@ -623,6 +776,15 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strResetGlobalAliasesTitle {
             get {
                 return ResourceManager.GetString("strResetGlobalAliasesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a stalk word.
+        /// </summary>
+        internal static string strStalkWordBlankDlgTitle {
+            get {
+                return ResourceManager.GetString("strStalkWordBlankDlgTitle", resourceCulture);
             }
         }
         

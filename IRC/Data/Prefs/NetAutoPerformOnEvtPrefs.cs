@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAutoPerformOnEvtPrefs
 {
 	#region Constructors & Deconstructors
 		public NetAutoPerformOnEvtPrefs(NetAutoPerformPrefs mgrParent, in string strName, in string strLocalizedName, in string
@@ -73,7 +73,8 @@ public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildM
 							GlobalAutoPerformOneStep _, in GlobalAutoPerformOneStep.CmdCall cmdcOldVal, in GlobalAutoPerformOneStep
 							.CmdCall _)
 						=> evth(cmdcOldVal, overrideEntry),
-				(overrideEntry, evth)
+				(overrideEntry,
+						evth)
 					=>
 						{
 							overrideEntry.inheritedItem.evtWhatToDoChanged -= mapInheritedStepsHandlers[evth];
@@ -91,7 +92,7 @@ public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				? []
 				: dto.AddedSteps.Select(
 					dstepCur
-						=> new GlobalAutoPerformOneStep(dstepCur)));
+						=> new GlobalAutoPerformOneStep(dstepCur, this)));
 		}
 	#endregion
 
@@ -131,6 +132,9 @@ public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildM
 
 		public Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep>
 			AdditionalSteps
+			=> additionalSteps;
+
+		public Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep> Steps
 			=> additionalSteps;
 	#endregion
 

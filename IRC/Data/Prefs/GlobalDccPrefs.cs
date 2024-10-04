@@ -13,7 +13,8 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				PrefsRsrcs.strGlobalDccGetIpFromServerDesc, false);
 			downloadsFolder = new(this, "Downloads Folder", PrefsRsrcs.strGlobalDccDownloadsFolderTitle, PrefsRsrcs
 				.strGlobalDccDownloadsFolderDesc, null);
-			llistPorts = [];
+			rliPorts = new(this, "Allowed Ports", PrefsRsrcs.strGlobalDccTitle, PrefsRsrcs.strGlobalDccDesc,
+				[]);
 		}
 
 		public GlobalDccPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in DTO.GlobalDccDTO dto) :
@@ -25,9 +26,8 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				PrefsRsrcs.strGlobalDccGetIpFromServerDesc, dto.GetLocalIpFromServer ?? false);
 			downloadsFolder = new(this, "Downloads Folder", PrefsRsrcs.strGlobalDccDownloadsFolderTitle, PrefsRsrcs
 				.strGlobalDccDownloadsFolderDesc, dto.DownloadsFolder);
-			llistPorts = dto.Ports == null
-				? []
-				: new(dto.Ports);
+			rliPorts = new(this, "Allowed Ports", PrefsRsrcs.strGlobalDccTitle, PrefsRsrcs.strGlobalDccDesc,
+				dto?.Ports ?? [], []);
 		}
 	#endregion
 
@@ -50,7 +50,7 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 
 		private readonly Platform.DataAndExt.Prefs.Item<System.IO.DirectoryInfo?> downloadsFolder;
 
-		private readonly System.Collections.Generic.LinkedList<int> llistPorts;
+		private readonly Platform.DataAndExt.Prefs.ReorderableListItem<int> rliPorts;
 	#endregion
 
 	#region Properties
@@ -63,8 +63,8 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		public Platform.DataAndExt.Prefs.Item<System.IO.DirectoryInfo?> DownloadsFolder
 			=> downloadsFolder;
 
-		public System.Collections.Generic.IReadOnlyCollection<int> Ports
-			=> llistPorts;
+		public Platform.DataAndExt.Prefs.ReorderableListItem<int> Ports
+			=> rliPorts;
 	#endregion
 
 	#region Methods
@@ -73,7 +73,7 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				enabled.CurVal,
 				getIpFromServer.CurVal,
 				downloadsFolder.CurVal,
-				[.. llistPorts, ]
+				[.. rliPorts, ]
 			);
 	#endregion
 

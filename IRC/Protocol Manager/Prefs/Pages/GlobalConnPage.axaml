@@ -1,0 +1,121 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.IRC.Data.Prefs"
+												xmlns:calc="using:CalcBinding"
+												x:DataType="data:GlobalConnPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalConnPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Provides several options concerning how Best Chat connects to IRC servers.  You'll be able to override this for each network once you've connected to it."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+			<Button x:Name="btnResetEnableIdent"
+							ToolTip.Tip="Click to reset the Ident option to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding EnableIdent.CanReset}"
+							Click="OnResetEnableIdentClicked"/>
+			<CheckBox x:Name="chkEnableIdent"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="Some networks require Ident services.  Check this if you intend to visit those networks."
+								Content="Enable Ident?"
+								IsChecked="{Binding EnableIdent.CurVal, Mode=TwoWay}"/>
+			<Button x:Name="btnResetAutoReconnect"
+							Grid.Row="2"
+							ToolTip.Tip="Click to reset the Auto-Reconnect option to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding AutoReconnect.CanReset}"
+							Click="OnResetAutoReconnectClicked"/>
+			<CheckBox x:Name="chkAutoReconnect"
+								Grid.Row="2"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="When checked, Best Chat will try to reconnect if you get disconnected from a network.  Such a disconnection could be a server failure, general Internet issues, DNS problems, or your local network going down."
+								Content="Auto-Reconnect?"
+								IsChecked="{Binding AutoReconnect.CurVal, Mode=TwoWay}"/>
+			<Button x:Name="btnResetRejoinAfterKick"
+							Grid.Row="4"
+							ToolTip.Tip="If clicked, Best Chat will reset the Rejoin After Kicked preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding RejoinAfterKick.CanReset}"
+							Click="OnResetRejoinAfterKickClicked"/>
+			<CheckBox x:Name="chkRejoinAfterKick"
+								Grid.Row="4"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="If an administrator of the network, an “op” in IRC lingo, forces or “kicks” you out of a channel, this option causes Best Chat to immediately rejoin that channel.  In many cases, a kick by itself is just a warning.  The op maybe expecting you to return.  However, a few may treat such a prompt return as a signal you’re a troll and should be banned."
+								Content="Rejoin After Kick?"
+								IsChecked="{Binding RejoinAfterKick.CurVal, Mode=TwoWay}"/>
+			<Button x:Name="btnResetCharEncoding"
+							Grid.Row="6"
+							ToolTip.Tip="The character encoding can effect how readily you can send non-ASCII characters.  Everything from emoji to Kanji may fail to display properly either for you (or if you send something) for others.  If you encounter problems and don’t know what option to choose here, ask for help."
+							Classes="ResetBtn"
+							IsEnabled="{Binding CharEncoding.CanReset}"
+							Click="OnResetCharEncoding"/>
+			<Label Grid.Row="6"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Character Encoding:"/>
+			<AutoCompleteBox Grid.Row="6"
+											Grid.Column="4"
+											ItemsSource=""
+											FilterMode="Contains"
+											AsyncPopulator=""
+											Text="{Binding CharEncoding.CurVal,Mode=TwoWay}"/><!-- TODO: Set ItemsSource and AsyncPopulater -->
+			<Button x:Name="btnResetUnlimitedAttempts"
+							Grid.Row="8"
+							ToolTip.Tip="Click to reset the Unlimited Attempts preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding UnlimitedAttempts.CanReset}"
+							Click="OnResetUnlimitedAttempts"/>
+			<CheckBox x:Name="chkUnlimitedAttempts"
+								Grid.Row="8"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="In the event of connection issues, you can check this option to have Best Chat keep attempting to connect.  Checking this will disable the Maximum Attempts box below."
+								Content="Unlimited Attempts?"
+								IsChecked="{Binding UnlimitedAttempts.CurVal,Mode=TwoWay}"/>
+			<Button x:Name="btnResetMaxAttempts"
+							Grid.Row="10"
+							ToolTip.Tip="Click to reset the Maximum Attempts preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding MaxAttempts.CanReset}"
+							Click="OnResetMaxAttempts"/>
+			<Label Grid.Row="10"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						IsEnabled="{calc:Binding '!UnlimitedAttempts.CurVal'}"
+						Content="_Maximum Attempts:"/>
+			<NumericUpDown x:Name="nudMaxAttempts"
+										Grid.Row="10"
+										Grid.Column="4"
+										ToolTip.Tip="If the Unlimited Attempts field above isn’t checked, you can use this to control how many attempts Best Chat makes to connect to a network before giving up."
+										IsEnabled="{calc:Binding '!UnlimitedAttempts.CurVal'}"
+										Value="{Binding MaxAttempts.CurVal,Mode=TwoWay}"/>
+			<Button x:Name="btnDefQuitMsg"
+							Grid.Row="12"
+							ToolTip.Tip="Click to reset the Default Quit Message to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding DefQuitMsg.CanReset}"
+							Click="OnResetDefQuitMsg"/>
+			<Label Grid.Row="12"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Default Quit Message:"/>
+			<TextBox Grid.Row="12"
+							Grid.Column="4"
+							ToolTip.Tip="When you disconnect from a network, a QUIT message appears in each channel on that network you were in.  Use this to specify what you want.  If this is empty, a default message will be sent."
+							Text="{Binding DefQuitMsg.CurVal,Mode=TwoWay}"/>
+		</Grid>
+	</DockPanel>
+</base:VisualPrefsTabCtrl>

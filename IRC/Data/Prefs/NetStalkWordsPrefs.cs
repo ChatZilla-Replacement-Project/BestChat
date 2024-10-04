@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IStalkWordsPrefs
 {
 	#region Constructors & Deconstructors
 		public NetStalkWordsPrefs(NetPrefsBase mgrParent, GlobalStalkWordsPrefs inheritedSettings) :
@@ -107,7 +107,7 @@ public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				PrefsRsrcs.strNetStalkWordsAdditionalDesc,
 				[],
 				dto?.AddedStalkWords?.Select(dswCur
-					=> new GlobalStalkWordsOneStalkWord(dswCur)
+					=> new GlobalStalkWordsOneStalkWord(dswCur, this)
 				) ?? [],
 				KeyObtainer,
 				(
@@ -168,6 +168,9 @@ public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 
 		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, GlobalStalkWordsOneStalkWord>
 			AddedStalkWords
+			=> addedStalkWords;
+
+		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, GlobalStalkWordsOneStalkWord> Entries
 			=> addedStalkWords;
 	#endregion
 

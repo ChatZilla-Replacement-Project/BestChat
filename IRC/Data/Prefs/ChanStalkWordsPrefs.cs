@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IStalkWordsPrefs
 {
 	#region Constructors & Deconstructors
 		public ChanStalkWordsPrefs(ChanPrefs mgrParent, NetStalkWordsPrefs inheritedSettings) :
@@ -62,8 +62,7 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 						inherited.evtCtntsChanged -= mapAddedStalkWordHandlers[evth];
 
 						mapAddedStalkWordHandlers.Remove(evth);
-					},
-				true
+					}
 			);
 		}
 
@@ -137,6 +136,9 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				PrefsRsrcs.strNetChanStalkWordsAddedTitle,
 				PrefsRsrcs.strNetChanStalkWordsAddedDesc,
 				[],
+				dto.AddedStalkWords?.Select(dswCur
+					=> new GlobalStalkWordsOneStalkWord(dswCur, this)
+				) ?? [],
 				KeyObtainer,
 				(inherited, evth)
 					=> inherited.evtCtntsChanged += mapAddedStalkWordHandlers[evth] = (in GlobalStalkWordsOneStalkWord _, in
@@ -148,8 +150,7 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 							inherited.evtCtntsChanged -= mapAddedStalkWordHandlers[evth];
 
 							mapAddedStalkWordHandlers.Remove(evth);
-						},
-				true);
+						});
 		}
 	#endregion
 
@@ -178,7 +179,8 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				GlobalStalkWordsOneStalkWord.DFieldChanged<string>>
 			mapOverrideHandlers = [];
 
-		private readonly Platform.DataAndExt.Prefs.MappedObjListItem<string, GlobalStalkWordsOneStalkWord> addedStalkWords;
+		private readonly Platform.DataAndExt.Prefs.MappedSortedListItem<string, GlobalStalkWordsOneStalkWord>
+			addedStalkWords;
 
 		private readonly System.Collections.Generic.Dictionary<System.Action<string, GlobalStalkWordsOneStalkWord>,
 			GlobalStalkWordsOneStalkWord.DFieldChanged<string>> mapAddedStalkWordHandlers = [];
@@ -190,7 +192,10 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				=> mapAllInheritanceOverridesByName;
 
 
-		public Platform.DataAndExt.Prefs.MappedObjListItem<string, GlobalStalkWordsOneStalkWord> AddedStalkWords
+		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, GlobalStalkWordsOneStalkWord> AddedStalkWords
+			=> addedStalkWords;
+
+		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, GlobalStalkWordsOneStalkWord> Entries
 			=> addedStalkWords;
 	#endregion
 

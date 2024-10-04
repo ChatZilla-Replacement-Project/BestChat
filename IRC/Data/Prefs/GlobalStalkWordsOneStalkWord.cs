@@ -4,14 +4,23 @@ public class GlobalStalkWordsOneStalkWord : Platform.DataAndExt
 		.Obj<GlobalStalkWordsOneStalkWord>, IReadOnlyOneStalkWord, IKeyChanged<GlobalStalkWordsOneStalkWord, string>
 {
 	#region Constructors & Deconstructors
-		public GlobalStalkWordsOneStalkWord(in string strCtnts, System.Guid guid = default) :
+		public GlobalStalkWordsOneStalkWord(in string strCtnts, in IStalkWordsPrefs cmgrParent, in System.Guid guid =
+				default) :
 			base(guid)
-			=> this.strCtnts = strCtnts;
+		{
+			this.cmgrParent  = cmgrParent;
 
-		public GlobalStalkWordsOneStalkWord(in DTO.GlobalStalkWordsOneStalkWordDTO dto) :
-			base(dto.GUID)
-			=> strCtnts = dto.Ctnts;
-	#endregion
+			this.strCtnts = strCtnts;
+		}
+
+		public GlobalStalkWordsOneStalkWord(in DTO.GlobalStalkWordsOneStalkWordDTO dto, in IStalkWordsPrefs cmgrParent)
+			: base(dto.GUID)
+		{
+			this.cmgrParent  = cmgrParent;
+
+			strCtnts = dto.Ctnts;
+		}
+		#endregion
 
 	#region Delegates
 	#endregion
@@ -29,10 +38,15 @@ public class GlobalStalkWordsOneStalkWord : Platform.DataAndExt
 	#endregion
 
 	#region Members
+		public readonly IStalkWordsPrefs cmgrParent;
+
 		private string strCtnts;
 	#endregion
 
 	#region Properties
+		public IStalkWordsPrefs Parent
+			=> cmgrParent;
+
 		public string Ctnts
 		{
 			get => strCtnts;
@@ -61,6 +75,12 @@ public class GlobalStalkWordsOneStalkWord : Platform.DataAndExt
 			evtCtntsChanged?.Invoke(this, strOldCtnts, strCtnts);
 			evtKeyChanged?.Invoke(this, strOldCtnts, strCtnts);
 		}
+
+		public GlobalStalkWordsOneStalkWordEditable MakeEditable()
+			=> new(this);
+
+		public void SaveFrom(GlobalStalkWordsOneStalkWordEditable esw)
+			=> Ctnts = esw.Ctnts;
 
 		public DTO.GlobalStalkWordsOneStalkWordDTO ToDTO()
 			=> new(

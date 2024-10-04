@@ -5,9 +5,17 @@
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:specializedPrefsCtrls="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
 				xmlns:calc="using:CalcBinding"
+				xmlns:group="using:GroupBox.Avalonia.Controls"
+				xmlns:rtfedit="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
 				x:DataType="data:GlobalAliasesOneAliasOneParamEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasOneParamDlg">
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAliasOneParamDlg"
+				BorderThickness="3"
+				CanResize="False"
+				ShowActivated="True"
+				ShowInTaskbar="False"
+				SizeToContent="WidthAndHeight"
+				WindowStartupLocation="CenterOwner">
 	<Window.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</Window.Styles>
@@ -37,7 +45,7 @@
 		</StackPanel>
 		<Separator DockPanel.Dock="Bottom"/>
 		<Grid ColumnDefinitions="Auto,4,1*"
-					RowDefinitions="Auto,4,Auto">
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto">
 			<Label HorizontalContentAlignment="Right"
 						Content="Name of this parameter:"/>
 			<TextBox Grid.Column="2"
@@ -47,6 +55,19 @@
 						Content="Type of this parameter:"/>
 			<specializedPrefsCtrls:CmdParamTypeSelComboBox x:Name="cbParamType"
 																										SelVal="{Binding ParamType, Mode=TwoWay}"/>
+			<CheckBox Grid.Row="4"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="If checked, Best Chat will require the parameter to be specified.  If unchecked, the parameter will be optional."
+								Content="Require this parameter?"
+								IsChecked="{Binding IsRequired, Mode=TwoWay}"/>
+			<group:GroupBox Grid.Row="6"
+											Grid.ColumnSpan="3"
+											Header="_Documentation">
+				<rtfedit:DocEditorCtrl x:Name="rtfeditDoc"
+															ToolTip.Tip="Best Chat provides a few predefined styles that themes can change.  Use those when possible."
+															Margin="4"
+															Ctnt="{Binding Doc, Mode=TwoWay}"/>
+			</group:GroupBox>
 		</Grid>
 	</DockPanel>
 </Window>

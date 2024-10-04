@@ -35,13 +35,13 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 			base(dto.GUID)
 		{
 			strName = dto.Name;
-			rlistPositionedParameters = dto.PositionalParams is null
-				? []
-				: new(dto.PositionalParams.Select(daparamCur
-					=> new GlobalAliasesOneAliasOneParam(this, daparamCur)));
 			if(dto.NamedParams is not null)
 				foreach(DTO.GlobalAliasesOneAliasOneParamDTO daparamCur in dto.NamedParams)
 					mapAllParametersByName[daparamCur.Name] = new(this, daparamCur);
+			rlistPositionedParameters = dto.PositionalParams is null
+				? []
+				: new(dto.PositionalParams.Select(strCurPositionedParam
+					=> mapAllParametersByName[strCurPositionedParam]).ToArray());
 			cmdcWhatToRun = dto.WhatToRun;
 			strDoc = dto.Doc ?? "";
 		}
@@ -383,7 +383,7 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 				cmdcWhatToRun,
 				[..
 					from GlobalAliasesOneAliasOneParam aparamCur in rlistPositionedParameters
-					select aparamCur.ToDTO(),
+					select aparamCur.Name,
 				],
 				[..
 					from GlobalAliasesOneAliasOneParam aparamCur in mapAllParametersByName.Values

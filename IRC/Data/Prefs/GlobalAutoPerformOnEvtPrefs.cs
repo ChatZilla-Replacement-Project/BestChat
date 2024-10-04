@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class GlobalAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class GlobalAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAutoPerformOnEvtPrefs
 {
 	#region Constructors & Deconstructors
 		public GlobalAutoPerformOnEvtPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent, in string strName, in string
@@ -20,7 +20,7 @@ public class GlobalAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChi
 				strLocalizedDesc,
 				[],
 				dto?.Select(dstep
-					=> new GlobalAutoPerformOneStep(dstep)
+					=> new GlobalAutoPerformOneStep(dto: dstep, this)
 				) ?? []);
 	#endregion
 
@@ -54,4 +54,12 @@ public class GlobalAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChi
 
 	#region Event Handlers
 	#endregion
+}
+
+public interface IAutoPerformOnEvtPrefs
+{
+	Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep> Steps
+	{
+		get;
+	}
 }

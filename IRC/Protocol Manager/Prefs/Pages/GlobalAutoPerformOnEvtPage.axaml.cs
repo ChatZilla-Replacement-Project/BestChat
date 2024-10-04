@@ -68,7 +68,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		Editors.AutoPerformOneStepDlg dlg = new()
 		{
 			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep().MakeEditable(),
+			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
@@ -88,7 +88,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		Editors.AutoPerformOneStepDlg dlg = new()
 		{
 			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep().MakeEditable(),
+			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
@@ -111,7 +111,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		Editors.AutoPerformOneStepDlg dlg = new()
 		{
 			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep().MakeEditable(),
+			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
@@ -134,7 +134,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		Editors.AutoPerformOneStepDlg dlg = new()
 		{
 			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep().MakeEditable(),
+			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +

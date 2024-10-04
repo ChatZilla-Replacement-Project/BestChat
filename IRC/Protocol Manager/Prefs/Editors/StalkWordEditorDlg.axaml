@@ -4,9 +4,9 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:calc="using:CalcBinding"
-				x:DataType="data:GlobalAltNicksOneAltNickEditable"
+				x:DataType="data:GlobalStalkWordsOneStalkWordEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAltNickDlg"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.StalkWordEditorDlg"
 				BorderThickness="3"
 				CanResize="False"
 				ShowActivated="True"
@@ -16,35 +16,39 @@
 	<Window.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</Window.Styles>
-	<DockPanel>
+	<DockPanel Margin="4">
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock"
-							Text="Here you can specify a series of alternate nicks to use if your preferred choice is unavailable.  You don’t need to list your default nick.  In fact, that’s invalid in this list.  Please note, the order is important.  Best Chat tries the alternates in the order listed.  This list might also be overridden in the various networks you’ve connected to in the past."/>
-		<Separator DockPanel.Dock="Top"/>
+							Text="You specify a stalk word here.  Do not include your nick as that’s implicitly included.  Best Chat will make sure you don't include words more than once."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
 		<StackPanel DockPanel.Dock="Bottom"
 								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="4">
 			<Button x:Name="btnOk"
-							IsVisible="{Binding WereChangesMade}"
+							ToolTip.Tip="If you’re satisfied with the stalk word as entered, click OK to save it."
 							IsEnabled="{Binding IsValid}"
+							IsVisible="{Binding WereChangesMade}"
 							Content="OK"
 							Click="OnOkClicked"/>
 			<Button x:Name="btnCancel"
+							ToolTip.Tip="If you decide you don’t want to make changes, click Cancel.  You'll be asked if you’re certain you want to discard those changes."
 							IsVisible="{Binding WereChangesMade}"
 							Content="Cancel"
 							Click="OnCancelClicked"/>
 			<Button x:Name="btnClose"
-							IsVisible="{calc:Binding !WereChangesMade}"
+							ToolTip.Tip="Closes this window.  This button disappears once you make a change and is available only if you’re editing a stalk word."
+							IsVisible="{calc:Binding '!WereChangesMade'}"
 							Content="Close"
 							Click="OnCloseClicked"/>
 		</StackPanel>
-		<Separator DockPanel.Dock="Bottom"/>
-		<Grid ColumnDefinitions="Auto,4,1*"
-					RowDefinitions="Auto">
+		<Grid ColumnDefinitions="Auto,4,1*">
 			<Label HorizontalContentAlignment="Right"
-						Content="Nick to Use:"/>
-			<TextBlock Grid.Column="2" Text="{Binding NickToUse, Mode=TwoWay}"></TextBlock>
+						Content="The stalk word:"/>
+			<TextBox Grid.Column="2"
+							MinWidth="200"
+							Text="{Binding Ctnts,Mode=TwoWay}"/>
 		</Grid>
 	</DockPanel>
 </Window>
