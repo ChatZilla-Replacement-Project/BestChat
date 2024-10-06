@@ -57,7 +57,8 @@ public partial class GlobalDccPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtr
 		Editors.PortEditorDlg dlg = new()
 		{
 			Mode = Editors.PortEditorDlg.Modes.@new,
-			PortsAlreadyListed = ctxt.Ports.ToHashSet() ?? [],
+			PortsAlreadyListed = ctxt.Ports.ToHashSet(),
+			Title = Rsrcs.strAddingNewPortDlgTitle,
 		};
 
 		if(dlg.ShowDialog<bool?>(wnd).Result == true && dlg.IsDataValid)
@@ -85,6 +86,7 @@ public partial class GlobalDccPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtr
 			Mode = Editors.PortEditorDlg.Modes.edit,
 			PortsAlreadyListed = ctxt.Ports.ToHashSet() ?? [],
 			SelPort = iPortToChange,
+			Title = Rsrcs.strChangingPortDlgTitle,
 		};
 
 		if(dlg.ShowDialog<bool?>(wnd).Result == true && dlg.IsDataValid)

@@ -60,6 +60,15 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You’re adding a new port to the list.
+        /// </summary>
+        internal static string strAddingNewPortDlgTitle {
+            get {
+                return ResourceManager.GetString("strAddingNewPortDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Best Chat was able to import {0} aliases..
         /// </summary>
         internal static string strAliasesImportedSuccessfullyMsgFmt {
@@ -267,6 +276,15 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You’re changing a port in the list.
+        /// </summary>
+        internal static string strChangingPortDlgTitle {
+            get {
+                return ResourceManager.GetString("strChangingPortDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard.
         /// </summary>
         internal static string strClipboardName {
@@ -368,9 +386,9 @@ namespace BestChat.IRC.ProtocolMgr {
         /// <summary>
         ///   Looks up a localized string similar to You’re changing the stalk word “{0}”.
         /// </summary>
-        internal static string strEditingStalkWordDlgTitle {
+        internal static string strEditingStalkWordDlgTitleFmt {
             get {
-                return ResourceManager.GetString("strEditingStalkWordDlgTitle", resourceCulture);
+                return ResourceManager.GetString("strEditingStalkWordDlgTitleFmt", resourceCulture);
             }
         }
         

@@ -1,4 +1,6 @@
-﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
+﻿using BestChat.Platform.DataAndExt.Ext;
+
+namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
 
 public partial class StalkWordEditorDlg : Avalonia.Controls.Window
 {
@@ -85,7 +87,7 @@ public partial class StalkWordEditorDlg : Avalonia.Controls.Window
 				=> Rsrcs.strCreatingNewStalkWordDlgTitle,
 
 			Modes.edit
-				=> Rsrcs.strEditingStalkWordDlgTitle,
+				=> Rsrcs.strEditingStalkWordDlgTitleFmt.Fmt(editCtnts.Text ?? ""),
 
 			Modes.invalid
 				=> throw new System.InvalidOperationException("You must set Mode before opening a stalk word editor"),

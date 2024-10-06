@@ -46,7 +46,7 @@
 		<Grid ColumnDefinitions="Auto,4,1*">
 			<Label HorizontalContentAlignment="Right"
 						Content="The stalk word:"/>
-			<TextBox Grid.Column="2"
+			<TextBox x:Name="editCtnts" Grid.Column="2"
 							MinWidth="200"
 							Text="{Binding Ctnts,Mode=TwoWay}"/>
 		</Grid>

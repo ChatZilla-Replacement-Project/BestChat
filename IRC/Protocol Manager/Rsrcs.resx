@@ -342,7 +342,7 @@
   <data name="strStalkWordBlankDlgTitle" xml:space="preserve">
     <value>Please enter a stalk word</value>
   </data>
-  <data name="strEditingStalkWordDlgTitle" xml:space="preserve">
+  <data name="strEditingStalkWordDlgTitleFmt" xml:space="preserve">
     <value>You’re changing the stalk word “{0}”</value>
     <comment>All instances of "{0}" will be replaced by the stalk word as the user entered it.</comment>
   </data>
@@ -369,5 +369,11 @@
   </data>
   <data name="strDelStalkWordMsg" xml:space="preserve">
     <value>Are you sure you want to delete the selected stalk word or words?</value>
+  </data>
+  <data name="strAddingNewPortDlgTitle" xml:space="preserve">
+    <value>You’re adding a new port to the list</value>
+  </data>
+  <data name="strChangingPortDlgTitle" xml:space="preserve">
+    <value>You’re changing a port in the list</value>
   </data>
 </root>
