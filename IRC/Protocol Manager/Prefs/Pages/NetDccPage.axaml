@@ -1,0 +1,135 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.IRC.Data.Prefs"
+												xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
+												xmlns:group="using:GroupBox.Avalonia.Controls"
+												xmlns:calc="using:CalcBinding"
+												x:DataType="data:NetDccPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.NetDccPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock">
+			Direct Client-to-Client or DCC is a means of two computers sending data between them while bypassing the network.  An IRC network is needed to start the connection, but after that, the network is no longer needed.  The system allows for files to be transferred.  Use care when enabling this option.  Unscrupulous people might send you malware.  This page overrides the settings from
+			<InlineUIContainer>
+				<HyperlinkButton x:Name="hlinkGlobalDcc"/>
+			</InlineUIContainer>
+			.
+		</TextBlock>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<CheckBox x:Name="chkOverride"
+							DockPanel.Dock="Top"
+							ToolTip.Tip="Check to use different settings from the global settings.  Uncheck to use settings from the link above."
+							Content="Override the global settings?"
+							IsChecked="{Binding Override.CurVal}"/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,1*">
+			<Button x:Name="btnResetEnabled"
+							ToolTip.Tip="Click to reset the Enabled preference to the Best Chat default"
+							Classes="ResetBtn"
+							IsEnabled="{Binding Enabled.CanReset}"
+							Click="OnResetEnabledClicked"/>
+			<CheckBox Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="Check to enable DCC and uncheck to disable it."
+								Content="Enable DCC?"
+								IsChecked="{Binding Enabled.CurVal,Mode=TwoWay}"/>
+			<Button x:Name="btnResetGetIpFromServer"
+							Grid.Row="2"
+							ToolTip.Tip="Click to reset the Get IP Address From Server preference to the default."
+							IsEnabled="{Binding GetIpFromServer.CanReset}"
+							Classes="ResetBtn"
+							Click="OnResetGetIpFromServerClicked"/>
+			<CheckBox x:Name="chkGetIpFromServer"
+								Grid.Row="2"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="If checked, Best Chat will get the IP address from the server."
+								Content="Get the IP Address From the Server?"
+								IsChecked="{Binding GetIpFromServer.CurVal}"/>
+			<Button x:Name="btnResetDownloadsFolder"
+							Grid.Row="4"
+							ToolTip.Tip="Click to reset the downloads folder to the default location."
+							Classes="ResetBtn"
+							IsEnabled="{Binding DownloadsFolder.CanReset}"
+							Click="OnResetDownloadsFolderClicked"/>
+			<Label Grid.Row="4"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Default folder to save files that arrive by DCC:"/>
+			<ctrls:FolderBrowserCtrl x:Name="fbDefDownloadsFolder"
+															Grid.Row="4"
+															Grid.Column="4"
+															ToolTip.Tip="When a file arrives by DCC, this will be the folder shown in the Save As dialog initially.  You can change it in that dialog then, but most users will choose either this folder or a subfolder."
+															DlgTitle="Specify the default location to save files arriving via DCC"
+															LocSpecified="{Binding DownloadsFolder.CurVal,Mode=TwoWay}"/>
+			<Button x:Name="btnResetPorts"
+							Grid.Row="6"
+							ToolTip.Tip="Click to reset the list of DCC ports to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding Ports.CanReset}"
+							Click="OnResetPorts"/>
+			<group:GroupBox Grid.Row="6"
+											Grid.Column="2"
+											Grid.ColumnSpan="3"
+											ToolTip.Tip="Best Chat will allow DCC connections only through these ports.  Note: You may need to open them on your router and forward them to the desired computer."
+											Header="Allowed Ports">
+				<DockPanel Margin="4">
+					<StackPanel DockPanel.Dock="Right"
+											Orientation="Vertical"
+											Spacing="4">
+						<Button x:Name="btnAddPort"
+										ToolTip.Tip="Click to add a new port to the list."
+										Content="Add…"
+										Click="OnAddPortClicked"/>
+						<Button x:Name="btnEditPort"
+										ToolTip.Tip="Click to edit the currently selected port.  Available only if you have exactly one port selected."
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1', ElementName=lbAllowedPorts}"
+										Content="Edit…"
+										Click="OnEditPortClicked"/>
+						<Button x:Name="btnDelPorts"
+										ToolTip.Tip="Click to delete the selected port or ports.  Available only if you have at least one port selected."
+										Content="Delete"
+										IsEnabled="{Binding 'SelectedItems.Count &gt; 0', ElementName=lbAllowedPorts}"
+										Click="OnDelPortsClicked"/>
+						<Separator Margin="0,4"/>
+						<Button x:Name="btnMovePortUp"
+										ToolTip.Tip="Click to move the selected port up.  Available only if you have exactly one port selected which can’t be the first port in the list."
+										Content="Move Port Up ▲"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1 and SelectedIndex &gt; 0', ElementName=lbAllowedPorts}"
+										Click="OnMovePortUpClicked"/>
+						<Button x:Name="btnMovePortDown"
+										ToolTip.Tip="Click to move the selected port down.  Available only if you have exactly one port selected which can’t be the last port in the list."
+										Content="Move Port Down ▼"
+										IsEnabled="{calc:Binding 'SelectedItems.Count == 1 and SelectedIndex &lt; (SelectedItems.Count - 1)', ElementName=lbAllowedPorts}"
+										Click="OnMovePortDownClicked"/>
+					</StackPanel>
+					<Rectangle DockPanel.Dock="Right"
+										Width="2"
+										Margin="4,0"/>
+					<ListBox x:Name="lbAllowedPorts"
+									AutoScrollToSelectedItem="True"
+									ItemsSource="{Binding Ports}"
+									MinHeight="100"
+									SelectionMode="Multiple">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Label HorizontalAlignment="Right"
+											Content="{Binding }"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</DockPanel>
+			</group:GroupBox>
+		</Grid>
+	</DockPanel>
+</base:VisualPrefsTabCtrl>

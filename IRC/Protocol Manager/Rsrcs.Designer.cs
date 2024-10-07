@@ -60,6 +60,15 @@ namespace BestChat.IRC.ProtocolMgr {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You’re adding a new entry to the list.
+        /// </summary>
+        internal static string strAddingNewNotifyDlgTitle {
+            get {
+                return ResourceManager.GetString("strAddingNewNotifyDlgTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You’re adding a new port to the list.
         /// </summary>
         internal static string strAddingNewPortDlgTitle {
@@ -101,6 +110,42 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strAliasImportFromClipboardFailedAsItWasEmptyTitle {
             get {
                 return ResourceManager.GetString("strAliasImportFromClipboardFailedAsItWasEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were adding a new notify and made changes.  Are you sure you want to discard those chnages?.
+        /// </summary>
+        internal static string strCancelAddingNewNotifyMsg {
+            get {
+                return ResourceManager.GetString("strCancelAddingNewNotifyMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelAddingNewNotifyTitle {
+            get {
+                return ResourceManager.GetString("strCancelAddingNewNotifyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You were changing a notify and made changes.  Are you sure you want to discard thos changes?.
+        /// </summary>
+        internal static string strCancelChangingNotifyMsg {
+            get {
+                return ResourceManager.GetString("strCancelChangingNotifyMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        internal static string strCancelChangingNotifyTitle {
+            get {
+                return ResourceManager.GetString("strCancelChangingNotifyTitle", resourceCulture);
             }
         }
         
@@ -272,6 +317,15 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strCancelEditingStalkWordTitle {
             get {
                 return ResourceManager.GetString("strCancelEditingStalkWordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re changing the notify “{0}” to a new value.
+        /// </summary>
+        internal static string strChangingNotifyDlgTitleFmt {
+            get {
+                return ResourceManager.GetString("strChangingNotifyDlgTitleFmt", resourceCulture);
             }
         }
         
@@ -821,6 +875,15 @@ namespace BestChat.IRC.ProtocolMgr {
         internal static string strTranslatedProtName {
             get {
                 return ResourceManager.GetString("strTranslatedProtName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string strWhatToFollowIsBlank {
+            get {
+                return ResourceManager.GetString("strWhatToFollowIsBlank", resourceCulture);
             }
         }
     }

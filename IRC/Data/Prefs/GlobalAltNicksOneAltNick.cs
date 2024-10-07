@@ -6,14 +6,14 @@ public class GlobalAltNicksOneAltNick : Platform.DataAndExt.Obj<GlobalAltNicksOn
 	IKeyChanged<GlobalAltNicksOneAltNick, string>
 {
 	#region Constructors & Deconstructors
-		public GlobalAltNicksOneAltNick(in GlobalAltNicksPrefs mgrParent)
+		public GlobalAltNicksOneAltNick(in IAltNickPrefs mgrParent)
 		{
 			strNickToUse = "";
 
 			this.mgrParent = mgrParent;
 		}
 
-		public GlobalAltNicksOneAltNick(in string strNickToUse, in GlobalAltNicksPrefs mgrParent)
+		public GlobalAltNicksOneAltNick(in string strNickToUse, in IAltNickPrefs mgrParent)
 		{
 			this.strNickToUse = strNickToUse;
 
@@ -21,7 +21,7 @@ public class GlobalAltNicksOneAltNick : Platform.DataAndExt.Obj<GlobalAltNicksOn
 		}
 
 		public GlobalAltNicksOneAltNick(in GlobalOneAltNickDTO dto, in
-				GlobalAltNicksPrefs parent) :
+				IAltNickPrefs parent) :
 			base(dto.GUID)
 		{
 			strNickToUse = dto.NickToUse;
@@ -46,7 +46,7 @@ public class GlobalAltNicksOneAltNick : Platform.DataAndExt.Obj<GlobalAltNicksOn
 	#endregion
 
 	#region Members
-		public readonly GlobalAltNicksPrefs mgrParent;
+		public readonly IAltNickPrefs mgrParent;
 
 		private string strNickToUse;
 	#endregion

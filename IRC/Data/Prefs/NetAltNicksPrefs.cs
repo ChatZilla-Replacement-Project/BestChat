@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAltNickPrefs
 {
 	#region Constructors & Deconstructors
 		public NetAltNicksPrefs(NetPrefsBase mgrParent, in GlobalAltNicksPrefs inheritedSettings) :
@@ -86,7 +86,7 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			additionalAltNicks = new(this, "Lists more alternate nicks specific to " +
 				"this network", PrefsRsrcs.strNetAltNicksAdditionalTitle, PrefsRsrcs.strNetAltNicksAdditionalDesc,
 				dto?.AddedNicks?.Select(danickCur
-					=> new NetAltNicksOneAltNick(danickCur))
+					=> new GlobalAltNicksOneAltNick(danickCur, this))
 				?? []);
 		}
 	#endregion
@@ -117,7 +117,7 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>.DFieldChanged<string>>
 			mapOverrideHandlers = [];
 
-		private readonly Platform.DataAndExt.Prefs.ReorderableObjListItem<NetAltNicksOneAltNick> additionalAltNicks;
+		private readonly Platform.DataAndExt.Prefs.ReorderableObjListItem<GlobalAltNicksOneAltNick> additionalAltNicks;
 	#endregion
 
 	#region Properties
@@ -125,7 +125,7 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>> AllInheritanceOverridesByNick
 				=> mapAllInheritanceOverridesByNick;
 
-		public Platform.DataAndExt.Prefs.ReorderableObjListItem<NetAltNicksOneAltNick> Entries
+		public Platform.DataAndExt.Prefs.ReorderableObjListItem<GlobalAltNicksOneAltNick> Entries
 			=> additionalAltNicks;
 	#endregion
 
@@ -146,6 +146,13 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 		private static string KeyObtainer(NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick,
 			IReadOnlyOneAltNick> status)
 			=> status.InheritedItem.NickToUse;
+
+		public void ResetInherited()
+		{
+			mapAllInheritanceOverridesByNick.Clear();
+
+			MakeDirty();
+		}
 	#endregion
 
 	#region Event Handlers

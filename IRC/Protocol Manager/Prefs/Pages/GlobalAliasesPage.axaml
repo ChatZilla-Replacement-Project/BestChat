@@ -15,7 +15,7 @@
 	<DockPanel>
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock">
-			Provides a way for you to change IRC-specific settings.  Some of those override the global Best Chat settings.  Others are unique to IRC.  Most of this functionality is also available via the <Span Classes="FixedWidthHilight">/alias</Span> command.
+			Aliases let you create a custom commands that provide a more convenient way to run other commands.  So one alias might trigger a lot of stuff to happen.  Most of this functionality is also available via the <Span Classes="FixedWidthHilight">/alias</Span> command.  Furthermore, plugins can also add commands.  External plugins are themselves commands.
 		</TextBlock>
 		<Button x:Name="btnResetAllAliases"
 						DockPanel.Dock="Left"

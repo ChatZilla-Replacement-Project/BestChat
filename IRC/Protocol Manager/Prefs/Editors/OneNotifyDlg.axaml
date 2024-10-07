@@ -1,0 +1,51 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:data="using:BestChat.IRC.Data.Prefs"
+				xmlns:calc="using:CalcBinding"
+				x:DataType="data:NotifyWhenOnlineOneNotifyEditable"
+				mc:Ignorable="d"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneNotifyDlg">
+	<Window.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</Window.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Please enter the nick you’d like Best Chat to alert you about.  You must enter a value that isn’t blank, isn’t already listed, and looks like an IRC nick."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<StackPanel DockPanel.Dock="Bottom"
+								HorizontalAlignment="Right"
+								Orientation="Horizontal"
+								Spacing="4">
+			<Button x:Name="btnOk"
+							ToolTip.Tip="Click to save your changes"
+							Content="OK"
+							IsDefault="True"
+							IsEnabled="{Binding IsValid}"
+							IsVisible="{Binding WereChangesMade}"
+							Click="OnOkClicked"/>
+			<Button x:Name="btnCancel"
+							ToolTip.Tip="Click to discard your changes.  You’ll be asked if you sure you’d like to do that"
+							Content="Cancel"
+							IsCancel="True"
+							IsVisible="{Binding WereChangesMade}"
+							Click="OnCancelClicked"/>
+			<Button x:Name="btnClose"
+							ToolTip.Tip="Click to close this window.  This button will disappear once you made changes."
+							Content="Close"
+							IsVisible="{calc:Binding '!WereChangesMade'}"
+							Click="OnCloseClicked"/>
+		</StackPanel>
+		<Separator DockPanel.Dock="Bottom"
+							Margin="0,4"/>
+		<Grid ColumnDefinitions="Auto,4,200">
+			<Label HorizontalContentAlignment="Right"
+						Content="Who do you want to follow?"/>
+			<TextBox x:Name="editWhatToFollow"
+							Text="{Binding WhatToFollow,Mode=TwoWay}" TextChanged="OnWhatToFollowTextChanged"/>
+		</Grid>
+	</DockPanel>
+</Window>

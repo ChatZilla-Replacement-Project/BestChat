@@ -376,4 +376,25 @@
   <data name="strChangingPortDlgTitle" xml:space="preserve">
     <value>You’re changing a port in the list</value>
   </data>
+  <data name="strWhatToFollowIsBlank" xml:space="preserve">
+    <value />
+  </data>
+  <data name="strAddingNewNotifyDlgTitle" xml:space="preserve">
+    <value>You’re adding a new entry to the list</value>
+  </data>
+  <data name="strChangingNotifyDlgTitleFmt" xml:space="preserve">
+    <value>You’re changing the notify “{0}” to a new value</value>
+  </data>
+  <data name="strCancelAddingNewNotifyMsg" xml:space="preserve">
+    <value>You were adding a new notify and made changes.  Are you sure you want to discard those chnages?</value>
+  </data>
+  <data name="strCancelAddingNewNotifyTitle" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="strCancelChangingNotifyTitle" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="strCancelChangingNotifyMsg" xml:space="preserve">
+    <value>You were changing a notify and made changes.  Are you sure you want to discard thos changes?</value>
+  </data>
 </root>

@@ -6,7 +6,7 @@
 				xmlns:calc="using:CalcBinding"
 				x:DataType="data:GlobalAltNicksOneAltNickEditable"
 				mc:Ignorable="d"
-				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.OneAltNickDlg"
+				x:Class="BestChat.IRC.ProtocolMgr.Prefs.Editors.GlobalOneAltNickDlg"
 				BorderThickness="3"
 				CanResize="False"
 				ShowActivated="True"

@@ -15,11 +15,8 @@
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock"
 							Text="Here you can provide alternate nicks to use if your preferred nick is unavailable.  Don’t try to include your default nick.  It’s implicitly the first item.  Adding it here is an error and will be rejected.  Once you connect to networks, you can override this list in the preferences for that network."/>
-		<Separator DockPanel.Dock="Top"/>
-		<Rectangle DockPanel.Dock="Top"
-							Margin="4,0"
-							Width="4"
-							Fill="Gray"/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
 		<Button x:Name="btnResetAllAlternateNicks"
 						VerticalAlignment="Center"
 						Classes="ResetBtn"

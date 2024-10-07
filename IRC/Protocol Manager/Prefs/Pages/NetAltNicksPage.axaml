@@ -1,0 +1,148 @@
+﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+												xmlns:data="using:BestChat.IRC.Data.Prefs"
+												xmlns:calc="using:CalcBinding"
+												x:DataType="data:NetAltNicksPrefs"
+												mc:Ignorable="d"
+												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.NetAltNicksPage">
+	<base:VisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="../PrefsStyles.axaml"/>
+	</base:VisualPrefsTabCtrl.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock">
+			Here you can provide alternate nicks to use if your preferred nick is unavailable in addition to the ones listed in
+			<InlineUIContainer>
+				<HyperlinkButton x:Name="hlinkGlobalAltNicks"
+												Content="Global/Alternate Nicks"/>
+			</InlineUIContainer>
+			.  Don’t try to include your default nick.  It’s implicitly the first item.  Adding it here is an error and will be rejected.  Note: The order is important.  If you want to rearrange inherited nicks, disable them and add them below.  If you add a nick that matches an inherited nick, the inherited nick will be disabled.  All inherited nicks are tried first.
+		</TextBlock>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<Grid ColumnDefinitions="Auto,4,1*"
+					RowDefinitions="1*,4,1*">
+			<Button x:Name="btnResetInherited"
+							Classes="ResetBtn"
+							Click="OnResetInheritedClicked">
+			</Button>
+			<DataGrid Grid.Column="2"
+								x:Name="dgInherited"
+								MinHeight="100"
+								AutoGenerateColumns="False"
+								CanUserReorderColumns="True"
+								CanUserResizeColumns="True"
+								CanUserSortColumns="False"
+								GridLinesVisibility="Vertical"
+								HorizontalScrollBarVisibility="Hidden"
+								ItemsSource="{Binding AllInheritanceOverridesByNick.Values}"
+								SelectionMode="Extended">
+				<DataGrid.Columns>
+					<DataGridTextColumn Binding="{Binding InheritedItem.NickToUse}"
+															CanUserReorder="True"
+															CanUserResize="True"
+															CanUserSort="False"
+															Header="Nick to Use"
+															IsReadOnly="True"/>
+					<DataGridTemplateColumn CanUserReorder="True"
+																	CanUserResize="False"
+																	CanUserSort="False"
+																	Header="Enable?">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<CheckBox ToolTip.Tip="Check to include this nick and uncheck to skip it."
+													IsChecked="{Binding Status,Mode=TwoWay}"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+			<GridSplitter Grid.Row="1"
+										Grid.ColumnSpan="3"
+										ResizeBehavior="PreviousAndCurrent"
+										ResizeDirection="Rows"/>
+			<DockPanel Grid.Row="2"
+								Grid.ColumnSpan="3">
+				<Button x:Name="btnResetAllAlternateNicks"
+								VerticalAlignment="Center"
+								Classes="ResetBtn"
+								Click="OnResetAllAltNickClicked"/>
+				<StackPanel DockPanel.Dock="Right"
+										VerticalAlignment="Center"
+										Orientation="Vertical"
+										Spacing="4">
+					<Button x:Name="btnPrepend"
+									ToolTip.Tip="Click to create a new alternate nick as the first item in the list."
+									Content="Prepend New…"
+									Click="OnPrependNewClicked"/>
+					<Button x:Name="btnAppend"
+									ToolTip.Tip="Click to create a new alternate nick as the last item in the list."
+									Content="Append New…"
+									Click="OnAppendClicked"/>
+					<Separator Margin="0,4"/>
+					<Button x:Name="btnAddBefore"
+									ToolTip.Tip="Click to create a new alternate nick immediately before the selected nick.  This is available only if you have exactly one selected nick."
+									Content="Add Before…"
+									Click="OnAddBeforeClicked">
+					</Button>
+					<Button x:Name="btnAddAfter"
+									ToolTip.Tip="Click to create a new alternate nick immediately after the selected item.  This is available only if you have exactly one selected nick."
+									Content="Add New After…"
+									Click="OnAddAfterClicked"/>
+					<Separator Margin="0,4"/>
+					<Button x:Name="btnEdit"
+									ToolTip.Tip="Click to edit the selected alternate nick.  This is available only if you have exactly one selected nick."
+									Content="Edit…"
+									Click="OnEditClicked"/>
+					<Button x:Name="btnDel"
+									ToolTip.Tip="Click to delete the currently selected nick or nicks.  This is available only if you have at least one selected nick.  You’ll be asked if you’ll certain you want to delete the selected nick."
+									Content="Delete"
+									Click="OnDelCLicked"/>
+					<Separator Margin="0,4"
+										Height="4"/>
+					<Button x:Name="btnMoveToTop"
+									ToolTip.Tip="Click to move the selected nick to the top of the list.  This is available only if you have exactly one nick selected and it can’t be the first entry."
+									Click="OnMoveToTopClicked">
+						<StackPanel Orientation="Horizontal"
+												Spacing="4">
+							<Label Content="Move To Top"/><Image Classes="MoveToTopImg"/>
+						</StackPanel>
+					</Button>
+					<Button x:Name="btnMoveUp"
+									ToolTip.Tip="CLick to move the currently selected nick up the list.  This is available only if you have one selected nick which must not be the first nick in the list."
+									Content="Move UP ▲"
+									Click="OnMoveUpClicked"/>
+					<Button x:Name="btnMoveDown"
+									ToolTip.Tip="Click to move the currently selected nick down the list.  This is available only if you have exactly one selected nick which must not be the last nick in the list."
+									Content="Move Down ▼"
+									Click="OnMoveDownClicked"/>
+					<Button x:Name="btnMoveToBottom"
+									ToolTip.Tip="Click to move the selected nick to the bottom of the list.  This is available only if you have exactly one nick selected and it can’t be the last entry."
+									Click="OnMoveToBottomClicked">
+						<StackPanel Orientation="Horizontal"
+												Spacing="4">
+							<Label Content="Move To Bottom"/>
+							<Image Classes="MoveToBottomImg"/>
+						</StackPanel>
+					</Button>
+				</StackPanel>
+				<Rectangle DockPanel.Dock="Top"
+									Margin="4,0"
+									Width="4"
+									Fill="Gray"/>
+				<ListBox x:Name="lbData"
+								ItemsSource="{Binding Entries}"
+								SelectionMode="Multiple">
+					<ListBox.ItemTemplate>
+						<DataTemplate DataType="data:GlobalAltNicksOneAltNickEditable">
+							<Label Content="{Binding NickToUse}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</DockPanel>
+		</Grid>
+	</DockPanel>
+</base:VisualPrefsTabCtrl>

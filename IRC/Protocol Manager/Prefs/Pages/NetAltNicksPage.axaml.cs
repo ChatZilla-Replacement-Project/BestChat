@@ -1,9 +1,10 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class NetAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
 {
-	public GlobalAutoPerformOnEvtPage()
+	public NetAltNicksPage()
 		=> InitializeComponent();
+
 
 	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelConfirm = MsBox
 		.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs
@@ -15,9 +16,10 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		.strResetGlobalAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
 		.Controls.WindowStartupLocation.CenterOwner);
 
-	private Data.Prefs.GlobalAutoPerformOnEvtPrefs? ctxt;
 
-	public Data.Prefs.GlobalAutoPerformOnEvtPrefs? Ctxt
+	private Data.Prefs.NetAltNicksPrefs? ctxt;
+
+	public Data.Prefs.NetAltNicksPrefs? Ctxt
 	{
 		get => ctxt;
 
@@ -26,19 +28,22 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 			if(ctxt != value)
 			{
 				if(value is not null && !value.IsEditMode)
-					throw new System.InvalidOperationException(@"Before you can open a new GlobalAutoPerformOnEvtPage, you must "
-						+ @"turn on the context's edit mode.");
+					throw new System.InvalidOperationException("Before you can open a new GlobalAltNicksPage, you must turn on " +
+						"the context's edit mode.");
 
 				DataContext = ctxt = value;
 			}
 		}
 	}
 
+
+	private void OnResetInheritedClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
+		=> ctxt?.ResetInherited();
+
 	private void OnDelCLicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
 		if(ctxt is null)
-			throw new System.InvalidOperationException(@"Set the Ctxt property before showing a new " +
-				@"GlobalAutoPerformOnEvtPage");
+			throw new System.InvalidOperationException("Set the Ctxt property before showing a new GlobalAliasesPage");
 
 		if(lbData.SelectedItems is null || lbData.SelectedItems.Count == 0)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
@@ -46,11 +51,11 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(msgboxDelConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window?)VisualRoot ?? throw new System
 				.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia
 				.Enums.ButtonResult.Yes)
-			foreach(Data.Prefs.GlobalAutoPerformOneStepEditable enickCur in lbData.SelectedItems)
-				ctxt.Steps.Remove(enickCur);
+			foreach(Data.Prefs.GlobalAltNicksOneAltNick enickCur in lbData.SelectedItems)
+				ctxt.Entries.Remove(enickCur);
 	}
 
-	private void OnResetAllStepsClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
+	private void OnResetAllAltNickClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
 		if(ctxt is null)
 			throw new System.InvalidOperationException("Set the Ctxt property before showing a new GlobalAliasesPage");
@@ -58,7 +63,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(msgboxResetConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window?)VisualRoot ?? throw new System
 				.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia
 				.Enums.ButtonResult.Yes)
-			ctxt.Steps.ResetValToDef();
+			ctxt.Entries.ResetValToDef();
 	}
 
 	private void OnPrependNewClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -66,18 +71,18 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(ctxt is null)
 			throw new System.InvalidOperationException("Set this Ctxt property before showing a new GlobalAliasesPage");
 
-		Editors.AutoPerformOneStepDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
+			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
 			"how the visual root for this control isn't a window")).Result == true)
 		{
-			dlg.CtxtStep.Save();
+			dlg.CtxtAltNick.Save();
 
-			ctxt.Steps.Prepend(dlg.CtxtStep.OriginalStep);
+			ctxt.Entries.Prepend(dlg.CtxtAltNick.OriginalNick);
 		}
 	}
 
@@ -86,18 +91,18 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(ctxt is null)
 			throw new System.InvalidOperationException("Set this Ctxt property before showing a new GlobalAliasesPage");
 
-		Editors.AutoPerformOneStepDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
+			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
 			"how the visual root for this control isn't a window")).Result == true)
 		{
-			dlg.CtxtStep.Save();
+			dlg.CtxtAltNick.Save();
 
-			ctxt.Steps.Append(dlg.CtxtStep.OriginalStep);
+			ctxt.Entries.Append(dlg.CtxtAltNick.OriginalNick);
 		}
 	}
 
@@ -109,18 +114,18 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null || lbData.SelectedItems is null || lbData.SelectedItems.Count != 1)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.AutoPerformOneStepDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
+			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
 			"how the visual root for this control isn't a window")).Result == true)
 		{
-			dlg.CtxtStep.Save();
+			dlg.CtxtAltNick.Save();
 
-			ctxt.Steps.AddBefore((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem, dlg.CtxtStep.OriginalStep);
+			ctxt.Entries.AddBefore((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem, dlg.CtxtAltNick.OriginalNick);
 		}
 	}
 
@@ -132,18 +137,18 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null || lbData.SelectedItems is null || lbData.SelectedItems.Count != 1)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.AutoPerformOneStepDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = new Data.Prefs.GlobalAutoPerformOneStep(ctxt).MakeEditable(),
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
+			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
 			"how the visual root for this control isn't a window")).Result == true)
 		{
-			dlg.CtxtStep.Save();
+			dlg.CtxtAltNick.Save();
 
-			ctxt.Steps.AddAfter((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem, dlg.CtxtStep.OriginalStep);
+			ctxt.Entries.AddAfter((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem, dlg.CtxtAltNick.OriginalNick);
 		}
 	}
 
@@ -155,15 +160,15 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.AutoPerformOneStepDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.AutoPerformOneStepDlg.Modes.create,
-			CtxtStep = ((Data.Prefs.GlobalAutoPerformOneStep)lbData.SelectedItem).MakeEditable(),
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
+			CtxtAltNick = ((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem).MakeEditable(),
 		};
 
 		if(dlg.ShowDialog<bool?>((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some " +
 				"how the visual root for this control isn't a window")).Result == true)
-			dlg.CtxtStep.Save();
+			dlg.CtxtAltNick.Save();
 	}
 
 	private void OnMoveToTopClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -174,7 +179,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		ctxt.Steps.MoveEntryToTop((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem);
+		ctxt.Entries.MoveEntryToTop((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem);
 	}
 
 	private void OnMoveUpClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -185,7 +190,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		ctxt.Steps.MoveEntryUp((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem);
+		ctxt.Entries.MoveEntryUp((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem);
 	}
 
 	private void OnMoveDownClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -196,7 +201,7 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		ctxt.Steps.MoveEntryDown((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem);
+		ctxt.Entries.MoveEntryDown((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem);
 	}
 
 	private void OnMoveToBottomClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -207,6 +212,6 @@ public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Visu
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		ctxt.Steps.MoveEntryToBottom((Data.Prefs.GlobalAutoPerformOneStepEditable)lbData.SelectedItem);
+		ctxt.Entries.MoveEntryToBottom((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem);
 	}
 }

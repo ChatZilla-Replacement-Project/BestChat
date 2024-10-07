@@ -65,9 +65,9 @@ public partial class GlobalAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsT
 		if(ctxt is null)
 			throw new System.InvalidOperationException("Set this Ctxt property before showing a new GlobalAliasesPage");
 
-		Editors.OneAltNickDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.OneAltNickDlg.Modes.create,
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
 			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
@@ -85,9 +85,9 @@ public partial class GlobalAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsT
 		if(ctxt is null)
 			throw new System.InvalidOperationException("Set this Ctxt property before showing a new GlobalAliasesPage");
 
-		Editors.OneAltNickDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.OneAltNickDlg.Modes.create,
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
 			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
@@ -108,9 +108,9 @@ public partial class GlobalAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsT
 		if(lbData.SelectedItem is null || lbData.SelectedItems is null || lbData.SelectedItems.Count != 1)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.OneAltNickDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.OneAltNickDlg.Modes.create,
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
 			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
@@ -131,9 +131,9 @@ public partial class GlobalAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsT
 		if(lbData.SelectedItem is null || lbData.SelectedItems is null || lbData.SelectedItems.Count != 1)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.OneAltNickDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.OneAltNickDlg.Modes.create,
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
 			CtxtAltNick = new Data.Prefs.GlobalAltNicksOneAltNick(ctxt).MakeEditable(),
 		};
 
@@ -154,9 +154,9 @@ public partial class GlobalAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsT
 		if(lbData.SelectedItem is null)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		Editors.OneAltNickDlg dlg = new()
+		Editors.GlobalOneAltNickDlg dlg = new()
 		{
-			Mode = Editors.OneAltNickDlg.Modes.create,
+			Mode = Editors.GlobalOneAltNickDlg.Modes.create,
 			CtxtAltNick = ((Data.Prefs.GlobalAltNicksOneAltNick)lbData.SelectedItem).MakeEditable(),
 		};
 

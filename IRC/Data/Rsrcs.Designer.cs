@@ -1300,5 +1300,32 @@ namespace BestChat.IRC.Data {
                 return ResourceManager.GetString("strUserNetNameTaken", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please specify who you want to be notified about..
+        /// </summary>
+        internal static string strWhatToFollowIsBlank {
+            get {
+                return ResourceManager.GetString("strWhatToFollowIsBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already specified this person..
+        /// </summary>
+        internal static string strWhatToFollowIsNotUnique {
+            get {
+                return ResourceManager.GetString("strWhatToFollowIsNotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to “{0}” doesn’t look like a valid IRC nick..
+        /// </summary>
+        internal static string strWhatToFollowNotValidNick {
+            get {
+                return ResourceManager.GetString("strWhatToFollowNotValidNick", resourceCulture);
+            }
+        }
     }
 }

@@ -6,9 +6,9 @@ namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
 using Platform.DataAndExt.Ext;
 
-public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class NetAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
 {
-	public GlobalAliasesPage()
+	public NetAliasesPage()
 		=> InitializeComponent();
 
 	private static readonly Avalonia.Point ptMinDragDistance = new(3, 3);
@@ -24,11 +24,11 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTa
 		.strResetGlobalAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
 		.Controls.WindowStartupLocation.CenterOwner);
 
-	private Data.Prefs.GlobalAliasesPrefs? ctxt;
+	private Data.Prefs.NetAliasesPrefs? ctxt;
 
 	private Avalonia.Point? ptDragStartedAt = null;
 
-	public Data.Prefs.GlobalAliasesPrefs? Ctxt
+	public Data.Prefs.NetAliasesPrefs? Ctxt
 	{
 		get => ctxt;
 
@@ -47,9 +47,6 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTa
 
 	protected override void OnInitialized()
 	{
-		if(ctxt is null)
-			throw new System.InvalidOperationException(@"Set Ctxt before showing the GlobalAliasesPage.");
-
 		base.OnInitialized();
 
 		dgData.AddHandler(DragDrop.DragOverEvent, OnDragOver);
@@ -120,6 +117,9 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTa
 			.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum
 			.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd);
 	}
+
+	private void OnResetInheritedClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+		=> ctxt?.AllInheritanceOverridesByName.ResetValToDef();
 
 	protected void OnPointerPressedOnRow(object? objSender, PointerPressedEventArgs args)
 	{
@@ -414,7 +414,7 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTa
 	{
 		if(!args.Data.Contains(DataFormats.Files))
 			Import(args.Data.GetFiles()?.Select(fileCur => new System.IO.FileInfo(fileCur.Path.AbsolutePath))
-					?? throw new System.InvalidProgramException("Somehow we have but don't have files")
+				?? throw new System.InvalidProgramException("Somehow we have but don't have files")
 			)?.Wait();
 	}
 

@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Data.Prefs;
 
-public class GlobalAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
+public class GlobalAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAltNickPrefs
 {
 	#region Constructors & Deconstructors
 		public GlobalAltNicksPrefs(in Platform.DataAndExt.Prefs.AbstractMgr mgrParent) :
@@ -39,11 +39,11 @@ public class GlobalAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 	#endregion
 
 	#region Members
-		private readonly Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAltNicksOneAltNick> entries;
+		private readonly Platform.DataAndExt.Prefs.ReorderableObjListItem<GlobalAltNicksOneAltNick> entries;
 	#endregion
 
 	#region Properties
-		public Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAltNicksOneAltNick> Entries
+		public Platform.DataAndExt.Prefs.ReorderableObjListItem<GlobalAltNicksOneAltNick> Entries
 			=> entries;
 	#endregion
 
@@ -56,4 +56,12 @@ public class GlobalAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 
 	#region Event Handlers
 	#endregion
+}
+
+public interface IAltNickPrefs
+{
+	public Platform.DataAndExt.Prefs.ReorderableObjListItem<GlobalAltNicksOneAltNick> Entries
+	{
+		get;
+	}
 }

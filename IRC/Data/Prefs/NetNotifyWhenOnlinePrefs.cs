@@ -1,4 +1,6 @@
-﻿namespace BestChat.IRC.Data.Prefs;
+﻿using System.Linq;
+
+namespace BestChat.IRC.Data.Prefs;
 
 public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 {
@@ -13,14 +15,22 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				PrefsRsrcs.strNetNotifyDesc,
 				[],
 				KeyObtainer,
-				(_, _)
+				(
+						notifyEntry,
+						evth)
+					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (
+							in NotifyWhenOnlineOneNotify notifySender, in string strVal,
+							in string _)
+						=> evth(strVal, notifyEntry),
+				(
+						notifyEntry,
+						evth)
 					=>
-				{
-				},
-				(_, _)
-					=>
-				{
-				}
+						{
+							notifyEntry.evtWhatToFollowChanged -= mapNotifyHandlers[evth];
+
+							mapNotifyHandlers.Remove(evth);
+						}
 			);
 
 		public NetNotifyWhenOnlinePrefs(in NetPrefsBase mgrParent, in string[]? dto) :
@@ -32,16 +42,26 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				PrefsRsrcs.strNetNotifyTitle,
 				PrefsRsrcs.strNetNotifyDesc,
 				[],
-				dto ?? [],
+				dto?.Select(strCurNotifyWhatToFollow
+					=> new NotifyWhenOnlineOneNotify(strCurNotifyWhatToFollow, this)
+				) ?? [],
 				KeyObtainer,
-				(_, _)
+				(
+						notifyEntry,
+						evth)
+					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (
+							in NotifyWhenOnlineOneNotify notifySender, in string strVal,
+							in string _)
+						=> evth(strVal, notifyEntry),
+				(
+						notifyEntry,
+						evth)
 					=>
-				{
-				},
-				(_, _)
-					=>
-				{
-				}
+						{
+							notifyEntry.evtWhatToFollowChanged -= mapNotifyHandlers[evth];
+
+							mapNotifyHandlers.Remove(evth);
+						}
 			);
 	#endregion
 
@@ -58,20 +78,27 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 	#endregion
 
 	#region Members
-		private readonly Platform.DataAndExt.Prefs.MappedSortedListItem<string, string> entries;
+		private readonly Platform.DataAndExt.Prefs.MappedSortedListItem<string, NotifyWhenOnlineOneNotify> entries;
 	#endregion
 
 	#region Properties
-		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, string> Entries
+		public Platform.DataAndExt.Prefs.MappedSortedListItem<string, NotifyWhenOnlineOneNotify> Entries
 			=> entries;
+
+		private readonly
+			System.Collections.Generic.Dictionary<System.Action<string, NotifyWhenOnlineOneNotify>, Platform.DataAndExt
+				.Obj<NotifyWhenOnlineOneNotify>.DFieldChanged<string>> mapNotifyHandlers = [];
 	#endregion
 
 	#region Methods
 		public string[]? ToDTO()
-			=> [.. entries.Values, ];
+			=> [..
+				entries.Values.Select(notifyCur
+					=> notifyCur.WhatToFollow),
+			];
 
-		private static string KeyObtainer(string strVal)
-			=> strVal;
+		private static string KeyObtainer(NotifyWhenOnlineOneNotify notifyVal)
+			=> notifyVal.WhatToFollow;
 	#endregion
 
 	#region Event Handlers

@@ -1,10 +1,8 @@
-﻿using System;
+﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
 
-namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
-
-public partial class OneAltNickDlg : Avalonia.Controls.Window
+public partial class GlobalOneAltNickDlg : Avalonia.Controls.Window
 {
-	public OneAltNickDlg()
+	public GlobalOneAltNickDlg()
 		=> InitializeComponent();
 
 	private MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxCancelConfirmNew = MsBox.Avalonia
@@ -86,7 +84,8 @@ public partial class OneAltNickDlg : Avalonia.Controls.Window
 				=> Rsrcs.strOneAltNickEditorEditingTitle,
 
 			var _
-				=> null,
+				=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Modes>(mode, @"While selecting a " +
+					@"title"),
 		};
 
 	protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs args)
@@ -103,9 +102,10 @@ public partial class OneAltNickDlg : Avalonia.Controls.Window
 
 	private void OnCancelClicked(object? ojbSender, Avalonia.Interactivity.RoutedEventArgs arg)
 	{
-		if(msgboxCancelConfirmNew.ShowWindowDialogAsync((Avalonia.Controls.Window)(VisualRoot ?? throw new System
-				.InvalidProgramException("How is this in a non-window?"))).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
-			Close(true);
+		if(MsgBoxToUseWhenUserTriesToCloseWithoutSaving.ShowWindowDialogAsync((Avalonia.Controls.Window)(VisualRoot ?? throw
+				new System.InvalidProgramException("How is this in a non-window?"))).Result == MsBox.Avalonia.Enums.ButtonResult
+				.Yes)
+			Close(false);
 	}
 
 	private void OnCloseClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)

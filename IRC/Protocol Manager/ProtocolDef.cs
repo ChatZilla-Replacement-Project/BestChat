@@ -1,8 +1,5 @@
 ﻿// Ignore Spelling: Ctrl gvc Prefs
 
-using BestChat.IRC.ProtocolMgr.Prefs;
-using BestChat.IRC.ProtocolMgr.Prefs.Pages;
-
 [assembly: BestChat.Platform.DataAndExt.Attr.ProtocolAssemblyInfo("IRC", "ChatZilla Replacement " +
 	"Project", nameof(BestChat.IRC.ProtocolMgr.Rsrcs.strTranslatedProtDesc), "Implements the Internet Relay"
 	+ " Chat protocol for Best Chat.  Without this module, Best Chat doesn't support IRC.", typeof(BestChat.IRC
@@ -53,20 +50,7 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 		};
 		miFileIrc.SetCurrentValue(Avalonia.Controls.ToolTip.TipProperty, Rsrcs.strFileMenuItemToolTip);
 
-		IrcPrefs.InitInstance(Platform.UI.Desktop.Prefs.RootPrefs.Instance);
-
-		Platform.UI.Desktop.Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(
-			typeof(Data.Prefs.GlobalAliasesPrefs),
-			mgrNew => new GlobalAliasesPage()
-			{
-				Ctxt = (Data.Prefs.GlobalAliasesPrefs)mgrNew,
-			});
-		Platform.UI.Desktop.Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(
-			typeof(Data.Prefs.GlobalAliasesPrefs),
-			mgrNew => new GlobalAltNicksPage()
-			{
-				Ctxt = (Data.Prefs.GlobalAltNicksPrefs)mgrNew,
-			});
+		Prefs.IrcPrefs.InitInstance(Platform.UI.Desktop.Prefs.RootPrefs.Instance);
 	}
 
 	public string Name
@@ -106,30 +90,60 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 			=> new System.Collections.Generic.Dictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
 				.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>()
 			{
-				[typeof(Data.Prefs.GlobalAliasesPrefs)] = (cmgrToCreatePageFor)
-					=> new GlobalAliasesPage()
+				[typeof(Data.Prefs.GlobalAliasesPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.GlobalAliasesPage()
 					{
 						Ctxt = (Data.Prefs.GlobalAliasesPrefs)cmgrToCreatePageFor,
 					},
-				[typeof(Data.Prefs.GlobalAltNicksPrefs)] = (cmgrToCreatePageFor)
-					=> new GlobalAltNicksPage()
+				[typeof(Data.Prefs.GlobalAltNicksPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.GlobalAltNicksPage()
 					{
 						Ctxt = (Data.Prefs.GlobalAltNicksPrefs)cmgrToCreatePageFor,
 					},
-				[typeof(Data.Prefs.ChanAutoPerformPrefs)] = (cmgrToCreatePageFor)
-					=> new GlobalAutoPerformOnEvtPage()
+				[typeof(Data.Prefs.ChanAutoPerformPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.GlobalAutoPerformOnEvtPage()
 					{
 						Ctxt = (Data.Prefs.GlobalAutoPerformOnEvtPrefs)cmgrToCreatePageFor,
 					},
-				[typeof(Data.Prefs.GlobalConnPrefs)] = (cmgrToCreatePageFor)
-					=> new GlobalConnPage()
+				[typeof(Data.Prefs.GlobalConnPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.GlobalConnPage()
 					{
 						Ctxt = (Data.Prefs.GlobalConnPrefs)cmgrToCreatePageFor,
 					},
-				[typeof(Data.Prefs.GlobalDccPrefs)] = (cmgrToCreatePageFor)
-				=> new GlobalDccPage()
+				[typeof(Data.Prefs.GlobalDccPrefs)] = cmgrToCreatePageFor
+				=> new Prefs.Pages.GlobalDccPage()
 					{
 						Ctxt = (Data.Prefs.GlobalDccPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.GlobalStalkWordsPrefs)] = cmrToCreatePageFor
+					=> new Prefs.Pages.GlobalStalkWordsPage()
+					{
+						Ctnts = (Data.Prefs.GlobalStalkWordsPrefs)cmrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetAltNicksPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.NetAltNicksPage()
+					{
+						Ctxt = (Data.Prefs.NetAltNicksPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetAliasesPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.NetAliasesPage()
+					{
+						Ctxt = (Data.Prefs.NetAliasesPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetAutoPerformOnEvtPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.NetAutoPerformOnEvtPage()
+					{
+						Ctxt = (Data.Prefs.NetAutoPerformOnEvtPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetConnPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.NetConnPage()
+					{
+						Ctxt = (Data.Prefs.NetConnPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetNotifyWhenOnlinePrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.NetNotifyWhenOnlinePage()
+					{
+						Ctxt = (Data.Prefs.NetNotifyWhenOnlinePrefs)cmgrToCreatePageFor,
 					},
 			};
 
@@ -137,7 +151,7 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 		.DataAndExt.Prefs.AbstractMgr mgrYourParent)
 	{
 		// TODO: Load the data
-		return IrcPrefs.InitInstance(mgrYourParent);
+		return Prefs.IrcPrefs.InitInstance(mgrYourParent);
 	}
 
 	public Avalonia.Controls.MenuItem? FileMenuItem

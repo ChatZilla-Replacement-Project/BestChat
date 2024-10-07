@@ -25,11 +25,11 @@ public class GlobalAliasesPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 				(aliasEntry,
 						evth)
 					=>
-				{
-					aliasEntry.evtNameChanged -= mapAliasHandlers[evth];
+						{
+							aliasEntry.evtNameChanged -= mapAliasHandlers[evth];
 
-					mapAliasHandlers.Remove(evth);
-				}
+							mapAliasHandlers.Remove(evth);
+						}
 			);
 
 		public GlobalAliasesPrefs(Platform.DataAndExt.Prefs.AbstractMgr mgrParent, DTO.GlobalAliasesOneAliasDTO[]? dto, in

@@ -576,4 +576,13 @@
     <data name="strUserNetNameTaken" xml:space="preserve">
     <value>The name you entered for this network isn't unique.  Please choose another.</value>
   </data>
+    <data name="strWhatToFollowIsBlank" xml:space="preserve">
+      <value>Please specify who you want to be notified about.</value>
+    </data>
+    <data name="strWhatToFollowIsNotUnique" xml:space="preserve">
+      <value>You already specified this person.</value>
+    </data>
+    <data name="strWhatToFollowNotValidNick" xml:space="preserve">
+      <value>“{0}” doesn’t look like a valid IRC nick.</value><comment>All instances of "{0}" will be replaced by the text the user entered.</comment>
+    </data>
 </root>
