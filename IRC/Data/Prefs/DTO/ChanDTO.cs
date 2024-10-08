@@ -4,7 +4,6 @@ public record ChanDTO
 (
 	string OwnerChan,
 
-	NetTimeStampDTO TimeStamps,
 	NetAliasesDTO Aliases,
 	ChanAutoPerformDTO AutoPerform,
 	NetStalkWordsDTO StalkWords

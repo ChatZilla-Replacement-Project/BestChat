@@ -1,4 +1,4 @@
-﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
 												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,9 +10,9 @@
 												x:DataType="data:GlobalDccPrefs"
 												mc:Ignorable="d"
 												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalDccPage">
-	<base:VisualPrefsTabCtrl.Styles>
+	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
-	</base:VisualPrefsTabCtrl.Styles>
+	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<DockPanel Margin="4">
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock"
@@ -120,4 +120,4 @@
 			</group:GroupBox>
 		</Grid>
 	</DockPanel>
-</base:VisualPrefsTabCtrl>
+</base:AbstractVisualPrefsTabCtrl>

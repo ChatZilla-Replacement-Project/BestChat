@@ -3,22 +3,23 @@ using Avalonia.VisualTree;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class GlobalStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
+public partial class NetStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
-	public GlobalStalkWordsPage()
+	public NetStalkWordsPage()
 		=> InitializeComponent();
 
 
 	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelPortConfirm = MsBox
-		.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelStalkWordTitle, Rsrcs.strDelStalkWordMsg, MsBox
-		.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation
-		.CenterOwner);
+		.Avalonia.MessageBoxManager.GetMessageBoxStandard(
+			Rsrcs.strDelStalkWordTitle, Rsrcs.strDelStalkWordMsg, MsBox
+				.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation
+				.CenterOwner);
 
 
-	private Data.Prefs.GlobalStalkWordsPrefs? ctxt;
+	private Data.Prefs.NetStalkWordsPrefs? ctxt;
 
 
-	public Data.Prefs.GlobalStalkWordsPrefs? Ctxt
+	public Data.Prefs.NetStalkWordsPrefs? Ctxt
 	{
 		get => ctxt;
 
@@ -33,7 +34,7 @@ public partial class GlobalStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVi
 	protected override void OnInitialized()
 	{
 		if(ctxt == null)
-			throw new System.InvalidOperationException("Set Ctxt before showing the global stalk words page");
+			throw new System.InvalidOperationException("Set Ctxt before showing the network stalk words page");
 
 		base.OnInitialized();
 	}
@@ -41,7 +42,16 @@ public partial class GlobalStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVi
 
 	private void OnVisitGlobalAppearancePrefsClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
-		// TODO: Show the correct page
+		throw new System.NotImplementedException();
+	}
+
+	private void OnGlobalStalkWordsLinkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
+	{
+		throw new System.NotImplementedException();
+	}
+
+	private void OnResetInheritedClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
+	{
 		throw new System.NotImplementedException();
 	}
 

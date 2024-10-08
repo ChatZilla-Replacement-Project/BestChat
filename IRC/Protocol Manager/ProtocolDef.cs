@@ -85,10 +85,10 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 		=> Prefs.IrcPrefs.Instance;
 
 	public System.Collections.Generic.IReadOnlyDictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
-			.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>
+			.AbstractMgr, Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl>>
 		PrefCtrlMap
 			=> new System.Collections.Generic.Dictionary<System.Type, System.Func<Platform.DataAndExt.Prefs
-				.AbstractMgr, Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl>>()
+				.AbstractMgr, Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl>>()
 			{
 				[typeof(Data.Prefs.GlobalAliasesPrefs)] = cmgrToCreatePageFor
 					=> new Prefs.Pages.GlobalAliasesPage()
@@ -118,7 +118,7 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 				[typeof(Data.Prefs.GlobalStalkWordsPrefs)] = cmrToCreatePageFor
 					=> new Prefs.Pages.GlobalStalkWordsPage()
 					{
-						Ctnts = (Data.Prefs.GlobalStalkWordsPrefs)cmrToCreatePageFor,
+						Ctxt = (Data.Prefs.GlobalStalkWordsPrefs)cmrToCreatePageFor,
 					},
 				[typeof(Data.Prefs.NetAltNicksPrefs)] = cmgrToCreatePageFor
 					=> new Prefs.Pages.NetAltNicksPage()
@@ -144,6 +144,16 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 					=> new Prefs.Pages.NetNotifyWhenOnlinePage()
 					{
 						Ctxt = (Data.Prefs.NetNotifyWhenOnlinePrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.NetStalkWordsPrefs)]= cmgrToCreatePageFor
+					=> new Prefs.Pages.NetStalkWordsPage()
+					{
+						Ctxt = (Data.Prefs.NetStalkWordsPrefs)cmgrToCreatePageFor,
+					},
+				[typeof(Data.Prefs.ChanAliasesPrefs)] = cmgrToCreatePageFor
+					=> new Prefs.Pages.ChanAliasesPage()
+					{
+						Ctxt = (Data.Prefs.ChanAliasesPrefs)cmgrToCreatePageFor,
 					},
 			};
 

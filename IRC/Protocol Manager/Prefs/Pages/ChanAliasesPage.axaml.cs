@@ -6,11 +6,10 @@ namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
 using Platform.DataAndExt.Ext;
 
-public partial class NetAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
+public partial class ChanAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
-	public NetAliasesPage()
+	public ChanAliasesPage()
 		=> InitializeComponent();
-
 	private static readonly Avalonia.Point ptMinDragDistance = new(3, 3);
 	private const string strJsonMimeType = "application/json";
 
@@ -24,11 +23,11 @@ public partial class NetAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPr
 		.strResetGlobalAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
 		.Controls.WindowStartupLocation.CenterOwner);
 
-	private Data.Prefs.NetAliasesPrefs? ctxt;
+	private Data.Prefs.ChanAliasesPrefs? ctxt;
 
-	private Avalonia.Point? ptDragStartedAt = null;
+	private Avalonia.Point? ptDragStartedAt;
 
-	public Data.Prefs.NetAliasesPrefs? Ctxt
+	public Data.Prefs.ChanAliasesPrefs? Ctxt
 	{
 		get => ctxt;
 
@@ -153,8 +152,8 @@ public partial class NetAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPr
 			throw new System.InvalidOperationException("Set the Ctxt property before showing a new GlobalAliasesPage");
 
 		if(msgboxResetConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window?)VisualRoot ?? throw new System
-			.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia
-			.Enums.ButtonResult.Yes)
+				.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia
+				.Enums.ButtonResult.Yes)
 			ctxt.Entries.ResetValToDef();
 	}
 

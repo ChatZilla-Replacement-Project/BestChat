@@ -1,13 +1,13 @@
 ﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
-												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
-												xmlns:data="using:BestChat.IRC.Data.Prefs"
-												xmlns:calc="using:CalcBinding"
-												x:DataType="data:NetAutoPerformOnEvtPrefs"
-												mc:Ignorable="d"
-												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.NetAutoPerformOnEvtPage">
+																xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+																xmlns:data="using:BestChat.IRC.Data.Prefs"
+																xmlns:calc="using:CalcBinding"
+																x:DataType="data:ChanAutoPerformPrefs"
+																mc:Ignorable="d"
+																x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.ChanAutoPerformPage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</base:AbstractVisualPrefsTabCtrl.Styles>
@@ -17,6 +17,10 @@
 			Here, you move the steps you want Best Chat to perform up or down.  You can also creating new steps, edit existing ones, and delete them.  The steps inherited from
 			<InlineUIContainer>
 				<HyperlinkButton x:Name="hlinkGlobalAutoPerformOnEvt"/>
+			</InlineUIContainer>
+			and
+			<InlineUIContainer>
+				<HyperlinkButton x:Name="hlinkNetAutoPerformOnEvtWhenJoiningChans"/>
 			</InlineUIContainer>
 			always happen before any items you add here and in the order shown.  If you want to change the order in which inherited steps happen, disable them and recreate them down below.
 		</TextBlock>
@@ -53,6 +57,17 @@
 															CanUserResize="True"
 															CanUserSort="False"
 															Header="What to Do"/>
+					<DataGridTemplateColumn CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Where it was created">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Label ToolTip.Tip="{Binding InheritedFromAsTextDesc}"
+											Content="{Binding InheritedFromAsText}"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
 				</DataGrid.Columns>
 			</DataGrid>
 			<GridSplitter Grid.Row="1"

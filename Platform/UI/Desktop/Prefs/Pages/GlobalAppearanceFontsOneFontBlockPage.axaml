@@ -1,4 +1,4 @@
-﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
 								xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 								xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 								xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,9 +7,9 @@
 								x:DataType="base:GlobalAppearanceFontsOneFontBlockPrefs"
 								mc:Ignorable="d"
 								x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceFontsOneFontBlockPage">
-	<base:VisualPrefsTabCtrl.Styles>
+	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="..\PrefsStyles.axaml"/>
-	</base:VisualPrefsTabCtrl.Styles>
+	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<Grid ColumnDefinitions="Auto,4,Auto,4,Auto,4,1*"
 				RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
 		<TextBlock Classes="InfoTextBlock"
@@ -94,4 +94,4 @@
 															Grid.Column="6"
 															SelVal="{Binding Weight.OverriddenVal, Mode=TwoWay}"/>
 	</Grid>
-</base:VisualPrefsTabCtrl>
+</base:AbstractVisualPrefsTabCtrl>

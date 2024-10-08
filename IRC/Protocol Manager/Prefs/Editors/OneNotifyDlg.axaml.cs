@@ -95,6 +95,16 @@ public partial class OneNotifyDlg : Avalonia.Controls.Window
 					@"title"),
 		};
 
+	protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs args)
+	{
+		if(enotifyCtxt is not null && enotifyCtxt.WereChangesMade && MsgBoxToUseWhenUserTriesToCloseWithoutSaving
+				.ShowWindowDialogAsync((Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException(@"How "
+					+ @"is this in a non-window?"))).Result != MsBox.Avalonia.Enums.ButtonResult.Yes)
+			args.Cancel = true;
+
+		base.OnClosing(args);
+	}
+
 
 	private void OnOkClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 		=> Close(true);

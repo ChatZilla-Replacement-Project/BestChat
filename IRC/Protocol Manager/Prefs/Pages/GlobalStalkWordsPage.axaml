@@ -1,4 +1,4 @@
-﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
 												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,16 +8,16 @@
 												x:DataType="data:GlobalStalkWordsPrefs"
 												mc:Ignorable="d"
 												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalStalkWordsPage">
-	<base:VisualPrefsTabCtrl.Styles>
+	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
-	</base:VisualPrefsTabCtrl.Styles>
+	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<DockPanel Margin="4">
 		<TextBlock DockPanel.Dock="Top"
 							Classes="InfoTextBlock">
 			Here, you can specify a series of words that will cause Best Chat to alert you that they were seen.  Your current nick is implicitly in this list and doesn't need to be listed.  How this notification appears depends on the settings in
 			<InlineUIContainer>
 				<HyperlinkButton x:Name="hlinkGlobalAppearance"
-												Content="Global/Appearance"
+												Content="/Global/Appearance"
 												Click="OnVisitGlobalAppearancePrefsClicked"/>
 			</InlineUIContainer>
 			.
@@ -59,4 +59,4 @@
 			</ListBox.ItemTemplate>
 		</ListBox>
 	</DockPanel>
-</base:VisualPrefsTabCtrl>
+</base:AbstractVisualPrefsTabCtrl>

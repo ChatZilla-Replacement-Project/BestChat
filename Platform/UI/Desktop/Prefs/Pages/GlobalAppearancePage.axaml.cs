@@ -1,6 +1,6 @@
 ﻿namespace BestChat.Platform.UI.Desktop.Prefs.Pages;
 
-public partial class GlobalAppearancePage : VisualPrefsTabCtrl
+public partial class GlobalAppearancePage : AbstractVisualPrefsTabCtrl
 {
 	public GlobalAppearancePage()
 	{

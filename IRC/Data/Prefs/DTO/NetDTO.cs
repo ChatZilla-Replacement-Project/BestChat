@@ -4,7 +4,6 @@ public record NetDTO
 (
 	System.Guid OwnerNet,
 
-	NetTimeStampDTO TimeStamps,
 	NetDccDTO DCC,
 	NetAutoPerformDTO AutoPerform,
 	NetConnDTO Conn,

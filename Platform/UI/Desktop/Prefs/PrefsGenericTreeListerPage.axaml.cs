@@ -5,7 +5,7 @@ namespace BestChat.Platform.UI.Desktop.Prefs;
 /// <summary>
 /// Interaction logic for PrefsGenericTreeListerPage.xaml
 /// </summary>
-public partial class PrefsGenericTreeListerPage : VisualPrefsTabCtrl
+public partial class PrefsGenericTreeListerPage : AbstractVisualPrefsTabCtrl
 {
 	#region Constructors & Deconstructors
 		public PrefsGenericTreeListerPage()

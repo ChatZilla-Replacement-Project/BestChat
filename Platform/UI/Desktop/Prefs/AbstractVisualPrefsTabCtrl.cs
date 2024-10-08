@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace BestChat.Platform.UI.Desktop.Prefs;
 
-public abstract class VisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtrl
+public abstract class AbstractVisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtrl
 {
 	#region Constructors & Deconstructors
-		protected VisualPrefsTabCtrl()
+		protected AbstractVisualPrefsTabCtrl()
 		{
 			if(Avalonia.Application.Current is not null)
 				throw new System.InvalidProgramException("The default constructors of BestBestChat.Platform.UI.Desktop.Prefs and its derived " +
 					"classes are for designer use only.  They aren't not meant for use at runtime.");
 		}
 
-		protected VisualPrefsTabCtrl(in string strLocalizedShortName, in string strLocalizedLongDesc, in DataAndExt.Prefs
+		protected AbstractVisualPrefsTabCtrl(in string strLocalizedShortName, in string strLocalizedLongDesc, in DataAndExt.Prefs
 				.AbstractMgr mgrUs) :
 			base(strLocalizedShortName, strLocalizedLongDesc)
 			=> this.mgrUs = mgrUs;

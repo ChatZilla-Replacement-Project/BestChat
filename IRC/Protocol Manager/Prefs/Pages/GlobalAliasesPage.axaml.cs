@@ -6,7 +6,7 @@ namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
 using Platform.DataAndExt.Ext;
 
-public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
 	public GlobalAliasesPage()
 		=> InitializeComponent();

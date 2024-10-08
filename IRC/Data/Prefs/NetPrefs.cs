@@ -11,7 +11,6 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 			if(Prefs<GlobalPrefsType, GlobalDtoType>.Instance is null)
 				throw new System.InvalidOperationException("No global object.  Was it initalized?");
 
-			timeStamps = new(this);
 			dcc = new(this);
 			autoPeform = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.AutoPerform);
 			conn = new(this);
@@ -30,7 +29,6 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 			if(Prefs<GlobalPrefsType, GlobalDtoType>.Instance is null)
 				throw new System.InvalidOperationException("No global object.  Was it initalized?");
 
-			timeStamps = new(this, dto.TimeStamps);
 			dcc = new(this, dto.DCC);
 			autoPeform = new(this, dto.AutoPerform, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global
 				.AutoPerform);
@@ -57,8 +55,6 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 	#endregion
 
 	#region Members
-		private readonly NetTimeStampPrefs timeStamps;
-
 		private readonly NetDccPrefs dcc;
 
 		private readonly NetAutoPerformPrefs autoPeform;
@@ -77,9 +73,6 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 	#endregion
 
 	#region Properties
-		public override NetTimeStampPrefs TimeStamps
-			=> timeStamps;
-
 		public override NetDccPrefs DCC
 			=> dcc;
 
@@ -112,7 +105,6 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 		public override DTO.NetDTO ToDTO()
 			=> new(
 				OwnerNet.guid,
-				timeStamps.ToDTO(),
 				dcc.ToDTO(),
 				autoPeform.ToDTO(),
 				conn.ToDTO(),

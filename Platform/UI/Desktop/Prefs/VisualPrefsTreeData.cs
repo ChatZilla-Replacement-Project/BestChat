@@ -39,15 +39,15 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 	#region Members
 		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs
-			.AbstractMgr, VisualPrefsTabCtrl>?> mapDataMgrToCtrlType = [];
+			.AbstractMgr, AbstractVisualPrefsTabCtrl>?> mapDataMgrToCtrlType = [];
 
 		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren =
 			[];
 
-		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, VisualPrefsTabCtrl>
+		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>
 			mapExistingCreatedPages = [];
 
-		private readonly System.Func<DataAndExt.Prefs.AbstractMgr, VisualPrefsTabCtrl>? funcCtrlMaker;
+		private readonly System.Func<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>? funcCtrlMaker;
 	#endregion
 
 	#region Properties
@@ -58,14 +58,14 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 			private init;
 		}
 
-		public VisualPrefsTabCtrl UI
+		public AbstractVisualPrefsTabCtrl UI
 		{
 			get
 			{
 				if(funcCtrlMaker is null)
 					return new PrefsGenericTreeListerPage();
 
-				if(mapExistingCreatedPages.TryGetValue(Mgr, out VisualPrefsTabCtrl? value))
+				if(mapExistingCreatedPages.TryGetValue(Mgr, out AbstractVisualPrefsTabCtrl? value))
 					return value;
 
 				return mapExistingCreatedPages[Mgr] = funcCtrlMaker(Mgr);
@@ -77,7 +77,7 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 	#region Methods
 		public static void RegisterDataEditorCtrlType(in System.Type typeOfMgr, in System.Func<DataAndExt.Prefs.AbstractMgr,
-			VisualPrefsTabCtrl> funcCtrlMaker)
+			AbstractVisualPrefsTabCtrl> funcCtrlMaker)
 		{
 			if(!typeOfMgr.IsDerivedFrom(typeof(DataAndExt.Prefs.AbstractMgr)))
 				throw new System.ArgumentException("When calling BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType, the" +

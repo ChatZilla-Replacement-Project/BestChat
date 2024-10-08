@@ -26,7 +26,7 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 		public interface IProtocolGuiDef : DataAndExt.Protocol.IProtocolDef
 		{
 			System.Collections.Generic.IReadOnlyDictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-				Prefs.VisualPrefsTabCtrl>> PrefCtrlMap
+				Prefs.AbstractVisualPrefsTabCtrl>> PrefCtrlMap
 			{
 				get;
 			}
@@ -83,7 +83,7 @@ public sealed class ProtocolGuiMgr : DataAndExt.Protocol.Mgr<ProtocolGuiMgr.IPro
 				Prefs.RootPrefs.Instance.RegisterNewProtMgr(cmgrOfPrefs);
 
 			foreach(System.Collections.Generic.KeyValuePair<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-					Prefs.VisualPrefsTabCtrl>> kvCurEntry in iprotNew.PrefCtrlMap)
+					Prefs.AbstractVisualPrefsTabCtrl>> kvCurEntry in iprotNew.PrefCtrlMap)
 				Prefs.VisualPrefsTreeData.RegisterDataEditorCtrlType(kvCurEntry.Key, kvCurEntry.Value);
 		}
 	#endregion

@@ -1,4 +1,4 @@
-﻿<base:VisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
 												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,9 +7,9 @@
 												x:DataType="base:GlobalPrefs"
 												mc:Ignorable="d"
 												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalPage">
-	<base:VisualPrefsTabCtrl.Styles>
+	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="..\PrefsStyles.axaml"/>
-	</base:VisualPrefsTabCtrl.Styles>
+	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<StackPanel Orientation="Vertical"
 							Spacing="4">
 		<group:GroupBox DataContext="{Binding Composition}"
@@ -73,6 +73,6 @@
 				</CheckBox>
 			</Grid>
 		</group:GroupBox>
-		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:VisualPrefsTabCtrl}}"/>
+		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:AbstractVisualPrefsTabCtrl}}"/>
 	</StackPanel>
-</base:VisualPrefsTabCtrl>
+</base:AbstractVisualPrefsTabCtrl>

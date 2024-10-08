@@ -1,6 +1,6 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class GlobalAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
 	public GlobalAutoPerformOnEvtPage()
 		=> InitializeComponent();

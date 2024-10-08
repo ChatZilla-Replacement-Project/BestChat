@@ -16,11 +16,6 @@ public abstract class NetPrefsBase : Platform.DataAndExt.Prefs.AbstractChildMgr
 		private init;
 	}
 
-	public abstract NetTimeStampPrefs TimeStamps
-	{
-		get;
-	}
-
 	public abstract NetDccPrefs DCC
 	{
 		get;

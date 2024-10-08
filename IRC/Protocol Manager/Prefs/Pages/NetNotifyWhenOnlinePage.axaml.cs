@@ -3,7 +3,7 @@ using Avalonia.VisualTree;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class NetNotifyWhenOnlinePage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class NetNotifyWhenOnlinePage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
 	public NetNotifyWhenOnlinePage()
 		=> InitializeComponent();

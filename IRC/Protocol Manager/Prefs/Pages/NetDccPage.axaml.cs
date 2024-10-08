@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class NetDccPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class NetDccPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
 	public NetDccPage()
 		=> InitializeComponent();

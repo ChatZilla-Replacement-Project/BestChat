@@ -1,10 +1,9 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class NetAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
+public partial class ChanAutoPerformPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
-	public NetAutoPerformOnEvtPage()
+	public ChanAutoPerformPage()
 		=> InitializeComponent();
-
 	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelConfirm = MsBox
 		.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs
 		.strDelSelectedAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
@@ -16,9 +15,9 @@ public partial class NetAutoPerformOnEvtPage : Platform.UI.Desktop.Prefs.Abstrac
 		.Controls.WindowStartupLocation.CenterOwner);
 
 
-	private Data.Prefs.NetAutoPerformOnEvtPrefs? ctxt;
+	private Data.Prefs.ChanAutoPerformPrefs? ctxt;
 
-	public Data.Prefs.NetAutoPerformOnEvtPrefs? Ctxt
+	public Data.Prefs.ChanAutoPerformPrefs? Ctxt
 	{
 		get => ctxt;
 

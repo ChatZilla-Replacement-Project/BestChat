@@ -1,6 +1,6 @@
 ﻿namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
-public partial class NetAltNicksPage : Platform.UI.Desktop.Prefs.VisualPrefsTabCtrl
+public partial class NetAltNicksPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsTabCtrl
 {
 	public NetAltNicksPage()
 		=> InitializeComponent();

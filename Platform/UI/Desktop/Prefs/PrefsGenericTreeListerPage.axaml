@@ -1,4 +1,4 @@
-﻿<local:VisualPrefsTabCtrl
+﻿<local:AbstractVisualPrefsTabCtrl
 	x:Class="BestChat.Platform.UI.Desktop.Prefs.PrefsGenericTreeListerPage"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -17,4 +17,4 @@
 			Grid.Row="2"
 			Children="{Binding Children}" />
 	</Grid>
-</local:VisualPrefsTabCtrl>
+</local:AbstractVisualPrefsTabCtrl>

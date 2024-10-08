@@ -1,14 +1,14 @@
 ﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
-												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
-												xmlns:data="using:BestChat.IRC.Data.Prefs"
-												xmlns:calc="using:CalcBinding"
-												xmlns:materialIcons="using:Material.Icons.Avalonia"
-												x:DataType="data:NetAliasesPrefs"
-												mc:Ignorable="d"
-												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.NetAliasesPage">
+																xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+																xmlns:data="using:BestChat.IRC.Data.Prefs"
+																xmlns:calc="using:CalcBinding"
+																xmlns:materialIcons="using:Material.Icons.Avalonia"
+																x:DataType="data:ChanAliasesPrefs"
+																mc:Ignorable="d"
+																x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.ChanAliasesPage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
 	</base:AbstractVisualPrefsTabCtrl.Styles>
@@ -52,6 +52,17 @@
 							<DataTemplate>
 								<CheckBox ToolTip.Tip="Check to enable this alias and uncheck to disable it."
 													IsChecked="{Binding Status,Mode=TwoWay}"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CanUserReorder="True"
+																	CanUserResize="True"
+																	CanUserSort="True"
+																	Header="Where it was created">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Label ToolTip.Tip="{Binding InheritedFromAsTextDesc}"
+											Content="{Binding InheritedFromAsText}"/>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
 					</DataGridTemplateColumn>
