@@ -7,6 +7,11 @@
 																xmlns:calc="using:CalcBinding"
 																x:DataType="data:ChanStalkWordsPrefs"
 																mc:Ignorable="d"
+																ToolTip.BetweenShowDelay="0"
+																ToolTip.Placement="AnchorAndGravity"
+																ToolTip.ServiceEnabled="True"
+																ToolTip.ShowDelay="10000"
+																ToolTip.ShowOnDisabled="True"
 																x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.ChanStalkWordsPage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
