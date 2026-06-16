@@ -1,11 +1,14 @@
 ﻿// Ignore Spelling: Ctrl Ctrls evt Sel
 
+using System.Linq;
+
 namespace BestChat.Platform.UI.Desktop;
 
 public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
-	where EnumType : System.Enum
+	where EnumType : struct, System.Enum
 {
 	#region Constructors & Deconstructors
+		// ReSharper disable once EmptyConstructor
 		public EnumComboBox()
 		{
 		}
@@ -50,7 +53,7 @@ public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 
 			set
 			{
-				if(null == value || Items.Count == 0)
+				if(value is null || Items.Count == 0)
 					SelectedIndex = -1;
 				else
 				{
@@ -73,33 +76,15 @@ public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Methods
-	// ReSharper disable once InconsistentNaming
-	// ReSharper disable once InconsistentNaming
-	// ReSharper disable once InconsistentNaming
-	private static void GetEnumDesc(in object objEnumVal, out string strDesc, out string strExtendedDesc)
+		protected override void OnInitialized()
 		{
-			// ReSharper disable once InconsistentNaming
-			string strEnumValAsStr = objEnumVal.ToString() ?? throw new System.InvalidProgramException("Unexpected "
-				+ "null");
-			System.Reflection.FieldInfo? fieldInfo = objEnumVal.GetType().GetField(strEnumValAsStr) ?? throw new System
-				.InvalidProgramException($"Can't find field on instance of type {typeof(EnumType).FullName} for {
-					strEnumValAsStr}");
+			base.OnInitialized();
 
-			object[] attribArray = fieldInfo.GetCustomAttributes(typeof(DataAndExt.Attr.LocalizedDescAttribute),
-				false);
-
-			if(attribArray.Length == 0)
-			{
-				strDesc = strEnumValAsStr;
-				strExtendedDesc = "";
-			}
-			else
-			{
-				DataAndExt.Attr.LocalizedDescAttribute attrib = (DataAndExt.Attr.LocalizedDescAttribute)attribArray[0];
-
-				strDesc = attrib.Description;
-				strExtendedDesc = attrib.ExtendedDesc;
-			}
+			System.Collections.Generic.IEnumerable<EnumType> enumValues = System.Enum.GetValues(typeof(EnumType)).Cast<EnumType>();
+			System.Collections.Generic.List<EnumWrapper<EnumType>> listWrappedValues = new(enumValues.Count());
+			listWrappedValues.AddRange(enumValues.Select(curVal
+				=> new EnumWrapper<EnumType>(curVal)));
+			ItemsSource = listWrappedValues;
 		}
 	#endregion
 
