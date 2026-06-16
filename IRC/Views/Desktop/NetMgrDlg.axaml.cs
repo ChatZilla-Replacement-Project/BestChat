@@ -1,5 +1,4 @@
 using System.Linq;
-using BestChat.IRC.Data.Defs;
 
 namespace BestChat.IRC.Views.Desktop;
 
@@ -31,8 +30,8 @@ public partial class NetMgrDlg : Avalonia.Controls.Window
 		private async void OnViewPredefinedClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 			=> await new PredefinedNetViewerDlg()
 			{
-				NetCtxt = (PredefinedNet?)dgPredefined.SelectedItem ?? throw new System.InvalidProgramException("Somehow we " +
-					"let the user click view predefined even though there is no selection."),
+				NetCtxt = (Data.Defs.PredefinedNet?)dgPredefined.SelectedItem ?? throw new System
+					.InvalidProgramException(@"Somehow we let the user click view predefined even though there is no selection."),
 			}.ShowDialog(this);
 
 		private void OnAddUserNet(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)

@@ -141,7 +141,7 @@ public class ConversationWithRemoteUser : AbstractConversation, Platform.DataAnd
 	#endregion
 
 	#region Properties
-		public override string ProperName => ru.CurNick;
+		public sealed override string ProperName => ru.CurNick;
 
 		public override string SafeName => ru.CurNick;
 

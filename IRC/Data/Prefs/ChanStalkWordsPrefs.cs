@@ -89,7 +89,7 @@ public class ChanStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, I
 				IReadOnlyOneStalkWord>> listEnabledInheritedStalkWords = inheritedSettings.AllInheritanceOverridesByCtnts.Values
 				.Select(iswCur
 					=> new ChanInheritedItemEnabledStatus<GlobalStalkWordsOneStalkWord, IReadOnlyOneStalkWord>(iswCur
-						.inheritedItem, !dto?.DisabledInheritedStalkWords?.Contains(iswCur.inheritedItem.guid) ?? iswCur
+						.inheritedItem, !dto.DisabledInheritedStalkWords?.Contains(iswCur.inheritedItem.guid) ?? iswCur
 						.Status, ChanInheritedItemEnabledStatus<GlobalStalkWordsOneStalkWord, IReadOnlyOneStalkWord>
 						.InheritedFromTypes.global, PrefsRsrcs.strStalkWordsText, inheritedSettings.mgrParent.OwnerNet)
 				).ToList();

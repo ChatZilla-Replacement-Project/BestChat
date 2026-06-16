@@ -73,7 +73,7 @@ public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, 
 			System.Collections.Generic.List<ChanInheritedItemEnabledStatus<GlobalAutoPerformOneStep, IReadOnlyOneStep>>
 				listEnabledInheritedSteps = inheritedSettings.WhenJoiningChan.AllInheritanceOverrides.Values.Select(istepCur
 					=> new ChanInheritedItemEnabledStatus<GlobalAutoPerformOneStep, IReadOnlyOneStep>(istepCur.inheritedItem,
-						!dto?.DisabledInheritedSteps?.Contains(istepCur.inheritedItem.guid) ?? istepCur.Status,
+						!dto.DisabledInheritedSteps?.Contains(istepCur.inheritedItem.guid) ?? istepCur.Status,
 						ChanInheritedItemEnabledStatus<GlobalAutoPerformOneStep, IReadOnlyOneStep>.InheritedFromTypes.global,
 						PrefsRsrcs.strStalkWordsText, inheritedSettings.mgrParent.OwnerNet)
 				).ToList();
@@ -147,10 +147,6 @@ public class ChanAutoPerformPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, 
 			.DFieldChanged<GlobalAutoPerformOneStep.CmdCall>> mapOverrideHandlers = [];
 
 		private readonly Platform.DataAndExt.Prefs.ReorderableListItem<GlobalAutoPerformOneStep> addedSteps;
-
-		private readonly System.Collections.Generic.Dictionary<System.Action<GlobalAutoPerformOneStep.CmdCall,
-			GlobalAutoPerformOneStep>, GlobalAutoPerformOneStep.DFieldChanged<GlobalAutoPerformOneStep.CmdCall>>
-			mapAddedAliasesHandlers = [];
 	#endregion
 
 	#region Properties

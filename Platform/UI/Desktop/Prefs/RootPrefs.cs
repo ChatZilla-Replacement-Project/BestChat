@@ -1,6 +1,7 @@
 ﻿// Ignore Spelling: Prefs Loc metadata cmgr Prot dto Emoticons Ctrl Msgs
 
-using System.Linq;
+using BestChat.Platform.UI.Desktop.Prefs.Pages;
+
 namespace BestChat.Platform.UI.Desktop.Prefs;
 
 public class RootPrefs : DataAndExt.Prefs.Prefs<GlobalPrefs, GlobalAppearancePrefs>
@@ -31,6 +32,17 @@ public class RootPrefs : DataAndExt.Prefs.Prefs<GlobalPrefs, GlobalAppearancePre
 				if(iprotCur.TopLevelPrefsMgr != null)
 					RegisterNewProtMgr(iprotCur.TopLevelPrefsMgr);
 		}
+
+		static RootPrefs()
+		{
+			VisualPrefsTreeData.RegisterDataEditorCtrlType(
+				typeof(GlobalNotificationsPrefs),
+				mgrToMakeCtrlFor => new GlobalNotificationsPage()
+					{
+						Ctxt = mgrToMakeCtrlFor as GlobalNotificationsPrefs,
+					}
+			);
+		}
 	#endregion
 
 	#region Delegates
@@ -46,7 +58,7 @@ public class RootPrefs : DataAndExt.Prefs.Prefs<GlobalPrefs, GlobalAppearancePre
 	#endregion
 
 	#region Members
-		private static RootPrefs? instance = null;
+		private static RootPrefs? instance;
 
 		public readonly Avalonia.Controls.Window wndMain;
 

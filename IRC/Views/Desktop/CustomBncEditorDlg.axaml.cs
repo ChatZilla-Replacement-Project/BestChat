@@ -2,7 +2,6 @@ using System.Linq;
 
 namespace BestChat.IRC.Views.Desktop;
 
-using DocumentFormat.OpenXml.Bibliography;
 using Platform.DataAndExt.Ext;
 
 public partial class CustomBncEditorDlg : Avalonia.Controls.Window
@@ -73,7 +72,7 @@ public partial class CustomBncEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BncEditable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt;
 	#endregion
 
 	#region Properties

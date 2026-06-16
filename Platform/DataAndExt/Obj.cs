@@ -221,7 +221,7 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// <summary>
 		/// Stores if we are dirty or not
 		/// </summary>
-		private bool bIsDirty = false;
+		private bool bIsDirty;
 
 		/// <summary>
 		/// Stores our lock object.  Pass this to <see langword="lock"/> to lock the instance.
@@ -289,8 +289,11 @@ public abstract class Obj<TypeOfObj> : ObjBase
 		/// Fires the <see cref="evtDirtyChanged"/> even though the flag hasn't changed
 		/// </summary>
 		protected void ActAsThoughDirty()
-			=> evtDirtyChanged?.Invoke((TypeOfObj)this, bIsDirty);
-	#endregion
+		{
+			lock(objIsDirtyLock)
+				evtDirtyChanged?.Invoke((TypeOfObj)this, bIsDirty);
+		}
+		#endregion
 
 	#region Operators
 		/// <summary>

@@ -71,7 +71,7 @@ public class ProtocolDef : Platform.UI.Desktop.ProtocolGuiMgr.IProtocolGuiDef
 	public System.Uri PublisherHomepage
 		=> new("https://github.com/ChatZilla-Replacement-Project");
 
-	public Platform.DataAndExt.Conversations.IGroupViewOrConversation? TopLevelViewGroupOrConversation
+	public Platform.DataAndExt.Conversations.IGroupViewOrConversation TopLevelViewGroupOrConversation
 		=> throw new System.NotImplementedException();
 
 	public bool GuiRecommended

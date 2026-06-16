@@ -7,7 +7,8 @@ using Platform.DataAndExt.Ext;
 public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtocolDef
 {
 	#region Constructors & Deconstructors
-		protected ProtocolDef()
+	// ReSharper disable once EmptyConstructor
+	protected ProtocolDef()
 		{
 		}
 	#endregion
@@ -109,8 +110,9 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 		public System.Collections.Generic.IEnumerable<Platform.DataAndExt.Conversations.IInlinePlaceHolder>Parse(in string strParseIt)
 		{
 			if(strParseIt.IsEmpty())
-				throw new System.ArgumentNullException(nameof(strParseIt), $"When you all IProtocolInfo.Parse {nameof(Platform.DataAndExt
-					.Conversations.FmtInlinePlaceHolder)}, {nameof(strParseIt)} must be a non-null, non-empty string.");
+				throw new System.ArgumentNullException(nameof(strParseIt), $@"When you all IProtocolInfo.Parse {nameof(Platform
+					.DataAndExt.Conversations.FmtInlinePlaceHolder)}, {nameof(strParseIt)} must be a non-null, non-empty " +
+					@"string.");
 
 			string strEditableParseIt = strParseIt;
 			int iCharToStartAt = 0;
@@ -141,10 +143,10 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 								ParseInternal(ref strWhatIsBeingParsed, ref iCurChar, WhatTriggersParseEnd.altReset);
 
 							if(match.Groups.ContainsKey("Bg"))
-								llResult.AddLast(new Data.InlinePlaceHolders.ColorFmtInlinePlaceHolder(ieInternalParseResults, iFgColor,
+								llResult.AddLast(new InlinePlaceHolders.ColorFmtInlinePlaceHolder(ieInternalParseResults, iFgColor,
 									int.Parse(match.Groups["Bg"].Value)));
 							else
-								llResult.AddLast(new Data.InlinePlaceHolders.ColorFmtInlinePlaceHolder(ieInternalParseResults, iFgColor));
+								llResult.AddLast(new InlinePlaceHolders.ColorFmtInlinePlaceHolder(ieInternalParseResults, iFgColor));
 
 							return llResult;
 						}
@@ -272,6 +274,7 @@ public abstract partial class ProtocolDef : Platform.DataAndExt.Protocol.IProtoc
 
 						break;
 
+					// ReSharper disable once RedundantEmptySwitchSection
 					default:
 						break; // Just go to the next character
 				}

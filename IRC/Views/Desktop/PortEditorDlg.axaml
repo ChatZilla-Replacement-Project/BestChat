@@ -47,7 +47,7 @@
 											IsVisible="{calc:Binding 'UnavailablePorts &gt; 0'}"
 											Header="These ports have already been specified and are unavailable">
 				<ItemsRepeater ItemsSource="{Binding UnavailablePorts}"
-											IsVisible="{calc:Binding 'UnavailablePorts &gt; 0'}"/>
+											IsVisible="{calc:Binding 'UnavailablePorts &gt; 0', RelativeSource={RelativeSource AncestorType=local:PortEditorDlg}}"/>
 			</group:GroupBox>
 		</Grid>
 	</DockPanel>

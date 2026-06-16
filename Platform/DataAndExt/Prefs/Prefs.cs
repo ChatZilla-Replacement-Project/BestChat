@@ -11,9 +11,10 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 	where AppearancePrefsType : GlobalAppearancePrefsBase
 {
 	#region Constructors & Deconstructors
+		// ReSharper disable once EmptyConstructor
 		protected Prefs()
-		{
-		}
+			{
+			}
 	#endregion
 
 	#region Delegates
@@ -32,7 +33,7 @@ public abstract class Prefs<GlobalPrefsType, AppearancePrefsType> : PrefsBase
 		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr> mapMgrsForProtocolsByName =
 			[];
 
-		private static System.IO.FileInfo? fileOurSettings = null;
+		private static System.IO.FileInfo? fileOurSettings;
 	#endregion
 
 	#region Properties

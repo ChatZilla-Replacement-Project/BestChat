@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace BestChat.IRC.Data.Defs;
+﻿namespace BestChat.IRC.Data.Defs;
 
 public class UserNetEditable : UserNet, System.ComponentModel.INotifyDataErrorInfo
 {
@@ -326,12 +324,12 @@ public class UserNetEditable : UserNet, System.ComponentModel.INotifyDataErrorIn
 
 		public System.Collections.IEnumerable GetErrors(string? strPropToGetErrorsFor)
 			=> Name == ""
-				?(new string[]
+				?(new[]
 					{
 						Rsrcs.strUserNetNameBlank
 					})
 				:UserNetMgr.mgr.AllItems.ContainsKey(Name) && UserNetMgr.mgr.AllItems[Name] != unetOriginal
-					?(new string[]
+					?(new[]
 						{
 							Rsrcs.strUserNetNameTaken
 						})

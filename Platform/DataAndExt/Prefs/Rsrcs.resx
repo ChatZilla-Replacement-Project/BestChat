@@ -255,10 +255,10 @@
   <data name="strGlobalAppearanceTimeStampShowDesc" xml:space="preserve">
     <value>Check this if you want to see time stamps and uncheck it if you don't.</value>
   </data>
-  <data name="strGlobalAppearanceTimeStampFmtTitle" xml:space="preserve">
-    <value>Format</value>
+  <data name="strGlobalAppearanceTimeStampInlineFmtTitle" xml:space="preserve">
+    <value>Inline Format</value>
   </data>
-  <data name="strGlobalAppearanceTimeStampFmtDesc" xml:space="preserve">
+  <data name="strGlobalAppearanceTimeStampInlineFmtDesc" xml:space="preserve">
     <value>If you want to use a custom time stamp format, specify it here.  Read the notes above on how to specify it.  Certain characters in the value will be treated special.</value>
   </data>
   <data name="strGlobalPluginsDesc" xml:space="preserve">
@@ -397,5 +397,11 @@ With Linux, anything marked with the +x file mode is treated as a binary executa
   </data>
   <data name="strExportAliasDlgTitle" xml:space="preserve">
     <value>Where would you like this alias exported to?</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampToolTipFmtTitle" xml:space="preserve">
+    <value>Expanded Format for Tooltips</value>
+  </data>
+  <data name="strGlobalAppearanceTimeStampToolTipFmtDesc" xml:space="preserve">
+    <value>Best chat can use an expanded format in some circumstances.  In those cases, this is the format used.</value>
   </data>
 </root>

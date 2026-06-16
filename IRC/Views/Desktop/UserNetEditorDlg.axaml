@@ -10,6 +10,9 @@
 				x:DataType="data:UserNetEditable"
 				mc:Ignorable="d"
 				x:Class="BestChat.IRC.Views.Desktop.UserNetEditorDlg">
+	<Window.Styles>
+		<StyleInclude Source="/Styles.axaml"/>
+	</Window.Styles>
 	<DockPanel>
 		<StackPanel DockPanel.Dock="Bottom"
 								HorizontalAlignment="Right"

@@ -30,10 +30,13 @@ public class BncInfoEditable : BncServerInfo, System.ComponentModel.INotifyDataE
 		{
 			get
 			{
+				// This variable exists only to test the URL.
+				// ReSharper disable once NotAccessedVariable
 				System.Uri uriTestOnDomain;
 
 				try
 				{
+					// ReSharper disable once RedundantAssignment
 					uriTestOnDomain = new(Domain);
 				}
 				catch(System.UriFormatException)
@@ -54,7 +57,7 @@ public class BncInfoEditable : BncServerInfo, System.ComponentModel.INotifyDataE
 				.AllServersByName[Name] != serverOriginal);
 
 		public bool HasErrors
-			=> Name != "" && Domain != null && !DomainIsUnique && !NameIsUnique;
+			=> Name != "" && !DomainIsUnique && !NameIsUnique;
 
 		public bool IsValid
 			=> !HasErrors;

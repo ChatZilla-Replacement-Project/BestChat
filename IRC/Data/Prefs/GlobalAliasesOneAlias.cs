@@ -28,7 +28,7 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 				foreach(GlobalAliasesOneAliasOneParam aparamCur in eAllParams)
 					mapAllParametersByName[aparamCur.Name] = new(aparamCur);
 			this.cmdcWhatToRun = cmdcWhatToRun;
-			this.strDoc = Doc ?? "";
+			this.strDoc = strDoc;
 		}
 
 		public GlobalAliasesOneAlias(in DTO.GlobalAliasesOneAliasDTO dto) :
@@ -106,6 +106,8 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 					FireNameChanged(strOldName);
 
 					MakeDirty();
+
+					RecreateDeclaredCmd();
 				}
 			}
 		}
@@ -125,6 +127,8 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 					FireCmdChanged(cmdcOldWhatToRun);
 
 					MakeDirty();
+
+					RecreateDeclaredCmd();
 				}
 			}
 		}
@@ -144,6 +148,8 @@ public partial class GlobalAliasesOneAlias : Platform.DataAndExt.Obj<GlobalAlias
 					MakeDirty();
 
 					FireDocChanged(strOldDoc);
+
+					RecreateDeclaredCmd();
 				}
 			}
 		}

@@ -10,11 +10,11 @@ public record ModeParamDTO
 	string DefaultDisplayName,
 	LocalizedTextDTO[] LocalizedDesc,
 	string DefaultDesc,
-	LocalizedTextDTO[] LocalizedPostFixLabel,
+	LocalizedTextDTO[]? LocalizedPostFixLabel = null,
 	string? DefaultPostFixLabel = null,
 	int? MinForNumber = null,
 	int? MaxForNumber = null
-) : IDataDefBasic<ModeParamDTO>
+) : IDataDefBasic
 {
 	public enum Types
 	{

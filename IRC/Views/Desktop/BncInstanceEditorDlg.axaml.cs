@@ -43,7 +43,7 @@ public partial class BncInstanceEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private BncInstanceEditable? einstanceCtxt = null;
+		private BncInstanceEditable? einstanceCtxt;
 	#endregion
 
 	#region Properties

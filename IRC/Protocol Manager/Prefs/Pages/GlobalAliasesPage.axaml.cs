@@ -26,7 +26,7 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 
 	private Data.Prefs.GlobalAliasesPrefs? ctxt;
 
-	private Avalonia.Point? ptDragStartedAt = null;
+	private Avalonia.Point? ptDragStartedAt;
 
 	public Data.Prefs.GlobalAliasesPrefs? Ctxt
 	{

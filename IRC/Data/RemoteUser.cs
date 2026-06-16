@@ -49,7 +49,7 @@ public class RemoteUser : System.ComponentModel.INotifyPropertyChanged
 
 		private readonly System.Collections.Generic.SortedDictionary<string, Chan> mapPresentInChans = [];
 
-		private System.DateTime? dtLastJoined = null;
+		private System.DateTime? dtLastJoined;
 
 		private readonly System.Collections.Generic.Dictionary<Chan, System.DateTime?> mapChanToWhenMostRecentPostHappened =
 			[];

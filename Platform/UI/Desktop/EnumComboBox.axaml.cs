@@ -4,14 +4,13 @@ using System.Linq;
 
 namespace BestChat.Platform.UI.Desktop;
 
-public class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
+public abstract class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 	where EnumType : struct, System.Enum
 {
 	#region Constructors & Deconstructors
 		// ReSharper disable once EmptyConstructor
-		public EnumComboBox()
-		{
-		}
+		protected EnumComboBox()
+			=> InitializeComponent();
 	#endregion
 
 	#region Delegates

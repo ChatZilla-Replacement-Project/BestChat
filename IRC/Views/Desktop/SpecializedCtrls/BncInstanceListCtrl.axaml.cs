@@ -25,8 +25,7 @@ public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
 					ctrl
 						=> ctrl.CtxtBNC,
 					(ctrl, bncNewVal)
-						=> ctrl.CtxtBNC = bncNewVal,
-					null
+						=> ctrl.CtxtBNC = bncNewVal
 				);
 		#pragma warning restore IDE1006 // Naming Styles
 	#endregion
@@ -35,7 +34,7 @@ public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
 	#endregion
 
 	#region Members
-		private Data.Defs.BncEditable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt;
 	#endregion
 
 	#region Properties

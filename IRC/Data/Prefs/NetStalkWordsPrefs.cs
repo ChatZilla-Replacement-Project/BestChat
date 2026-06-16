@@ -24,9 +24,9 @@ public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IS
 				(inherited,
 						evth)
 					=> inherited.evtKeyOfInheritedItemChanged += mapOverrideHandlers[evth] = (in
-							NetInheritedItemEnabledStatus<GlobalStalkWordsOneStalkWord, IReadOnlyOneStalkWord> inherited, in string
+							NetInheritedItemEnabledStatus<GlobalStalkWordsOneStalkWord, IReadOnlyOneStalkWord> inheritedCur, in string
 							strOldCtnts, in string _)
-						=> evth(strOldCtnts, inherited),
+						=> evth(strOldCtnts, inheritedCur),
 				(inherited,
 						evth)
 					=>
@@ -106,7 +106,7 @@ public class NetStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IS
 				PrefsRsrcs.strNetStalkWordsAdditionalTitle,
 				PrefsRsrcs.strNetStalkWordsAdditionalDesc,
 				[],
-				dto?.AddedStalkWords?.Select(dswCur
+				dto.AddedStalkWords?.Select(dswCur
 					=> new GlobalStalkWordsOneStalkWord(dswCur, this)
 				) ?? [],
 				KeyObtainer,

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
+﻿using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
@@ -27,8 +25,8 @@ public class GlobalPluginExtPrefs : AbstractChildMgr
 					=> scriptCur.FileNameExtOrMask,
 				(scriptEntry, evth)
 					=> scriptEntry.evtFileNameExtOrMaskChanged += mapScriptChangeSubscribers[evth] = (in
-							GlobalPluginExtScriptEntry scriptEntry, in string strOldFileNameExtOrMask, in string _)
-						=> evth(strOldFileNameExtOrMask, scriptEntry),
+							GlobalPluginExtScriptEntry scriptEntryCur, in string strOldFileNameExtOrMask, in string _)
+						=> evth(strOldFileNameExtOrMask, scriptEntryCur),
 				(scriptEntry, evth)
 					=>
 						{
@@ -60,6 +58,11 @@ public class GlobalPluginExtPrefs : AbstractChildMgr
 							mapProgramChangeSubscribers.Remove(evth);
 						}
 			);
+
+			foreach(GlobalPluginExtScriptEntry scriptCur in this.scripts.Values)
+				scriptCur.evtDirtyChanged += OnScriptDirtyChanged;
+			foreach(GlobalPluginExtProgramEntry programCur in this.programs.Values)
+				programCur.evtDirtyChanged += OnProgramDirtyChanged;
 		}
 
 		internal GlobalPluginExtPrefs(AbstractMgr mgrParent, DTO.PrefsDTO.GlobalDTO.PluginsDTO.ExtDTO dto)
@@ -81,9 +84,8 @@ public class GlobalPluginExtPrefs : AbstractChildMgr
 					=> scriptCur.FileNameExtOrMask,
 				(scriptEntry, evth)
 					=> scriptEntry.evtFileNameExtOrMaskChanged += mapScriptChangeSubscribers[evth] = (in
-						GlobalPluginExtScriptEntry scriptEntry, in string strOldFileNameExtOrMask, in string
-						strNewFileNameExtOrMask)
-							=> evth(strOldFileNameExtOrMask, scriptEntry),
+						GlobalPluginExtScriptEntry scriptEntryCur, in string strOldFileNameExtOrMask, in string _)
+							=> evth(strOldFileNameExtOrMask, scriptEntryCur),
 						(scriptEntry,
 								evth)
 							=>
@@ -107,8 +109,8 @@ public class GlobalPluginExtPrefs : AbstractChildMgr
 					=> programCur.Program.FullName,
 				(programEntry, evth)
 					=> programEntry.evtNameChanged += mapProgramChangeSubscribers[evth] = (in GlobalPluginExtProgramEntry
-						programEntry, in string strOldName, in string strNewName)
-							=> evth(strOldName, programEntry),
+							programEntryCur, in string strOldName, in string _)
+						=> evth(strOldName, programEntryCur),
 				(programEntry,
 						evth)
 					=>

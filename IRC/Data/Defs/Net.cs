@@ -99,9 +99,9 @@ public abstract class Net : Platform.DataAndExt.Obj<Net>, IDataDef<Net>
 		private readonly System.Collections.Generic.Dictionary<string, NetServerInfo> mapServers =
 			[];
 
-		private NickServOpts? nickServ = null;
+		private NickServOpts? nickServ;
 
-		private ChanServOpts? chanServ = null;
+		private ChanServOpts? chanServ;
 
 		private AlisOpts alisStatus = AlisOpts.unknown;
 

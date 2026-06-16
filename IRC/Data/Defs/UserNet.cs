@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BestChat.IRC.Data.Defs;
 
-public class UserNet : Net, IDataDef<Net>
+public class UserNet : Net
 {
 	#region Constructors & Deconstructors
 		public UserNet()
@@ -123,23 +123,23 @@ public class UserNet : Net, IDataDef<Net>
 		private LogInModes logInMode = LogInModes.custom;
 
 		// ReSharper disable once InconsistentNaming
-		private string? strLogInChallengeUserName = null;
+		private string? strLogInChallengeUserName;
 
 		// ReSharper disable once InconsistentNaming
-		private string? strLogInChallengeBncName = null;
+		private string? strLogInChallengeBncName;
 
 		// ReSharper disable once InconsistentNaming
-		private string? strLogInChallengePwd = null;
+		private string? strLogInChallengePwd;
 
 		// ReSharper disable once InconsistentNaming
-		private string? strLogInUserName = null;
+		private string? strLogInUserName;
 
 		// ReSharper disable once InconsistentNaming
-		private string? strLogInPwd = null;
+		private string? strLogInPwd;
 
 		private readonly System.Collections.ObjectModel.ObservableCollection<string> strocLogInCustomSteps = [];
 
-		private System.IO.FileInfo? fileLogInSaslCert = null;
+		private System.IO.FileInfo? fileLogInSaslCert;
 
 
 		private static readonly System.Collections.Generic.SortedDictionary<char, ChanMode> mapDefChanModesByChar = new()
@@ -519,7 +519,7 @@ public class UserNet : Net, IDataDef<Net>
 
 				if(fileLogInSaslCert != value)
 				{
-					System.IO.FileInfo fileOldLogInSaslCert = fileLogInSaslCert;
+					System.IO.FileInfo? fileOldLogInSaslCert = fileLogInSaslCert;
 
 					fileLogInSaslCert = value;
 
@@ -820,8 +820,8 @@ public class UserNet : Net, IDataDef<Net>
 				HomePage = eunet.HomePage;
 
 				if(eunet.AllUnsortedServers.Any(
-						(NetServerInfo serverCur)
-							=> serverCur.IsDirty))
+					serverCur
+						=> serverCur.IsDirty))
 				{
 					ClearServerDomainList();
 

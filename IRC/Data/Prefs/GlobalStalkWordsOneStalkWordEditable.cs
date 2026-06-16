@@ -26,7 +26,7 @@ public class GlobalStalkWordsOneStalkWordEditable : GlobalStalkWordsOneStalkWord
 			{
 				base.Ctnts = value;
 
-
+				WereChangesMade = true;
 			}
 		}
 	}

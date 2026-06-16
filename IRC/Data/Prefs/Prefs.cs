@@ -42,7 +42,7 @@ public abstract class Prefs<GlobalPrefsType, GlobalDtoType> : Platform.DataAndEx
 	#endregion
 
 	#region Members
-		private static Prefs<GlobalPrefsType, GlobalDtoType>? instance = null;
+		private static Prefs<GlobalPrefsType, GlobalDtoType>? instance;
 
 		private readonly System.Collections.Generic.List<NetPrefs<GlobalPrefsType, GlobalDtoType>> listNetworks;
 	#endregion

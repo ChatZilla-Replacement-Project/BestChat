@@ -80,7 +80,7 @@ public partial class BncNetworkSelectionDlg : Avalonia.Controls.Window, System.C
 
 		private NetStatuses statusForNet = NetStatuses.invalid;
 
-		private Data.Defs.BncEditable? ebncCtxt = null;
+		private Data.Defs.BncEditable? ebncCtxt;
 
 		private string strCurVal = "";
 

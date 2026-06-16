@@ -21,9 +21,10 @@
 							Height="2"/>
 		<Button x:Name="btnResetNormalFont"
 						Grid.Row="2"
+						ToolTip.Tip="Click to reset the Normal Font to your theme’s default."
 						IsEnabled="{Binding NormalFontFamily.IsThemeOverridden.CanReset}"
-						Classes="ResetBtn">
-		</Button>
+						Classes="ResetBtn"
+						Click="OnResetNormalFontClicked"/>
 		<Label Grid.Row="2"
 					Grid.Column="2"
 					HorizontalContentAlignment="Right"
@@ -31,18 +32,21 @@
 		<CheckBox x:Name="chkNormalFamilyIsOverridden"
 							Grid.Row="2"
 							Grid.Column="4"
+							ToolTip.Tip="Check to use the control to the right to specify a different font other than selected by your theme and uncheck to use your theme’s default normal font."
 							Content="Override theme?"
 							IsChecked="{Binding NormalFontFamily.IsThemeOverridden, Mode=TwoWay}"/>
 		<ctrls:FontSelectionComboBox Grid.Row="2"
 																Grid.Column="6"
+																ToolTip.Tip="Use to specify the desired font."
 																IsEnabled="{Binding IsChecked, ElementName=chkNormalFamilyIsOverridden}"
 																ListOnlyFixedWidthFonts="False"
 																SelectedItem="{Binding NormalFontFamily.OverriddenVal, Mode=TwoWay}"/>
 		<Button x:Name="btnResetFixedWidthFont"
 						Grid.Row="2"
+						ToolTip.Tip="Click to reset the Fixed Width Font to your theme’s default."
 						IsEnabled="{Binding FixedWidthFontFamily.IsThemeOverridden.CanReset}"
-						Classes="ResetBtn">
-		</Button>
+						Classes="ResetBtn"
+						Click="OnResetFixedWidthFontClicked"/>
 		<Label Grid.Row="2"
 					Grid.Column="2"
 					HorizontalContentAlignment="Right"
@@ -50,19 +54,21 @@
 		<CheckBox x:Name="chkFixedWidthFamilyIsOverridden"
 							Grid.Row="2"
 							Grid.Column="4"
+							ToolTip.Tip="Check to use the control to the right to specify a different font other than selected by your theme and uncheck to use your theme’s default fixed width font."
 							Content="Override theme?"
 							IsChecked="{Binding FixedWidthFontFamily.IsThemeOverridden, Mode=TwoWay}"/>
 		<ctrls:FontSelectionComboBox Grid.Row="2"
 																Grid.Column="6"
+																ToolTip.Tip="Use to specify the desired fixed width fonts.  Only those fonts that are fixed width are listed here."
 																IsEnabled="{Binding IsChecked, ElementName=chkFixedWidthFamilyIsOverridden}"
 																ListOnlyFixedWidthFonts="True"
-																SelectedItem="{Binding FixedWidthFontFamily.OverriddenVal, Mode=TwoWay}">
-		</ctrls:FontSelectionComboBox>
+																SelectedItem="{Binding FixedWidthFontFamily.OverriddenVal, Mode=TwoWay}"/>
 		<Button x:Name="btnResetSize"
 						Grid.Row="8"
+						ToolTip.Tip="Click to reset the font size to your theme’s default."
 						IsEnabled="{Binding Size.IsThemeOverridden.CanReset}"
-						Classes="ResetBtn">
-		</Button>
+						Classes="ResetBtn"
+						Click="OnResetFontSizeClicked"/>
 		<Label Grid.Row="8"
 					Grid.Column="2"
 					HorizontalContentAlignment="Right"
@@ -70,17 +76,22 @@
 		<CheckBox x:Name="chkSizeOverridden"
 							Grid.Row="8"
 							Grid.Column="4"
+							ToolTip.Tip="Check to use the control to the right to specify a different font size other than selected by your theme and uncheck to use your theme’s default font size."
 							Content="Override theme?"
 							IsChecked="{Binding Size.IsThemeOverridden, Mode=TwoWay}"/>
-		<NumericUpDown Grid.Row="8"
-									Grid.Column="6"
-									IsEnabled="{Binding IsChecked, ElementName=chkSizeOverridden}"
-									Value="{Binding Size.OverriddenVal, Mode=TwoWay}"/>
+		<StackPanel Orientation="Horizontal"
+								Spacing="4">
+			<NumericUpDown ToolTip.Tip="Enter the desired size in points."
+										IsEnabled="{Binding IsChecked, ElementName=chkSizeOverridden}"
+										Value="{Binding Size.OverriddenVal, Mode=TwoWay}"/>
+			<Label Content="points"/>
+		</StackPanel>
 		<Button x:Name="btnResetWeight"
 						Grid.Row="8"
+						ToolTip.Tip="Click to reset the font weight to your theme's default."
 						IsEnabled="{Binding Weight.IsThemeOverridden.CanReset}"
-						Classes="ResetBtn">
-		</Button>
+						Classes="ResetBtn"
+						Click="OnResetFontWeightClicked"/>
 		<Label Grid.Row="8"
 					Grid.Column="2"
 					HorizontalContentAlignment="Right"
@@ -88,10 +99,12 @@
 		<CheckBox x:Name="chkWeightOverridden"
 							Grid.Row="8"
 							Grid.Column="4"
+							ToolTip.Tip="Check to use the control to the right to specify a different font weight other than selected by your theme and uncheck to use your theme’s default font weight."
 							Content="Override theme?"
 							IsChecked="{Binding Weight.IsThemeOverridden, Mode=TwoWay}"/>
 		<ctrls:FontWeightComboBox Grid.Row="8"
 															Grid.Column="6"
+															ToolTip.Tip="Select the desired font weight."
 															SelVal="{Binding Weight.OverriddenVal, Mode=TwoWay}"/>
 	</Grid>
 </base:AbstractVisualPrefsTabCtrl>

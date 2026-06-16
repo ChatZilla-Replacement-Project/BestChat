@@ -6,8 +6,8 @@ namespace BestChat.IRC.Data.Defs;
 public class ModeParam
 {
 	#region Constructors & Deconstructors
-		internal ModeParam(in string strName, in Types type, in LocalizedTextSystem textDisplayName, in LocalizedTextSystem textDesc, in
-			LocalizedTextSystem? textPostFixLabel = null)
+		internal ModeParam(in string strName, in Types type, in LocalizedTextSystem textDisplayName, in LocalizedTextSystem
+			textDesc, in LocalizedTextSystem? textPostFixLabel = null)
 		{
 			this.strName = strName;
 			this.type = type;
@@ -18,8 +18,8 @@ public class ModeParam
 			iMaxForNum = null;
 		}
 
-		internal ModeParam(in string strName, in LocalizedTextSystem textDisplayName, in LocalizedTextSystem textDesc, in LocalizedTextSystem?
-			textPostFixLabel = null, in int? iMin = null, in int? iMax = null)
+		internal ModeParam(in string strName, in LocalizedTextSystem textDisplayName, in LocalizedTextSystem textDesc, in
+			LocalizedTextSystem? textPostFixLabel = null, in int? iMin = null, in int? iMax = null)
 		{
 			this.strName = strName;
 			type = Types.number;
@@ -35,15 +35,22 @@ public class ModeParam
 			strName = dmpUs.Name;
 			type = dmpUs.Type switch
 			{
-				DTO.ModeParamDTO.Types.@string => Types.@string,
-				DTO.ModeParamDTO.Types.number => Types.number,
-				DTO.ModeParamDTO.Types.chanName => Types.chanName,
-				_ => throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<DTO.ModeParamDTO.Types>(dmpUs.Type, "A mode " +
-					"param was loading as part of a predefined database of networks"),
+				DTO.ModeParamDTO.Types.@string
+					=> Types.@string,
+
+				DTO.ModeParamDTO.Types.number
+					=> Types.number,
+
+				DTO.ModeParamDTO.Types.chanName
+					=> Types.chanName,
+
+				var _
+					=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<DTO.ModeParamDTO.Types>(dmpUs.Type,
+						@"A mode param was loading as part of a predefined database of networks"),
 			};
 			textDisplayName = new(dmpUs.LocalizedDisplayNames, dmpUs.DefaultDisplayName);
 			textDesc = new(dmpUs.LocalizedDesc, dmpUs.DefaultDesc);
-			textPostFixLabel = dmpUs.DefaultPostFixLabel == null ? null : new(dmpUs
+			textPostFixLabel = dmpUs.DefaultPostFixLabel is null || dmpUs.LocalizedPostFixLabel is null ? null : new(dmpUs
 				.LocalizedPostFixLabel, dmpUs.DefaultPostFixLabel);
 			if(type == Types.number)
 			{
@@ -108,5 +115,35 @@ public class ModeParam
 
 		public int MaxForNumSafe
 			=> iMaxForNum ?? int.MaxValue;
+	#endregion
+
+	#region Methods
+		public DTO.ModeParamDTO ToDTO()
+			=> new(
+					strName,
+					type switch
+					{
+						Types.@string
+							=> DTO.ModeParamDTO.Types.@string,
+
+						Types.number
+							=> DTO.ModeParamDTO.Types.number,
+
+						Types.chanName
+							=> DTO.ModeParamDTO.Types.chanName,
+
+						var _
+							=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Types>(type, @"While generating"
+								+ " DTO"),
+					},
+					textDisplayName.ToDTO(),
+					textDisplayName.strDef,
+					textDesc.ToDTO(),
+					textDesc.strDef,
+					textPostFixLabel?.ToDTO(),
+					textPostFixLabel?.strDef,
+					iMinForNum,
+					iMaxForNum
+				);
 	#endregion
 }

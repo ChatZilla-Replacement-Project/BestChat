@@ -12,10 +12,11 @@ namespace BestChat.Platform.DataAndExt.Exceptions
 				System.Diagnostics.Trace.Assert(!strUniqueFieldName.IsEmpty());
 				System.Diagnostics.Trace.Assert(!strValueInUse.IsEmpty());
 
-				this.strUniqueFieldName = strUniqueFieldName ?? throw new System.ArgumentNullException(nameof(strUniqueFieldName), "While " +
-					"constructing an exception about something not being unique");
-				this.strValueInUse = strValueInUse ?? throw new System.ArgumentNullException(nameof(strValueInUse), "While constructing an " +
-					"exception about something not being unique");
+				this.strUniqueFieldName = strUniqueFieldName ?? throw new System
+					.ArgumentNullException(nameof(strUniqueFieldName), @"While constructing an exception about something not " +
+						@"being unique");
+				this.strValueInUse = strValueInUse ?? throw new System.ArgumentNullException(nameof(strValueInUse), @"While " +
+					@"constructing an exception about something not being unique");
 				this.strDescriptiveFieldUse = strDescriptiveFieldUse;
 			}
 		#endregion

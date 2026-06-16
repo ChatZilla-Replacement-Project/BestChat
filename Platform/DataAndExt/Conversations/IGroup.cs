@@ -1,6 +1,6 @@
 ﻿namespace BestChat.Platform.DataAndExt.Conversations
 {
-	public interface IGroup : IGroupViewOrConversation, System.Collections.Specialized.INotifyCollectionChanged, TreeData.IChildOwner
+	public interface IGroup : IGroupViewOrConversation, TreeData.IChildOwner
 	{
 		public System.Collections.Generic.IReadOnlyDictionary<string, IGroupViewOrConversation> ChildrenByName
 		{

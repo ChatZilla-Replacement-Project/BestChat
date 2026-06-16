@@ -23,4 +23,4 @@ public record UserNetDTO
 	string? LogInPwd = null,
 	string[]? LogInCustomSteps = null,
 	System.IO.FileInfo? LogInSaslCert = null
-) : NetDTO(Name, Servers, Homepage, NickServ, ChanServ, AlisStatus, QStatus), IDataDefBasic<UserNetDTO>;
+) : NetDTO(Name, Servers, Homepage, NickServ, ChanServ, AlisStatus, QStatus), IDataDefBasic;

@@ -69,11 +69,11 @@ public class GlobalAliasesOneAliasOneParam : Platform.DataAndExt.Obj<GlobalAlias
 
 	private string strName;
 
-	private Platform.DataAndExt.Cmd.ParamTypes.Abstract? pt = null;
+	private Platform.DataAndExt.Cmd.ParamTypes.Abstract? pt;
 
-	private bool bIsRequired = false;
+	private bool bIsRequired;
 
-	private string? strDoc = null;
+	private string? strDoc;
 
 
 	public string Name
@@ -84,7 +84,7 @@ public class GlobalAliasesOneAliasOneParam : Platform.DataAndExt.Obj<GlobalAlias
 		{
 			if(strName != value)
 			{
-				string? strOldName = strName;
+				string strOldName = strName;
 
 				strName = value;
 

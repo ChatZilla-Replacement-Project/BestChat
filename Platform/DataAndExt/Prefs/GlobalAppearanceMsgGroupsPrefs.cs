@@ -1,6 +1,6 @@
 ﻿namespace BestChat.Platform.DataAndExt.Prefs;
 
-public class GlobalAppearanceMsgGroupsPrefs : Prefs.AbstractChildMgr
+public class GlobalAppearanceMsgGroupsPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
 		public GlobalAppearanceMsgGroupsPrefs(GlobalAppearancePrefsBase mgrParent) :

@@ -201,7 +201,8 @@ public class ActiveNet : AbstractConversation, Platform.DataAndExt.Conversations
 			// TODO: Attempt to change the mode on the network
 		}
 
-		private void OnChildGroupChildrenChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs ea)
+		private void OnChildGroupChildrenChanged(object? _, System.Collections.Specialized.NotifyCollectionChangedEventArgs
+				ea)
 			=> CollectionChanged?.Invoke(this, ea);
 	#endregion
 }

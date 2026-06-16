@@ -29,15 +29,15 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			this.dirDataLoc = dirDataLoc;
 			this.funcNewProtEnabler = funcNewProtEnabler;
 
-			System.Reflection.Assembly? assemblyEntry = System.Reflection.Assembly.GetEntryAssembly() ?? throw new System
-				.InvalidProgramException("For some reason, BestChat.ProtocolMgr.ProtocolMgr was called from non" +
-				"-managed code.");
+			System.Reflection.Assembly assemblyEntry = System.Reflection.Assembly.GetEntryAssembly() ?? throw new System
+				.InvalidProgramException(@"For some reason, BestChat.ProtocolMgr.ProtocolMgr was called from non-managed " +
+					@"code.");
 
 			string? strEntryAssemblyLoc = System.IO.Path.GetDirectoryName(assemblyEntry.Location);
-			if(strEntryAssemblyLoc == null || strEntryAssemblyLoc == "")
-				throw new System.InvalidProgramException("For some reason, we can't get the location of the executable " +
-					"that's creating a BestChat.ProtocolMgr.ProtocolMgr instance.  We're expecting protocol module DLLs to " +
-					"be in a subdirectory thereof.");
+			if(string.IsNullOrEmpty(strEntryAssemblyLoc))
+				throw new System.InvalidProgramException(@"For some reason, we can't get the location of the executable " +
+					@"that's creating a BestChat.ProtocolMgr.ProtocolMgr instance.  We're expecting protocol module DLLs to " +
+					@"be in a subdirectory thereof.");
 			System.IO.DirectoryInfo dirProtocolModuleLoc = new(System.IO.Path.Combine(strEntryAssemblyLoc,
 				strProtocolModuleSubdirectory));
 
@@ -85,15 +85,17 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 					if(strProtocolInterfaceTypeName == null)
 						throw new System.InvalidProgramException("The protocol interface type has no name.");
 
-					typeCurProtocolInCurProtocolModule = assembly.ExportedTypes
-						.Where((typeCurProtocolInCurProtocolModule)
-							=> typeCurProtocolInCurProtocolModule.GetInterface(strProtocolInterfaceTypeName) != null &&
-								!typeCurProtocolInCurProtocolModule.IsAbstract && typeCurProtocolInCurProtocolModule.GetConstructor(System.Reflection
-								.BindingFlags.Public | System.Reflection.BindingFlags.Instance, []) != null).First();
+					typeCurProtocolInCurProtocolModule = assembly.ExportedTypes.First(typeCurProtocolInCurProtocolModuleCur
+						=> typeCurProtocolInCurProtocolModuleCur.GetInterface(strProtocolInterfaceTypeName) != null &&
+							!typeCurProtocolInCurProtocolModuleCur.IsAbstract && typeCurProtocolInCurProtocolModuleCur
+							.GetConstructor(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags
+							.Instance, []) != null);
 
-					Attr.ProtocolAssemblyInfoAttribute attr = assembly.GetCustomAttributes(typeof(ProtocolInterfaceType), true)
+					Attr.ProtocolAssemblyInfoAttribute attr = assembly.GetCustomAttributes(typeof(ProtocolInterfaceType),
+							true)
 						.Select(objCurAttr
-							=> (Attr.ProtocolAssemblyInfoAttribute)objCurAttr).FirstOrDefault() ?? throw new UnableToLoadAssemblyInfoException(assembly);
+							=> (Attr.ProtocolAssemblyInfoAttribute)objCurAttr).FirstOrDefault() ?? throw new
+								UnableToLoadAssemblyInfoException(assembly);
 
 					strProtocolName = attr.strName;
 					strPublisher = attr.strPublisher;
@@ -161,9 +163,9 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 
 				public readonly System.Uri? uriProductHomePage;
 
-				private ProtocolInterfaceType? protocol = default;
+				private ProtocolInterfaceType? protocol;
 
-				private bool bIsEnabled = false;
+				private bool bIsEnabled;
 			#endregion
 
 			#region Properties
@@ -278,11 +280,15 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			System.Reflection.Assembly assemblyCurProtocolModule = System.Reflection.Assembly
 				.LoadFile(fileProtocolModule.FullName);
 
-			string? strProtocolInterfaceTypeName = typeof(ProtocolInterfaceType).FullName ?? throw new System
-				.InvalidProgramException("The type provided to BestChat.Platform.DataAndExt.Protocol.Mgr doesn't " +
-				"have a name.");
+			string strNameOfThisProtocol = typeof(ProtocolInterfaceType).FullName ?? throw new System
+				.InvalidProgramException(@"The type provided to BestChat.Platform.DataAndExt.Protocol.Mgr doesn't have a " +
+				@"name.");
 
 			ProtocolMetaData iprotNew = new(assemblyCurProtocolModule);
+			if(iprotNew.ProtocolName != strNameOfThisProtocol)
+				throw new System.InvalidOperationException(@"Protocol name according to the assembly attribute is not the same "
+					+ @"as protocol name returned by the interface.");
+
 			iprotNew.evtDirtyChanged += OnProtocolInfoDirtyChanged;
 			iprotNew.evtIsEnabledChanged += OnProtocolEnabledStatusChanged;
 
@@ -293,9 +299,7 @@ public abstract class Mgr<ProtocolInterfaceType> : MgrBase, System.ComponentMode
 			mapNameToProtocolDefs[iprotNew.strProtocolName] = iprotNew;
 			ocUnsortedProtocolDefs.Add(iprotNew);
 
-			iprotNew.IsEnabled = astrProtocolNamesToEnable == null
-				? funcNewProtEnabler(iprotNew)
-				: astrProtocolNamesToEnable.Contains(iprotNew.ProtocolName);
+			iprotNew.IsEnabled = astrProtocolNamesToEnable?.Contains(iprotNew.ProtocolName) ?? funcNewProtEnabler(iprotNew);
 		}
 
 		protected abstract void OnProtLoaded(ProtocolInterfaceType iprotNew);

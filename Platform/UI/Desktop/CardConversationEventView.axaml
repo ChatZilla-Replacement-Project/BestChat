@@ -30,6 +30,7 @@
 			</ContentControl.DataTemplates>
 		</ContentControl>
 		<Label
+			Grid.Row="0"
 			Grid.Column="1"
 			Content="{Binding Sender}" />
 		<Grid ColumnDefinitions="1*,Auto"

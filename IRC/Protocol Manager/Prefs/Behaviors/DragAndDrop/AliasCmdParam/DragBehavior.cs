@@ -127,8 +127,7 @@ public class DragBehavior : Avalonia.Xaml.Interactivity.Behavior
 
 	private void OnMouseMovedDuringDrag(object? objSender, Avalonia.Input.PointerEventArgs args)
 	{
-		Avalonia.Input.PointerPointProperties properties = args.GetCurrentPoint(AssociatedObject as Avalonia.Visual)
-			.Properties;
+		Avalonia.Input.PointerPointProperties properties = args.GetCurrentPoint(AssociatedObject).Properties;
 
 		if(bCaptured && properties.IsLeftButtonPressed && eventThatTriggeredDrag is not null)
 		{

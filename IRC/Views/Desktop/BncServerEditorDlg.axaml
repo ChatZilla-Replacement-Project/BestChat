@@ -4,7 +4,6 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				mc:Ignorable="d"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
-				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
 				xmlns:calc="using:CalcBinding"
 				x:DataType="data:BncInfoEditable"
 				d:DataContext="{d:DesignInstance Type=data:BNC}"

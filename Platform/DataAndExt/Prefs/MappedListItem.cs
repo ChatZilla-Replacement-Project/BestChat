@@ -1,6 +1,5 @@
 ﻿// Ignore Spelling: evt Prefs
 
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
@@ -109,7 +108,7 @@ public class MappedListItem<KeyType, EntryType> : ItemBase, System.Collections.G
 	#endregion
 
 	#region Members
-		private EntryType[]? backedUpVal = null;
+		private EntryType[]? backedUpVal;
 
 		private readonly System.Collections.Generic.IDictionary<KeyType, EntryType> mapEntriesByMainKey;
 

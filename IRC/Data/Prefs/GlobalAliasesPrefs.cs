@@ -19,8 +19,8 @@ public class GlobalAliasesPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 					=> aliasCur.Name,
 				(aliasEntry,
 						evth)
-					=> aliasEntry.evtNameChanged += mapAliasHandlers[evth] = (in GlobalAliasesOneAlias aliasSender, in string strVal,
-							in string _)
+					=> aliasEntry.evtNameChanged += mapAliasHandlers[evth] = (in GlobalAliasesOneAlias _, in string strVal, in
+							string _)
 						=> evth(strVal, aliasEntry),
 				(aliasEntry,
 						evth)
@@ -48,8 +48,8 @@ public class GlobalAliasesPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 					=> aliasCur.Name,
 				(aliasEntry,
 						evth)
-					=> aliasEntry.evtNameChanged += mapAliasHandlers[evth] = (in GlobalAliasesOneAlias aliasSender, in string strVal,
-							in string _)
+					=> aliasEntry.evtNameChanged += mapAliasHandlers[evth] = (in GlobalAliasesOneAlias _, in string strVal, in
+							string _)
 						=> evth(strVal, aliasEntry),
 				(aliasEntry,
 						evth)
@@ -88,7 +88,7 @@ public class GlobalAliasesPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 	#endregion
 
 	#region Methods
-		public DTO.GlobalAliasesOneAliasDTO[]? ToDTO()
+		public DTO.GlobalAliasesOneAliasDTO[] ToDTO()
 			=> entries.Values.Select(aliasCur
 				=> aliasCur.ToDTO()).ToArray();
 	#endregion

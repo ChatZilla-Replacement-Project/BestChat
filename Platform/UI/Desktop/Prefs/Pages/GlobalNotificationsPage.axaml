@@ -1,8 +1,90 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-						mc:Ignorable="d"
-						x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalNotificationsPage">
-	
-</UserControl>
+﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
+																xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+																xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
+																x:DataType="base:GlobalNotificationsPrefs"
+																mc:Ignorable="d"
+																x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalNotificationsPage">
+	<base:AbstractVisualPrefsTabCtrl.Styles>
+		<StyleInclude Source="..\PrefsStyles.axaml"/>
+	</base:AbstractVisualPrefsTabCtrl.Styles>
+	<DockPanel Margin="4">
+		<TextBlock DockPanel.Dock="Top"
+							Classes="InfoTextBlock"
+							Text="Controls how notifications are handled throughout all of Best Chat."/>
+		<Separator DockPanel.Dock="Top"
+							Margin="0,4"/>
+		<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
+					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+			<Button x:Name="btnResetMethod"
+							ToolTip.Tip="Click to reset the method type to the Best Chat default"
+							Classes="ResetBtn"
+							IsEnabled="{Binding Method.CanReset}"
+							Click="OnResetMethod"/>
+			<Label Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Method to use:"/>
+			<base:NotificationMethodRadioBtnGroup Grid.Column="4"
+																						SelVal="{Binding Method.CurVal}"/>
+			<Button x:Name="btnResetEnableHistory"
+							Grid.Row="2"
+							ToolTip.Tip="Click to reset the history enabled preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding EnableHistory.CanReset}"
+							Click="OnResetEnableHistory"/>
+			<CheckBox x:Name="chkEnableHistory"
+								Grid.Row="2"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="Check to enable and show Best Chat’s history window.  Uncheck to completely disable history.  If you turned off notifications above, the client windows will be the only way to see history."
+								Content="Enable History?"
+								IsChecked="{Binding EnableHistory.CurVal}"/>
+			<Button x:Name="btnResetPlaySound"
+							Grid.Row="4"
+							ToolTip.Tip="Click to reset the Play Sound preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding PlaySound.CanReset}"
+							Click="OnResetPlaySound"/>
+			<CheckBox x:Name="chkPlaySound"
+								Grid.Row="4"
+								Grid.Column="2"
+								Grid.ColumnSpan="3"
+								ToolTip.Tip="If you check this, Best Chat will play an audible indication of a notification.  If you uncheck it, notifications will be silent."
+								Content="Play a sound when a notification happens?"
+								IsChecked="{Binding PlaySound.CurVal}"/>
+			<Button x:Name="btnResetSoundToPlay"
+							Grid.Row="6"
+							ToolTip.Tip="Click to reset the Sound to Play During Notifications to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding SoundToPlay.CanReset}"
+							Click="OnResetSoundToPlay"/>
+			<Label Grid.Row="6"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Sound to Play During Notifications:"/>
+			<ctrls:FileBrowserCtrl Grid.Row="6"
+														Grid.Column="4"
+														ToolTip.Tip="Specifies the file on your operating system to play.  If this is blank, Best Chat will play a beep provided by Best Chat."
+														IsVisible="{Binding IsChecked,ElementName=chkPlaySound}"
+														DlgTitle="Specify which file you want played"
+														LocSpecified="{Binding SoundToPlay.CurVal}"/>
+			<Button x:Name="btnResetKeepVisibleFor"
+							Grid.Row="8"
+							ToolTip.Tip="Click to reset the Keep Notifications Visible For preference to the Best Chat default."
+							Classes="ResetBtn"
+							IsEnabled="{Binding KeepVisibleFor.CanReset}"
+							Click="OnResetKeepVisibleFor"/>
+			<Label Grid.Row="8"
+						Grid.Column="2"
+						HorizontalContentAlignment="Right"
+						Content="Keep Notifications Visible For:"/>
+			<NumericUpDown x:Name="nudKeepVisibleFor"
+										Grid.Row="8"
+										Grid.Column="4"
+										Minimum="{Binding KeepVisibleFor.MinVal}"
+										Value="{Binding KeepVisibleFor.CurVal,Mode=TwoWay}"/>
+		</Grid>
+	</DockPanel>
+</base:AbstractVisualPrefsTabCtrl>

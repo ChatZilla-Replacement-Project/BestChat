@@ -62,7 +62,7 @@ public class NetChanListPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			mapAllChanPrefsByChan.Remove(chanToRemovePrefsFor);
 		}
 
-		public DTO.ChanDTO[]? ToDTO()
+		public DTO.ChanDTO[] ToDTO()
 			=> mapAllChanPrefsByChan.Values.IsEmpty()
 				? []
 				: mapAllChanPrefsByChan.Values.Select(pchanCur

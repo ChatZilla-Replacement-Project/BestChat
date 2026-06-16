@@ -1,11 +1,10 @@
 ﻿namespace BestChat.Platform.UI.Desktop.Prefs;
 
-public class GlobalAppearanceFontsOneFontBlockInfoPairPrefs<FieldType> : DataAndExt.Prefs
-	.AbstractChildMgr
+public class GlobalAppearanceFontsOneFontBlockInfoPairPrefs<FieldType> : DataAndExt.Prefs.AbstractChildMgr
 {
 	#region Constructors & Deconstructors
-		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in string strName, in string
-				strLocalizedName, in string strLocalizedDesc) :
+		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in
+				string strName, in string strLocalizedName, in string strLocalizedDesc) :
 			base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 		{
 			isThemeOverridden = new(this, "Is Theme Overridden", UiDesktopRsrcs
@@ -17,8 +16,8 @@ public class GlobalAppearanceFontsOneFontBlockInfoPairPrefs<FieldType> : DataAnd
 				.strGlobalAppearanceFontBlockPairOverriddenValDesc, default);
 		}
 
-		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in string strName, in string
-				strLocalizedName, in string strLocalizedDesc, in DTO.RootDTO.GlobalDTO.AppearanceDTO
+		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in
+				string strName, in string strLocalizedName, in string strLocalizedDesc, in DTO.RootDTO.GlobalDTO.AppearanceDTO
 				.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType> dto) :
 			base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 		{
@@ -31,35 +30,31 @@ public class GlobalAppearanceFontsOneFontBlockInfoPairPrefs<FieldType> : DataAnd
 				.strGlobalAppearanceFontBlockPairOverriddenValDesc, default, dto.OverriddenVal);
 		}
 
-		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in string strName, in string
-				strLocalizedName, in string strLocalizedDesc, FieldType def) :
+		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in
+				string strName, in string strLocalizedName, in string strLocalizedDesc, FieldType def) :
 			base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 		{
-			this.def = def;
-
 			isThemeOverridden = new(this, "Is Theme Overridden", UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairIsOverriddenTitle, UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false);
 
 			overridenVal = new(this, "Override value", UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairOverriddenValTitle, UiDesktopRsrcs
-				.strGlobalAppearanceFontBlockPairOverriddenValDesc, default);
+				.strGlobalAppearanceFontBlockPairOverriddenValDesc, def);
 		}
 
-		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in string strName, in string
-				strLocalizedName, in string strLocalizedDesc, in DTO.RootDTO.GlobalDTO.AppearanceDTO
+		internal GlobalAppearanceFontsOneFontBlockInfoPairPrefs(in GlobalAppearanceFontsOneFontBlockPrefs mgrParent, in
+				string strName, in string strLocalizedName, in string strLocalizedDesc, in DTO.RootDTO.GlobalDTO.AppearanceDTO
 				.FontDTO.OneFontBlockDTO.InfoPairDTO<FieldType> dto, FieldType def) :
 			base(mgrParent, strName, strLocalizedName, strLocalizedDesc)
 		{
-			this.def = def;
-
 			isThemeOverridden = new(this, "Is Theme Overridden", UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairIsOverriddenTitle, UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairIsOverriddenDesc, false, dto.IsOverridden);
 
 			overridenVal = new(this, "Override value", UiDesktopRsrcs
 				.strGlobalAppearanceFontBlockPairOverriddenValTitle, UiDesktopRsrcs
-				.strGlobalAppearanceFontBlockPairOverriddenValDesc, default, dto.OverriddenVal);
+				.strGlobalAppearanceFontBlockPairOverriddenValDesc, def, dto.OverriddenVal);
 		}
 	#endregion
 
@@ -79,8 +74,6 @@ public class GlobalAppearanceFontsOneFontBlockInfoPairPrefs<FieldType> : DataAnd
 		private readonly DataAndExt.Prefs.Item<bool> isThemeOverridden;
 
 		private readonly DataAndExt.Prefs.Item<FieldType?> overridenVal;
-
-		private readonly FieldType? def = default;
 	#endregion
 
 	#region Properties

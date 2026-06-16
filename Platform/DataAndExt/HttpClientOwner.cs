@@ -10,7 +10,7 @@
 		protected HttpClientOwner()
 			=> instance = this;
 
-		protected virtual System.Net.Http.HttpClient? ClientToUse
+		public virtual System.Net.Http.HttpClient? ClientToUse
 			=> null;
 	}
 }

@@ -1,11 +1,9 @@
-﻿using System.Linq;
-
-namespace BestChat.IRC.Data.Prefs;
+﻿namespace BestChat.IRC.Data.Prefs;
 
 public class GlobalAliasesOneAliasOneParamEditable : GlobalAliasesOneAliasOneParam, System.ComponentModel.INotifyDataErrorInfo
 {
 	internal GlobalAliasesOneAliasOneParamEditable(GlobalAliasesOneAliasOneParam aparamOriginal) :
-		base(aparamOriginal.aliasParent, aparamOriginal.Name, aparamOriginal?.ParamType ?? throw new System
+		base(aparamOriginal.aliasParent, aparamOriginal.Name, aparamOriginal.ParamType ?? throw new System
 			.InvalidOperationException(@"How did an existing parameter get a null type?"), aparamOriginal.Doc)
 		=> this.aparamOriginal = aparamOriginal;
 

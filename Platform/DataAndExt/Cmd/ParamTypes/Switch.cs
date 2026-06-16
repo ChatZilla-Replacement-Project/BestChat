@@ -1,6 +1,4 @@
-﻿using BestChat.Platform.DataAndExt.Prefs;
-
-namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
 
 public class Switch : Abstract
 {

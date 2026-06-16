@@ -1,5 +1,7 @@
 ﻿// Ignore Spelling: pnet dpnetwork Defs
 
+using System.Linq;
+
 namespace BestChat.IRC.Data.Defs;
 
 [System.ComponentModel.ImmutableObject(true)]
@@ -13,9 +15,9 @@ public class PredefinedNet : Net
 		public PredefinedNet(in DTO.PredefinedNetDTO dpnetworkUs) :
 			base(dpnetworkUs)
 		{
-			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModeList)
+			foreach(DTO.ChanModeDTO dcmCur in dpnetworkUs.ChanModes)
 				mapChanModesByModeChar[dcmCur.Mode] = new(dcmCur);
-			foreach(DTO.UserModeDTO dumCur in dpnetworkUs.UserModeList)
+			foreach(DTO.UserModeDTO dumCur in dpnetworkUs.UserModes)
 				mapUserModesByModeChar[dumCur.Mode] = new(dumCur);
 		}
 	#endregion
@@ -52,6 +54,22 @@ public class PredefinedNet : Net
 	#endregion
 
 	#region Methods
+		public DTO.PredefinedNetDTO ToDTO()
+			=> new(
+				Name,
+				[..
+					ServersSortedByName.Select(serverCur => serverCur.ToDTO())
+				],
+				[..
+					mapChanModesByModeChar.Values.Select(cmCur
+						=> cmCur.ToDTO()
+					),
+				],
+				[..
+					mapUserModesByModeChar.Values.Select(umCur
+						=> umCur.ToDTO()
+				)]
+			);
 	#endregion
 
 	#region Event Handlers

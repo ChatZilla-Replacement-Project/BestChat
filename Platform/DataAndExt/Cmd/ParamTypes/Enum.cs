@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
+﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
 
 public class Enum<EnumType> : Abstract
 	where EnumType : System.Enum

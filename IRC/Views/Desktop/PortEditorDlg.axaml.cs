@@ -1,8 +1,4 @@
-using System.Linq;
-
 namespace BestChat.IRC.Views.Desktop;
-
-using Platform.DataAndExt.Ext;
 
 public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentModel
 	.INotifyPropertyChanged, System.ComponentModel.INotifyDataErrorInfo
@@ -53,7 +49,7 @@ public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentM
 
 		private ushort usCurPort;
 
-		private readonly System.Collections.Generic.HashSet<ushort> ussetUnavailablePorts = [];
+		private readonly System.Collections.Generic.HashSet<ushort> ussetUnavailablePorts = []; // TODO: Update this
 	#endregion
 
 	#region Properties
@@ -140,6 +136,7 @@ public partial class PortEditorDlg : Avalonia.Controls.Window, System.ComponentM
 
 					break;
 
+				// ReSharper disable once RedundantEmptySwitchSection
 				default: // Just ignore values we don't know what to do with
 					break;
 			}

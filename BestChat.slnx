@@ -1,0 +1,32 @@
+<Solution>
+  <Folder Name="/Desktop/">
+    <Project Path="Desktop/BestChat.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/IRC/">
+    <Project Path="IRC/Data/BestChat.IRC.Data.csproj" />
+    <Project Path="IRC/Protocol Manager/BestChat.IRC.ProtocolMgr.csproj" />
+    <Project Path="IRC/Views/Desktop/BestChat.IRC.Views.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/Platform/">
+    <Project Path="Platform/DataAndExt/BestChat.Platform.DataAndExt.csproj" />
+  </Folder>
+  <Folder Name="/Platform/UI/">
+    <Project Path="Platform/UI/Desktop/BestChat.Platform.UI.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="LICENSE" />
+    <File Path="LICENSE.txt" />
+    <File Path="Logo for We Chat.png" />
+    <File Path="Logo for We Chat.svg" />
+    <File Path="README.md" />
+    <File Path="We Chat icon 16x16.png" />
+    <File Path="We Chat icon 180x180.png" />
+    <File Path="We Chat icon 32x32.png" />
+    <File Path="We Chat icon 64x64.png" />
+    <File Path="We Chat icon.svg" />
+    <File Path="We Chat.ico" />
+  </Folder>
+</Solution>

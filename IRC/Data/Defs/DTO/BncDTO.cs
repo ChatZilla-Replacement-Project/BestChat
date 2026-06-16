@@ -15,11 +15,11 @@ public record BncDTO
 	ushort[]? Ports = null,
 	ushort[]? SslPorts = null,
 	uint? MaxNetworksPerBouncerInstance = null
-) : IDataDefBasic<BncDTO>
+) : IDataDefBasic
 {
 	public record ServerDTO
 	(
 		string Name,
 		string Domain
-	) : IDataDefBasic<ServerDTO>;
+	) : IDataDefBasic;
 }

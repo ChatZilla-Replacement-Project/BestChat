@@ -1,7 +1,6 @@
 ﻿// Ignore Spelling: Prefs evt
 
 using System.Linq;
-using BestChat.Platform.DataAndExt.Ext;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
@@ -40,7 +39,7 @@ public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specia
 
 		private readonly System.Collections.Generic.HashSet<TypeOfElement> hsEntries;
 
-		private TypeOfElement[]? backedUpVal = null;
+		private TypeOfElement[]? backedUpVal;
 	#endregion
 
 	#region Properties

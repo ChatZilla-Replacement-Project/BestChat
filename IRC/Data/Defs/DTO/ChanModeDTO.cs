@@ -7,7 +7,7 @@ public record ChanModeDTO
 	char Mode,
 	LocalizedTextDTO[] LocalizedDesc,
 	string DefaultDesc,
-	ModeParamDTO[] Parameters,
+	ModeParamDTO[]? Parameters = null,
 	string FmtAsSentToNetwork = "",
 	bool NotAlwaysAvailable = false,
 	bool IsOperRequiredToChange = false,

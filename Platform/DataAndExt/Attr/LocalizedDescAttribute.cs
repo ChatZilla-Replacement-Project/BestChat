@@ -10,21 +10,14 @@ namespace BestChat.Platform.DataAndExt.Attr
 		public LocalizedDescAttribute(string strKey, string strDefaultVal, string strExtendedKey, string strExtendedDefaultVal, System.Type
 			typeToUseToFindResources)
 		{
-			System.Resources.ResourceManager rm = new System.Resources.ResourceManager(typeToUseToFindResources);
-			if(rm == null)
-			{
-				strTranslatedVal = strDefaultVal;
-				strTranslatedExtendedVal = strExtendedDefaultVal;
-			}
-			else
-			{
-				string strFoundVal = rm.GetString(strKey) ?? strDefaultVal;
-				string strFoundExtendedVal = rm.GetString(strExtendedKey) ?? strExtendedDefaultVal;
+			System.Resources.ResourceManager rm = new(typeToUseToFindResources);
 
-				strTranslatedVal = strDefaultVal.IsEmpty() ? strDefaultVal : strFoundVal;
+			string strFoundVal = rm.GetString(strKey) ?? strDefaultVal;
+			string strFoundExtendedVal = rm.GetString(strExtendedKey) ?? strExtendedDefaultVal;
 
-				strTranslatedExtendedVal =  strFoundExtendedVal.IsEmpty() ? strExtendedDefaultVal : strFoundExtendedVal;
-			}
+			strTranslatedVal = strDefaultVal.IsEmpty() ? strDefaultVal : strFoundVal;
+
+			strTranslatedExtendedVal =  strFoundExtendedVal.IsEmpty() ? strExtendedDefaultVal : strFoundExtendedVal;
 		}
 
 		public readonly string strTranslatedVal;

@@ -77,7 +77,7 @@ public class NetAliasesPrefs : GlobalAliasesPrefs
 			System.Collections.Generic.IEnumerable<NetInheritedItemEnabledStatus<GlobalAliasesOneAlias,
 				IReadOnlyOneAlias>> enabledAliases = inheritedSettings.Entries.Values
 				.Select(aliasCur
-					=> new NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>(aliasCur, dto?
+					=> new NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>(aliasCur, dto
 						.DisabledInheritedAliases?.Contains(aliasCur.guid) ?? false)
 				);
 			mapAllInheritanceOverridesByName = new(
@@ -109,16 +109,16 @@ public class NetAliasesPrefs : GlobalAliasesPrefs
 				PrefsRsrcs.strNetAliasesAdditionalTitle,
 				PrefsRsrcs.strNetAliasesAdditionalDesc,
 				[],
-				dto?.AddedAliases?.Select(daliasCur
+				dto.AddedAliases?.Select(daliasCur
 					=> new GlobalAliasesOneAlias(daliasCur)
 				)
 				?? [],
 				KeyObtainer,
 				(aliasEntry,
 						evth)
-					=> aliasEntry.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias _, in string
+					=> aliasEntry.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias aliasEntryCur, in string
 							strOldName, in string _)
-						=> evth(strOldName, aliasEntry),
+						=> evth(strOldName, aliasEntryCur),
 				(aliasEntry, evth)
 					=>
 						{

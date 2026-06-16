@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace BestChat.Platform.DataAndExt.Prefs;
+﻿namespace BestChat.Platform.DataAndExt.Prefs;
 
 public class MappedClonedAndGroupListItem<PrimaryKeyType, SecondaryKeyType, EntryType> : ItemBase, System.Collections
 	.Generic.IDictionary<PrimaryKeyType, System.Collections.Generic.IReadOnlyDictionary<SecondaryKeyType, EntryType>>,
@@ -73,11 +71,11 @@ public class MappedClonedAndGroupListItem<PrimaryKeyType, SecondaryKeyType, Entr
 	#endregion
 
 	#region Methods
-		private void AddEntry(SecondaryKeyType sk, EntryType entry)
+		private void AddEntry(SecondaryKeyType sk, EntryType _)
 		{
 			PrimaryKeyType pk = funcPrimaryKeyObtainer(mliSrc[sk]);
 
-			System.Collections.Generic.SortedDictionary<SecondaryKeyType, EntryType>? map = (mapEntries.TryGetValue(pk, out
+			System.Collections.Generic.SortedDictionary<SecondaryKeyType, EntryType> map = (mapEntries.TryGetValue(pk, out
 				System.Collections.Generic.SortedDictionary<SecondaryKeyType, EntryType>? value) ? value : null) ??
 				(mapEntries[pk] = new());
 

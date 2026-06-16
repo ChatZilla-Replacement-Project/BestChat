@@ -1,8 +1,23 @@
 ﻿namespace BestChat.Platform.DataAndExt.Cmd.ParamTypes;
 
-public abstract class Abstract(string strName, string strLocalizedName, string strLocalizedDesc, System.Type
-	typeBackedBy) :	Obj<Abstract>
+public abstract class Abstract :	Obj<Abstract>
 {
+	private readonly string strName;
+	private readonly string strLocalizedName;
+	private readonly string strLocalizedDesc;
+	private readonly System.Type typeBackedBy1;
+
+	protected Abstract(string strName, string strLocalizedName, string strLocalizedDesc, System.Type
+		typeBackedBy)
+	{
+		listInstances.Add(this);
+
+		this.strName = strName;
+		this.strLocalizedName = strLocalizedName;
+		this.strLocalizedDesc = strLocalizedDesc;
+		typeBackedBy1 = typeBackedBy;
+	}
+
 	public string Name
 		=> strName;
 
@@ -13,7 +28,7 @@ public abstract class Abstract(string strName, string strLocalizedName, string s
 		=> strLocalizedDesc;
 
 	public System.Type BackedByType
-		=> typeBackedBy;
+		=> typeBackedBy1;
 
 	public virtual bool InstancesHaveVal
 		=> true;

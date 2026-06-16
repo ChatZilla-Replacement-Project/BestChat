@@ -13,7 +13,8 @@ internal record RootDTO
 	(
 		GlobalDTO.AppearanceDTO Appearance,
 		GlobalDTO.PluginsDTO Plugins,
-		GlobalDTO.CompositionDTO Composition
+		GlobalDTO.CompositionDTO Composition,
+		GlobalDTO.NotificationsDTO Notifications
 	) : DataAndExt.Prefs.DTO.PrefsDTO.GlobalDTO(Plugins)
 	{
 		// ReSharper disable once InconsistentNaming
@@ -151,6 +152,15 @@ internal record RootDTO
 			bool EnableEmojiShortCuts,
 			bool EnableEntityShortCuts
 		);
+
+		public record NotificationsDTO
+		(
+			NotificationMethods Method,
+			bool EnableNotifications,
+			bool PlaySound,
+			System.IO.FileInfo? SoundToPlay,
+			int KeepVisibleFor
+		) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Notifications");
 
 		public CompositionDTO Composition
 		{

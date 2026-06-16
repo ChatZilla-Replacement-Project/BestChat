@@ -6,8 +6,7 @@ namespace BestChat.IRC.Data.Defs;
 
 using Platform.DataAndExt.Ext;
 
-public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.ComponentModel
-	.INotifyDataErrorInfo
+public class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.ComponentModel.INotifyDataErrorInfo
 {
 	#region Constructors & Deconstructors
 		public BNC()
@@ -128,11 +127,11 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 		private readonly System.Collections.Generic.SortedSet<string> strsetProhibitedNets;
 
-		private string? strHomeNet = null;
+		private string? strHomeNet;
 
-		private string? strHomeChan = null;
+		private string? strHomeChan;
 
-		private string? strOwnBot = null;
+		private string? strOwnBot;
 
 		private readonly System.Collections.Generic.SortedList<string, BncServerInfo> servermapServersByName =
 			[];
@@ -799,6 +798,7 @@ public partial class BNC : Platform.DataAndExt.Obj<BNC>, IDataDef<BNC>, System.C
 
 						break;
 
+					// ReSharper disable once RedundantEmptySwitchSection
 					default: // Just ignore values we don't know what to do with
 						break;
 				}

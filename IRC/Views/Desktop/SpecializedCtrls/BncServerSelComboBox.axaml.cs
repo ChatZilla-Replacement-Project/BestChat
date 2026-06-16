@@ -23,8 +23,7 @@ public partial class BncServerSelComboBox : Avalonia.Controls.ComboBox
 					=> comboSender.SelServer,
 
 				(comboSender, serverNewVal)
-						=> comboSender.SelServer = serverNewVal,
-				null
+						=> comboSender.SelServer = serverNewVal
 			);
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles",
@@ -37,8 +36,7 @@ public partial class BncServerSelComboBox : Avalonia.Controls.ComboBox
 				comboSender
 					=> comboSender.AllServers,
 				(comboSender, eservers)
-						=> comboSender.AllServers = eservers,
-				null
+						=> comboSender.AllServers = eservers
 			);
 		#pragma warning restore IDE1006 // Naming Styles
 	#endregion

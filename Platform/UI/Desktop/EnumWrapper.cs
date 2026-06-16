@@ -25,16 +25,9 @@ internal class EnumWrapper<EnumType> : IEnumWrapper
 	{
 		this.valRaw = valRaw;
 		string strEnumValAsStr = valRaw.ToString() ?? throw new System.InvalidProgramException("Unexpected null");
-		System.Reflection.FieldInfo? fieldInfo = valRaw
-																							.GetType()
-																							.GetField(strEnumValAsStr) ??
-																						throw new System
-																							.InvalidProgramException(
-																								$"Can't find field on instance of type {
-																									typeof(EnumType).FullName
-																								} for {
-																									strEnumValAsStr
-																								}");
+		System.Reflection.FieldInfo fieldInfo = valRaw.GetType().GetField(strEnumValAsStr)
+			?? throw new System.InvalidProgramException($@"Can't find field on instance of type {typeof(EnumType).FullName
+				} for {strEnumValAsStr}");
 
 		object[] attribArray = fieldInfo.GetCustomAttributes(typeof(DataAndExt.Attr.LocalizedDescAttribute), false);
 

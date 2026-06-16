@@ -4,33 +4,32 @@ public class GlobalAppearanceTimeStampPrefs : AbstractChildMgr
 {
 	#region Constructors & Deconstructors
 		public GlobalAppearanceTimeStampPrefs(in AbstractMgr mgrParent) :
-			base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
-				.strGlobalAppearanceTimeStampDesc)
+			base(mgrParent, @"Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs.strGlobalAppearanceTimeStampDesc)
 		{
-			show = new(this, "Show the time stamp", Rsrcs
-					.strGlobalAppearanceTimeStampShowTitle, Rsrcs.strGlobalAppearanceTimeStampShowDesc,
-				true);
-			fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
-				Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G");
-			howOftenToRepeat = new(this, "How Often to Repeat", Rsrcs
-				.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs
-				.strGlobalAppearanceTimeStampHowOftenToRepeatDesc, HowOftenToRepeatOpts.everyThirtySeconds);
+			show = new(this, @"Show the time stamp", Rsrcs.strGlobalAppearanceTimeStampShowTitle, Rsrcs
+				.strGlobalAppearanceTimeStampShowDesc, true);
+			inlineFmt = new(this, @"Inline Format", Rsrcs.strGlobalAppearanceTimeStampInlineFmtTitle, Rsrcs
+				.strGlobalAppearanceTimeStampInlineFmtDesc, "G");
+			expandedFmt = new(this, @"Tooltip Format", Rsrcs.strGlobalAppearanceTimeStampToolTipFmtDesc,
+				Rsrcs.strGlobalAppearanceTimeStampToolTipFmtDesc, "F");
+			howOftenToRepeat = new(this, @"How Often to Repeat", Rsrcs
+				.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs.strGlobalAppearanceTimeStampHowOftenToRepeatDesc,
+				HowOftenToRepeatOpts.everyThirtySeconds);
 		}
 
-		public GlobalAppearanceTimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO
-			.TimeStampDTO dto) :
-			base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs
-				.strGlobalAppearanceTimeStampDesc)
+		public GlobalAppearanceTimeStampPrefs(in AbstractMgr mgrParent, in DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO
+				dto) :
+			base(mgrParent, "Time Stamp", Rsrcs.strGlobalAppearanceTimeStampTitle, Rsrcs.strGlobalAppearanceTimeStampDesc)
 		{
-			show = new(this, "Show the time stamp", Rsrcs
-					.strGlobalAppearanceTimeStampShowTitle, Rsrcs.strGlobalAppearanceTimeStampShowDesc,
-				true, dto.Show);
-			fmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampFmtTitle,
-				Rsrcs.strGlobalAppearanceTimeStampFmtDesc, "G", dto.Fmt);
+			show = new(this, "Show the time stamp", Rsrcs.strGlobalAppearanceTimeStampShowTitle, Rsrcs
+				.strGlobalAppearanceTimeStampShowDesc, true, dto.Show);
+			inlineFmt = new(this, "Format", Rsrcs.strGlobalAppearanceTimeStampInlineFmtTitle, Rsrcs
+				.strGlobalAppearanceTimeStampInlineFmtDesc, "G", dto.InlineFmt);
+			expandedFmt = new(this, @"Tooltip Format", Rsrcs.strGlobalAppearanceTimeStampToolTipFmtDesc, Rsrcs
+				.strGlobalAppearanceTimeStampToolTipFmtDesc, "F", dto.ExpandedFmt);
 			howOftenToRepeat = new(this, "How Often to Repeat", Rsrcs
-				.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs
-				.strGlobalAppearanceTimeStampHowOftenToRepeatDesc, HowOftenToRepeatOpts.everyThirtySeconds, dto
-				.HowOftenToRepeat);
+				.strGlobalAppearanceTimeStampHowOftenToRepeatTitle, Rsrcs.strGlobalAppearanceTimeStampHowOftenToRepeatDesc,
+				HowOftenToRepeatOpts.everyThirtySeconds, dto.HowOftenToRepeat);
 		}
 	#endregion
 
@@ -86,7 +85,9 @@ public class GlobalAppearanceTimeStampPrefs : AbstractChildMgr
 	#region Members
 		private readonly Item<bool> show;
 
-		private readonly Item<string> fmt;
+		private readonly Item<string> inlineFmt;
+
+		private readonly Item<string> expandedFmt;
 
 		private readonly Item<HowOftenToRepeatOpts> howOftenToRepeat;
 	#endregion
@@ -95,8 +96,11 @@ public class GlobalAppearanceTimeStampPrefs : AbstractChildMgr
 		public Item<bool> Show
 			=> show;
 
-		public Item<string> Fmt
-			=> fmt;
+		public Item<string> InlineFmt
+			=> inlineFmt;
+
+		public Item<string> ExpandedFmt
+			=> expandedFmt;
 
 		public Item<HowOftenToRepeatOpts> HowOftenToRepeat
 			=> howOftenToRepeat;
@@ -106,8 +110,9 @@ public class GlobalAppearanceTimeStampPrefs : AbstractChildMgr
 		public virtual DTO.PrefsDTO.GlobalDTO.AppearanceDTO.TimeStampDTO ToDTO()
 			=> new(
 				show.CurVal,
-				Fmt.CurVal,
-				HowOftenToRepeat: howOftenToRepeat.CurVal
+				InlineFmt.CurVal,
+				ExpandedFmt.CurVal,
+				howOftenToRepeat.CurVal
 			);
 	#endregion
 

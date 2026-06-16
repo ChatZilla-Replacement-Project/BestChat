@@ -4,8 +4,7 @@ namespace BestChat.IRC.Views.Desktop;
 
 using Platform.DataAndExt.Ext;
 
-public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.ComponentModel
-	.INotifyPropertyChanged
+public partial class UserNetEditorDlg : Avalonia.Controls.Window
 {
 	#region Constructors & Deconstructors
 		public UserNetEditorDlg()
@@ -29,8 +28,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 				sender
 					=> sender.Mode,
 				(sender, modeNew)
-					=> sender.Mode = modeNew,
-				Modes.invalid
+					=> sender.Mode = modeNew
 			);
 
 
@@ -97,7 +95,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 	#endregion
 
 	#region Members
-		private Data.Defs.UserNetEditable? eunetCtxt = null;
+		private Data.Defs.UserNetEditable? eunetCtxt;
 
 		private Modes mode = Modes.invalid;
 
@@ -135,6 +133,9 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 
 					PropertyChanged?.Invoke(this, new(nameof(PortsToShow)));
 					PropertyChanged?.Invoke(this, new(nameof(CurPortToUseSel)));
+
+					if(mode != Modes.invalid)
+						UpdateTitle();
 				}
 			}
 		}
@@ -150,13 +151,16 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 					mode = value;
 
 					PropertyChanged?.Invoke(this, new(nameof(Mode)));
+
+					if(eunetCtxt is not null)
+						UpdateTitle();
 				}
 			}
 		}
 
 		private System.Collections.Generic.IEnumerable<PortWrapper> PortsToShow
 			=> eunetCtxt == null
-				? [pwUnlisted]
+				? [pwUnlisted,]
 				: (chkUseSsl.IsChecked == true
 						? mapSslPortsToWrapper.Values
 						: mapNonSslPortsToWrapper.Values
@@ -230,7 +234,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 			};
 
 			if(dlg.ShowDialog<bool?>(this).Result == true)
-				eunetCtxt.AddServerDomain(dlg.ServerCtxt!);
+				eunetCtxt.AddServerDomain(dlg.ServerCtxt);
 		}
 
 		private void OnEditDomain(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -245,7 +249,7 @@ public partial class UserNetEditorDlg : Avalonia.Controls.Window, System.Compone
 				};
 
 			if(dlg.ShowDialog<bool?>(this).Result == true)
-				dlg.ServerCtxt!.Save();
+				dlg.ServerCtxt.Save();
 		}
 
 		private void OnDelDomain(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)

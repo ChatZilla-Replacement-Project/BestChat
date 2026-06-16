@@ -1,7 +1,5 @@
 ﻿// Ignore Spelling: Sel Evt revt fcb Ctrls
 
-using System.Linq;
-
 namespace BestChat.Platform.UI.Desktop;
 
 /// <summary>

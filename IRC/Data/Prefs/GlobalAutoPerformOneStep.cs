@@ -76,7 +76,7 @@ public class GlobalAutoPerformOneStep : Platform.DataAndExt.Obj<GlobalAutoPerfor
 			{
 				if(cmdcWhatToDo != value)
 				{
-					CmdCall? cmdcOldWhatToDo = cmdcWhatToDo;
+					CmdCall cmdcOldWhatToDo = cmdcWhatToDo;
 
 					cmdcWhatToDo = value;
 

@@ -27,7 +27,7 @@ public class GlobalDccPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr
 			downloadsFolder = new(this, "Downloads Folder", PrefsRsrcs.strGlobalDccDownloadsFolderTitle, PrefsRsrcs
 				.strGlobalDccDownloadsFolderDesc, dto.DownloadsFolder);
 			rliPorts = new(this, "Allowed Ports", PrefsRsrcs.strGlobalDccTitle, PrefsRsrcs.strGlobalDccDesc,
-				dto?.Ports ?? [], []);
+				dto.Ports ?? [], []);
 		}
 	#endregion
 

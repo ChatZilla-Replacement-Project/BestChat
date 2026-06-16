@@ -1,4 +1,6 @@
-﻿namespace BestChat.Platform.DataAndExt.Ext;
+﻿using System;
+
+namespace BestChat.Platform.DataAndExt.Ext;
 
 public static class Str
 {
@@ -6,19 +8,19 @@ public static class Str
 		=> string.Format(strFmtThis, args);
 
 	public static bool IsEmpty(this string strTestThis)
-		=> strTestThis == null || strTestThis.Length == 0;
+		=> strTestThis.Length == 0;
 
 	public static string Min(string strLeft, string strRight)
 		=> strLeft.Equals(strRight)
 			? strRight
-			: strLeft.CompareTo(strRight) < 0
+			: string.Compare(strLeft, strRight, StringComparison.Ordinal) < 0
 				? strLeft
 				: strRight;
 
 	public static string Max(string strLeft, string strRight)
 		=> strLeft.Equals(strRight)
 			? strRight
-			: strLeft.CompareTo(strRight) > 0
+			: String.Compare(strLeft, strRight, StringComparison.Ordinal) > 0
 				? strLeft
 				: strRight;
 

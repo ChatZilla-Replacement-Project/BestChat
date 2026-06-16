@@ -9,8 +9,8 @@ public class NetInheritedItemEnabledStatus<InheritedType, ReadOnlyInterfaceType>
 		this.inheritedItem = inheritedItem;
 		this.bStatus = bStatus;
 
-		this.inheritedItem.evtKeyChanged += (in InheritedType changed, in string strOldKey, in string strNewKey) =>
-			evtKeyOfInheritedItemChanged?.Invoke(this, strOldKey, strNewKey);
+		this.inheritedItem.evtKeyChanged += (in InheritedType _, in string strOldKey, in string strNewKey)
+			=> evtKeyOfInheritedItemChanged?.Invoke(this, strOldKey, strNewKey);
 	}
 
 	public readonly InheritedType inheritedItem;

@@ -86,7 +86,7 @@ public partial class NetDccPage : Platform.UI.Desktop.Prefs.AbstractVisualPrefsT
 		Editors.PortEditorDlg dlg = new()
 		{
 			Mode = Editors.PortEditorDlg.Modes.edit,
-			PortsAlreadyListed = ctxt.Ports.ToHashSet() ?? [],
+			PortsAlreadyListed = ctxt.Ports.ToHashSet(),
 			SelPort = iPortToChange,
 			Title = Rsrcs.strChangingPortDlgTitle,
 		};

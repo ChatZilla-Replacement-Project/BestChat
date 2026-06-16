@@ -29,10 +29,11 @@ public abstract record PrefsDTO
 			public record TimeStampDTO
 			(
 				bool Show = true,
-				string Fmt = "G",
-				string? KeyOverride = null,
+				string InlineFmt = "G",
+				string ExpandedFmt = "F",
 				GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts HowOftenToRepeat =
-					GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds
+					GlobalAppearanceTimeStampPrefs.HowOftenToRepeatOpts.everyThirtySeconds,
+				string? KeyOverride = null
 			) : AbstractMgr.AbstractDTO(KeyOverride ?? "Global/Appearance/TimeStamp");
 
 			// ReSharper disable once InconsistentNaming
@@ -42,7 +43,7 @@ public abstract record PrefsDTO
 				bool LimitMsgsPerGroup,
 				int MaxMsgsPerGroup,
 				System.TimeSpan? HowLongToWaitBeforeStartingNewGroup = null
-			) : DataAndExt.Prefs.AbstractMgr.AbstractDTO("Global/Appearance/MsgGroups");
+			) : AbstractMgr.AbstractDTO("Global/Appearance/MsgGroups");
 		}
 
 		public abstract AppearanceDTO BaseAppearance

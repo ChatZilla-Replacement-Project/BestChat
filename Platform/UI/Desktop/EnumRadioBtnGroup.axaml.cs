@@ -2,10 +2,10 @@
 
 namespace BestChat.Platform.UI.Desktop;
 
-public partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
+public abstract partial class EnumRadioBtnGroup : Avalonia.Controls.ItemsControl
 {
-	public EnumRadioBtnGroup()
-		=> InitializeIfNeeded();
+	protected EnumRadioBtnGroup()
+		=> InitializeComponent();
 
 	// ReSharper disable once InconsistentNaming
 	public readonly string strGroupName = new System.Guid().ToString();

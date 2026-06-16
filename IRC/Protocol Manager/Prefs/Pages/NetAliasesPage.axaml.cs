@@ -26,7 +26,7 @@ public partial class NetAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualPr
 
 	private Data.Prefs.NetAliasesPrefs? ctxt;
 
-	private Avalonia.Point? ptDragStartedAt = null;
+	private Avalonia.Point? ptDragStartedAt;
 
 	public Data.Prefs.NetAliasesPrefs? Ctxt
 	{

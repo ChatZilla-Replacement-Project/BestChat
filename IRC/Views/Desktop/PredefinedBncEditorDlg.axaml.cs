@@ -1,5 +1,3 @@
-using BestChat.Platform.DataAndExt.Ext;
-
 namespace BestChat.IRC.Views.Desktop;
 
 public partial class PredefinedBncEditorDlg : Avalonia.Controls.Window
@@ -27,7 +25,7 @@ public partial class PredefinedBncEditorDlg : Avalonia.Controls.Window
 	#endregion
 
 	#region Members
-		private Data.Defs.BncEditable? bncCtxt = null;
+		private Data.Defs.BncEditable? bncCtxt;
 	#endregion
 
 	#region Properties

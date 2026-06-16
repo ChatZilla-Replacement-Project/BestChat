@@ -63,6 +63,14 @@ public class UserMode : IMode
 	#endregion
 
 	#region Methods
+		public DTO.UserModeDTO ToDTO()
+			=> new(
+				chModeChar,
+				textDesc.ToDTO(),
+				textDesc.strDef,
+				bNotAlwaysAvailable,
+				bIsReadOnly
+			);
 	#endregion
 
 	#region Event Handlers

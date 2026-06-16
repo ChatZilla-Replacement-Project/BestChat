@@ -1,139 +1,184 @@
 ﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
-												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
-												xmlns:data="using:BestChat.Platform.DataAndExt.Prefs"
-												xmlns:group="using:GroupBox.Avalonia.Controls"
-												xmlns:calc="using:CalcBinding"
-												x:DataType="base:GlobalAppearancePrefs"
-												mc:Ignorable="d"
-												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearancePage">
+																xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+																xmlns:calc="using:CalcBinding"
+																x:DataType="base:GlobalAppearancePrefs"
+																mc:Ignorable="d"
+																x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearancePage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="..\PrefsStyles.axaml"/>
 	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<StackPanel Margin="4"
 							Orientation="Vertical"
 							Spacing="4">
-		<group:GroupBox DataContext="{Binding  ConfMode}"
+		<GroupBox DataContext="{Binding  ConfMode}"
 										Header="_Conference Mode">
-			<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+			<Grid Margin="4"
+						ColumnDefinitions="Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,10,Auto,4,Auto,4,Auto,4,Auto">
 				<TextBlock Grid.ColumnSpan="5"
 									Classes="InfoTextBlock">
-					Conference mode is a way to hide some of the events that aren't messages.  In Best Chat, events include messages, parts, joins, quits, etc.  When Conference Mode is on, the hidden events will be shown as an sincle icon.  If you point to the icon with your mouse, Best Chat will show you what events are hidden.
+					Conference mode is a way to hide some of the events that aren't messages.  In Best Chat, events include messages, parts, joins, quits, etc.  When Conference Mode is on, the hidden events will be shown as an single icon.  If you point to the icon with your mouse, Best Chat will show you what events are hidden.
 				</TextBlock>
 				<Separator Grid.Row="1"
-									Height="2"/>
+									Grid.ColumnSpan="5"/>
 				<Button x:Name="btnResetConfModeEnabled"
+								ToolTip.Tip="Click to reset the Conference Mode enabled status to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding ConfModeEnabled.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetConfModeClicked"/>
 				<CheckBox x:Name="chkConfModeEnabled"
 									Grid.Column="2"
 									Grid.ColumnSpan="3"
+									ToolTip.Tip="Check to enable Conference mode and uncheck to disable it."
 									Content="Use Conference _Mode?"
 									IsChecked="{Binding ConfModeEnabled.CurVal}"/>
 				<Button x:Name="btnResetConfModeUserLimitBeforeTrigger"
 								Grid.Row="4"
+								ToolTip.Tip="Click to reset the limit on which conference mode activates to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding UserLimitBeforeTrigger.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetConfModeUserLimitBeforeTriggerClicked"/>
 				<Label Grid.Row="4"
+							Grid.Column="2"
 							HorizontalContentAlignment="Right"
-							Content="Number of _Users Who Must be Preset Before Conference Mode Activates:"/>
+							Content="Number of _Users Who Must be Present Before Conference Mode Activates:"/>
 				<NumericUpDown x:Name="nudUserLimitBeforeTrigger"
-											Minimum="4"
-											Value="{Binding UserLimitBeforeTrigger.CurVal}"/>
+											Grid.Row="4"
+											Grid.Column="4"
+											ToolTip.Tip="Use to specify the number of users present when conference mode activates."
+											Minimum="{Binding UserLimitBeforeTrigger.MinVal}"
+											Value="{Binding UserLimitBeforeTrigger.CurVal,Mode=TwoWay}"/>
 				<Button x:Name="btnResetConfModeCollapseMsgs"
 								Grid.Row="6"
+								ToolTip.Tip="Click to reset the Collapse Messages preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding MsgsCollapsed.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetConfModeCollapseMsgsClicked"/>
 				<CheckBox x:Name="chkConfModeCollapseMsgs"
 									Grid.Row="6"
 									Grid.Column="2"
 									Grid.ColumnSpan="3"
+									ToolTip.Tip="Check to collapse messages and uncheck to prevent them from being collapsed."
 									Content="Collapse M_essages?"
 									IsChecked="{Binding MsgsCollapsed.CurVal}"/>
 				<Button x:Name="btnResetConfModeCollapseActions"
 								Grid.Row="8"
+								ToolTip.Tip="Click to reset the Collapse Actions preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding ActionsCollapsed.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetConfModeCollapseActionsClicked"/>
 				<CheckBox x:Name="chkConfModeCollapseActions"
 									Grid.Row="8"
 									Grid.Column="2"
 									Grid.ColumnSpan="3"
+									ToolTip.Tip="Check to collapse actions and uncheck to prevent them from being collapsed."
 									Content="Collapse _Actions"
-									IsChecked="{Binding ActionsCollapsed.CurVal}">
-				</CheckBox>
+									IsChecked="{Binding ActionsCollapsed.CurVal}"/>
 			</Grid>
-		</group:GroupBox>
-		<group:GroupBox DataContext="{Binding TimeStamp}"
+		</GroupBox>
+		<GroupBox DataContext="{Binding TimeStamp}"
 										Header="Time Stamps">
-			<Grid ColumnDefinitions="Auto,4,Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+			<Grid Margin="4"
+						ColumnDefinitions="Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,10,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
 				<TextBlock Classes="InfoTextBlock"
-									Text="You can choose to have time stamps shown for each event or only some events using these options."/>
+									Text="You can choose to have time stamps shown for each event or only some events using these options.  There are two formats used.  One is for time stamps directly in the view.  These should normally be compact.  By default, Best Chat displays the date and time in a compact number only format.  However, you can choose to use only the time there.  The other format is used when you hover over a time stamp.  Then you’ll be able to see the full time and date.  The default there would include things like the name of the month rather than the number.  Note: Message Groups (see below) don’t reset how often time stamps can appear."/>
 				<Separator Grid.Row="1"
-									Height="2"
+									Grid.ColumnSpan="5"
 									VerticalAlignment="Center"/>
-				<Button Grid.Row="2"
+				<Button x:Name="btnResetShowTimeStamps"
+								Grid.Row="2"
+								ToolTip.Tip="Click to reset the Show the Time Stamps preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding Show.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetTimeStampsClicked"/>
 				<CheckBox x:Name="chkTimeStampShow"
 									Grid.Row="2"
 									Grid.Column="2"
 									Grid.ColumnSpan="3"
-									Content="_Show the time stamps?"
+									ToolTip.Tip="Check to show time stamps and uncheck to hide them."
+									Content="_Show the Time Stamps?"
 									IsChecked="{Binding Show.CurVal, Mode=TwoWay}"/>
-				<Button x:Name="btnResetTimeStampFmt"
+				<Button x:Name="btnResetTimeStampInlineFmt"
 								Grid.Row="4"
-								IsEnabled="{Binding Fmt.CanReset}"
-								Classes="ResetBtn"/>
+								ToolTip.Tip="Click to reset the inline time stamp format to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding InlineFmt.CanReset}"
+								Click="OnResetTimeStampInlineFmtClicked"/>
 				<Label Grid.Row="4"
 							Grid.Column="2"
 							HorizontalContentAlignment="Right"
-							Content="_Format to use for time stamps:"/>
-				<TextBox x:Name="editTimeStampFmt"
+							Content="_Format to use for inline time stamps:"/>
+				<TextBox x:Name="editTimeStampInlineFmt"
 								Grid.Row="4"
 								Grid.Column="4"
-								Text="{Binding Fmt.CurVal, Mode=TwoWay}"/>
-				<Button x:Name="btnResetTimeStampHowOftenToRepeat"
+								ToolTip.Tip="Specify the format you prefer for time stamps that appear directly in a view."
+								Text="{Binding InlineFmt.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetTimeStampExpandedFmt"
 								Grid.Row="6"
-								IsEnabled="{Binding HowOftenToRepeat.CanReset}"
-								Classes="ResetBtn"/>
+								ToolTip.Tip="Click to reset the tooltip time stamp format to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding InlineFmt.CanReset}"
+								Click="OnResetTimeStampExpandedFmtClicked"/>
 				<Label Grid.Row="6"
+							Grid.Column="2"
+							HorizontalContentAlignment="Right"
+							Content="_Format to use for time stamps in tooltips:"/>
+				<TextBox x:Name="editTimeStampExpandedFmt"
+								Grid.Row="6"
+								Grid.Column="4"
+								ToolTip.Tip="Specify the format you prefer when you position the mouse over a time stamp."
+								Text="{Binding InlineFmt.CurVal, Mode=TwoWay}"/>
+				<Button x:Name="btnResetTimeStampHowOftenToRepeat"
+								Grid.Row="8"
+								ToolTip.Tip="Click to reset the How Often Should the Time Stamp be Repeated preference to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding HowOftenToRepeat.CanReset}"
+								Click="OnResetTimeStampHowOftenToRepeatClicked"/>
+				<Label Grid.Row="8"
 							Grid.Column="2"
 							HorizontalContentAlignment="Right"
 							Content="How Often Should the Time Stamp be _Repeated:"/>
 				<base:TimeStampHowOftenToRepeatOptsComboBox x:Name="cbTimeStampHowOftenToRepeat"
-																										Grid.Row="6"
+																										Grid.Row="8"
 																										Grid.Column="4"
-																										SelectedItem="{Binding HowOftenToRepeat.CurVal, Mode=TwoWay}">
-				</base:TimeStampHowOftenToRepeatOptsComboBox>
+																										ToolTip.Tip="Select a period in which Best Chat should wait before displaying a new time stamp."
+																										SelectedItem="{Binding HowOftenToRepeat.CurVal, Mode=TwoWay}"/>
 			</Grid>
-		</group:GroupBox>
-		<group:GroupBox DataContext="{Binding MsgGroups}"
+		</GroupBox>
+		<GroupBox DataContext="{Binding MsgGroups}"
 										Header="Message Groups">
-			<Grid ColumnDefinitions="Auto,4,Auto,4,Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto">
+			<Grid Margin="4"
+						ColumnDefinitions="Auto,4,Auto,4,Auto,4,1*"
+						RowDefinitions="Auto,10,Auto,4,Auto,4,Auto">
 				<TextBlock Grid.ColumnSpan="7"
 									Classes="InfoTextBlock"
-									Text="Best Chat can group messages so the sender only appears once.  Some themes will also display common box or otherwise change their appearance for a group."/>
+									Text="Best Chat can group messages so the sender only appears once.  Some themes will also display common box or otherwise change their appearance for a group.  Messages Groups don’t affect how often a time stamp (see above) can appear."/>
 				<Separator Grid.Row="1"
-									Grid.ColumnSpan="5"/>
+									Grid.ColumnSpan="5"
+									VerticalAlignment="Center"/>
 				<Button x:Name="btnResetMsgGroupsEnabled"
 								Grid.Row="2"
+								ToolTip.Tip="Click to reset whether or not Message Groups are enabled to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding Enabled.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetMsgGroupsEnabledClicked"/>
 				<CheckBox x:Name="chkMsgGroupsEnabled"
 									Grid.Row="2"
 									Grid.Column="2"
 									Grid.ColumnSpan="5"
+									ToolTip.Tip="Check to have Best Chat group messages and uncheck to leave them ungrouped."
 									Content="Enable _Grouping of Messages?"
 									IsChecked="{Binding Enabled.CurVal}"/>
 				<Button x:Name="btnResetMsgGroupsHowLongToWaitBeforeStartingNewGroup"
 								Grid.Row="4"
+								ToolTip.Tip="Click to reset the How Long to Wait Before Starting a New Group preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding HowLongToWaitBeforeStartingNewGroup.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetMsgGroupsHowLongToWaitBeforeStartingNewGroupClicked"/>
 				<Label Grid.Row="4"
 							Grid.Column="2"
 							HorizontalContentAlignment="Right"
@@ -141,18 +186,22 @@
 				<CheckBox x:Name="chkMsgGroupsEnforceWaitTimeForNewGroup"
 									Grid.Row="4"
 									Grid.Column="4"
+									ToolTip.Tip="Check to enable a maximum wait time before a new group can be created and uncheck to allow groups to continue forever if uninterrupted by other events."
 									Content="Enable This?"
 									IsChecked="{calc:Binding 'HowLongToWaitBeforeStartingNewGroup.CurVal != null', Mode=TwoWay}"/>
 				<MaskedTextBox x:Name="maskMsgGroupsTimeForNewGroup"
 											Grid.Row="4"
 											Grid.Column="6"
+											ToolTip.Tip="Enter the amount of time you want Best Chat to wait.  This is in minutes and seconds.  Entering a 0 is the same as turning off the option above."
 											IsEnabled="{Binding IsChecked, ElementName=chkMsgGroupsEnforceWaitTimeForNewGroup}"
 											Mask="990:990"
 											Text="{Binding HowLongToWaitBeforeStartingNewGroup.CurVal, Mode=TwoWay}"/>
 				<Button x:Name="btnResetMsgGroupsMaxMsgsPerGroup"
 								Grid.Row="6"
+								ToolTip.Tip="CLick to reset the Number of Messages per Group preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding LimitMsgsPerGroup.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetMsgGroupsMaxMsgsPerGroupClicked"/>
 				<Label Grid.Row="6"
 							Grid.Column="2"
 							HorizontalContentAlignment="Right"
@@ -160,99 +209,136 @@
 				<CheckBox x:Name="chkMsgGroupLimitMaxMsgsPerGroup"
 									Grid.Row="6"
 									Grid.Column="4"
+									ToolTip.Tip="Check to have Best Chat start a new group after the current group has the number of messages as shown to the right.  Uncheck to allow groups have have unlimited number of messages."
 									Content="Enable This?"
 									IsChecked="{Binding LimitMsgsPerGroup.CurVal}"/>
 				<NumericUpDown x:Name="nudMsgGroupsMaxMsgsPerGroup"
 											Grid.Row="6"
 											Grid.Column="6"
-											Minimum="2"
+											ToolTip.Tip="Enter the desired number of messages before Best Chat must start a new group"
+											IsEnabled="{Binding LimitMsgsPerGroup.CurVal}"
+											Minimum="{Binding MaxMsgsPerGroup.MinVal}"
 											Value="{Binding MaxMsgsPerGroup.CurVal}"/>
 			</Grid>
-		</group:GroupBox>
-		<group:GroupBox DataContext="{Binding Animation}"
+		</GroupBox>
+		<GroupBox DataContext="{Binding Animation}"
 										Header="_Other Animation">
-			<Grid ColumnDefinitions="Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto">
-				<TextBlock Grid.ColumnSpan="3"
-									Classes="InfoTextBlock"
+			<StackPanel Margin="4"
+									Orientation="Vertical"
+									Spacing="4">
+				<TextBlock Classes="InfoTextBlock"
 									Text="Animated images can be annoying, especially if they play continuously forever.  Best Chat lets you prevent them from automatically playing.  It can also limit how many times they play."/>
-				<Separator Grid.Row="1"
-									Grid.ColumnSpan="3"/>
-				<!-- ReSharper disable once InconsistentNaming -->
-				<Button x:Name="btnResetAnimationGIFs"
-								Grid.Row="2"
-								IsEnabled="{Binding GIFs.CanReset}"
-								Classes="ResetBtn"/>
-				<group:GroupBox Grid.Row="2"
-												Header="_GIFs">
+				<Separator VerticalAlignment="Center"/>
+				<GroupBox>
+					<GroupBox.Header>
+						<StackPanel Orientation="Horizontal"
+												Spacing="4">
+							<Button x:Name="btnResetAnimationGIFs"
+											ToolTip.Tip="Click to reset the GIFs animation preference to the Best Chat default."
+											Classes="ResetBtn"
+											IsEnabled="{Binding GIFs.CanReset}"
+											Click="OnResetAnimationGIFsClicked"/>
+							<Label Content="_GIFs"/>
+						</StackPanel>
+					</GroupBox.Header>
 					<base:GifAnimationOptsRadioBtnGroup SelVal="{Binding GIFs.CurVal, Mode=TwoWay}"/>
-				</group:GroupBox>
-				<Button x:Name="btnResetAnimationAvatars"
-								Grid.Row="4"
-								IsEnabled="{Binding Avatars.CanReset}"
-								Classes="ResetBtn"/>
-				<group:GroupBox Grid.Row="4"
-												Grid.Column="2"
-												Header="A_vatars">
+				</GroupBox>
+				<GroupBox>
+					<GroupBox.Header>
+						<StackPanel Orientation="Horizontal"
+												Spacing="4">
+							<Button x:Name="btnResetAnimationAvatars"
+											ToolTip.Tip="Click to reset the animation of Avatars to the Best Chat default."
+											Classes="ResetBtn"
+											IsEnabled="{Binding Avatars.CanReset}"
+											Click="OnResetAnimationAvatarsClicked"/>
+							<Label Content="A_vatars"/>
+						</StackPanel>
+					</GroupBox.Header>
 					<base:GifAnimationOptsRadioBtnGroup SelVal="{Binding Avatars.CurVal, Mode=TwoWay}"/>
-				</group:GroupBox>
-				<Button x:Name="btnResetAnimationResumeOnMouseOver"
-								Grid.Row="6"
-								IsEnabled="{Binding ResumeOnMouseOver.CanReset}"/>
-				<CheckBox x:Name="chkAnimationResumeOnMouseOver"
-									Grid.Row="6"
-									Grid.Column="2"
-									Content="_Resume Animation on Mouse Over Objects?"
-									IsCancel="{Binding ResumeOnMouseOver.CurVal, Mode=TwoWay}">
-				</CheckBox>
-			</Grid>
-		</group:GroupBox>
-		<group:GroupBox Header="Other Appearance Settings">
+				</GroupBox>
+				<StackPanel Orientation="Horizontal"
+										Spacing="4">
+					<Button x:Name="btnResetAnimationResumeOnMouseOver"
+									ToolTip.Tip="Click to reset the Resume Animation on Mouse Over Objects to the Best Chat default."
+									IsEnabled="{Binding ResumeOnMouseOver.CanReset}"
+									Click="OnResetAnimationResumeOnMouseOverClicked"/>
+					<CheckBox x:Name="chkAnimationResumeOnMouseOver"
+										ToolTip.Tip="Check to have Best Chat resume animations only when the mouse is over something that can animate and uncheck it when the mouse isn’t over such an object."
+										Content="_Resume Animation on Mouse Over Objects?"
+										IsCancel="{Binding ResumeOnMouseOver.CurVal, Mode=TwoWay}"/>
+				</StackPanel>
+			</StackPanel>
+		</GroupBox>
+		<GroupBox Header="Other Appearance Settings">
 			<Grid ColumnDefinitions="Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto">
+						RowDefinitions="Auto,10,Auto,4,Auto,4,Auto,4,Auto">
 				<TextBlock Grid.ColumnSpan="3"
 									Classes="InfoTextBlock"
-									Text="Lists various settings that have no other home"/>
+									Text="Lists various settings that have no other home."/>
 				<Separator Grid.Row="1"
-									Grid.ColumnSpan="3"/>
+									Grid.ColumnSpan="3"
+									VerticalAlignment="Center"/>
 				<Button x:Name="btnResetHyphenateLongWords"
 								Grid.Row="2"
+								ToolTip.Tip="Click to reset the hyphenation of long words to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding HyphenateLongWords.CanReset}"
-								Classes="ResetBtn"/>
+								Click="ResetHyphenateLongWordsClicked"/>
 				<CheckBox x:Name="chkResetHyphenateLongWords"
 									Grid.Row="2"
 									Grid.Column="2"
+									ToolTip.Tip="Check to display long words hyphenated when they don’t fit in the window and uncheck to force Best Chat to break the line before the word."
 									Content="_Hyphenate Long Words?"
 									IsCancel="{Binding HyphenateLongWords.CurVal, Mode=TwoWay}"/>
 				<Button x:Name="btnResetRecognizeLinks"
 								Grid.Row="4"
+								ToolTip.Tip="Click to reset the Recognize Links preference to the Best Chat default."
+								Classes="ResetBtn"
 								IsEnabled="{Binding RecognizeLinks.CanReset}"
-								Classes="ResetBtn"/>
+								Click="OnResetRecognizeLinksClicked"/>
 				<CheckBox x:Name="chkRecognizeLinks"
 									Grid.Row="4"
 									Grid.Column="2"
+									ToolTip.Tip="Check to have Best Chat show links as something you can click on to visit that site and uncheck to leave them as plain text."
 									Content="Recognize _Links?"
 									IsCancel="{Binding RecognizeLinks.CurVal, Mode=TwoWay}"/>
 				<Button x:Name="btnResetDisplayCtrlChars"
 								Grid.Row="6"
-								IsEnabled="{Binding DisplayCtrlChars.CanReset}"/>
+								ToolTip.Tip="Click to reset the Display Control Characters preference to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding DisplayCtrlChars.CanReset}"
+								Click="OnResetDisplayCtrlCharsClicked"/>
 				<CheckBox x:Name="chkDisplayCtrlChars"
 									Grid.Row="6"
 									Grid.Column="2"
-									Content="Display _Control Characters"
+									ToolTip.Tip="Check to have Best Chat display any control characters it doesn’t recognize and uncheck to hide those."
+									Content="Display Unknown _Control Characters"
 									IsChecked="{Binding DisplayCtrlChars.CurVal, Mode=TwoWay}"/>
 				<Button x:Name="btnResetUseTypographicalQuotes"
 								Grid.Row="8"
-								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"
-								Classes="ResetBtn"/>
+								ToolTip.Tip="Click to reset the Use Typographical Quotes preference to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"/>
 				<CheckBox x:Name="chkUseTypographicalQuotes"
 									Grid.Row="8"
 									Grid.Column="2"
 									Content="Use Typographical _Quotes?"
-									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}"/>
+									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}">
+					<ToolTip.Tip>
+						<TextBlock>
+							Check to display typographical quotes instead of ordinary quotes.  This has no effect on what you type until it’s displayed and only in the view.  If you type ordinary quotes, those will be sent as typed unless  you specify the conversion option in
+							<InlineUIContainer>
+								<HyperlinkButton x:Name="hlinkGlobalComposition"
+																Content="/Global/Composition"/>
+							</InlineUIContainer>
+							.
+						</TextBlock>
+					</ToolTip.Tip>
+				</CheckBox>
 			</Grid>
-		</group:GroupBox>
-		<Separator Height="2"/>
+		</GroupBox>
+		<Separator Margin="0,4"/>
 		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:AbstractVisualPrefsTabCtrl}}"/>
 	</StackPanel>
 </base:AbstractVisualPrefsTabCtrl>

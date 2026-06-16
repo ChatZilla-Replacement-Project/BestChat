@@ -26,7 +26,7 @@ public class GlobalAltNicksOneAltNick : Platform.DataAndExt.Obj<GlobalAltNicksOn
 		{
 			strNickToUse = dto.NickToUse;
 
-			this.mgrParent = parent;
+			mgrParent = parent;
 		}
 	#endregion
 

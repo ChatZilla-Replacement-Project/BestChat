@@ -14,10 +14,10 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 			dcc = new(this);
 			autoPeform = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.AutoPerform);
 			conn = new(this);
-			aliases = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global.Aliases);
-			altNicks = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global.AltNicks);
+			aliases = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.Aliases);
+			altNicks = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.AltNicks);
 			notifyWhenOnline = new(this);
-			stalkWords = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global.StalkWords);
+			stalkWords = new(this, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.StalkWords);
 			knownChans = new(this);
 		}
 
@@ -33,10 +33,10 @@ public class NetPrefs<GlobalPrefsType, GlobalDtoType> : NetPrefsBase
 			autoPeform = new(this, dto.AutoPerform, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global
 				.AutoPerform);
 			conn = new(this, dto.Conn);
-			aliases = new(this, dto.Aliases, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global.Aliases);
-			altNicks = new(this, dto.AltNicks, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global.AltNicks);
+			aliases = new(this, dto.Aliases, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.Aliases);
+			altNicks = new(this, dto.AltNicks, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global.AltNicks);
 			notifyWhenOnline = new(this, dto.NotifyWhenOnline);
-			stalkWords = new(this, dto.StalkWords, Prefs<GlobalPrefsType, GlobalDtoType>.Instance!.Global
+			stalkWords = new(this, dto.StalkWords, Prefs<GlobalPrefsType, GlobalDtoType>.Instance.Global
 				.StalkWords);
 			knownChans = new(this, dto.KnownChans);
 		}

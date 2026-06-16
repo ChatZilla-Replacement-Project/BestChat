@@ -814,5 +814,167 @@ namespace BestChat.Platform.UI.Desktop {
                 return ResourceManager.GetString("strGlobalCompositionUseTypographicalQuotesTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep popup own for this many seconds..
+        /// </summary>
+        internal static string strGlobalNotificationKeepVisibleFor {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationKeepVisibleFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method.
+        /// </summary>
+        internal static string strGlobalNotificationMethod {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifies the method in which Best Chat makes notifications happen..
+        /// </summary>
+        internal static string strGlobalNotificationMethodDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationMethodDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls how Best Chat displays notifications.
+        /// </summary>
+        internal static string strGlobalNotificationsDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable History.
+        /// </summary>
+        internal static string strGlobalNotificationsEnableHistory {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsEnableHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you uncheck this, Best Chat won&apos;t show the history view or remember issuing them.  If you also set the method to off, you’ll never have any notifications or record other than in the IRC client tab..
+        /// </summary>
+        internal static string strGlobalNotificationsEnableHistoryDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsEnableHistoryDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you selected the popup window option about, Best Chat will continue to display notifications for this many seconds..
+        /// </summary>
+        internal static string strGlobalNotificationsKeepVisibleForDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsKeepVisibleForDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play a sound during notifications.
+        /// </summary>
+        internal static string strGlobalNotificationsPlaySound {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsPlaySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best Chat can issue an audible indication that a notification has happened.  If you want that, specify the sound below..
+        /// </summary>
+        internal static string strGlobalNotificationsPlaySoundDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsPlaySoundDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which sound do you want played?.
+        /// </summary>
+        internal static string strGlobalNotificationsSoundToPlay {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsSoundToPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the file containing the sound you want played..
+        /// </summary>
+        internal static string strGlobalNotificationsSoundToPlayDesc {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsSoundToPlayDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        internal static string strGlobalNotificationsTitle {
+            get {
+                return ResourceManager.GetString("strGlobalNotificationsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string strNotificationMethodOff {
+            get {
+                return ResourceManager.GetString("strNotificationMethodOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best Chat won’t display any notifications.  You’ll need to check yourself.  However, notifications will appear in the notifications view..
+        /// </summary>
+        internal static string strNotificationMethodOffDesc {
+            get {
+                return ResourceManager.GetString("strNotificationMethodOffDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OS based notification.
+        /// </summary>
+        internal static string strNotificationMethodOsBased {
+            get {
+                return ResourceManager.GetString("strNotificationMethodOsBased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best Chat will send notifications to your OS&apos;s notification system.  This may mean those notifications will be mixed in with notifications from other applications.  You may or may not prefer that.  This type of notification is sometimes called a “toast”..
+        /// </summary>
+        internal static string strNotificationMethodOsBasedDesc {
+            get {
+                return ResourceManager.GetString("strNotificationMethodOsBasedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popup Window.
+        /// </summary>
+        internal static string strNotificationMethodPopupWnd {
+            get {
+                return ResourceManager.GetString("strNotificationMethodPopupWnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Best Chat will use one of its own windows to display the notification.  You’ll need to rely on Best Chat’s notification view to see history.  With this method, the popup will show all notifications that happened within the time period selected below..
+        /// </summary>
+        internal static string strNotificationMethodPopupWndDesc {
+            get {
+                return ResourceManager.GetString("strNotificationMethodPopupWndDesc", resourceCulture);
+            }
+        }
     }
 }

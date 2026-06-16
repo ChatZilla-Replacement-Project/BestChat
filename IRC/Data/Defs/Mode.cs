@@ -1,5 +1,7 @@
 ﻿// Ignore Spelling: Esc evt Defs
 
+using System.Linq;
+
 namespace BestChat.IRC.Data.Defs;
 
 public interface IModeState<StateType>
@@ -63,9 +65,11 @@ public class BoolModeState : IModeState<BoolModeStates>
 	#endregion
 
 	#region Constants
-		public static readonly BoolModeState on = new(BoolModeStates.on, Rsrcs.strBoolModeStateOnDesc, '+');
+		public static readonly BoolModeState on = new(BoolModeStates.on, Rsrcs.strBoolModeStateOnDesc,
+			'+');
 
-		public static readonly BoolModeState off = new(BoolModeStates.off, Rsrcs.strBoolModeStateOffDesc, null);
+		public static readonly BoolModeState off = new(BoolModeStates.off, Rsrcs.strBoolModeStateOffDesc,
+			null);
 	#endregion
 
 	#region Helper Types
@@ -295,7 +299,7 @@ public class Mode<ModeStateType, ModeStateTypeInternal> : System.ComponentModel.
 	#endregion
 
 	#region Helper Types
-		public class Param : AbstractModeParam, System.ComponentModel.INotifyPropertyChanged,
+		public class Param : AbstractModeParam,
 			IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.IReadOnlyParam
 		{
 			#region Constructors & Deconstructors
@@ -326,7 +330,7 @@ public class Mode<ModeStateType, ModeStateTypeInternal> : System.ComponentModel.
 			#region Members
 				public readonly Mode<ModeStateType, ModeStateTypeInternal> modeOwner;
 
-				private object? objVal = null;
+				private object? objVal;
 			#endregion
 
 			#region Properties
@@ -427,13 +431,16 @@ public class Mode<ModeStateType, ModeStateTypeInternal> : System.ComponentModel.
 		public System.Collections.Generic.IReadOnlyDictionary<string, Param> AllParamsByName
 			=> mapParamsByName;
 
-		System.Collections.Generic.IReadOnlyDictionary<string, IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.IReadOnlyParam>
-				IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.AllParamsByName
-			=> (System.Collections.Generic.IReadOnlyDictionary<string, IReadOnlyMode<ModeStateType, ModeStateTypeInternal>
-				.IReadOnlyParam>)mapParamsByName;
+		System.Collections.Generic.IReadOnlyDictionary<string, IReadOnlyMode<ModeStateType, ModeStateTypeInternal>
+				.IReadOnlyParam> IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.AllParamsByName
+			=> new System.Collections.Generic.Dictionary<string, IReadOnlyMode<ModeStateType, ModeStateTypeInternal>
+					.IReadOnlyParam>(mapParamsByName.Select(kvCur
+				=> new System.Collections.Generic.KeyValuePair<string,IReadOnlyMode<ModeStateType, ModeStateTypeInternal>
+					.IReadOnlyParam>(kvCur.Key, kvCur.Value)));
 
-		public System.Collections.Generic.IEnumerable<IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.IReadOnlyParam> AllParams
-			=> mapParamsByName.Values;
+		public System.Collections.Generic.IEnumerable<IReadOnlyMode<ModeStateType, ModeStateTypeInternal>.IReadOnlyParam>
+			AllParams
+				=> mapParamsByName.Values;
 	#endregion
 
 	#region Methods
@@ -450,7 +457,7 @@ public class Mode<ModeStateType, ModeStateTypeInternal> : System.ComponentModel.
 
 		public string ApplyFmt()
 		{
-			if(mdUs is Defs.ChanMode cmdUs && cmdUs.FmtAsSentToNetwork != null)
+			if(mdUs is ChanMode cmdUs)
 			{
 				string strResult = "";
 				string strNameOfCurField = "";
@@ -588,7 +595,7 @@ public class Mode<ModeStateType, ModeStateTypeInternal> : System.ComponentModel.
 			return "";
 		}
 
-		public override string? ToString()
+		public override string ToString()
 			=> state.CharToDescState == null
 				? ""
 				: $"{state.CharToDescState}{mdUs.ModeChar} {ApplyFmt()}";

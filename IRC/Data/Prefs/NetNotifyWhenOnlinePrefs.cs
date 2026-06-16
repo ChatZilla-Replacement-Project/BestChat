@@ -18,13 +18,11 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				(
 						notifyEntry,
 						evth)
-					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (
-							in NotifyWhenOnlineOneNotify notifySender, in string strVal,
-							in string _)
-						=> evth(strVal, notifyEntry),
+					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (in NotifyWhenOnlineOneNotify notifySender,
+							in string strVal, in string _)
+						=> evth(strVal, notifySender),
 				(
-						notifyEntry,
-						evth)
+						notifyEntry, evth)
 					=>
 						{
 							notifyEntry.evtWhatToFollowChanged -= mapNotifyHandlers[evth];
@@ -49,10 +47,9 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				(
 						notifyEntry,
 						evth)
-					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (
-							in NotifyWhenOnlineOneNotify notifySender, in string strVal,
-							in string _)
-						=> evth(strVal, notifyEntry),
+					=> notifyEntry.evtWhatToFollowChanged += mapNotifyHandlers[evth] = (in NotifyWhenOnlineOneNotify notifySender,
+							in string strVal, in string _)
+						=> evth(strVal, notifySender),
 				(
 						notifyEntry,
 						evth)
@@ -91,7 +88,7 @@ public class NetNotifyWhenOnlinePrefs : Platform.DataAndExt.Prefs.AbstractChildM
 	#endregion
 
 	#region Methods
-		public string[]? ToDTO()
+		public string[] ToDTO()
 			=> [..
 				entries.Values.Select(notifyCur
 					=> notifyCur.WhatToFollow),

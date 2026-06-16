@@ -8,7 +8,7 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 			ItemBaseType, ItemDtoType>>
 		where ItemType : ItemBaseType
 		where ItemBaseType : Platform.DataAndExt.Obj<ItemBaseType>, IDataDef<ItemBaseType>
-		where ItemDtoType : IDataDefBasic<ItemDtoType>
+		where ItemDtoType : IDataDefBasic
 {
 	#region Constructors & Deconstructors
 		protected MgrBase(System.IO.FileInfo fileUserData, DGetItemFromDTO funcItemMaker)
@@ -26,13 +26,29 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 		}
 
 		protected MgrBase(System.Uri uriPredefinedData, DGetItemFromDTO funcItemMaker)
-			=> LoadData(System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(client
-				.GetStringAsync(uriPredefinedData.AbsoluteUri).Result) ?? [], funcItemMaker);
+		{
+			Platform.DataAndExt.HttpClientOwner hco = Platform.DataAndExt.HttpClientOwner.Instance ?? throw new System
+				.InvalidProgramException(@"No HTTP client owner.  Was Platform.DataAndExt.HttpClientOwner derived from by the "
+				+ @"app?");
+
+			System.Net.Http.HttpClient client = hco.ClientToUse ?? throw new System.InvalidProgramException(@"No HTTP client "
+				+ @" was found on the client owner.");
+
+			LoadData(System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(client.GetStringAsync(uriPredefinedData
+				.AbsoluteUri).Result) ?? [], funcItemMaker);
+		}
 
 		protected MgrBase(System.Uri uriPredefinedData, System.IO.FileInfo fileUserData, DGetItemFromDTO funcItemMaker)
 		{
+			Platform.DataAndExt.HttpClientOwner hco = Platform.DataAndExt.HttpClientOwner.Instance ?? throw new System
+				.InvalidProgramException(@"No HTTP client owner.  Was Platform.DataAndExt.HttpClientOwner derived from by the "
+					+ @"app?");
+
+			System.Net.Http.HttpClient client = hco.ClientToUse ?? throw new System.InvalidProgramException(@"No HTTP client "
+				+ @" was found on the client owner.");
+
 			LoadData(System.Text.Json.JsonSerializer.Deserialize<ItemDtoType[]>(client.GetStringAsync(uriPredefinedData
-				.AbsoluteUri).Result) ?? [], funcItemMaker);
+					.AbsoluteUri).Result) ?? [], funcItemMaker);
 
 			if(fileUserData.Exists)
 				try
@@ -42,12 +58,9 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 				}
 				catch(System.Exception e)
 				{
-					throw new System.Exception($"Unable to reload your custom IRC networks due to {e.Message}.", e);
+					throw new System.Exception($@"Unable to reload your custom IRC networks due to {e.Message}.", e);
 				}
 		}
-
-		static MgrBase()
-			=> client = new();
 	#endregion
 
 	#region Delegates
@@ -66,8 +79,6 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 	#endregion
 
 	#region Members
-		private static readonly System.Net.Http.HttpClient client;
-
 		private readonly System.Collections.Generic.SortedDictionary<string, ItemType> mapAllItemsSortedByName =
 			[];
 
@@ -99,8 +110,8 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 			lock(objLock)
 			{
 				if(mapAllItemsSortedByName.ContainsKey(@new.Name))
-					throw new System.ArgumentException($"The IRC network manager already has a network named {@new.Name} and"
-						+ " can't accommodate a second with the same name.", nameof(@new));
+					throw new System.ArgumentException($@"The IRC network manager already has a network named {@new.Name} and"
+						+ @" can't accommodate a second with the same name.", nameof(@new));
 
 				mapAllItemsSortedByName[@new.Name] = @new;
 
@@ -155,14 +166,14 @@ public abstract class MgrBase<ItemType, ItemBaseType, ItemDtoType> : Platform.Da
 public class PredefinedNetMgr : MgrBase<PredefinedNet, Net, DTO.PredefinedNetDTO>
 {
 	private PredefinedNetMgr() :
-		base(new System.Uri("https://raw.githubusercontent.com/ChatZilla-Replacement-Project/" +
-			"JSON-Data/main/Defaults/Network-def.json"), MakeNetworkFromDto)
+		base(new System.Uri(@"https://raw.githubusercontent.com/ChatZilla-Replacement-Project/JSON-Data/main/Defaults/" +
+			"Network-def.json"), MakeNetworkFromDto)
 	{
 	}
 
 	public static readonly PredefinedNetMgr mgr = new();
 
-	private static PredefinedNet? MakeNetworkFromDto(in DTO.PredefinedNetDTO dpnet)
+	private static PredefinedNet MakeNetworkFromDto(in DTO.PredefinedNetDTO dpnet)
 		=> new(dpnet);
 }
 
@@ -181,7 +192,7 @@ public class UserNetMgr : MgrBase<UserNet, Net, DTO.UserNetDTO>
 
 	public static readonly UserNetMgr mgr = new();
 
-	private static UserNet? MakeNetworkFromDto(in DTO.UserNetDTO dunet)
+	private static UserNet MakeNetworkFromDto(in DTO.UserNetDTO dunet)
 		=> new(dunet);
 
 	private readonly System.Threading.Thread threadSave;

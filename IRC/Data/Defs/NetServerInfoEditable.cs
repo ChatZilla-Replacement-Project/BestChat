@@ -133,6 +133,6 @@ public class NetServerInfoEditable : NetServerInfo, System.ComponentModel.INotif
 	{
 		if(!WereChangesMade)
 			return;
-
+		// TODO: Save the data
 	}
 }

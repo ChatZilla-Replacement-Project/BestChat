@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BestChat.Platform.UI.Desktop.Prefs;
 
-using Platform.DataAndExt.Ext;
+using DataAndExt.Ext;
 
 public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 {
@@ -19,8 +19,9 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 			funcCtrlMaker = mapDataMgrToCtrlType[mgr.GetType()];
 
-			foreach(DataAndExt.Prefs.AbstractChildMgr cmgrCur in mgr.ChildMgrByName.Where(cmgrCur => !UI.HandlesChildMgrsOfType
-					.Contains(cmgrCur.GetType())))
+			foreach(DataAndExt.Prefs.AbstractChildMgr cmgrCur in mgr.ChildMgrByName.Where(cmgrCur
+					=> !UI.HandlesChildMgrsOfType.Contains(cmgrCur.GetType()))
+				)
 				ocChildren.Add(new(cmgrCur));
 	}
 	#endregion
@@ -38,11 +39,42 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs
-			.AbstractMgr, AbstractVisualPrefsTabCtrl>?> mapDataMgrToCtrlType = [];
+		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
+			AbstractVisualPrefsTabCtrl>?> mapDataMgrToCtrlType = new()
+		{
+			[typeof(GlobalNotificationsPrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalNotificationsPage()
+			{
+				Ctxt = mgrToMakeCtrlFor as GlobalNotificationsPrefs,
+			},
+			[typeof(GlobalAppearanceEmojiPrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalAppearanceEmojiPage()
+				{
+					Ctxt = mgrToMakeCtrlFor as GlobalAppearanceEmojiPrefs,
+				},
+			[typeof(GlobalAppearanceFontsOneFontBlockPrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalAppearanceFontsOneFontBlockPage()
+				{
+					Ctxt = mgrToMakeCtrlFor as GlobalAppearanceFontsOneFontBlockPrefs,
+				},
+			[typeof(GlobalAppearancePrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalAppearancePage()
+				{
+					Ctxt = mgrToMakeCtrlFor as GlobalAppearancePrefs,
+				},
+			[typeof(GlobalAppearanceUserListPrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalAppearanceUserListPage()
+				{
+					Ctxt = mgrToMakeCtrlFor as GlobalAppearanceUserListPrefs,
+				},
+			[typeof(GlobalPrefs)] = mgrToMakeCtrlFor
+				=> new Pages.GlobalPage()
+				{
+					Ctxt = mgrToMakeCtrlFor as GlobalPrefs,
+				},
+		};
 
-		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren =
-			[];
+		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren = [];
 
 		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>
 			mapExistingCreatedPages = [];
@@ -80,15 +112,16 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 			AbstractVisualPrefsTabCtrl> funcCtrlMaker)
 		{
 			if(!typeOfMgr.IsDerivedFrom(typeof(DataAndExt.Prefs.AbstractMgr)))
-				throw new System.ArgumentException("When calling BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType, the" +
-					$" type specified in {typeOfMgr} must be a BestChat preference manager, either child or main.", nameof(typeOfMgr));
+				throw new System.ArgumentException(@"When calling BestChat.Platform.TreeData.VisualTreeData" +
+					$@".RegisterDataEditorCtrlType, the type specified in {typeOfMgr} must be a BestChat preference manager, " +
+					@"either child or main.", nameof(typeOfMgr));
 
 			if(mapDataMgrToCtrlType.ContainsKey(typeOfMgr))
-				throw new System.ArgumentException("Chat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType was already called " +
-					"with a manager type that was already in the system.", nameof(typeOfMgr));
+				throw new System.ArgumentException(@"Chat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType was " +
+					@"already called with a manager type that was already in the system.", nameof(typeOfMgr));
 
-			mapDataMgrToCtrlType[typeOfMgr] = funcCtrlMaker ?? throw new System.ArgumentNullException(nameof(funcCtrlMaker), "The function passed"
-				+ " to BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorType in was null");
+			mapDataMgrToCtrlType[typeOfMgr] = funcCtrlMaker ?? throw new System.ArgumentNullException(nameof(funcCtrlMaker),
+				@"The function passed to BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorType was null");
 		}
 	#endregion
 

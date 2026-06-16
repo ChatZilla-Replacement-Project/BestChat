@@ -8,6 +8,7 @@ public class GlobalPrefs : DataAndExt.Prefs.GlobalPrefsBase<GlobalPrefs, GlobalA
 		{
 			appearance = new(this);
 			composition = new(this);
+			notifications = new(this);
 		}
 
 		internal GlobalPrefs(RootPrefs mgrParent, DTO.RootDTO.GlobalDTO dto) :
@@ -15,6 +16,7 @@ public class GlobalPrefs : DataAndExt.Prefs.GlobalPrefsBase<GlobalPrefs, GlobalA
 		{
 			appearance = new(this, dto.Appearance);
 			composition = new(this, dto.Composition);
+			notifications = new(this, dto.Notifications);
 		}
 	#endregion
 
@@ -34,6 +36,8 @@ public class GlobalPrefs : DataAndExt.Prefs.GlobalPrefsBase<GlobalPrefs, GlobalA
 		private readonly GlobalAppearancePrefs appearance;
 
 		private readonly GlobalCompositionPrefs composition;
+
+		private readonly GlobalNotificationsPrefs notifications;
 	#endregion
 
 	#region Properties
@@ -42,6 +46,9 @@ public class GlobalPrefs : DataAndExt.Prefs.GlobalPrefsBase<GlobalPrefs, GlobalA
 
 		public GlobalCompositionPrefs Composition
 			=> composition;
+
+		public GlobalNotificationsPrefs Notifications
+			=> notifications;
 	#endregion
 
 	#region Methods
@@ -49,7 +56,8 @@ public class GlobalPrefs : DataAndExt.Prefs.GlobalPrefsBase<GlobalPrefs, GlobalA
 			=> new(
 				appearance.ToDTO(),
 				Plugins.ToDTO(),
-				composition.ToDTO()
+				composition.ToDTO(),
+				notifications.ToDTO()
 			);
 	#endregion
 

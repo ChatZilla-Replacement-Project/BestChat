@@ -82,8 +82,7 @@
 							<DrawingGroup Transform="1.0,0.0,0.0,1.0,-96.592033,-148.42199">
 								<GeometryDrawing Brush="#fc000000">
 									<GeometryDrawing.Geometry>
-										<PathGeometry Figures="m 119.256 165.747 l -22.6637 -0.14418 l 0.0036 -0.70538 l 22.6663 0.14469 z m -12.2365 -1.68155 l -7.82743 -15.6435 h 15.6549 z"
-																	FillRule="Nonzero"/>
+										<PathGeometry Figures="m 119.256 165.747 l -22.6637 -0.14418 l 0.0036 -0.70538 l 22.6663 0.14469 z m -12.2365 -1.68155 l -7.82743 -15.6435 h 15.6549 z"/>
 									</GeometryDrawing.Geometry>
 								</GeometryDrawing>
 							</DrawingGroup>
@@ -102,8 +101,7 @@
 				<DrawingGroup Transform="1.0,0.0,0.0,1.0,-96.592033,-148.42199">
 					<GeometryDrawing Brush="#fc000000">
 						<GeometryDrawing.Geometry>
-							<PathGeometry Figures="m 119.256 148.422 l -22.6637 0.14418 l 0.0036 0.70538 l 22.6663 -0.14469 z m -12.2365 1.68155 l -7.82743 15.6435 h 15.6549 z"
-														FillRule="Nonzero"/>
+							<PathGeometry Figures="m 119.256 148.422 l -22.6637 0.14418 l 0.0036 0.70538 l 22.6663 -0.14469 z m -12.2365 1.68155 l -7.82743 15.6435 h 15.6549 z"/>
 						</GeometryDrawing.Geometry>
 					</GeometryDrawing>
 				</DrawingGroup>

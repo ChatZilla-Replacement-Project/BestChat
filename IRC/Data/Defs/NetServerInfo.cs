@@ -9,7 +9,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 	#region Constructors & Deconstructors
 		public NetServerInfo(in Net netParent)
 		{
-			this.Parent = netParent;
+			Parent = netParent;
 			strDomain = "";
 		}
 
@@ -20,7 +20,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 			in System.Collections.Generic.IEnumerable<ushort> eusPorts,
 			in System.Collections.Generic.IEnumerable<ushort> eusSslPorts)
 		{
-			this.Parent = netParent;
+			Parent = netParent;
 			this.strDomain = strDomain;
 			bEnabled = true;
 
@@ -48,7 +48,7 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 
 		public NetServerInfo(in Net netParent, in DTO.NetServerInfoDTO dserverUs)
 		{
-			this.Parent = netParent;
+			Parent = netParent;
 
 			strDomain = dserverUs.Domain;
 			bEnabled = dserverUs.IsEnabled;
@@ -290,8 +290,19 @@ public class NetServerInfo : Platform.DataAndExt.Obj<NetServerInfo>
 		}
 
 		public DTO.NetServerInfoDTO ToDTO()
-			=> new(strDomain, [.. ussetPorts], [.. ussetSslPorts], bEnabled);
-	#endregion
+			=> new(
+				strDomain,
+				[..
+					ussetPorts,
+				],
+				[..
+					ussetSslPorts,
+				],
+				bEnabled);
+
+			protected sealed override void MakeDirty()
+				=> base.MakeDirty();
+		#endregion
 
 	#region Event Handlers
 	#endregion

@@ -18,9 +18,9 @@ public class GlobalStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr,
 					=> val.Ctnts,
 				(swEntry,
 						evth)
-					=> swEntry.evtCtntsChanged += mapStalkWordHandlers[evth] = (in GlobalStalkWordsOneStalkWord swEntry, in string
-							strOldCtnts, in string _)
-						=> evth(strOldCtnts, swEntry),
+					=> swEntry.evtCtntsChanged += mapStalkWordHandlers[evth] = (in GlobalStalkWordsOneStalkWord swEntryCur, in
+							string strOldCtnts, in string _)
+						=> evth(strOldCtnts, swEntryCur),
 				(swEntry,
 						evth)
 					=>
@@ -48,9 +48,9 @@ public class GlobalStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr,
 					=> val.Ctnts,
 				(swEntry,
 						evth)
-					=> swEntry.evtCtntsChanged += mapStalkWordHandlers[evth] = (in GlobalStalkWordsOneStalkWord swEntry, in string
-							strOldCtnts, in string _)
-						=> evth(strOldCtnts, swEntry),
+					=> swEntry.evtCtntsChanged += mapStalkWordHandlers[evth] = (in GlobalStalkWordsOneStalkWord swEntryCur, in
+							string strOldCtnts, in string _)
+						=> evth(strOldCtnts, swEntryCur),
 				(swEntry,
 						evth)
 					=>
@@ -87,7 +87,7 @@ public class GlobalStalkWordsPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr,
 	#endregion
 
 	#region Methods
-		public DTO.GlobalStalkWordsOneStalkWordDTO[]? ToDTO()
+		public DTO.GlobalStalkWordsOneStalkWordDTO[] ToDTO()
 			=> entries.Values.Select(swCur =>
 				swCur.ToDTO()
 			).ToArray();

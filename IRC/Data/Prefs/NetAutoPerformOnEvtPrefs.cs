@@ -24,10 +24,12 @@ public class NetAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChildM
 				KeyObtainer,
 				(overrideEntry,
 						evth) =>
-					overrideEntry.inheritedItem.evtWhatToDoChanged += mapInheritedStepsHandlers[evth] = (in GlobalAutoPerformOneStep
-						stepEntry, in GlobalAutoPerformOneStep.CmdCall cmdcOldVal, in GlobalAutoPerformOneStep.CmdCall _)
+					overrideEntry.inheritedItem.evtWhatToDoChanged += mapInheritedStepsHandlers[evth] = (in
+						GlobalAutoPerformOneStep _, in GlobalAutoPerformOneStep.CmdCall cmdcOldVal, in GlobalAutoPerformOneStep
+								.CmdCall _)
 							=> evth(cmdcOldVal, overrideEntry),
-				(overrideEntry, evth)
+				(overrideEntry,
+						evth)
 					=>
 						{
 							overrideEntry.inheritedItem.evtWhatToDoChanged -= mapInheritedStepsHandlers[evth];

@@ -8,7 +8,7 @@
 				this.itemUs = itemUs;
 				LocalizedName = itemUs.LocalizedName;
 				LocalizedLongDesc = itemUs.LocalizedLongDesc;
-				IChildOwner? ownerOfChildren = itemUs is IChildOwner owner ? (IChildOwner)itemUs : null;
+				IChildOwner? ownerOfChildren = itemUs as IChildOwner;
 				Icon = itemUs.Icon;
 
 				if(ownerOfChildren != null)
@@ -104,7 +104,7 @@
 		#region Event Handlers
 			private void OnSrcCollectionChanged(object? objSender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 				=> throw new System.NotImplementedException();
-	
+
 			private void OnChildDieing(Dieable.IDieable dieing)
 			{
 				if(mapDieableToTreeDataInstance.TryGetValue(dieing, out TreeData? value))

@@ -11,8 +11,7 @@ public partial class PortEditorDlg : Avalonia.Controls.Window
 			sender
 				=> sender.SelPort,
 			(sender, iNewSelPort)
-				=> sender.SelPort = iNewSelPort,
-			null
+				=> sender.SelPort = iNewSelPort
 		);
 
 	public static readonly Avalonia.DirectProperty<PortEditorDlg, System.Collections.Generic.IReadOnlySet<int>>

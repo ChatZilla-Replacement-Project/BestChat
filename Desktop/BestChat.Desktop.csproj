@@ -28,31 +28,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
+        <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Assets\We Chat.ico"/>
+        <Content Include="Assets\We Chat.ico" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3"/>
+        <PackageReference Include="Avalonia" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.0.0" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.4" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3"/>
-        <PackageReference Include="BinToss.GroupBox.Avalonia" Version="1.0.0"/>
-        <PackageReference Include="CalcBindingAva" Version="2.5.3"/>
-        <PackageReference Include="LucideAvalonia" Version="1.5.0"/>
-        <PackageReference Include="Material.Icons.Avalonia" Version="2.1.10" />
-        <PackageReference Include="MessageBox.Avalonia" Version="3.1.6"/>
-        <PackageReference Include="Simplecto.Avalonia.RichTextBox" Version="1.0.12"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.17" />
+        <PackageReference Include="CalcBindingAva" Version="2.5.3" />
+        <PackageReference Include="LucideAvalonia" Version="1.6.2" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="3.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj"/>
+        <ProjectReference Include="..\Platform\UI\Desktop\BestChat.Platform.UI.Desktop.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -71,10 +68,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AvaloniaResource Update="We Chat.ico" Link="WeChat.ico"/>
+        <AvaloniaResource Update="We Chat.ico" Link="WeChat.ico" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="PrefsViews\"/>
+        <Folder Include="PrefsViews\" />
     </ItemGroup>
 </Project>

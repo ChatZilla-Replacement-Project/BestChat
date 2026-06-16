@@ -27,14 +27,7 @@ public partial class DocEditorCtrl : Avalonia.Controls.UserControl
 		string strOldCtnt,
 		string strNewCtnt,
 		object? objSrc = null
-	) : Avalonia.Interactivity.RoutedEventArgs(evtCtntChangedEvent, objSrc)
-	{
-		string OldCtnt
-			=> strOldCtnt;
-
-		string NewCtnt
-			=> strNewCtnt;
-	}
+	) : Avalonia.Interactivity.RoutedEventArgs(evtCtntChangedEvent, objSrc);
 
 	private string strCtnt = "";
 

@@ -1,6 +1,4 @@
-﻿using BestChat.Platform.DataAndExt.Cmd;
-
-namespace BestChat.IRC.Data.Prefs;
+﻿namespace BestChat.IRC.Data.Prefs;
 
 public class GlobalAutoPerformOneStepEditable : GlobalAutoPerformOneStep
 {

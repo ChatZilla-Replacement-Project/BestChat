@@ -9,19 +9,15 @@ public class GlobalAppearancePrefs : DataAndExt.Prefs.GlobalAppearancePrefsBase
 			fonts = new(this);
 			emoji = new(this);
 			animation = new(this);
-			userList = new((DataAndExt.Prefs.AbstractMgr)this);
-			hyphenateLongWords = new(this, "Hyphenate Long Words", Rsrcs
-				.strGlobalAppearanceHyphenateLongWordsTitle, Rsrcs
-				.strGlobalAppearanceHyphenateLongWordsDesc, true);
-			recognizeLinks = new(this, "Recognize Links", Rsrcs
-				.strGlobalAppearanceRecognizeLinksTitle, Rsrcs.strGlobalAppearanceRecognizeLinksDesc,
-				false);
-			displayCtrlChars = new(this, "Display Control Characters", Rsrcs
-				.strGlobalAppearanceDisplayCtrlCharsTitle, Rsrcs.strGlobalAppearanceDisplayCtrlCharsDesc,
-				true);
-			useTypographicalQuotes = new(this, "Use Typographical Quotes", Rsrcs
-				.strGlobalAppearanceUseTypographicalQuotesTitle, Rsrcs
-				.strGlobalAppearanceUseTypographicalQuotesDesc, true);
+			userList = new(this);
+			hyphenateLongWords = new(this, @"Hyphenate Long Words", Rsrcs
+				.strGlobalAppearanceHyphenateLongWordsTitle, Rsrcs.strGlobalAppearanceHyphenateLongWordsDesc, true);
+			recognizeLinks = new(this, @"Recognize Links", Rsrcs.strGlobalAppearanceRecognizeLinksTitle, Rsrcs
+				.strGlobalAppearanceRecognizeLinksDesc, false);
+			displayCtrlChars = new(this, @"Display Control Characters", Rsrcs
+				.strGlobalAppearanceDisplayCtrlCharsTitle, Rsrcs.strGlobalAppearanceDisplayCtrlCharsDesc, true);
+			useTypographicalQuotes = new(this, @"Use Typographical Quotes", Rsrcs
+				.strGlobalAppearanceUseTypographicalQuotesTitle, Rsrcs.strGlobalAppearanceUseTypographicalQuotesDesc, true);
 		}
 
 		internal GlobalAppearancePrefs(GlobalPrefs mgrParent, DTO.RootDTO.GlobalDTO.AppearanceDTO dto) :
@@ -31,18 +27,17 @@ public class GlobalAppearancePrefs : DataAndExt.Prefs.GlobalAppearancePrefsBase
 			emoji = new(this, dto.Emoji);
 			animation = new(this, dto.Animation);
 			userList = new(this, dto.UserList);
-			hyphenateLongWords = new(this, "Hyphenate Long Words", Rsrcs
-				.strGlobalAppearanceHyphenateLongWordsTitle, Rsrcs
-				.strGlobalAppearanceHyphenateLongWordsDesc, true, dto.HyphenateLongWords);
-			recognizeLinks = new(this, "Recognize Links", Rsrcs
-				.strGlobalAppearanceRecognizeLinksTitle, Rsrcs.strGlobalAppearanceRecognizeLinksDesc,
-				false, dto.RecognizeLinks);
-			displayCtrlChars = new(this, "Display Control Characters", Rsrcs
-				.strGlobalAppearanceDisplayCtrlCharsTitle, Rsrcs.strGlobalAppearanceDisplayCtrlCharsDesc,
-				true, dto.DisplayCtrlChars);
-			useTypographicalQuotes = new(this, "Use Typographical Quotes", Rsrcs
-				.strGlobalAppearanceUseTypographicalQuotesTitle, Rsrcs
-				.strGlobalAppearanceUseTypographicalQuotesDesc, true, dto.UseTypographicalQuotes);
+			hyphenateLongWords = new(this, @"Hyphenate Long Words", Rsrcs
+				.strGlobalAppearanceHyphenateLongWordsTitle, Rsrcs.strGlobalAppearanceHyphenateLongWordsDesc, true,
+				dto.HyphenateLongWords);
+			recognizeLinks = new(this, @"Recognize Links", Rsrcs.strGlobalAppearanceRecognizeLinksTitle, Rsrcs
+				.strGlobalAppearanceRecognizeLinksDesc, false, dto.RecognizeLinks);
+			displayCtrlChars = new(this, @"Display Control Characters", Rsrcs
+				.strGlobalAppearanceDisplayCtrlCharsTitle, Rsrcs.strGlobalAppearanceDisplayCtrlCharsDesc, true, dto
+				.DisplayCtrlChars);
+			useTypographicalQuotes = new(this, @"Use Typographical Quotes", Rsrcs
+				.strGlobalAppearanceUseTypographicalQuotesTitle, Rsrcs.strGlobalAppearanceUseTypographicalQuotesDesc, true,
+				dto.UseTypographicalQuotes);
 		}
 	#endregion
 

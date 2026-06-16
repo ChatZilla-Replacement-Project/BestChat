@@ -40,15 +40,15 @@ public class GlobalAliasesOneAliasEditable : GlobalAliasesOneAlias
 		}
 	}
 
-	public new Platform.DataAndExt.Cmd.AbstractCmdCall? Cmd
+	public Platform.DataAndExt.Cmd.AbstractCmdCall? Cmd
 	{
-		get => base.WhatToRun;
+		get => WhatToRun;
 
 		set
 		{
-			if(base.WhatToRun != value)
+			if(WhatToRun != value)
 			{
-				base.WhatToRun = value;
+				WhatToRun = value;
 
 				WereChangesMade = true;
 

@@ -4,7 +4,7 @@ namespace BestChat.Platform.DataAndExt.JSON;
 
 public class FileThatMightBeNullConverter : System.Text.Json.Serialization.JsonConverter<System.IO.FileInfo?>
 {
-	public override System.IO.FileInfo? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, 
+	public override System.IO.FileInfo? Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert,
 			System.Text.Json.JsonSerializerOptions options)
 		=> reader.GetString() is string strVal && strVal != ""
 			? new System.IO.FileInfo(strVal)
@@ -19,9 +19,9 @@ public class FileThatMightBeNullConverter : System.Text.Json.Serialization.JsonC
 
 public class FileConverter : System.Text.Json.Serialization.JsonConverter<System.IO.FileInfo>
 {
-	public class InvalidLocException() : System.Exception;
+	public class InvalidLocException : System.Exception;
 
-	public override System.IO.FileInfo Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, 
+	public override System.IO.FileInfo Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert,
 			System.Text.Json.JsonSerializerOptions options)
 		=> reader.GetString() is string strVal && strVal != ""
 			? new System.IO.FileInfo(strVal)

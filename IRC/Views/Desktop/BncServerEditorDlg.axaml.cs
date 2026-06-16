@@ -40,7 +40,7 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BncInfoEditable? eserverCtxt = null;
+		private Data.Defs.BncInfoEditable? eserverCtxt;
 	#endregion
 
 	#region Properties
@@ -100,17 +100,17 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 			=> Title = mode switch
 				{
 					Modes.invalid
-						=> throw new System.InvalidOperationException("Set the mode before showing a port editor"),
+						=> throw new System.InvalidOperationException("@Set the mode before showing a port editor"),
 
 					Modes.create
-						=> Rsrcs.strCreatingBncServerTitleFmt.Fmt(eserverCtxt!.serverOriginal!.bncParent!.Name),
+						=> Rsrcs.strCreatingBncServerTitleFmt.Fmt(eserverCtxt!.serverOriginal.bncParent.Name),
 
 					Modes.edit
-						=> Rsrcs.strEditingBncTitleFmt.Fmt(eserverCtxt!.serverOriginal!.bncParent!.Name),
+						=> Rsrcs.strEditingBncTitleFmt.Fmt(eserverCtxt!.serverOriginal.bncParent.Name),
 
 					_
-						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Modes>(mode,
-							"While setting the title for a bouncer editor"),
+						=> throw new Platform.DataAndExt.Exceptions.UnknownOrInvalidEnumException<Modes>(mode, @"While setting the "
+							+ @"title for a bouncer editor"),
 				};
 	#endregion
 

@@ -56,7 +56,7 @@ public class ReorderableListItem<TypeOfElement> : ItemBase, System.Collections.S
 	#region Members
 		private readonly Collections.ReorderableList<TypeOfElement> rlistEntries;
 
-		private TypeOfElement[]? backedUpVal = null;
+		private TypeOfElement[]? backedUpVal;
 	#endregion
 
 	#region Properties

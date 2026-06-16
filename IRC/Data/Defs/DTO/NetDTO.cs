@@ -11,4 +11,4 @@ public abstract record NetDTO
 	ChanServOpts? ChanServ = null,
 	AlisOpts AlisStatus = AlisOpts.unknown,
 	QOpts QStatus = QOpts.unknown
-) : IDataDefBasic<NetDTO>;
+) : IDataDefBasic;

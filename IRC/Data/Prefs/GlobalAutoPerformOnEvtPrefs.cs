@@ -46,7 +46,7 @@ public class GlobalAutoPerformOnEvtPrefs : Platform.DataAndExt.Prefs.AbstractChi
 	#endregion
 
 	#region Methods
-		public DTO.GlobalAutoPerformOneStepDTO[]? ToDTO()
+		public DTO.GlobalAutoPerformOneStepDTO[] ToDTO()
 			=> steps.Select(aliasCur
 				=> aliasCur.ToDTO()
 			).ToArray();

@@ -1,7 +1,5 @@
 ﻿// Ignore Spelling: Prefs evt
 
-using System.Linq;
-
 namespace BestChat.Platform.DataAndExt.Prefs;
 
 public abstract class ItemBase : Obj<ItemBase>
@@ -98,7 +96,7 @@ public abstract class ItemBase : Obj<ItemBase>
 	#endregion
 }
 
-public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyChanged
+public class Item<TypeOfItem> : ItemBase
 {
 	#region Constructors & Deconstructors
 		public Item(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in
@@ -147,7 +145,7 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 
 		private TypeOfItem valCur;
 
-		private TypeOfItem? valBackedUpDuringEdit = default;
+		private TypeOfItem? valBackedUpDuringEdit;
 	#endregion
 
 	#region Properties
@@ -163,7 +161,7 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 				if(!IsReadyToEdit)
 					throw new EditingException(EditingException.WhenPossibilities.notReadyToEdit);
 
-				if(valCur != null && !valCur.Equals(value) || value != null)
+				if(valCur is not null && !valCur.Equals(value) || value is not null)
 				{
 					TypeOfItem oldVal = valCur;
 
@@ -180,10 +178,10 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 			=> valCur?.ToString() ?? "";
 
 		public override bool IsDefaulted
-			=> valCur == null && def == null || (valCur?.Equals(def) ?? false);
+			=> valCur is null;
 
 		public override bool IsReadyToEdit
-			=> valBackedUpDuringEdit != null;
+			=> valBackedUpDuringEdit is not null;
 
 		internal override void PrepareForEdit()
 		{
@@ -195,7 +193,7 @@ public class Item<TypeOfItem> : ItemBase, System.ComponentModel.INotifyPropertyC
 
 		internal override void SaveEdits()
 		{
-			if(valBackedUpDuringEdit == null)
+			if(valBackedUpDuringEdit is null)
 				throw new EditingException(EditingException.WhenPossibilities.saving);
 
 			valBackedUpDuringEdit = default;

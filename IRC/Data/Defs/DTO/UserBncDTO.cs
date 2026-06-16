@@ -16,12 +16,11 @@ public record UserBncDTO
 	ushort[]? Ports = null,
 	ushort[]? SslPorts = null,
 	uint? MaxNetworksPerBouncerInstance = null
-) : BncDTO(Name, HomePage, AllowedNets, ProhibitedNets, Servers, HomeNet, HomeChan, OwnBot, Ports,
-		SslPorts, MaxNetworksPerBouncerInstance), IDataDefBasic<UserBncDTO>
+) : BncDTO(Name, HomePage, AllowedNets, ProhibitedNets, Servers, HomeNet, HomeChan, OwnBot, Ports, SslPorts, MaxNetworksPerBouncerInstance)
 {
 	public record InstanceDTO
 	(
 		string Name,
 		string AssignedServer
-	) : IDataDefBasic<InstanceDTO>;
+	) : IDataDefBasic;
 }

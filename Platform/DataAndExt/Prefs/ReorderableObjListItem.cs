@@ -15,7 +15,7 @@ public class ReorderableObjListItem<TypeOfElement> : ReorderableListItem<TypeOfE
 	public ReorderableObjListItem(in AbstractMgr mgrParent, in string strItemName, in string
 			strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic
 			.IEnumerable<TypeOfElement> def, System.Collections.Generic.IEnumerable<TypeOfElement> val)
-		: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc, def)
+		: base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc, def, val)
 	{
 	}
 

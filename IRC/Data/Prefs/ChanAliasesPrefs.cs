@@ -23,9 +23,8 @@ public class ChanAliasesPrefs : GlobalAliasesPrefs
 					PrefsRsrcs.strAliasText, inheritedSettings.mgrParent.OwnerNet)));
 			foreach(ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias> ialiasCur in
 					listDefEnabledAliases)
-				ialiasCur.evtDirtyChanged += (
-						in NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias> ialiasSender,
-						in bool bNowDirty)
+				ialiasCur.evtDirtyChanged += (in NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias> _, in
+						bool bNowDirty)
 					=>
 						{
 							if(bNowDirty)
@@ -60,8 +59,8 @@ public class ChanAliasesPrefs : GlobalAliasesPrefs
 				[],
 				KeyObtainer,
 				(inherited, evth)
-					=> inherited.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias aliasSender, in
-							string strOldName, in string _)
+					=> inherited.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias _, in string
+							strOldName, in string _)
 						=> evth(strOldName, inherited),
 				(
 						inherited,
@@ -75,7 +74,7 @@ public class ChanAliasesPrefs : GlobalAliasesPrefs
 			);
 		}
 
-		public ChanAliasesPrefs(ChanPrefs mgrParent, DTO.NetAliasesDTO dto, NetAliasesPrefs inheritedSettings) :
+		public ChanAliasesPrefs(ChanPrefs mgrParent, DTO.NetAliasesDTO? dto, NetAliasesPrefs inheritedSettings) :
 			base(mgrParent, "Alias overrides for this network", PrefsRsrcs.strNetAliasTitle, PrefsRsrcs.strNetAliasDesc)
 		{
 			this.inheritedSettings = inheritedSettings;
@@ -99,14 +98,14 @@ public class ChanAliasesPrefs : GlobalAliasesPrefs
 						ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>.InheritedFromTypes.global,
 						PrefsRsrcs.strAliasText, inheritedSettings.mgrParent.OwnerNet)), ];
 			listEnabledInheritedAliases.AddRange(inheritedSettings.AddedAliases.Values.Select(ialiasCur
-				=> new ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>(ialiasCur, !dto
+				=> new ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>(ialiasCur, !dto?
 					.DisabledInheritedAliases?.Contains(ialiasCur.guid) ?? true,
 					ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>.InheritedFromTypes.network,
 					PrefsRsrcs.strAliasText, inheritedSettings.mgrParent.OwnerNet)));
 			foreach(ChanInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias> ialiasCur in
 					listDefEnabledAliases)
-				ialiasCur.evtDirtyChanged += (in NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias>
-						ialiasSender, in bool bNowDirty)
+				ialiasCur.evtDirtyChanged += (in NetInheritedItemEnabledStatus<GlobalAliasesOneAlias, IReadOnlyOneAlias> _, in
+						bool bNowDirty)
 					=>
 						{
 							if(bNowDirty)
@@ -145,8 +144,8 @@ public class ChanAliasesPrefs : GlobalAliasesPrefs
 				) ?? [],
 				KeyObtainer,
 				(inherited, evth)
-					=> inherited.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias aliasSender, in
-							string strOldName, in string _)
+					=> inherited.evtNameChanged += mapAddedAliasesHandlers[evth] = (in GlobalAliasesOneAlias _, in string
+							strOldName, in string _)
 						=> evth(strOldName, inherited),
 				(inherited, evth)
 					=>

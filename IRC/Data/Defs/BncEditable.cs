@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace BestChat.IRC.Data.Defs;
+﻿namespace BestChat.IRC.Data.Defs;
 
 public class BncEditable : BNC
 {

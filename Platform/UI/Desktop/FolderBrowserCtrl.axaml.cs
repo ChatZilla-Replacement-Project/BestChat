@@ -39,8 +39,7 @@ public partial class FolderBrowserCtrl : Avalonia.Controls.UserControl, System.C
 			LocSpecifiedProperty = Avalonia.AvaloniaProperty.RegisterDirect<FolderBrowserCtrl, System.IO.DirectoryInfo?>(
 				nameof(LocSpecified),
 				sender => sender.LocSpecified,
-				(sender, dirNewVal) => sender.LocSpecified = dirNewVal,
-				null
+				(sender, dirNewVal) => sender.LocSpecified = dirNewVal
 			);
 	#endregion
 

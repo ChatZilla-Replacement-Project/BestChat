@@ -1,15 +1,14 @@
 ﻿// Ignore Spelling: Prefs cmgr
 
-using System.Linq;
-
 namespace BestChat.Platform.DataAndExt.Prefs;
 
 public abstract class AbstractMgr : Obj<AbstractMgr>
 {
 	#region Constructors & Deconstructors
+		// ReSharper disable once EmptyConstructor
 		protected AbstractMgr()
-		{
-		}
+			{
+			}
 	#endregion
 
 	#region Delegates
@@ -36,7 +35,7 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr>
 			mapChildMgrByName = [];
 
-		private bool bEditMode = false;
+		private bool bEditMode;
 	#endregion
 
 	#region Properties

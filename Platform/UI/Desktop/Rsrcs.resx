@@ -374,4 +374,58 @@
     <data name="strGlobalCompositionUseTypographicalQuotesTitle" xml:space="preserve">
     <value>Use Typographical Quotes</value>
   </data>
+    <data name="strGlobalNotificationsTitle" xml:space="preserve">
+      <value>Notifications</value>
+    </data>
+    <data name="strGlobalNotificationsDesc" xml:space="preserve">
+      <value>Controls how Best Chat displays notifications</value>
+    </data>
+    <data name="strNotificationMethodOff" xml:space="preserve">
+      <value>Off</value>
+    </data>
+    <data name="strNotificationMethodOffDesc" xml:space="preserve">
+      <value>Best Chat won’t display any notifications.  You’ll need to check yourself.  However, notifications will appear in the notifications view.</value>
+    </data>
+    <data name="strNotificationMethodPopupWnd" xml:space="preserve">
+      <value>Popup Window</value>
+    </data>
+    <data name="strNotificationMethodPopupWndDesc" xml:space="preserve">
+      <value>Best Chat will use one of its own windows to display the notification.  You’ll need to rely on Best Chat’s notification view to see history.  With this method, the popup will show all notifications that happened within the time period selected below.</value>
+    </data>
+    <data name="strNotificationMethodOsBased" xml:space="preserve">
+      <value>OS based notification</value>
+    </data>
+    <data name="strNotificationMethodOsBasedDesc" xml:space="preserve">
+      <value>Best Chat will send notifications to your OS's notification system.  This may mean those notifications will be mixed in with notifications from other applications.  You may or may not prefer that.  This type of notification is sometimes called a “toast”.</value>
+    </data>
+    <data name="strGlobalNotificationMethod" xml:space="preserve">
+      <value>Method</value>
+    </data>
+    <data name="strGlobalNotificationMethodDesc" xml:space="preserve">
+      <value>Specifies the method in which Best Chat makes notifications happen.</value>
+    </data>
+    <data name="strGlobalNotificationsEnableHistory" xml:space="preserve">
+      <value>Enable History</value>
+    </data>
+    <data name="strGlobalNotificationsEnableHistoryDesc" xml:space="preserve">
+      <value>If you uncheck this, Best Chat won't show the history view or remember issuing them.  If you also set the method to off, you’ll never have any notifications or record other than in the IRC client tab.</value>
+    </data>
+    <data name="strGlobalNotificationsPlaySound" xml:space="preserve">
+      <value>Play a sound during notifications</value>
+    </data>
+    <data name="strGlobalNotificationsPlaySoundDesc" xml:space="preserve">
+      <value>Best Chat can issue an audible indication that a notification has happened.  If you want that, specify the sound below.</value>
+    </data>
+    <data name="strGlobalNotificationsSoundToPlay" xml:space="preserve">
+      <value>Which sound do you want played?</value>
+    </data>
+    <data name="strGlobalNotificationsSoundToPlayDesc" xml:space="preserve">
+      <value>Specify the file containing the sound you want played.</value>
+    </data>
+    <data name="strGlobalNotificationKeepVisibleFor" xml:space="preserve">
+      <value>Keep popup own for this many seconds.</value>
+    </data>
+    <data name="strGlobalNotificationsKeepVisibleForDesc" xml:space="preserve">
+      <value>If you selected the popup window option about, Best Chat will continue to display notifications for this many seconds.</value>
+    </data>
 </root>

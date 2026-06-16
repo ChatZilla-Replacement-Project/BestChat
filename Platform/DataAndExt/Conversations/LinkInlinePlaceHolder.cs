@@ -53,14 +53,15 @@ public partial class LinkInlinePlaceHolder : IInlinePlaceHolder
 	#region Methods
 		public static LinkInlinePlaceHolder? ParseLink(in string strTextFound, in IGroupViewOrConversation gvcCtxt)
 			=> strTextFound.IsEmpty()
-				? throw new System.ArgumentNullException(nameof(strTextFound), $"When LinkInlinePlaceHolder.ParseLink is called, {
-					nameof(strTextFound)} must be a non-null, non-empty string.")
+				? throw new System.ArgumentNullException(nameof(strTextFound), @"When LinkInlinePlaceHolder.ParseLink is " +
+					$@"called, {nameof(strTextFound)} must be a non-null, non-empty string.")
 				: gvcCtxt == null
-					? throw new System.ArgumentNullException(nameof(gvcCtxt), $"{nameof(gvcCtxt)} must be a non-null instance.")
+					? throw new System.ArgumentNullException(nameof(gvcCtxt), $@"{nameof(gvcCtxt)} must be a non-null instance.")
 					: regexUriMatcher.IsMatch(strTextFound)
 						? new(new(strTextFound), strTextFound)
 						: regexChanNameMatcher.IsMatch(strTextFound)
-							? new(new(regexPathEditor.Replace(gvcCtxt.Path, $"$ParentPath{strTextFound}")), strTextFound)
+							? new(new(regexPathEditor.Replace(gvcCtxt.Path, $"$ParentPath{strTextFound}")),
+								strTextFound)
 							: regexBestChatPathMatcher.IsMatch(strTextFound)
 								? new(new(strTextFound), strTextFound)
 								: null;

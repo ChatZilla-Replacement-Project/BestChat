@@ -1,5 +1,3 @@
-using BestChat.IRC.Data.Defs;
-
 namespace BestChat.IRC.Views.Desktop;
 
 public partial class BncMgrDlg : Avalonia.Controls.Window
@@ -41,7 +39,7 @@ public partial class BncMgrDlg : Avalonia.Controls.Window
 
 		private void OnEditClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if(dg.SelectedItem is not BncEditable bncSelected)
+			if(dg.SelectedItem is not Data.Defs.BncEditable bncSelected)
 				return;
 
 			if(bncSelected.IsPredefined)

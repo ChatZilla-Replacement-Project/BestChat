@@ -1,21 +1,22 @@
 ﻿<base:AbstractVisualPrefsTabCtrl xmlns="https://github.com/avaloniaui"
-												xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-												xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-												xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
-												xmlns:group="using:GroupBox.Avalonia.Controls"
-												x:DataType="base:GlobalPrefs"
-												mc:Ignorable="d"
-												x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalPage">
+																xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
+																xmlns:materialIcons="using:Material.Icons.Avalonia"
+																x:DataType="base:GlobalPrefs"
+																mc:Ignorable="d"
+																x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalPage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="..\PrefsStyles.axaml"/>
 	</base:AbstractVisualPrefsTabCtrl.Styles>
-	<StackPanel Orientation="Vertical"
+	<StackPanel Margin="4"
+							Orientation="Vertical"
 							Spacing="4">
-		<group:GroupBox DataContext="{Binding Composition}"
+		<GroupBox DataContext="{Binding Composition}"
 										Header="Composition of New Posts">
 			<Grid ColumnDefinitions="Auto,4,1*"
-						RowDefinitions="Auto,6,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
+						RowDefinitions="Auto,10,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
 				<TextBlock Grid.ColumnSpan="3"
 									Classes="InfoTextBlock">
 					These settings affect various aspects about what Best Chat does in response to your typing.  Note: Parts of
@@ -26,53 +27,92 @@
 					has various settings that seem similar, those affect only what you see.  These take affect as you type.  They have no effect only what ever comes from the servers you‘re on.
 				</TextBlock>
 				<Separator Grid.Row="1"
-									Grid.ColumnSpan="3"/>
+									Grid.ColumnSpan="3"
+									VerticalAlignment="Center"/>
 				<Button x:Name="btnResetCompositionUseTypographicalQuotes"
 								Grid.Row="2"
-								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"/>
-				<CheckBox x:Name="chkCompositionUseTypographicalQoutes"
+								ToolTip.Tip="Click to reset the Use Typographical Quotes preference to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding UseTypographicalQuotes.CanReset}"
+								Click="OnResetCompositionUseTypographicalQuotesClicked"/>
+				<CheckBox x:Name="chkCompositionUseTypographicalQuotes"
 									Grid.Row="2"
 									Grid.Column="2"
-									Content="Use _Typographical Quotes"
-									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}"/>
+									ToolTip.Tip="Check to have Best Chat replace any ordinary quotes with typographical ones and uncheck to have Best Chat send what you type."
+									IsChecked="{Binding UseTypographicalQuotes.CurVal, Mode=TwoWay}">
+					<TextBlock>Use _Typographical Quotes such as <Span Classes="FixedWidthHilight">’</Span> instead of <Span Classes="FixedWidthHilight">'</Span>.</TextBlock>
+				</CheckBox>
 				<Button x:Name="btnResetCompositionTreatDblDashAsMDash"
 								Grid.Row="4"
-								IsEnabled="{Binding TreatDblDashAsMDash.CanReset}"/>
+								ToolTip.Tip="Click to reset the MDash preference to the Best Chat default."
+								Classes="ResetBtn"
+								IsEnabled="{Binding TreatDblDashAsMDash.CanReset}"
+								Click="OnResetCompositionTreatDblDashAsMDashClicked"/>
 				<CheckBox x:Name="chkCompositionTreatDblDashAsMDash"
 									Grid.Row="4"
 									Grid.Column="2"
+									ToolTip.Tip="Check to replace double dashes with mdashes."
 									IsChecked="{Binding TreatDblDashAsMDash.CurVal, Mode=TwoWay}">
-					<CheckBox.Content>
-						<TextBlock>Treat Double Dashes (“<Span Classes="FixedWidthHilight">--</Span>”) as an mdash (“<Span Classes="FixedWidthHilight">—</Span>”)?</TextBlock>
-					</CheckBox.Content>
+					<TextBlock>Treat Double Dashes (“<Span Classes="FixedWidthHilight">--</Span>”) as an mdash (“<Span Classes="FixedWidthHilight">—</Span>”)?</TextBlock>
 				</CheckBox>
 				<Button x:Name="btnResetCompositionTreatThreePeriodsAsEllipsis"
 								Grid.Row="6"
+								ToolTip.Tip="Click to reset the Treat Three Periods as an Ellipsis preference to the Best Chat default."
 								IsEnabled="{Binding TreatThreePeriodsAsEllipsis.CanReset}"
-								Classes="ResetBtn"/>
+								Classes="ResetBtn"
+								Click="OnResetCompositionTreatThreePeriodsAsEllipsisClicked"/>
 				<CheckBox x:Name="chkCompositionTreatThreePeriodsAsEllipsis"
 									Grid.Row="6"
+									ToolTip.Tip="If checked, when Best Chat sees you type three consecutive periods, it will replace those with an ellipsis.  If unchecked, it will send what you typed."
 									IsEnabled="{Binding TreatThreePeriodsAsEllipsis.CanReset}"
-									Classes="ResetBtn"/>
+									Classes="ResetBtn"
+									Content="Treat Three Periods as an Ellipsis"
+									IsChecked="{Binding TreatThreePeriodsAsEllipsis.CurVal}"/>
 				<Button x:Name="btnCompositionEnableEmojiShortCuts"
 								Grid.Row="8"
+								ToolTip.Tip="Click to reset the Enable Emoji Shortcuts preference to the Best Chat default."
 								IsEnabled="{Binding EnableEmojiShortCuts.CanReset}"
-								Classes="ResetBtn"/>
+								Classes="ResetBtn"
+								Click="OnCompositionEnableEmojiShortCutsClicked"/>
 				<CheckBox x:Name="chkCompositionEnableEmojiShortCuts"
 									Grid.Row="8"
-									IsEnabled="{Binding EnableEmojiShortCuts.CanReset}"
-									Classes="ResetBtn"/>
+									IsEnabled="{Binding EnableEmojiShortCuts.CanReset}">
+					<ToolTip.Tip>
+						<TextBlock TextWrapping="Wrap">
+							If checked, Best Chat will display allow you to type in plain text shortcuts to enter an emoji.  This is operating system independent.  With it enabled, just start typing the colon (<Span Classes="FixedWidthHilight">:</Span>) and enter the name of the desired emoji.  A popup will appear displaying a list of matches.  The text and colon will be treated as the actual text to send if no matches are found.  You’re other option would be to type a key combination that depends on your operating system.  On Windows, that requires pressing <materialIcons:MaterialIcon Kind="Microsoft"></materialIcons:MaterialIcon> and the period key (<Span Classes="FixedWidthHilight">.</Span>).  A few emoji can be entered with the equivalent emoticons.  For that, see
+							<InlineUIContainer>
+								<HyperlinkButton x:Name="hlinkGlobalAppearanceEmoji"
+																Content="/Global/Appearance/Emoji"/>
+							</InlineUIContainer>
+							.
+						</TextBlock>
+					</ToolTip.Tip>
+				</CheckBox>
 				<Button x:Name="btnResetCompositionEnableEntityShortCuts"
 								Grid.Row="10"
+								ToolTip.Tip="Click to reset the Enable Entity Shortcuts preference to the Best Chat default."
 								IsEnabled="{Binding EnableEntityShortCuts.CanReset}"
-								Classes="ResetBtn"/>
+								Classes="ResetBtn"
+								Click="OnResetCompositionEnableEntityShortCutsClicked"/>
 				<CheckBox x:Name="chkCompositionEnableEntityShortCuts"
 									Grid.Row="10"
-									Content="Enable Entity Short Cuts?"
+									Content="Enable Entity Shortcuts?"
 									IsChecked="{Binding EnableEntityShortCuts.CurVal,Mode=TwoWay}">
+					<ToolTip.Tip>
+						<TextBlock TextWrapping="Wrap">
+							If checked, Best Chat will allow you to enter characters as the equivalent HTML entity.  Just start typing the ampersand (<Span Classes="FixedWidthHilight">&amp;</Span> to start.  A popup will appear listing the matches.  For a full list of options and what you get, see
+							<InlineUIContainer>
+								<HyperlinkButton x:Name="hlinkAllEntitiesOnWikipedia"
+																NavigateUri="https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references"
+																Content="List of XML and HTML character entity references"/>
+							</InlineUIContainer>
+							.
+						</TextBlock>
+					</ToolTip.Tip>
 				</CheckBox>
 			</Grid>
-		</group:GroupBox>
+		</GroupBox>
+		<Separator Margin="0,4"/>
 		<base:PrefGroupTreeListerCtrl Children="{Binding ChildMgrWithDedicatedEditor, RelativeSource={RelativeSource AncestorType=base:AbstractVisualPrefsTabCtrl}}"/>
 	</StackPanel>
 </base:AbstractVisualPrefsTabCtrl>

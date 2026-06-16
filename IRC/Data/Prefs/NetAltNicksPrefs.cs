@@ -50,13 +50,13 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAlt
 			this.inheritedSettings = inheritedSettings;
 
 
-			System.Collections.Generic.IEnumerable<NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>> defInheritedEntries = inheritedSettings
-				.Entries.Select(ianickCur
+			System.Collections.Generic.IEnumerable<NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick,
+				IReadOnlyOneAltNick>> defInheritedEntries = inheritedSettings.Entries.Select(ianickCur
 					=> new NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>(ianickCur));
-			System.Collections.Generic.IEnumerable<NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>> enabledAltNicks = inheritedSettings.Entries
-				.Select(ianickCur
-					=> new NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>(ianickCur, dto?.DisabledInheritedNicks?.Contains(ianickCur.guid)
-						?? false)
+			System.Collections.Generic.IEnumerable<NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick,
+				IReadOnlyOneAltNick>> enabledAltNicks = inheritedSettings.Entries.Select(ianickCur
+					=> new NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick>(ianickCur, dto
+						.DisabledInheritedNicks?.Contains(ianickCur.guid) ?? false)
 				);
 			mapAllInheritanceOverridesByNick = new(
 				this,
@@ -70,8 +70,9 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAlt
 						inherited,
 						evth)
 					=> inherited.evtKeyOfInheritedItemChanged += mapOverrideHandlers[evth] = (in
-							NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick> _, in string strOldCtnts, in string _)
-						=> evth(strOldCtnts, inherited),
+							NetInheritedItemEnabledStatus<GlobalAltNicksOneAltNick, IReadOnlyOneAltNick> inheritedCur, in string
+							strOldCtnts, in string _)
+						=> evth(strOldCtnts, inheritedCur),
 				(
 						inherited,
 						evth)
@@ -83,11 +84,16 @@ public class NetAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, IAlt
 				}
 			);
 
-			additionalAltNicks = new(this, "Lists more alternate nicks specific to " +
-				"this network", PrefsRsrcs.strNetAltNicksAdditionalTitle, PrefsRsrcs.strNetAltNicksAdditionalDesc,
-				dto?.AddedNicks?.Select(danickCur
-					=> new GlobalAltNicksOneAltNick(danickCur, this))
-				?? []);
+			additionalAltNicks = new(
+				this,
+				"Lists more alternate nicks specific to this network",
+				PrefsRsrcs.strNetAltNicksAdditionalTitle,
+				PrefsRsrcs.strNetAltNicksAdditionalDesc,
+				[],
+				dto.AddedNicks?.Select(danickCur
+					=> new GlobalAltNicksOneAltNick(danickCur, this
+				)) ?? []
+			);
 		}
 	#endregion
 

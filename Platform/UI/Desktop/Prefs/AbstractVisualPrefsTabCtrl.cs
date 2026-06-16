@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BestChat.Platform.UI.Desktop.Prefs;
 
-public abstract class AbstractVisualPrefsTabCtrl : Platform.UI.Desktop.AbstractVisualCtrl
+public abstract class AbstractVisualPrefsTabCtrl : AbstractVisualCtrl
 {
 	#region Constructors & Deconstructors
 		protected AbstractVisualPrefsTabCtrl()

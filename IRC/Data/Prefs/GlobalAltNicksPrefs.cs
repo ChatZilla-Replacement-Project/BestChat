@@ -48,7 +48,7 @@ public class GlobalAltNicksPrefs : Platform.DataAndExt.Prefs.AbstractChildMgr, I
 	#endregion
 
 	#region Methods
-		public DTO.GlobalOneAltNickDTO[]? ToDTO()
+		public DTO.GlobalOneAltNickDTO[] ToDTO()
 			=> entries.Select(aliasCur
 				=> aliasCur.ToDTO()
 			).ToArray();
