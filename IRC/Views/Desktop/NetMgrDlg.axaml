@@ -2,7 +2,6 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-				xmlns:group="using:GroupBox.Avalonia.Controls"
 				xmlns:calc="using:CalcBinding"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
 				x:Class="BestChat.IRC.Views.Desktop.NetMgrDlg"
@@ -22,7 +21,7 @@
 						Content="Close"/>
 		<Grid ColumnDefinitions="1*,4,1*"
 					RowDefinitions="1*">
-			<group:GroupBox x:Name="groupPredefined"
+			<GroupBox x:Name="groupPredefined"
 											x:DataType="data:PredefinedNetMgr"
 											Header="Predefined">
 				<DockPanel>
@@ -79,12 +78,12 @@
 						</DataGrid.Columns>
 					</DataGrid>
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 			<GridSplitter Grid.Column="1"
 										ResizeBehavior="PreviousAndNext"
 										ShowsPreview="false"
 										ResizeDirection="Columns"/>
-			<group:GroupBox x:Name="groupUser"
+			<GroupBox x:Name="groupUser"
 											x:DataType="data:UserNetMgr"
 											Grid.Column="2"
 											Header="Networks Defined By You">
@@ -168,7 +167,7 @@
 						</DataGrid.Columns>
 					</DataGrid>
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 		</Grid>
 	</DockPanel>
 </Window>

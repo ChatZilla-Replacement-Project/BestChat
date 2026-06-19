@@ -6,11 +6,67 @@
 												xmlns:data="using:BestChat.IRC.Data.Prefs"
 												xmlns:calc="using:CalcBinding"
 												xmlns:materialIcons="using:Material.Icons.Avalonia"
+												xmlns:interactivity="using:Avalonia.Xaml.Interactivity"
+												xmlns:dnd="using:Avalonia.Xaml.Interactions.DragAndDrop"
+												xmlns:behaviors="using:BestChat.IRC.ProtocolMgr.Prefs.Behaviors.DragAndDrop.AliasCmdParam"
 												x:DataType="data:GlobalAliasesPrefs"
 												mc:Ignorable="d"
 												x:Class="BestChat.IRC.ProtocolMgr.Prefs.Pages.GlobalAliasesPage">
 	<base:AbstractVisualPrefsTabCtrl.Styles>
 		<StyleInclude Source="../PrefsStyles.axaml"/>
+
+		<Style Selector="DataGrid.DragSrc DataGridRow.BeingDragged">
+			<Setter Property="AdornerLayer.Adorner">
+				<Template>
+					<Border BorderThickness="0,2"
+					        BorderBrush="{DynamicResource SystemAccentColor}"/>
+				</Template>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DragAndDrop">
+			<Setter Property="RowHeaderWidth"
+			        Value="24"/>
+			<Setter Property="(interactivity:Interaction.Behaviors)">
+				<interactivity:BehaviorCollectionTemplate>
+					<interactivity:BehaviorCollection>
+						<dnd:ContextDropBehavior Handler="{StaticResource DropHandler}"/>
+					</interactivity:BehaviorCollection>
+				</interactivity:BehaviorCollectionTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DropTgt DataGridRow.DropTgtRow">
+			<Setter Property="Background"
+			        Value="{StaticResource HighlightBrush}">
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGrid.DragSrc DataGridRow">
+			<Setter Property="(interactivity:Interaction.Behaviors)">
+				<interactivity:BehaviorCollectionTemplate>
+					<interactivity:BehaviorCollection>
+						<behaviors:DragBehavior Handler="{StaticResource DropHandler}"
+						                        HorizontalDragThreshold="3"
+						                        VerticalDragThreshold="3"/>
+					</interactivity:BehaviorCollection>
+				</interactivity:BehaviorCollectionTemplate>
+			</Setter>
+			<Setter Property="Content">
+				<Template>
+					<Image Margin="12,0,12,0"
+					       Width="12"
+					       Height="12"
+					       VerticalAlignment="Center"
+					       HorizontalAlignment="Center">
+						<Image.Source>
+							<!-- Use your own image here, I used this: https://www.svgrepo.com/svg/347759/grabber -->
+							<DrawingImage Drawing="{materialIcons:MaterialIconExt TableRow}"/>
+						</Image.Source>
+					</Image>
+				</Template>
+			</Setter>
+		</Style>
 	</base:AbstractVisualPrefsTabCtrl.Styles>
 	<DockPanel>
 		<TextBlock DockPanel.Dock="Top"

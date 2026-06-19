@@ -4,7 +4,6 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:calc="using:CalcBinding"
-				xmlns:group="using:GroupBox.Avalonia.Controls"
 				xmlns:rtfedit="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
 				xmlns:interactivity="using:Avalonia.Xaml.Interactivity"
 				xmlns:dnd="using:Avalonia.Xaml.Interactions.DragAndDrop"
@@ -127,7 +126,7 @@
 							Grid.Column="2"
 							Classes="DragSrc DropTgt"
 							Text="{Binding Name, Mode=TwoWay}"/>
-			<group:GroupBox Grid.Row="4"
+			<GroupBox Grid.Row="4"
 											Grid.ColumnSpan="3"
 											Header="Positional Parameters">
 				<DockPanel Margin="4">
@@ -213,8 +212,8 @@
 						</DataGrid.Columns>
 					</DataGrid>
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="6"
+			</GroupBox>
+			<GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
 											Header="Named Parameters">
 				<DockPanel Margin="4">
@@ -292,15 +291,15 @@
 						</DataGrid.Columns>
 					</DataGrid>
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="8"
+			</GroupBox>
+			<GroupBox Grid.Row="8"
 											Grid.ColumnSpan="3"
 											Header="Documentation">
 				<rtfedit:DocEditorCtrl x:Name="rtfeditDoc"
 															ToolTip.Tip="Best Chat provides a few predefined styles that themes can change.  Use those when possible."
 															Margin="4"
 															Ctnt="{Binding Doc, Mode=TwoWay}"/>
-			</group:GroupBox>
+			</GroupBox>
 			<Label Grid.Row="8"
 						HorizontalContentAlignment="Right"
 						Content="What to run"/>

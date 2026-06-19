@@ -36,7 +36,9 @@
 							ToolTip.Tip="Click to reset these to the inherited values"
 							Classes="ResetBtn"
 							Click="OnResetInheritedClicked"/>
-			<DataGrid Grid.Column="2"
+			<DataGrid
+				Grid.Row="0"
+				Grid.Column="2"
 								AutoGenerateColumns="False"
 								CanUserReorderColumns="True"
 								CanUserResizeColumns="True"
@@ -67,9 +69,11 @@
 			</DataGrid>
 			<GridSplitter Grid.Row="1"
 										Grid.ColumnSpan="3"
+										Grid.Column="0"
 										Margin="0,4"/>
 			<DockPanel Grid.Row="2"
-								Grid.ColumnSpan="3">
+								Grid.ColumnSpan="3"
+								Grid.Column="0">
 				<StackPanel DockPanel.Dock="Right"
 										VerticalAlignment="Center"
 										Orientation="Vertical"

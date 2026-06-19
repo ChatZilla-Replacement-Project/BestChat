@@ -3,7 +3,6 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
-				xmlns:group="using:GroupBox.Avalonia.Controls"
 				xmlns:calc="using:CalcBinding"
 				x:DataType="data:NetServerInfoEditable"
 				mc:Ignorable="d"
@@ -46,6 +45,7 @@
 				Content="Domain name for server: " />
 			<TextBox
 				x:Name="editDomainName"
+				Grid.Row="0"
 				Grid.Column="2"
 				IsVisible="{calc:Binding '!IsModeEdit', RelativeSource={RelativeSource AncestorType=Window}}"
 				Text="{Binding Domain}" />
@@ -58,10 +58,12 @@
 				x:Name="chkEnabled"
 				Grid.Row="4"
 				Grid.ColumnSpan="3"
+				Grid.Column="0"
 				Content="Enable this server"
 				IsChecked="{Binding IsEnabled}" />
-			<group:GroupBox Grid.Row="6"
+			<GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="_Unencrypted Ports">
 				<DockPanel>
 					<StackPanel DockPanel.Dock="Right"
@@ -88,9 +90,10 @@
 						x:Name="lbKnownUnencryptedPorts"
 						ItemsSource="{Binding Ports}" />
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="6"
+			</GroupBox>
+			<GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="SSL Ports">
 				<DockPanel>
 					<StackPanel DockPanel.Dock="Right"
@@ -117,7 +120,7 @@
 						x:Name="lbKnownSslPorts"
 						ItemsSource="{Binding Ports}" />
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 		</Grid>
 	</DockPanel>
 </Window>

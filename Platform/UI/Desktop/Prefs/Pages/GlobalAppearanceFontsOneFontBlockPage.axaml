@@ -17,10 +17,12 @@
 							Text="Normally, Best Chat gets font information from your theme.  However, here you can change the font used."/>
 		<Separator Grid.Row="1"
 							Grid.ColumnSpan="7"
+							Grid.Column="0"
 							VerticalAlignment="Center"
 							Height="2"/>
 		<Button x:Name="btnResetNormalFont"
 						Grid.Row="2"
+						Grid.Column="0"
 						ToolTip.Tip="Click to reset the Normal Font to your theme’s default."
 						IsEnabled="{Binding NormalFontFamily.IsThemeOverridden.CanReset}"
 						Classes="ResetBtn"
@@ -43,6 +45,7 @@
 																SelectedItem="{Binding NormalFontFamily.OverriddenVal, Mode=TwoWay}"/>
 		<Button x:Name="btnResetFixedWidthFont"
 						Grid.Row="2"
+						Grid.Column="0"
 						ToolTip.Tip="Click to reset the Fixed Width Font to your theme’s default."
 						IsEnabled="{Binding FixedWidthFontFamily.IsThemeOverridden.CanReset}"
 						Classes="ResetBtn"
@@ -65,6 +68,7 @@
 																SelectedItem="{Binding FixedWidthFontFamily.OverriddenVal, Mode=TwoWay}"/>
 		<Button x:Name="btnResetSize"
 						Grid.Row="8"
+						Grid.Column="0"
 						ToolTip.Tip="Click to reset the font size to your theme’s default."
 						IsEnabled="{Binding Size.IsThemeOverridden.CanReset}"
 						Classes="ResetBtn"
@@ -79,7 +83,10 @@
 							ToolTip.Tip="Check to use the control to the right to specify a different font size other than selected by your theme and uncheck to use your theme’s default font size."
 							Content="Override theme?"
 							IsChecked="{Binding Size.IsThemeOverridden, Mode=TwoWay}"/>
-		<StackPanel Orientation="Horizontal"
+		<StackPanel
+			Grid.Row="8"
+			Grid.Column="6"
+			Orientation="Horizontal"
 								Spacing="4">
 			<NumericUpDown ToolTip.Tip="Enter the desired size in points."
 										IsEnabled="{Binding IsChecked, ElementName=chkSizeOverridden}"
@@ -88,6 +95,7 @@
 		</StackPanel>
 		<Button x:Name="btnResetWeight"
 						Grid.Row="8"
+						Grid.Column="0"
 						ToolTip.Tip="Click to reset the font weight to your theme's default."
 						IsEnabled="{Binding Weight.IsThemeOverridden.CanReset}"
 						Classes="ResetBtn"

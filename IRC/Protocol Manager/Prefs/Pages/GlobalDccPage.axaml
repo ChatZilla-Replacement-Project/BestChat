@@ -5,7 +5,6 @@
 												xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
 												xmlns:data="using:BestChat.IRC.Data.Prefs"
 												xmlns:ctrls="using:BestChat.Platform.UI.Desktop"
-												xmlns:group="using:GroupBox.Avalonia.Controls"
 												xmlns:calc="using:CalcBinding"
 												x:DataType="data:GlobalDccPrefs"
 												mc:Ignorable="d"
@@ -27,12 +26,14 @@
 							IsEnabled="{Binding Enabled.CanReset}"
 							Click="OnResetEnabledClicked"/>
 			<CheckBox Grid.Column="2"
-								Grid.ColumnSpan="3"
+			          Grid.Row="0"
+			          Grid.ColumnSpan="3"
 								ToolTip.Tip="Check to enable DCC and uncheck to disable it."
 								Content="Enable DCC?"
 								IsChecked="{Binding Enabled.CurVal,Mode=TwoWay}"/>
 			<Button x:Name="btnResetGetIpFromServer"
 							Grid.Row="2"
+							Grid.Column="0"
 							ToolTip.Tip="Click to reset the Get IP Address From Server preference to the default."
 							IsEnabled="{Binding GetIpFromServer.CanReset}"
 							Classes="ResetBtn"
@@ -46,6 +47,7 @@
 								IsChecked="{Binding GetIpFromServer.CurVal}"/>
 			<Button x:Name="btnResetDownloadsFolder"
 							Grid.Row="4"
+							Grid.Column="0"
 							ToolTip.Tip="Click to reset the downloads folder to the default location."
 							Classes="ResetBtn"
 							IsEnabled="{Binding DownloadsFolder.CanReset}"
@@ -62,11 +64,12 @@
 															LocSpecified="{Binding DownloadsFolder.CurVal,Mode=TwoWay}"/>
 			<Button x:Name="btnResetPorts"
 							Grid.Row="6"
+							Grid.Column="0"
 							ToolTip.Tip="Click to reset the list of DCC ports to the Best Chat default."
 							Classes="ResetBtn"
 							IsEnabled="{Binding Ports.CanReset}"
 							Click="OnResetPorts"/>
-			<group:GroupBox Grid.Row="6"
+			<GroupBox Grid.Row="6"
 											Grid.Column="2"
 											Grid.ColumnSpan="3"
 											ToolTip.Tip="Best Chat will allow DCC connections only through these ports.  Note: You may need to open them on your router and forward them to the desired computer."
@@ -117,7 +120,7 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 		</Grid>
 	</DockPanel>
 </base:AbstractVisualPrefsTabCtrl>

@@ -3,7 +3,6 @@
 																xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 																xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 																xmlns:base="using:BestChat.Platform.UI.Desktop.Prefs"
-																xmlns:group="using:GroupBox.Avalonia.Controls"
 																x:DataType="base:GlobalAppearanceEmojiPrefs"
 																mc:Ignorable="d"
 																x:Class="BestChat.Platform.UI.Desktop.Prefs.Pages.GlobalAppearanceEmojiPage">
@@ -19,8 +18,8 @@
 							Margin="0,4"/>
 		<StackPanel Orientation="Vertical"
 								Spacing="4">
-			<group:GroupBox>
-				<group:GroupBox.Header>
+			<GroupBox>
+				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal"
 											Spacing="4">
 						<Button x:Name="btnResetSendingEmoji"
@@ -30,11 +29,11 @@
 										Click="OnResetSendingEmojiClicked"/>
 						<Label Content="Sending Emoji"/>
 					</StackPanel>
-				</group:GroupBox.Header>
+				</GroupBox.Header>
 				<base:SendingEmojiOptsRadioBtnGroup SelVal="{Binding SendingEmoji.CurVal, Mode=TwoWay}"/>
-			</group:GroupBox>
-			<group:GroupBox>
-				<group:GroupBox.Header>
+			</GroupBox>
+			<GroupBox>
+				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal"
 											Spacing="4">
 						<Button x:Name="btnResetSendingEmoticons"
@@ -44,11 +43,11 @@
 										Click="OnResetSendingEmoticonsClicked"/>
 						<Label Content="Sending Emoticons"/>
 					</StackPanel>
-				</group:GroupBox.Header>
+				</GroupBox.Header>
 				<base:SendingEmoticonsOptsRadioBtnGroup SelVal="{Binding SendingEmoticons.CurVal, Mode=TwoWay}"/>
-			</group:GroupBox>
-			<group:GroupBox>
-				<group:GroupBox.Header>
+			</GroupBox>
+			<GroupBox>
+				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal"
 											Spacing="4">
 						<Button x:Name="btnResetDisplayingEmoji"
@@ -58,11 +57,11 @@
 										Click="OnResetDisplayingEmojiClicked"/>
 						<Label Content="Displaying Emoji"/>
 					</StackPanel>
-				</group:GroupBox.Header>
+				</GroupBox.Header>
 				<base:DisplayingEmojiOptsRadioBtnGroup SelVal="{Binding DisplayingEmoji.CurVal, Mode=TwoWay}"/>
-			</group:GroupBox>
-			<group:GroupBox>
-				<group:GroupBox.Header>
+			</GroupBox>
+			<GroupBox>
+				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal"
 											Spacing="4">
 						<Button x:Name="btnResetDisplayingEmoticons"
@@ -72,9 +71,9 @@
 										Click="OnResetDisplayingEmoticonsClicked"/>
 						<Label Content="Displaying Emoticons"/>
 					</StackPanel>
-				</group:GroupBox.Header>
+				</GroupBox.Header>
 				<base:DisplayingEmoticonsOptsRadioBtnGroup SelVal="{Binding DisplayingEmoticons.CurVal, Mode=TwoWay}"/>
-			</group:GroupBox>
+			</GroupBox>
 			<StackPanel Orientation="Horizontal"
 									Spacing="4">
 				<Button x:Name="btnResetMakeEmojiOnlyPostsBigger"
@@ -86,8 +85,8 @@
 									Content="Make Emoji-only Posts Use a Bigger Font?"
 									IsChecked="{Binding MakeEmojiOnlyPostsBigger.CurVal, Mode=TwoWay}"/>
 			</StackPanel>
-			<group:GroupBox>
-				<group:GroupBox.Header>
+			<GroupBox>
+				<GroupBox.Header>
 					<StackPanel Orientation="Horizontal"
 											Spacing="4">
 						<Button x:Name="btnResetEmojiAnimation"
@@ -97,9 +96,9 @@
 										Click="OnResetEmojiAnimationClicked"/>
 						<Label Content="Animation of Emoji"/>
 					</StackPanel>
-				</group:GroupBox.Header>
+				</GroupBox.Header>
 				<base:EmojiAnimationComboBox SelVal="{Binding EmojiAnimation.CurVal}"/>
-			</group:GroupBox>
+			</GroupBox>
 		</StackPanel>
 	</DockPanel>
 </base:AbstractVisualPrefsTabCtrl>

@@ -113,13 +113,13 @@ public partial class BncServerInfo : Platform.DataAndExt.Obj<BncServerInfo>
 		public DTO.BncDTO.ServerDTO ToDTO()
 			=> new(strName, strDomain);
 
-		public BncInfoEditable MakeEditable(BncEditable ebnc)
+		public BncServerInfoEditable MakeEditable(BncEditable ebnc)
 			=> new(ebnc, this);
 
 		[System.Text.RegularExpressions.GeneratedRegex("(.*?)([/#].*)")]
 		private static partial System.Text.RegularExpressions.Regex GetDomainTrimmerRegex();
 
-		public void SaveFrom(BncInfoEditable eserver)
+		public void SaveFrom(BncServerInfoEditable eserver)
 		{
 			strName = eserver.Name;
 			strDomain = eserver.Domain;

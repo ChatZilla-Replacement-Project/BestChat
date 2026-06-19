@@ -29,7 +29,10 @@
 			<Button x:Name="btnResetInherited"
 							Classes="ResetBtn"
 							Click="OnResetInheritedClicked"/>
-			<DataGrid x:Name="dgInherited"
+			<DataGrid
+				Grid.Row="0"
+				Grid.Column="2"
+				x:Name="dgInherited"
 								MinHeight="150"
 								AutoGenerateColumns="False"
 								CanUserReorderColumns="True"
@@ -75,9 +78,11 @@
 			</DataGrid>
 			<GridSplitter Grid.Row="1"
 										Grid.ColumnSpan="3"
+										Grid.Column="0"
 										Margin="0,4"/>
 			<DockPanel Grid.Row="2"
-								Grid.ColumnSpan="3">
+								Grid.ColumnSpan="3"
+								Grid.Column="0">
 				<Button x:Name="btnResetAllAliases"
 								DockPanel.Dock="Left"
 								Classes="ResetBtn"

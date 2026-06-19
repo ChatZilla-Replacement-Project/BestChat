@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.VisualTree;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;

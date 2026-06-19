@@ -2,7 +2,6 @@
 						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 						xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-						xmlns:rtfedit="using:AvRichTextBox"
 						xmlns:materialIcons="using:Material.Icons.Avalonia"
 						mc:Ignorable="d"
 						x:Class="BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls.DocEditorCtrl">
@@ -41,10 +40,10 @@
 		</StackPanel>
 		<Separator DockPanel.Dock="Top"
 							Margin="0,4"/>
-		<rtfedit:RichTextBox x:Name="rtfedit">
-			<rtfedit:FlowDocument>
+		<RichTextEditor x:Name="rtfedit">
+			<FlowDocument>
 				<!-- Figure out how to insert the value -->
-			</rtfedit:FlowDocument>
-		</rtfedit:RichTextBox>
+			</FlowDocument>
+		</RichTextEditor>
 	</DockPanel>
 </UserControl>

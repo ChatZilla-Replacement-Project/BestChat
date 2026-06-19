@@ -2,24 +2,20 @@
 
 public class DragBehavior : Avalonia.Xaml.Interactivity.Behavior
 {
-	public static readonly Avalonia.StyledProperty<object?> ContextProperty = Avalonia.AvaloniaProperty
-		.Register<DragBehavior, object?>(nameof(Context));
+	public static readonly Avalonia.StyledProperty<Data.Prefs.GlobalAliasesOneAlias?> ContextProperty = Avalonia.AvaloniaProperty.Register<DragBehavior, Data.Prefs.GlobalAliasesOneAlias?>(nameof(Context));
 
-	public static readonly Avalonia.StyledProperty<Avalonia.Xaml.Interactions.DragAndDrop.IDragHandler?> HandlerProperty =
-		Avalonia.AvaloniaProperty.Register<DragBehavior, Avalonia.Xaml.Interactions.DragAndDrop
-		.IDragHandler?>(nameof(Handler));
+	public static readonly Avalonia.StyledProperty<Avalonia.Xaml.Interactions.DragAndDrop.IDragHandler?> HandlerProperty = Avalonia.AvaloniaProperty.Register<DragBehavior, Avalonia.Xaml.Interactions.DragAndDrop.IDragHandler?>(nameof(Handler));
 
-	public static readonly Avalonia.StyledProperty<double> HorizontalDragThresholdProperty = Avalonia.AvaloniaProperty
-		.Register<DragBehavior, double>(nameof(HorizontalDragThreshold), 3);
+	public static readonly Avalonia.StyledProperty<double> HorizontalDragThresholdProperty = Avalonia.AvaloniaProperty.Register<DragBehavior, double>(nameof(HorizontalDragThreshold), 3);
 
-	public static readonly Avalonia.StyledProperty<double> VerticalDragThresholdProperty = Avalonia.AvaloniaProperty
-		.Register<DragBehavior, double>(nameof(VerticalDragThreshold), 3);
+	public static readonly Avalonia.StyledProperty<double> VerticalDragThresholdProperty = Avalonia.AvaloniaProperty.Register<DragBehavior, double>(nameof(VerticalDragThreshold), 3);
 
 
 	private Avalonia.Point ptDragStartLoc;
-	private Avalonia.Input.PointerEventArgs? eventThatTriggeredDrag;
+	private Avalonia.Input.PointerPressedEventArgs? evtargsTrigger;
 	private bool @lock;
 	private bool bCaptured;
+	private static Avalonia.Input.DataFormat<BestChat.IRC.Data.Prefs.GlobalAliasesOneAlias> fmt = Avalonia.Input.DataFormat.CreateInProcessFormat<Data.Prefs.GlobalAliasesOneAlias>("Alias");
 
 
 	public object? Context
@@ -54,7 +50,7 @@ public class DragBehavior : Avalonia.Xaml.Interactivity.Behavior
 
 	private void Released()
 	{
-		eventThatTriggeredDrag = null;
+		evtargsTrigger = null;
 		@lock = false;
 	}
 
@@ -62,18 +58,10 @@ public class DragBehavior : Avalonia.Xaml.Interactivity.Behavior
 	/// <inheritdoc />
 	protected override void OnAttachedToVisualTree()
 	{
-		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerPressedEvent, OnMousePointerDragStart,
-			Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel |
-			Avalonia.Interactivity.RoutingStrategies.Bubble);
-		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerReleasedEvent, OnMousePointerDragReleased,
-			Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel |
-			Avalonia.Interactivity.RoutingStrategies.Bubble);
-		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerMovedEvent, OnMouseMovedDuringDrag, Avalonia
-			.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel | Avalonia.Interactivity
-			.RoutingStrategies.Bubble);
-		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerCaptureLostEvent, OnMouseCaptureLost,
-			Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel |
-			Avalonia.Interactivity.RoutingStrategies.Bubble);
+		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerPressedEvent, OnMousePointerDragStart, Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel | Avalonia.Interactivity.RoutingStrategies.Bubble);
+		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerReleasedEvent, OnMousePointerDragReleased, Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel | Avalonia.Interactivity.RoutingStrategies.Bubble);
+		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerMovedEvent, OnMouseMovedDuringDrag, Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel | Avalonia.Interactivity.RoutingStrategies.Bubble);
+		AssociatedObject?.AddHandler(Avalonia.Input.InputElement.PointerCaptureLostEvent, OnMouseCaptureLost, Avalonia.Interactivity.RoutingStrategies.Direct | Avalonia.Interactivity.RoutingStrategies.Tunnel | Avalonia.Interactivity.RoutingStrategies.Bubble);
 	}
 
 	/// <inheritdoc />
@@ -85,77 +73,82 @@ public class DragBehavior : Avalonia.Xaml.Interactivity.Behavior
 		AssociatedObject?.RemoveHandler(Avalonia.Input.InputElement.PointerCaptureLostEvent, OnMouseCaptureLost);
 	}
 
-	private static async System.Threading.Tasks.Task DoDragDrop(Avalonia.Input.PointerEventArgs triggerEvent, object?
-		objVal)
+	private static async System.Threading.Tasks.Task DoDragDrop(Avalonia.Input.PointerPressedEventArgs evtargsTrigger, Data.Prefs.GlobalAliasesOneAlias? aliasVal)
 	{
-		Avalonia.Input.DataObject data = new();
-		data.Set(Avalonia.Xaml.Interactions.DragAndDrop.ContextDropBehavior.DataFormat, objVal!);
+		Avalonia.Input.DataTransfer data = new();
+		data.Add(Avalonia.Input.DataTransferItem.Create(fmt, aliasVal!));
 
-		await Avalonia.Input.DragDrop.DoDragDrop(triggerEvent, data, Avalonia.Input.DragDropEffects.Link);
+		await Avalonia.Input.DragDrop.DoDragDropAsync(evtargsTrigger, data, Avalonia.Input.DragDropEffects.Link);
 	}
 
 	private void OnMousePointerDragStart(object? _, Avalonia.Input.PointerPressedEventArgs args)
 	{
 		Avalonia.Input.PointerPointProperties properties = args.GetCurrentPoint(AssociatedObject).Properties;
 
-		if(properties.IsLeftButtonPressed)
-		{
-			if(args.Source is Avalonia.Controls.Control ctrl &&
-				(AssociatedObject is Avalonia.IDataContextProvider dobj
-					? dobj.DataContext
-					: null
-				) == ctrl.DataContext)
-			{
-				ptDragStartLoc = args.GetPosition(null);
-				eventThatTriggeredDrag = args;
-				@lock = true;
-				bCaptured = true;
-			}
-		}
+		if(!properties.IsLeftButtonPressed)
+			return;
+
+		if(args.Source is not Avalonia.Controls.Control ctrl ||
+			(AssociatedObject is Avalonia.IDataContextProvider dobj
+				? dobj.DataContext
+				: null
+			) != ctrl.DataContext)
+			return;
+
+		ptDragStartLoc = args.GetPosition(null);
+		evtargsTrigger = args;
+		@lock = true;
+		bCaptured = true;
 	}
 
 	private void OnMousePointerDragReleased(object? objSender, Avalonia.Input.PointerReleasedEventArgs args)
 	{
-		if(bCaptured)
-		{
-			if(args.InitialPressMouseButton == Avalonia.Input.MouseButton.Left && eventThatTriggeredDrag is not null)
-				Released();
+		if(!bCaptured)
+			return;
 
-			bCaptured = false;
-		}
+		if(args.InitialPressMouseButton == Avalonia.Input.MouseButton.Left && evtargsTrigger is not null)
+			Released();
+
+		evtargsTrigger = null;
+
+		bCaptured = false;
 	}
 
 	private void OnMouseMovedDuringDrag(object? objSender, Avalonia.Input.PointerEventArgs args)
 	{
 		Avalonia.Input.PointerPointProperties properties = args.GetCurrentPoint(AssociatedObject).Properties;
 
-		if(bCaptured && properties.IsLeftButtonPressed && eventThatTriggeredDrag is not null)
-		{
-			Avalonia.Point point = args.GetPosition(null);
-			Avalonia.Point diff = ptDragStartLoc - point;
-			double dblHorzDragThreshold = HorizontalDragThreshold;
-			double dblVertDragThreshold = VerticalDragThreshold;
+		if(!bCaptured || !properties.IsLeftButtonPressed || evtargsTrigger is null)
+			return;
 
-			if(System.Math.Abs(diff.X) > dblHorzDragThreshold || System.Math.Abs(diff.Y) > dblVertDragThreshold)
-			{
-				if(@lock)
-					@lock = false;
-				else
-					return;
+		Avalonia.Point point = args.GetPosition(null);
+		Avalonia.Point diff = ptDragStartLoc - point;
+		double dblHorzDragThreshold = HorizontalDragThreshold;
+		double dblVertDragThreshold = VerticalDragThreshold;
 
-				object? context = Context ?? (AssociatedObject is Avalonia.IDataContextProvider dobj
-					? dobj.DataContext
-					: null);
+		if(!(System.Math.Abs(diff.X) > dblHorzDragThreshold) && !(System.Math.Abs(diff.Y) > dblVertDragThreshold))
+			return;
 
-				Handler?.BeforeDragDrop(objSender, eventThatTriggeredDrag, context);
+		if(@lock)
+			@lock = false;
+		else
+			return;
 
-				DoDragDrop(eventThatTriggeredDrag, context).Wait();
+		Data.Prefs.GlobalAliasesOneAlias? aliasContext = Context is Data.Prefs.GlobalAliasesOneAlias
+			? AssociatedObject is Avalonia.IDataContextProvider dobj
+				? dobj.DataContext is Data.Prefs.GlobalAliasesOneAlias aliasData
+					? aliasData
+					: null
+				: null
+			: null;
 
-				Handler?.AfterDragDrop(objSender, eventThatTriggeredDrag, context);
+		Handler?.BeforeDragDrop(objSender, evtargsTrigger, aliasContext);
 
-				eventThatTriggeredDrag = null;
-			}
-		}
+		DoDragDrop(evtargsTrigger, aliasContext).Wait();
+
+		Handler?.AfterDragDrop(objSender, evtargsTrigger, aliasContext);
+
+		evtargsTrigger = null;
 	}
 
 	private void OnMouseCaptureLost(object? objSender, Avalonia.Input.PointerCaptureLostEventArgs args)

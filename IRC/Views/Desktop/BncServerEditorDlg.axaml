@@ -5,7 +5,7 @@
 				mc:Ignorable="d"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
 				xmlns:calc="using:CalcBinding"
-				x:DataType="data:BncInfoEditable"
+				x:DataType="data:BncServerInfoEditable"
 				d:DataContext="{d:DesignInstance Type=data:BNC}"
 				WindowStartupLocation="CenterOwner"
 				ShowInTaskbar="False"

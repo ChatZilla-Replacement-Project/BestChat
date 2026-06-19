@@ -1,9 +1,9 @@
 ﻿namespace BestChat.IRC.Data.Defs;
 
-public class BncInfoEditable : BncServerInfo, System.ComponentModel.INotifyDataErrorInfo
+public class BncServerInfoEditable : BncServerInfo, System.ComponentModel.INotifyDataErrorInfo
 {
 	#region Constructors & Deconstructors
-		internal BncInfoEditable(BncEditable ebncParent, in BncServerInfo serverOriginal)
+		internal BncServerInfoEditable(BncEditable ebncParent, in BncServerInfo serverOriginal)
 			: base(ebncParent, serverOriginal)
 			=> this.serverOriginal = serverOriginal;
 	#endregion

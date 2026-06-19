@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Avalonia.Input.Platform;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Editors;
 
@@ -7,15 +8,9 @@ public partial class OneAliasDlg : Avalonia.Controls.Window
 	public OneAliasDlg()
 		=>InitializeComponent();
 
-	private MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxCancelConfirm = MsBox.Avalonia
-		.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strCancelCreatingNewAliasTitle, Rsrcs
-		.strCancelCreatingNewAliasMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
-		.Controls.WindowStartupLocation.CenterOwner);
+	private MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxCancelConfirm = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strCancelCreatingNewAliasTitle, Rsrcs.strCancelCreatingNewAliasMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 
-	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelPositionalParamConfirm
-		= MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs
-			.strDelSelectedAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
-			.Controls.WindowStartupLocation.CenterOwner);
+	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelPositionalParamConfirm = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs.strDelSelectedAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 
 	public enum Modes
 	{
@@ -68,12 +63,9 @@ public partial class OneAliasDlg : Avalonia.Controls.Window
 			if(dgPositionalParams.SelectedItem is not Data.Prefs.GlobalAliasesOneAliasOneParam aparamCurSelPositioned)
 				return false;
 
-			System.Collections.Generic.LinkedListNode<Data.Prefs.GlobalAliasesOneAliasOneParam> llnparamCurSelPositioned =
-				ealiasCtxt.PositionalParameters.Find(aparamCurSelPositioned)
-				?? throw new System.InvalidOperationException("Can't find the positional parameter in the list");
+			System.Collections.Generic.LinkedListNode<Data.Prefs.GlobalAliasesOneAliasOneParam> llnparamCurSelPositioned = ealiasCtxt.PositionalParameters.Find(aparamCurSelPositioned) ?? throw new System.InvalidOperationException("Can't find the positional parameter in the list");
 
-			return llnparamCurSelPositioned.Previous is not null && (!aparamCurSelPositioned.IsRequired ||
-				llnparamCurSelPositioned.Previous.Value.IsRequired);
+			return llnparamCurSelPositioned.Previous is not null && (!aparamCurSelPositioned.IsRequired || llnparamCurSelPositioned.Previous.Value.IsRequired);
 		}
 	}
 
@@ -87,12 +79,9 @@ public partial class OneAliasDlg : Avalonia.Controls.Window
 			if(dgPositionalParams.SelectedItem is not Data.Prefs.GlobalAliasesOneAliasOneParam aparamCurSelPositioned)
 				return false;
 
-			System.Collections.Generic.LinkedListNode<Data.Prefs.GlobalAliasesOneAliasOneParam> llnparamCurSelPositioned =
-				ealiasCtxt.PositionalParameters.Find(aparamCurSelPositioned)
-				?? throw new System.InvalidOperationException("Can't find the positional parameter in the list");
+			System.Collections.Generic.LinkedListNode<Data.Prefs.GlobalAliasesOneAliasOneParam> llnparamCurSelPositioned = ealiasCtxt.PositionalParameters.Find(aparamCurSelPositioned) ?? throw new System.InvalidOperationException("Can't find the positional parameter in the list");
 
-			return llnparamCurSelPositioned.Next is not null && (aparamCurSelPositioned.IsRequired ||
-				!llnparamCurSelPositioned.Next.Value.IsRequired);
+			return llnparamCurSelPositioned.Next is not null && (aparamCurSelPositioned.IsRequired || !llnparamCurSelPositioned.Next.Value.IsRequired);
 		}
 	}
 
@@ -111,9 +100,7 @@ public partial class OneAliasDlg : Avalonia.Controls.Window
 
 	protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs args)
 	{
-		if(ealiasCtxt is not null && ealiasCtxt.WereChangesMade && msgboxCancelConfirm.ShowWindowDialogAsync((Avalonia
-				.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How is this in a non-window?")))
-				.Result != MsBox.Avalonia.Enums.ButtonResult.Yes)
+		if(ealiasCtxt is not null && ealiasCtxt.WereChangesMade && msgboxCancelConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How is this in a non-window?"))).Result != MsBox.Avalonia.Enums.ButtonResult.Yes)
 			args.Cancel = true;
 
 		base.OnClosing(args);
@@ -127,9 +114,7 @@ public partial class OneAliasDlg : Avalonia.Controls.Window
 		if(dgPositionalParams.SelectedItems.Count == 0)
 			throw new System.InvalidProgramException("Somehow we are editing without a selection");
 
-		if(msgboxDelPositionalParamConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window?)VisualRoot ?? throw new System
-				.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia
-				.Enums.ButtonResult.Yes)
+		if(msgboxDelPositionalParamConfirm.ShowWindowDialogAsync((Avalonia.Controls.Window?)VisualRoot ?? throw new System.InvalidProgramException("Some how the visual root for this control isn't a window")).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
 			foreach(Data.Prefs.GlobalAliasesOneAliasOneParam aparamCur in dgPositionalParams.SelectedItems)
 				ealiasCtxt.RemovePositionedParameter(aparamCur);
 	}

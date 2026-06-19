@@ -3,7 +3,6 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				mc:Ignorable="d"
-				xmlns:group="using:GroupBox.Avalonia.Controls"
 				xmlns:calc="using:CalcBinding"
 				xmlns:data="using:BestChat.IRC.Data.Defs"
 				xmlns:specializedCtrls="using:BestChat.IRC.Views.Desktop.SpecializedCtrls"
@@ -40,10 +39,13 @@
 		<Grid ColumnDefinitions="Auto,4,Auto"
 					RowDefinitions="Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto,4,Auto">
 			<Label Content="Name:"/>
-			<TextBox Grid.Column="2"
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="2"
 							Text="{Binding Name}"/>
 			<Label Grid.Row="2"
-						Content="HomePage:"/>
+			       Grid.Column="0"
+			       Content="HomePage:"/>
 			<Border Grid.Row="2"
 							Grid.Column="2"
 							BorderBrush="Gray"
@@ -51,13 +53,16 @@
 				<Grid ColumnDefinitions="1*,Auto"
 							RowDefinitions="Auto">
 					<TextBox Text="{Binding HomePage, Mode=TwoWay}"/>
-					<Button ToolTip.Tip="Clicking will cause Best Chat to open the URL shown in your default browser"
+					<Button
+						Grid.Column="0"
+						ToolTip.Tip="Clicking will cause Best Chat to open the URL shown in your default browser"
 									Content="🌐"
 									Click="OnUserWantsToVisitBncHomePage"/>
 				</Grid>
 			</Border>
-			<group:GroupBox Grid.Row="4"
+			<GroupBox Grid.Row="4"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Allowed Networks">
 				<DockPanel>
 					<TextBlock DockPanel.Dock="Top"
@@ -85,9 +90,10 @@
 					<ListBox x:Name="lbAllowedNets"
 									ItemsSource="{Binding AllowedNets}"/>
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="6"
+			</GroupBox>
+			<GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Prohibited Networks">
 				<DockPanel>
 					<TextBlock DockPanel.Dock="Top"
@@ -115,23 +121,26 @@
 					<ListBox x:Name="lbProhibitedNets"
 									ItemsSource="{Binding ProhibitedNets}"/>
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 			<Label Grid.Row="8"
-						ToolTip.Tip="This is where the official representatives for this bouncer organization hang out"
+			       Grid.Column="0"
+			       ToolTip.Tip="This is where the official representatives for this bouncer organization hang out"
 						Content="Home Network:"/>
 			<TextBox Grid.Row="8"
 							Grid.Column="2"
 							ToolTip.Tip="Enter the network where you can find the official representatives for this bouncer organization.  Leave this blank if you don’t know it or they aren’t on any IRC network for tech support."
 							Text="{Binding HomeNet}"/>
 			<Label Grid.Row="10"
-						ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or they don't provide tech support via IRC."
+			       Grid.Column="0"
+			       ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or they don't provide tech support via IRC."
 						Content="Tech Support Channel:"/>
 			<TextBox Grid.Row="10"
 							Grid.Column="2"
 							ToolTip.Tip="Enter the channel on the network listed above where you can find tech support from this bouncer organization.  Leave this blank if you don't know it or they don't provide tech support via IRC."
 							Text="{Binding HomeChan}"/>
 			<Label Grid.Row="12"
-						ToolTip.Tip="Use this link to join the network if you’ve specified the network and channel above.  Otherwise, the link will be disabled and blank."
+			       Grid.Column="0"
+			       ToolTip.Tip="Use this link to join the network if you’ve specified the network and channel above.  Otherwise, the link will be disabled and blank."
 						Content="Join the tech support channel with this link:"/>
 			<HyperlinkButton Grid.Row="12"
 											Grid.Column="2"
@@ -139,14 +148,16 @@
 											Content="{Binding HomeNetAndChan}"
 											Click="OnTechSupportChanLinkClicked"/>
 			<Label Grid.Row="14"
-						ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
+			       Grid.Column="0"
+			       ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
 						Content="Own Bot:"/>
 			<TextBox Grid.Row="14"
 							Grid.Column="2"
 							ToolTip.Tip="Typically, when a bouncer organization has an IRC channel somewhere for Tech Support, they’ll put a bot in that channel to start the creation of your bouncer.  Most of the time, people will interact with it."
 							Text="{Binding OwnBot}"/>
-			<group:GroupBox Grid.Row="16"
+			<GroupBox Grid.Row="16"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Servers:">
 				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
@@ -194,9 +205,10 @@
 						</DataGrid.Columns>
 					</DataGrid>
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="18"
+			</GroupBox>
+			<GroupBox Grid.Row="18"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Unencrypted Ports:">
 				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
@@ -230,9 +242,10 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 				</DockPanel>
-			</group:GroupBox>
-			<group:GroupBox Grid.Row="20"
+			</GroupBox>
+			<GroupBox Grid.Row="20"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="SSL Ports">
 				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
@@ -266,9 +279,10 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 				</DockPanel>
-			</group:GroupBox>
+			</GroupBox>
 			<Label Grid.Row="22"
-						Content="Maximum Networks Allowed per Instance"/>
+			       Grid.Column="0"
+			       Content="Maximum Networks Allowed per Instance"/>
 			<NumericUpDown x:Name="nudMaxNetworksPerBouncerInstance"
 										Grid.Row="22"
 										Grid.Column="2"

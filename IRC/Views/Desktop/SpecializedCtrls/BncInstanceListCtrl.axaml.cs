@@ -2,7 +2,7 @@
 
 namespace BestChat.IRC.Views.Desktop.SpecializedCtrls;
 
-public partial class BncInstanceListCtrl : GroupBox.Avalonia.Controls.GroupBox
+public partial class BncInstanceListCtrl : Avalonia.Controls.GroupBox
 {
 	#region Constructors & Deconstructors
 		public BncInstanceListCtrl()

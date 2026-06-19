@@ -57,7 +57,7 @@ public partial class NetNotifyWhenOnlinePage : Platform.UI.Desktop.Prefs.Abstrac
 			Mode = Editors.OneNotifyDlg.Modes.add,
 		};
 
-		if(dlg.ShowDialog<bool?>(this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
+		if(dlg.ShowDialog<bool?>(VisualRoot as Avalonia.Controls.Window ?? throw new System
 				.InvalidProgramException(@"How aren't we inside a child?")).Result == true)
 		{
 			dlg.CtxtNotify.Save();
@@ -78,7 +78,7 @@ public partial class NetNotifyWhenOnlinePage : Platform.UI.Desktop.Prefs.Abstrac
 			Mode = Editors.OneNotifyDlg.Modes.add,
 		};
 
-		if(dlg.ShowDialog<bool?>(this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
+		if(dlg.ShowDialog<bool?>(VisualRoot as Avalonia.Controls.Window ?? throw new System
 				.InvalidProgramException(@"How aren't we inside a child?")).Result == true)
 		{
 			dlg.CtxtNotify.Save();
@@ -89,19 +89,14 @@ public partial class NetNotifyWhenOnlinePage : Platform.UI.Desktop.Prefs.Abstrac
 
 	private void OnDelClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
-		if(ctxt is not null && lbData.SelectedItems is not null && lbData.SelectedItems.Count > 0 && msgboxDelConfirm
-				.ShowWindowDialogAsync(this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
-				.InvalidProgramException(@"How did we end up in something other than a control?")).Result == MsBox.Avalonia
-				.Enums.ButtonResult.Yes)
-			foreach(Data.Prefs.NotifyWhenOnlineOneNotify notifyDelThis in lbData.SelectedItems.Cast<Data.Prefs
-					.NotifyWhenOnlineOneNotify>())
+		if(ctxt is not null && lbData.SelectedItems is not null && lbData.SelectedItems.Count > 0 && msgboxDelConfirm.ShowWindowDialogAsync(VisualRoot as Avalonia.Controls.Window ?? throw new System.InvalidProgramException(@"How did we end up in something other than a control?")).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
+			foreach(Data.Prefs.NotifyWhenOnlineOneNotify notifyDelThis in lbData.SelectedItems.Cast<Data.Prefs.NotifyWhenOnlineOneNotify>())
 				ctxt.Entries.Remove(notifyDelThis);
 	}
 
 	private void OnResetListClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
 	{
-		if(msgboxResetConfirm.ShowWindowDialogAsync(this.GetVisualRoot() as Avalonia.Controls.Window).Result == MsBox
-			.Avalonia.Enums.ButtonResult.Yes)
+		if(msgboxResetConfirm.ShowWindowDialogAsync(VisualRoot as Avalonia.Controls.Window ?? throw new System.InvalidProgramException(@"How did we get a control without a parent?")).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
 			ctxt?.Entries.ResetValToDef();
 	}
 }

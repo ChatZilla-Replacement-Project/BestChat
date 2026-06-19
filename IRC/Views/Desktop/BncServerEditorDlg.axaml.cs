@@ -40,7 +40,7 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 	#region Members
 		private Modes mode = Modes.invalid;
 
-		private Data.Defs.BncInfoEditable? eserverCtxt;
+		private Data.Defs.BncServerInfoEditable? eserverCtxt;
 	#endregion
 
 	#region Properties
@@ -60,7 +60,7 @@ public partial class BncServerEditorDlg : Avalonia.Controls.Window
 			}
 		}
 
-		public Data.Defs.BncInfoEditable? CtxtServer
+		public Data.Defs.BncServerInfoEditable? CtxtServer
 		{
 			get => eserverCtxt;
 

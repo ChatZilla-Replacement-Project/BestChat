@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Avalonia.Input;
-using Avalonia.VisualTree;
+using Avalonia.Input.Platform;
 
 namespace BestChat.IRC.ProtocolMgr.Prefs.Pages;
 
@@ -11,18 +11,11 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 	public GlobalAliasesPage()
 		=> InitializeComponent();
 
-	private static readonly Avalonia.Point ptMinDragDistance = new(3, 3);
 	private const string strJsonMimeType = "application/json";
 
-	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelConfirm = MsBox
-		.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs
-		.strDelSelectedAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
-		.Controls.WindowStartupLocation.CenterOwner);
+	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelConfirm = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelSelectedAliasesTitle, Rsrcs.strDelSelectedAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 
-	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxResetConfirm = MsBox
-		.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strResetGlobalAliasesTitle, Rsrcs
-		.strResetGlobalAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia
-		.Controls.WindowStartupLocation.CenterOwner);
+	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxResetConfirm = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strResetGlobalAliasesTitle, Rsrcs.strResetGlobalAliasesMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 
 	private Data.Prefs.GlobalAliasesPrefs? ctxt;
 
@@ -30,15 +23,15 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 
 	public Data.Prefs.GlobalAliasesPrefs? Ctxt
 	{
-		get => ctxt;
+		get
+			=> ctxt;
 
 		set
 		{
 			if(ctxt != value)
 			{
 				if(value is not null && !value.IsEditMode)
-					throw new System.InvalidOperationException("Before you can open a new GlobalAliasesPage, you must turn on the" +
-						" context's edit mode.");
+					throw new System.InvalidOperationException("Before you can open a new GlobalAliasesPage, you must turn on the context's edit mode.");
 
 				DataContext = ctxt = value;
 			}
@@ -52,8 +45,8 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 
 		base.OnInitialized();
 
-		dgData.AddHandler(DragDrop.DragOverEvent, OnDragOver);
-		dgData.AddHandler(DragDrop.DropEvent, OnFilesDropped);
+		dgData.AddHandler(Avalonia.Input.DragDrop.DragOverEvent, OnDragOver);
+		dgData.AddHandler(Avalonia.Input.DragDrop.DropEvent, OnFilesDropped);
 	}
 
 	#pragma warning disable CA1859
@@ -88,8 +81,7 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
-			throw new System.InvalidProgramException("How did this page open without a window?"));
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How did this page open without a window?"));
 
 		int iExistingAliasCnt = ctxt.Entries.Count;
 
@@ -116,35 +108,15 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 			return dlg.ShowDialog(wnd);
 		}
 
-		return MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs
-			.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum
-			.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd);
+		return MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd);
 	}
 
-	protected void OnPointerPressedOnRow(object? objSender, PointerPressedEventArgs args)
+	private void OnPointerPressedOnRow(object? objSender, Avalonia.Input.PointerPressedEventArgs args)
 	{
 		base.OnPointerPressed(args);
 
 		if(args.ClickCount == 1 && dgData.SelectedItems.Count > 0)
 			ptDragStartedAt = args.GetPosition(this);
-	}
-
-	protected void OnPointerMovedWithRow(object? objSender, PointerEventArgs args)
-	{
-		base.OnPointerMoved(args);
-
-		if(ptDragStartedAt is not null && args.GetPosition(this) is var ptMouseAt && ptMouseAt.X >
-			ptMinDragDistance.X && ptMouseAt.Y > ptMinDragDistance.Y)
-		{
-			DataObject dobj = new();
-			if(dgData.SelectedItems.Count > 1)
-				dobj.Set(strJsonMimeType, Data.Prefs.GlobalAliasesOneAlias.ExportManyAliasesAsString(dgData
-					.SelectedItems.Cast<Data.Prefs.GlobalAliasesOneAlias>()));
-			else if(dgData.SelectedItem is Data.Prefs.GlobalAliasesOneAlias aliasToExport)
-				dobj.Set(strJsonMimeType, aliasToExport.ExportAsString());
-
-			DragDrop.DoDragDrop(args, dobj, DragDropEffects.Copy);
-		}
 	}
 
 	private void OnResetAllAliasesClicked(object? objSender, Avalonia.Interactivity.RoutedEventArgs args)
@@ -217,8 +189,7 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
-			throw new System.InvalidProgramException("How did this page open without a window?"));
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How did this page open without a window?"));
 
 		string strRecommendedFileExt = dgData.SelectedItems.Count > 1
 			? Data.Prefs.GlobalAliasesOneAlias.strManyAliasesFileExt
@@ -284,15 +255,13 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
-			throw new System.InvalidProgramException("How did this page open without a window?"));
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How did this page open without a window?"));
 
 		if(wnd.Clipboard == null)
 			throw new System.InvalidProgramException(Rsrcs.strNoClipboardAvailable);
 
 		wnd.Clipboard.SetTextAsync(dgData.SelectedItems.Count > 1
-				? Data.Prefs.GlobalAliasesOneAlias.ExportManyAliasesAsString(dgData.SelectedItems.Cast<Data.Prefs
-					.GlobalAliasesOneAlias>())
+				? Data.Prefs.GlobalAliasesOneAlias.ExportManyAliasesAsString(dgData.SelectedItems.Cast<Data.Prefs.GlobalAliasesOneAlias>())
 				: ((Data.Prefs.GlobalAliasesOneAlias)dgData.SelectedItem).ExportAsString()
 		);
 	}
@@ -302,53 +271,50 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ??
 			throw new System.InvalidProgramException("How did this page open without a window?"));
 
-		System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageFile> files = wnd.StorageProvider
-			.OpenFilePickerAsync(new()
-				{
-					AllowMultiple = true,
-					FileTypeFilter =
-						[
-							new($@"{Rsrcs.strFileTypeFilterNameAllAliasArrayFiles} (*{Data.Prefs.GlobalAliasesOneAlias
-								.strManyAliasesFileExt})")
-							{
-								Patterns =
-								[
-									$@"*{Data.Prefs.GlobalAliasesOneAlias.strManyAliasesFileExt}",
-								],
-							},
-							new($@"{Rsrcs.strFileTypeFilterNameAllAliasFiles} (*{Data.Prefs.GlobalAliasesOneAlias
-								.strOneAliasFileExt})")
-							{
-								Patterns =
-								[
-									$@"*{Data.Prefs.GlobalAliasesOneAlias.strOneAliasFileExt}",
-								],
-							},
-							new(
-								$@"{Rsrcs.strFileTypeFilterNameAllJsonFiles} (*{Platform.DataAndExt.ObjBase
-								.strAllJsonFileTypeExt})")
-							{
-								Patterns =
-								[
-									$@"*{Platform.DataAndExt.ObjBase.strAllJsonFileTypeExt}",
-								],
-							},
-							new($@"{Rsrcs.strFileTypeFilterNameAllFiles}	(*{Platform.DataAndExt.ObjBase.strAllFileTypesExt})")
-							{
-								Patterns =
-								[
-									$@"*{Platform.DataAndExt.ObjBase.strAllFileTypesExt}",
-								],
-							},
-						],
-					SuggestedStartLocation = wnd.StorageProvider.TryGetWellKnownFolderAsync(Avalonia.Platform.Storage
-						.WellKnownFolder.Documents).Result ?? wnd.StorageProvider.TryGetFolderFromPathAsync(new(System.IO.Directory
-						.GetCurrentDirectory())).Result,
-					Title = Rsrcs.strImportAliasDlgTitle,
-				}).Result;
+		System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageFile> files = wnd.StorageProvider.OpenFilePickerAsync(new()
+			{
+				AllowMultiple = true,
+				FileTypeFilter =
+					[
+						new($@"{Rsrcs.strFileTypeFilterNameAllAliasArrayFiles} (*{Data.Prefs.GlobalAliasesOneAlias
+							.strManyAliasesFileExt})")
+						{
+							Patterns =
+							[
+								$@"*{Data.Prefs.GlobalAliasesOneAlias.strManyAliasesFileExt}",
+							],
+						},
+						new($@"{Rsrcs.strFileTypeFilterNameAllAliasFiles} (*{Data.Prefs.GlobalAliasesOneAlias
+							.strOneAliasFileExt})")
+						{
+							Patterns =
+							[
+								$@"*{Data.Prefs.GlobalAliasesOneAlias.strOneAliasFileExt}",
+							],
+						},
+						new(
+							$@"{Rsrcs.strFileTypeFilterNameAllJsonFiles} (*{Platform.DataAndExt.ObjBase
+							.strAllJsonFileTypeExt})")
+						{
+							Patterns =
+							[
+								$@"*{Platform.DataAndExt.ObjBase.strAllJsonFileTypeExt}",
+							],
+						},
+						new($@"{Rsrcs.strFileTypeFilterNameAllFiles}	(*{Platform.DataAndExt.ObjBase.strAllFileTypesExt})")
+						{
+							Patterns =
+							[
+								$@"*{Platform.DataAndExt.ObjBase.strAllFileTypesExt}",
+							],
+						},
+					],
+				SuggestedStartLocation = wnd.StorageProvider.TryGetWellKnownFolderAsync(Avalonia.Platform.Storage.WellKnownFolder.Documents).Result ?? wnd.StorageProvider.TryGetFolderFromPathAsync(new(System.IO.Directory.GetCurrentDirectory())).Result,
+				Title = Rsrcs.strImportAliasDlgTitle,
+			}).Result;
 
 		Import(files.Select(fileCur => new System.IO.FileInfo(fileCur.Path.AbsolutePath)))?.Wait();
 	}
@@ -358,21 +324,16 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
-			throw new System.InvalidProgramException("How did this page open without a window?"));
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException("How did this page open without a window?"));
 
 		if(wnd.Clipboard is null)
-			MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyTitle,
-				Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyMsg, MsBox.Avalonia.Enums.ButtonEnum.Ok,
-				MsBox.Avalonia.Enums.Icon.Error, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+			MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyTitle, Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyMsg, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 		else
 		{
-			string? strClipboardCtnts = wnd.Clipboard.GetTextAsync().Result;
+			string? strClipboardCtnts = wnd.Clipboard.TryGetTextAsync().Result;
 
 			if(strClipboardCtnts is null)
-				MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyTitle,
-					Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyMsg, MsBox.Avalonia.Enums.ButtonEnum.Ok,
-					MsBox.Avalonia.Enums.Icon.Error, Avalonia.Controls.WindowStartupLocation.CenterOwner);
+				MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyTitle, Rsrcs.strAliasImportFromClipboardFailedAsItWasEmptyMsg, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 			else
 			{
 				int iExistingAliasCnt = ctxt.Entries.Count;
@@ -381,18 +342,13 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 
 				if(estrErrors is null)
 					 MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(
-							Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs
-								.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums
-								.ButtonEnum
-								.Ok, MsBox.Avalonia.Enums.Icon.Success)
-						.ShowWindowDialogAsync(wnd).Wait();
+							Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd).Wait();
 				else
 				{
 					AliasImportFailureDlg dlg = new()
 					{
 						AliasesSuccessfullyImported = ctxt.Entries.Count - iExistingAliasCnt,
-						Errors = new System.Collections.Generic.Dictionary<string, System.Collections.Generic
-							.IEnumerable<string>>()
+						Errors = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>()
 						{
 							[Rsrcs.strClipboardName] = estrErrors,
 						},
@@ -404,29 +360,25 @@ public partial class GlobalAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisua
 		}
 	}
 
-	private static void OnDragOver(object? objSender, DragEventArgs args)
+	private static void OnDragOver(object? objSender, Avalonia.Input.DragEventArgs args)
 	{
-		if(!args.Data.Contains(DataFormats.Files))
-			args.DragEffects = DragDropEffects.None;
+		if(!args.DataTransfer.Contains(Avalonia.Input.DataFormat.File))
+			args.DragEffects = Avalonia.Input.DragDropEffects.None;
 	}
 
-	private void OnFilesDropped(object? objSender, DragEventArgs args)
+	private void OnFilesDropped(object? objSender, Avalonia.Input.DragEventArgs args)
 	{
-		if(!args.Data.Contains(DataFormats.Files))
-			Import(args.Data.GetFiles()?.Select(fileCur => new System.IO.FileInfo(fileCur.Path.AbsolutePath))
-					?? throw new System.InvalidProgramException("Somehow we have but don't have files")
-			)?.Wait();
+		if(!args.DataTransfer.Contains(Avalonia.Input.DataFormat.File))
+			Import(args.DataTransfer.GetItems(Avalonia.Input.DataFormat.File)?.Select(fileCur => new System.IO.FileInfo(fileCur.TryGetFile()?.Path.AbsolutePath ?? throw new System.InvalidProgramException("Somehow we got a file that's invalid")))?? throw new System.InvalidProgramException("Somehow we have but don't have files"))?.Wait();
 	}
 
 	private void OnLoadingRowInGrid(object? objSender, Avalonia.Controls.DataGridRowEventArgs args)
 	{
 		args.Row.PointerPressed += OnPointerPressedOnRow;
-		args.Row.PointerMoved += OnPointerMovedWithRow;
 	}
 
 	private void OnUnloadingRowInGrid(object? objSender, Avalonia.Controls.DataGridRowEventArgs args)
 	{
 		args.Row.PointerPressed -= OnPointerPressedOnRow;
-		args.Row.PointerMoved -= OnPointerMovedWithRow;
 	}
 }

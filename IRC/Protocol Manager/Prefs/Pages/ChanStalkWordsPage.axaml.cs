@@ -9,11 +9,7 @@ public partial class ChanStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisu
 		=> InitializeComponent();
 
 
-	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelPortConfirm = MsBox
-		.Avalonia.MessageBoxManager.GetMessageBoxStandard(
-			Rsrcs.strDelStalkWordTitle, Rsrcs.strDelStalkWordMsg, MsBox
-				.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation
-				.CenterOwner);
+	private static readonly MsBox.Avalonia.Base.IMsBox<MsBox.Avalonia.Enums.ButtonResult> msgboxDelPortConfirm = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strDelStalkWordTitle, Rsrcs.strDelStalkWordMsg, MsBox.Avalonia.Enums.ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question, Avalonia.Controls.WindowStartupLocation.CenterOwner);
 
 
 	private Data.Prefs.NetStalkWordsPrefs? ctxt;
@@ -60,8 +56,7 @@ public partial class ChanStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisu
 		if(ctxt == null)
 			throw new System.InvalidOperationException("Set Ctxt before showing the global stalk words page");
 
-		Avalonia.Controls.Window wnd = this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
-			.InvalidProgramException("How do we have a control that isn't in a window?");
+		Avalonia.Controls.Window wnd = VisualRoot as Avalonia.Controls.Window ?? throw new System.InvalidProgramException("How do we have a control that isn't in a window?");
 
 		Editors.StalkWordEditorDlg dlg = new()
 		{
@@ -82,11 +77,9 @@ public partial class ChanStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisu
 		if(ctxt == null)
 			throw new System.InvalidOperationException("Set Ctxt before showing the global stalk words page");
 
-		Avalonia.Controls.Window wnd = this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
-			.InvalidProgramException("How do we have a control that isn't in a window?");
+		Avalonia.Controls.Window wnd = VisualRoot as Avalonia.Controls.Window ?? throw new System.InvalidProgramException("How do we have a control that isn't in a window?");
 
-		Data.Prefs.GlobalStalkWordsOneStalkWord swEditThis = lbData.SelectedItem as Data.Prefs.GlobalStalkWordsOneStalkWord
-			?? throw new System.InvalidProgramException("How did we get a clicked message without a selection?");
+		Data.Prefs.GlobalStalkWordsOneStalkWord swEditThis = lbData.SelectedItem as Data.Prefs.GlobalStalkWordsOneStalkWord ?? throw new System.InvalidProgramException("How did we get a clicked message without a selection?");
 
 		Editors.StalkWordEditorDlg dlg = new()
 		{
@@ -103,13 +96,10 @@ public partial class ChanStalkWordsPage : Platform.UI.Desktop.Prefs.AbstractVisu
 		if(ctxt == null)
 			throw new System.InvalidOperationException("Set Ctxt before showing the global stalk words page");
 
-		Avalonia.Controls.Window wnd = this.GetVisualRoot() as Avalonia.Controls.Window ?? throw new System
-			.InvalidProgramException("How do we have a control that isn't in a window?");
+		Avalonia.Controls.Window wnd = VisualRoot as Avalonia.Controls.Window ?? throw new System.InvalidProgramException("How do we have a control that isn't in a window?");
 
-		if(lbData.SelectedItems is not null && lbData.SelectedItems.Count > 0 && msgboxDelPortConfirm
-				.ShowWindowDialogAsync(wnd).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
-			foreach(Data.Prefs.GlobalStalkWordsOneStalkWord swCur in lbData.SelectedItems.Cast<Data.Prefs
-					.GlobalStalkWordsOneStalkWord>())
+		if(lbData.SelectedItems is not null && lbData.SelectedItems.Count > 0 && msgboxDelPortConfirm.ShowWindowDialogAsync(wnd).Result == MsBox.Avalonia.Enums.ButtonResult.Yes)
+			foreach(Data.Prefs.GlobalStalkWordsOneStalkWord swCur in lbData.SelectedItems.Cast<Data.Prefs.GlobalStalkWordsOneStalkWord>())
 				ctxt.Entries.Remove(swCur);
 	}
 

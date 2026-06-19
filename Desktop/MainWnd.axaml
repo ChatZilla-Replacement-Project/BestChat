@@ -3,7 +3,6 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:lucide="clr-namespace:LucideAvalonia;assembly=LucideAvalonia"
-				xmlns:simplectoRtf="using:AvRichTextBox"
 				mc:Ignorable="d"
 				x:Class="BestChat.Desktop.MainWnd"
 				Icon="We Chat.ico"
@@ -73,13 +72,17 @@
 									 HorizontalContentAlignment="Center"
 									 FontSize="14"/>
 						<Border Grid.Column="1"
-										Grid.RowSpan="3"
+						        Grid.Row="0"
+						        Grid.RowSpan="3"
 										BorderBrush="LightGray"
 										BorderThickness="1"
 										Margin="2,0"/>
 						<Separator Grid.Row="1"
-											 Margin="0,2"/>
-						<TreeView/>
+						           Grid.Column="0"
+						           Margin="0,2"/>
+						<TreeView
+							Grid.Row="2"
+							Grid.Column="0" />
 					</Grid>
 				</SplitView.Pane>
 				<SplitView PanePlacement="Left"
@@ -94,14 +97,17 @@
 											 HorizontalContentAlignment="Center"
 											 FontSize="14"/>
 								<Border Grid.Column="1"
-												Grid.RowSpan="3"
+								        Grid.Row="0"
+								        Grid.RowSpan="3"
 												BorderBrush="LightGray"
 												BorderThickness="1"
 												Margin="2,0"/>
 								<Separator Grid.Row="1"
-													 Margin="0,2"/>
+								           Grid.Column="0"
+								           Margin="0,2"/>
 								<ListBox Name="listUsers"
-												 Grid.Row="2"/>
+												 Grid.Row="2"
+												 Grid.Column="0" />
 							</Grid>
 						</DataTemplate>
 					</SplitView.PaneTemplate>
@@ -117,7 +123,8 @@
 												 Grid.ColumnSpan="24"
 												 Height="1"/>
 							<ToggleButton Grid.Row="1"
-														Name="chkExtendedToolBarShow">
+							              Grid.Column="0"
+							              Name="chkExtendedToolBarShow">
 								<lucide:Lucide Icon="Pin"/>
 							</ToggleButton>
 							<Rectangle Grid.Column="1"
@@ -237,7 +244,9 @@
 									ColumnDefinitions="Auto,4,1*"
 									RowDefinitions="Auto,4,Auto">
 							<DropDownButton Content="Your Nick"/>
-							<simplectoRtf:RichTextBox Grid.Column="2"/>
+							<RichTextEditor
+								Grid.Row="0"
+								Grid.Column="2"/>
 						</Grid>
 						<ContentControl/>
 					</DockPanel>
