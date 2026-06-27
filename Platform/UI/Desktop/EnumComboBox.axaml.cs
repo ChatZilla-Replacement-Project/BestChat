@@ -27,9 +27,7 @@ public abstract class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 
 	#region Constants
 		#region Routed Events
-			public static readonly Avalonia.Interactivity.RoutedEvent<Avalonia.Controls.SelectionChangedEventArgs> evtSelValChangedEvent =
-				Avalonia.Interactivity.RoutedEvent.Register<EnumComboBox<EnumType>, Avalonia.Controls
-				.SelectionChangedEventArgs>(nameof(evtSelValChanged), Avalonia.Interactivity.RoutingStrategies.Direct);
+			public static readonly Avalonia.Interactivity.RoutedEvent<Avalonia.Controls.SelectionChangedEventArgs> evtSelValChangedEvent = Avalonia.Interactivity.RoutedEvent.Register<EnumComboBox<EnumType>, Avalonia.Controls.SelectionChangedEventArgs>(nameof(evtSelValChanged), Avalonia.Interactivity.RoutingStrategies.Direct);
 		#endregion
 	#endregion
 
@@ -40,8 +38,7 @@ public abstract class EnumComboBox<EnumType> : Avalonia.Controls.ComboBox
 	#endregion
 
 	#region Properties
-		[System.ComponentModel.Description("This is the value selected in the combobox in the desired type.  Other Selected properties will " +
-			"show you the index or a label object.  Don't use SelectedValue or SelectedItem")]
+		[System.ComponentModel.Description("This is the value selected in the combobox in the desired type.  Other Selected properties will show you the index or a label object.  Don't use SelectedValue or SelectedItem.")]
 		[System.ComponentModel.Category("Common")]
 		public EnumType? SelVal
 		{

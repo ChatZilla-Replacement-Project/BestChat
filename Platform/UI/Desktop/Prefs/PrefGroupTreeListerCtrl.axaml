@@ -11,7 +11,7 @@
 			<Grid ColumnDefinitions="20,Auto,1*"
 						RowDefinitions="Auto,Auto">
 				<HyperlinkButton Grid.ColumnSpan="2"
-												ToolTip.Tip="{Binding Mgr.LocalizedLongDesc}"
+												ToolTip.Tip="{Binding LocalizedLongDesc}"
 												Content="{Binding LocalizedName}">
 				</HyperlinkButton>
 				<local:PrefGroupTreeListerCtrl Grid.Row="1"

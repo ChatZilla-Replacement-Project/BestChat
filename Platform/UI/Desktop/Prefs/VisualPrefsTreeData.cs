@@ -12,8 +12,7 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 		public VisualPrefsTreeData(DataAndExt.Prefs.AbstractMgr mgr)
 		{
 			if(!mapDataMgrToCtrlType.ContainsKey(typeof(DataAndExt.Prefs.AbstractMgr)))
-				throw new System.ArgumentException(@"Unable to construct the prefs manager to control relationship as no " +
-					@"control type was specified.", nameof(mgr));
+				throw new System.ArgumentException(@"Unable to construct the prefs manager to control relationship as no control type was specified.", nameof(mgr));
 
 			Mgr = mgr;
 
@@ -39,8 +38,7 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 	#endregion
 
 	#region Members
-		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr,
-			AbstractVisualPrefsTabCtrl>?> mapDataMgrToCtrlType = new()
+		private static readonly System.Collections.Generic.Dictionary<System.Type, System.Func<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>?> mapDataMgrToCtrlType = new()
 		{
 			[typeof(GlobalNotificationsPrefs)] = mgrToMakeCtrlFor
 				=> new Pages.GlobalNotificationsPage()
@@ -76,8 +74,7 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 
 		private readonly System.Collections.ObjectModel.ObservableCollection<VisualPrefsTreeData> ocChildren = [];
 
-		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>
-			mapExistingCreatedPages = [];
+		private readonly System.Collections.Generic.Dictionary<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl> mapExistingCreatedPages = [];
 
 		private readonly System.Func<DataAndExt.Prefs.AbstractMgr, AbstractVisualPrefsTabCtrl>? funcCtrlMaker;
 	#endregion
@@ -104,7 +101,26 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 			}
 		}
 
-		public System.Collections.Generic.IReadOnlyList<VisualPrefsTreeData> Children => ocChildren;
+		public System.Collections.Generic.IReadOnlyList<VisualPrefsTreeData> Children
+			=> ocChildren;
+
+		public string Name
+			=> Mgr is DataAndExt.Prefs.AbstractChildMgr cmgr
+				? cmgr.Name
+				: string.Empty;
+
+		public string LocalizedName
+			=> Mgr is DataAndExt.Prefs.AbstractChildMgr cmgr
+				? cmgr.LocalizedName
+				: string.Empty;
+
+		public string LocalizedLongDesc
+			=> Mgr is DataAndExt.Prefs.AbstractChildMgr cmgr
+				? cmgr.LocalizedLongDesc
+				: string.Empty;
+
+		public bool CanBeRemoved
+			=> Mgr is DataAndExt.Prefs.AbstractChildMgr { CanBeRemoved: true, };
 	#endregion
 
 	#region Methods
@@ -112,16 +128,12 @@ public sealed class VisualPrefsTreeData : Avalonia.AvaloniaObject
 			AbstractVisualPrefsTabCtrl> funcCtrlMaker)
 		{
 			if(!typeOfMgr.IsDerivedFrom(typeof(DataAndExt.Prefs.AbstractMgr)))
-				throw new System.ArgumentException(@"When calling BestChat.Platform.TreeData.VisualTreeData" +
-					$@".RegisterDataEditorCtrlType, the type specified in {typeOfMgr} must be a BestChat preference manager, " +
-					@"either child or main.", nameof(typeOfMgr));
+				throw new System.ArgumentException(@$"When calling BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType, the type specified in {typeOfMgr} must be a BestChat preference manager, either child or main.", nameof(typeOfMgr));
 
 			if(mapDataMgrToCtrlType.ContainsKey(typeOfMgr))
-				throw new System.ArgumentException(@"Chat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType was " +
-					@"already called with a manager type that was already in the system.", nameof(typeOfMgr));
+				throw new System.ArgumentException(@"Chat.Platform.TreeData.VisualTreeData.RegisterDataEditorCtrlType was already called with a manager type that was already in the system.", nameof(typeOfMgr));
 
-			mapDataMgrToCtrlType[typeOfMgr] = funcCtrlMaker ?? throw new System.ArgumentNullException(nameof(funcCtrlMaker),
-				@"The function passed to BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorType was null");
+			mapDataMgrToCtrlType[typeOfMgr] = funcCtrlMaker ?? throw new System.ArgumentNullException(nameof(funcCtrlMaker), @"The function passed to BestChat.Platform.TreeData.VisualTreeData.RegisterDataEditorType was null");
 		}
 	#endregion
 

@@ -85,13 +85,11 @@ public partial class ChanAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualP
 		if(ctxt is null)
 			throw new System.InvalidProgramException("How did we manage to open this page without a context?");
 
-		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(this.GetVisualRoot() ??
-			throw new System.InvalidProgramException("How did this page open without a window?"));
+		Avalonia.Controls.Window wnd = (Avalonia.Controls.Window)(VisualRoot ?? throw new System.InvalidProgramException(@"How did this page open without a window?"));
 
 		int iExistingAliasCnt = ctxt.Entries.Count;
 
-		System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>
-			mapErrorsGroupedByFile = [];
+		System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>> mapErrorsGroupedByFile = [];
 		foreach(System.IO.FileInfo fileCur in efilesToImportFrom)
 		{
 			using System.IO.StreamReader sr = new(fileCur.FullName);
@@ -113,15 +111,13 @@ public partial class ChanAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualP
 			return dlg.ShowDialog(wnd);
 		}
 
-		return MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs
-			.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum
-			.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd);
+		return MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(Rsrcs.strAliasesImportedSuccessfullyTitle, Rsrcs.strAliasesImportedSuccessfullyMsgFmt.Fmt(ctxt.Entries.Count - iExistingAliasCnt), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowWindowDialogAsync(wnd);
 	}
 
 	private void OnResetInheritedClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
 		=> ctxt?.AllInheritanceOverridesByName.ResetValToDef();
 
-	protected void OnPointerPressedOnRow(object? objSender, PointerPressedEventArgs args)
+	private void OnPointerPressedOnRow(object? objSender, PointerPressedEventArgs args)
 	{
 		base.OnPointerPressed(args);
 
@@ -129,17 +125,15 @@ public partial class ChanAliasesPage : Platform.UI.Desktop.Prefs.AbstractVisualP
 			ptDragStartedAt = args.GetPosition(this);
 	}
 
-	protected void OnPointerMovedWithRow(object? objSender, PointerEventArgs args)
+	private void OnPointerMovedWithRow(object? objSender, PointerEventArgs args)
 	{
 		base.OnPointerMoved(args);
 
-		if(ptDragStartedAt is not null && args.GetPosition(this) is var ptMouseAt && ptMouseAt.X >
-			ptMinDragDistance.X && ptMouseAt.Y > ptMinDragDistance.Y)
+		if(ptDragStartedAt is not null && args.GetPosition(this) is var ptMouseAt && ptMouseAt.X > ptMinDragDistance.X && ptMouseAt.Y > ptMinDragDistance.Y)
 		{
-			DataObject dobj = new();
+			Avalonia.Input.DataTransfer dobj = new();
 			if(dgData.SelectedItems.Count > 1)
-				dobj.Set(strJsonMimeType, Data.Prefs.GlobalAliasesOneAlias.ExportManyAliasesAsString(dgData
-					.SelectedItems.Cast<Data.Prefs.GlobalAliasesOneAlias>()));
+				dobj.Set(strJsonMimeType, Data.Prefs.GlobalAliasesOneAlias.ExportManyAliasesAsString(dgData.SelectedItems.Cast<Data.Prefs.GlobalAliasesOneAlias>()));
 			else if(dgData.SelectedItem is Data.Prefs.GlobalAliasesOneAlias aliasToExport)
 				dobj.Set(strJsonMimeType, aliasToExport.ExportAsString());
 

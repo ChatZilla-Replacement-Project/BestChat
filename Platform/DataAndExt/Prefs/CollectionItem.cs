@@ -4,13 +4,10 @@ using System.Linq;
 
 namespace BestChat.Platform.DataAndExt.Prefs;
 
-public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specialized
-	.INotifyCollectionChanged, System.Collections.Generic.ISet<TypeOfElement>, System
-	.Collections.Generic.IReadOnlySet<TypeOfElement>
+public class CollectionItem<TypeOfElement> : ItemBase, System.Collections.Specialized.INotifyCollectionChanged, System.Collections.Generic.ISet<TypeOfElement>, System.Collections.Generic.IReadOnlySet<TypeOfElement>
 {
 	#region Constructors & Deconstructors
-		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string
-				strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def) :
+		public CollectionItem(in AbstractMgr mgrParent, in string strItemName, in string strLocalizedName, in string strLocalizedLongDesc, System.Collections.Generic.IEnumerable<TypeOfElement> def) :
 			base(mgrParent, strItemName, strLocalizedName, strLocalizedLongDesc)
 		{
 			this.def = def;

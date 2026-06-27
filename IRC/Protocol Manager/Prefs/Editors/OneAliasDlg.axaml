@@ -5,9 +5,9 @@
 				xmlns:data="using:BestChat.IRC.Data.Prefs"
 				xmlns:calc="using:CalcBinding"
 				xmlns:rtfedit="using:BestChat.IRC.ProtocolMgr.Prefs.SpecializedCtrls"
+				xmlns:materialIcons="using:Material.Icons.Avalonia"
 				xmlns:interactivity="using:Avalonia.Xaml.Interactivity"
 				xmlns:dnd="using:Avalonia.Xaml.Interactions.DragAndDrop"
-				xmlns:materialIcons="using:Material.Icons.Avalonia"
 				xmlns:behaviors="using:BestChat.IRC.ProtocolMgr.Prefs.Behaviors.DragAndDrop.AliasCmdParam"
 				x:DataType="data:GlobalAliasesOneAliasEditable"
 				mc:Ignorable="d"
@@ -57,8 +57,8 @@
 				<interactivity:BehaviorCollectionTemplate>
 					<interactivity:BehaviorCollection>
 						<behaviors:DragBehavior Handler="{StaticResource DropHandler}"
-																		HorizontalDragThreshold="3"
-																		VerticalDragThreshold="3"/>
+																		HorzDragThresh="3"
+																		VertDragThresh="3"/>
 					</interactivity:BehaviorCollection>
 				</interactivity:BehaviorCollectionTemplate>
 			</Setter>
@@ -120,7 +120,8 @@
 								Text="While these parameters have names, those only get used when you need to reference them in the code below.  The caller of this alias will never use these names.  In order to add items to this list, create a new parameter in the list below and use those controls to add it here.  Alternatively, you can drag an parameter into the list.  You can also rearrange this list with drag and drop.  However, regardless, all required parameters must come before any optional parameters.">
 			</TextBlock>
 			<Label Grid.Row="2"
-						HorizontalContentAlignment="Right"
+			       Grid.Column="0"
+			       HorizontalContentAlignment="Right"
 						Content="Name of this alias:"/>
 			<TextBox Grid.Row="2"
 							Grid.Column="2"
@@ -128,6 +129,7 @@
 							Text="{Binding Name, Mode=TwoWay}"/>
 			<GroupBox Grid.Row="4"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Positional Parameters">
 				<DockPanel Margin="4">
 					<StackPanel DockPanel.Dock="Right"
@@ -215,6 +217,7 @@
 			</GroupBox>
 			<GroupBox Grid.Row="6"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Named Parameters">
 				<DockPanel Margin="4">
 					<TextBlock DockPanel.Dock="Top"
@@ -294,6 +297,7 @@
 			</GroupBox>
 			<GroupBox Grid.Row="8"
 											Grid.ColumnSpan="3"
+											Grid.Column="0"
 											Header="Documentation">
 				<rtfedit:DocEditorCtrl x:Name="rtfeditDoc"
 															ToolTip.Tip="Best Chat provides a few predefined styles that themes can change.  Use those when possible."
@@ -301,7 +305,8 @@
 															Ctnt="{Binding Doc, Mode=TwoWay}"/>
 			</GroupBox>
 			<Label Grid.Row="8"
-						HorizontalContentAlignment="Right"
+			       Grid.Column="0"
+			       HorizontalContentAlignment="Right"
 						Content="What to run"/>
 			<!-- TODO: Find a way to edit the command -->
 		</Grid>

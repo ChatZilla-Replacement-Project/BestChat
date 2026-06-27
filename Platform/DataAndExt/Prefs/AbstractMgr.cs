@@ -29,11 +29,9 @@ public abstract class AbstractMgr : Obj<AbstractMgr>
 	#endregion
 
 	#region Members
-		private readonly System.Collections.Generic.SortedDictionary<string, ItemBase> mapItemsByName =
-			[];
+		private readonly System.Collections.Generic.SortedDictionary<string, ItemBase> mapItemsByName = [];
 
-		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr>
-			mapChildMgrByName = [];
+		private readonly System.Collections.Generic.SortedDictionary<string, AbstractChildMgr> mapChildMgrByName = [];
 
 		private bool bEditMode;
 	#endregion
